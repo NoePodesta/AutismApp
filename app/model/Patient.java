@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,10 +27,11 @@ public class Patient
     private int qAwardC;
 
 
-    public Patient(String name, String telephone, String address, int dni, String medicalCoverage, String disease,
+    public Patient(final String name, final String telephone, final String address, final int dni, final Date birthday,
+                   final String medicalCoverage, final String disease,
                    int gradeDisease, List<Therapist> therapists) {
 
-        super(name, telephone, address, dni);
+        super(name, telephone, address, dni, birthday);
         this.medicalCoverage = medicalCoverage;
         this.disease = disease;
         this.gradeDisease = gradeDisease;
