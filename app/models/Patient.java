@@ -1,5 +1,8 @@
 package models;
 
+import play.data.validation.Constraints;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,15 +15,28 @@ import java.util.List;
 
  */
 
+@Entity
+@Table(name = "Patients")
 public class Patient
-        extends User  {
+        extends User {
 
 
-    private int id;
+    @Id
+    @Column(name = "idPatient")
+    private int idPatient;
+    @Constraints.Required
     private String medicalCoverage;
+    @Constraints.Required
     private String disease;
+    @Constraints.Required
     private int gradeDisease;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient",
+            fetch = FetchType.LAZY)
     private List<Results> progress;
+    @ManyToMany
+    @JoinTable(name = "therapist_relation",
+            joinColumns = {@JoinColumn(name = "idPatient")},
+            inverseJoinColumns = {@JoinColumn(name = "idTherapist")})
     private List<Therapist> therapists;
     private int qAwardA;
     private int qAwardB;
