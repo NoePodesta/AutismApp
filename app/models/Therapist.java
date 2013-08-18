@@ -1,12 +1,10 @@
-package model;
+package models;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import play.data.validation.Constraints;
-import play.data.validation.Constraints.*;
-
 
 
 /**
