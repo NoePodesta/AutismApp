@@ -20,9 +20,6 @@ import java.util.List;
 public class Therapist
         extends User  {
 
-    @Id
-    @Column(name="idTherapist")
-    private int idTherapist;
     @Constraints.Required
     private int nm;
     @ManyToMany(mappedBy="therapists")
@@ -30,9 +27,9 @@ public class Therapist
 
 
     public Therapist(final String name, final String telephone, final String address, final int dni,
-                     final Date birthday, int idTherapist, final int nm) {
+                     final Date birthday,  final int nm)
+    {
         super(name, telephone, address, dni, birthday);
-        this.idTherapist = idTherapist;
         this.nm =  nm;
         this.patients = new ArrayList<Patient>();
     }

@@ -16,13 +16,11 @@ public class Results {
     @Id
     @Column(name = "idResult")
     private int idResult;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Game game;
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name="idPatient", referencedColumnName = "idPatient", nullable = false)
     private Patient patient;
-
-    @OneToMany
-    @JoinColumn(name="idTherapist", referencedColumnName = "idResult")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Therapist therapist;
     private int punctuation;
     private String description;
