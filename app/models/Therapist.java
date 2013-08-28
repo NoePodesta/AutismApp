@@ -1,12 +1,11 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
