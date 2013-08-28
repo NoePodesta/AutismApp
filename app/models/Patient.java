@@ -20,10 +20,6 @@ import java.util.List;
 public class Patient
         extends User {
 
-
-    @Id
-    @Column(name = "idPatient")
-    private int idPatient;
     @Constraints.Required
     private String medicalCoverage;
     @Constraints.Required
@@ -34,9 +30,6 @@ public class Patient
             fetch = FetchType.LAZY)
     private List<Results> progress;
     @ManyToMany
-    @JoinTable(name = "therapist_relation",
-            joinColumns = {@JoinColumn(name = "idPatient")},
-            inverseJoinColumns = {@JoinColumn(name = "idTherapist")})
     private List<Therapist> therapists;
     private int qAwardA;
     private int qAwardB;

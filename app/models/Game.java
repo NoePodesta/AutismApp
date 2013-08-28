@@ -1,15 +1,19 @@
 package models;
 
-/**
- * Created with IntelliJ IDEA.
- * User: NoePodesta
- * Date: 17/08/13
- * Time: 14:22
- * To change this template use File | Settings | File Templates.
- */
+
+import play.data.validation.Constraints;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Game")
 public class Game {
 
-    private int id;
+    @Id
+    private int gameId;
+    @Constraints.Required
     private String name;
 
 }
