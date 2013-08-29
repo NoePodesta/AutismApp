@@ -1,7 +1,16 @@
 @(message: String)
 
+@import helper.twitterBootstrap._
 @main("Welcome to Play 2.1") {
 
-    @play20.welcome(message, style = "Java")
+
+<section class="index">
+        <div class="container">
+        <h1>AUTISM APPLICATION</h1>
+        <fieldset>
+         <a class="btn success" id="add" href="@routes.Application.createTherapist()">Add a new therapist</a>
+        </fieldset>
+        </div>
+    </section>
 
 }

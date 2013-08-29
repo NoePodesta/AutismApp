@@ -23,23 +23,28 @@ public class User extends Model {
 
 
     @Id
-    private int id;
+    public int id;
     @Constraints.Required
-    private String name;
+    public String name;
     @Constraints.Required
-    private int dni;
+    public String surname;
     @Constraints.Required
-    private String address;
+    public String address;
     @Constraints.Required
-    private String telephone;
+    public String telephone;
+    @Constraints.Required
+    public int dni;
+    public String mail;
     @Formats.DateTime(pattern="dd/MM/yyyy")
-    private Date birthday;
+    public Date birthday;
 
-    public User(String name, String telephone, String address, int dni, Date birthday) {
+    public User(String name, String surname, String telephone, String address, int dni, String mail, Date birthday) {
         this.name = name;
+        this.surname = surname;
         this.telephone = telephone;
         this.address = address;
         this.dni = dni;
+        this.mail = mail;
         this.birthday = birthday;
     }
 

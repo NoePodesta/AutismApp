@@ -1,0 +1,27 @@
+@(therapistForm: Form[Therapist])
+
+@import helper._
+
+@main("Create Therapist"){
+    
+    <h1>Add a Therapist</h1>
+    
+    @form(routes.Application.saveTherapist()) {
+        
+        <fieldset>
+        
+            @inputText(therapistForm("name"), '_label -> "Name")
+            @inputText(therapistForm("address"), '_label -> "Address")
+            @inputText(therapistForm("telephone"), '_label -> "Telephone")
+            @inputText(therapistForm("birthday"), '_label -> "Birthday")
+            @inputText(therapistForm("dni"), '_label -> "DNI")
+            @inputText(therapistForm("nm"), '_label -> "nm")
+
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Agregar Terapeuta" class="btn primary"> or
+        </div>
+        
+    }
+}

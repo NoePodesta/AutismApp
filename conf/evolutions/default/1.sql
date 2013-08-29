@@ -12,9 +12,11 @@ create table Game (
 create table Patients (
   id                        integer auto_increment not null,
   name                      varchar(255),
-  dni                       integer,
+  surname                   varchar(255),
   address                   varchar(255),
   telephone                 varchar(255),
+  dni                       integer,
+  mail                      varchar(255),
   birthday                  datetime,
   medical_coverage          varchar(255),
   disease                   varchar(255),
@@ -38,20 +40,25 @@ create table Results (
 create table Therapists (
   id                        integer auto_increment not null,
   name                      varchar(255),
-  dni                       integer,
+  surname                   varchar(255),
   address                   varchar(255),
   telephone                 varchar(255),
+  dni                       integer,
+  mail                      varchar(255),
   birthday                  datetime,
   nm                        integer,
+  Password                  varchar(255),
   constraint pk_Therapists primary key (id))
 ;
 
 create table User (
   id                        integer auto_increment not null,
   name                      varchar(255),
-  dni                       integer,
+  surname                   varchar(255),
   address                   varchar(255),
   telephone                 varchar(255),
+  dni                       integer,
+  mail                      varchar(255),
   birthday                  datetime,
   constraint pk_User primary key (id))
 ;

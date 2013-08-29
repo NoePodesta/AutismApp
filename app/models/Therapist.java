@@ -20,17 +20,20 @@ import java.util.List;
 public class Therapist
         extends User  {
 
+    public int nm;
+    @Column(name = "Password")
     @Constraints.Required
-    private int nm;
+    public String pass;
     @ManyToMany(mappedBy="therapists")
     private List<Patient> patients;
 
 
-    public Therapist(final String name, final String telephone, final String address, final int dni,
-                     final Date birthday,  final int nm)
+    public Therapist(final String name, final String surname, final String telephone, final String address,
+                     final int dni, final String mail, Date birthday,  final int nm, final String password)
     {
-        super(name, telephone, address, dni, birthday);
+        super(name, surname, telephone, address, dni, mail, birthday);
         this.nm =  nm;
+        this.pass = password;
         this.patients = new ArrayList<Patient>();
     }
 

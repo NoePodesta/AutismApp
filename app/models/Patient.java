@@ -36,11 +36,12 @@ public class Patient
     private int qAwardC;
 
 
-    public Patient(final String name, final String telephone, final String address, final int dni, final Date birthday,
+    public Patient(final String name, final String surname, final String telephone, final String address, final int dni,
+                   final String mail, final Date birthday,
                    final String medicalCoverage, final String disease,
                    int gradeDisease, List<Therapist> therapists) {
 
-        super(name, telephone, address, dni, birthday);
+        super(name, surname, telephone, address, dni, mail, birthday);
         this.medicalCoverage = medicalCoverage;
         this.disease = disease;
         this.gradeDisease = gradeDisease;
