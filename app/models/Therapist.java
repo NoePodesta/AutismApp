@@ -1,6 +1,7 @@
 package models;
 
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class Therapist
     @ManyToMany(mappedBy="therapists")
     private List<Patient> patients;
 
+    public static Model.Finder<String,Therapist> find = new Model.Finder(String.class, Therapist.class);
 
     public Therapist(final String name, final String surname, final String telephone, final String address,
                      final int dni, final String mail, Date birthday,  final int nm, final String password)
@@ -46,7 +48,7 @@ public class Therapist
     }
 
     public static List<Therapist> all() {
-        return new ArrayList<Therapist>();
+        return find.all();
     }
 
 
