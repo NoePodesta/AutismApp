@@ -6,8 +6,20 @@
 GET     /                       controllers.Application.login()
 GET     /home                   controllers.Application.index()
 
+# List Therapist
+GET     /therapists              controllers.Application.therapistList()
 
-# Add therapist
+
+# List Pacient
+GET     /pacients              controllers.Application.pacientList()
+
+
+# Profile
+GET     /profile              controllers.Application.profile()
+
+
+
+# Add Therapist
 GET     /therapists/new              controllers.Application.createTherapist()
 POST    /therapists                  controllers.Application.saveTherapist()
 
