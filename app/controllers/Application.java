@@ -14,7 +14,7 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render("Autism Application"));
+        return ok(index.render("Autism Application", Therapist.all()));
     }
 
     public static Result login() {
@@ -30,7 +30,7 @@ public class Application extends Controller {
 
     public static Result therapistList() {
         return ok(
-                login.render());
+                index.render("Terapeutas", Therapist.all()));
     }
 
     public static Result pacientList() {
