@@ -1,6 +1,7 @@
 package models;
 
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -53,6 +54,9 @@ public class Patient
         this.qAwardC = 0;
     }
 
+    public static Model.Finder<Integer,Patient> find = new Model.Finder(Integer.class, Patient.class);
+
+
     public void gainAwardA(int value){
         qAwardA = qAwardA+value;
     }
@@ -71,6 +75,10 @@ public class Patient
 
     public void removeTherapist(Therapist therapist){
         therapists.remove(therapist);
+    }
+
+    public static List<Patient> all() {
+        return find.all();
     }
 
 }

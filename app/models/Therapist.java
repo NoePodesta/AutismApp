@@ -28,7 +28,7 @@ public class Therapist
     @ManyToMany(mappedBy="therapists")
     private List<Patient> patients;
 
-    public static Model.Finder<String,Therapist> find = new Model.Finder(String.class, Therapist.class);
+    public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
 
     public Therapist(final String name, final String surname, final String telephone, final String address,
                      final int dni, final String mail, Date birthday,  final int nm, final String password)

@@ -1,0 +1,69 @@
+@(title: String)(patientList: List[models.Patient])
+@import helper._
+    @main(title) {
+
+
+<section class="index">
+    <div class="container">
+        <h1>AUTISM APPLICATION</h1>
+
+        @if(flash.containsKey("success")) {
+        <div class="alert-message warning">
+            <strong>Done!</strong> @flash.get("success")
+        </div>
+        }
+
+        @if(patientList.isEmpty()) {
+
+        <div class="well">
+            <em>No se han ingresado pacientes,</em>
+        </div>
+
+        } else {
+
+        <table class="computers zebra-striped">
+            <thead>
+            <tr>
+                <td>Nombre</td>
+                <td>Apellido</td>
+                <td>Dirección</td>
+                <td>Telefono</td>
+                <td>DNI</td>
+                <td>E-Mail</td>
+                <td>Fecha de Nacimiento</td>
+                <td class ="remove"></td>
+            </tr>
+            </thead>
+            <tbody>
+
+            @for(patient <- patientList) {
+            <tr>
+                <td>@patient.name</td>
+                <td>@patient.surname</td>
+                <td>@patient.address</td>
+                <td>@patient.telephone</td>
+                <td>@patient.dni</td>
+                <td>@patient.mail</td>
+                <td>@patient.birthday.format("dd MMM yyyy")</td>
+                @form(routes.Application.removePatient(patient.id)) {
+                <td class = "remove">
+                    <input type="submit" value="Eliminar" class="btn danger">
+                </td>
+                }
+
+            </tr>
+            }
+
+            </tbody>
+        </table>
+        }
+
+        <fieldset class="pull-right">
+            <a class="btn success" id="add" href="@routes.Application.createPatient()">Agregar Paciente</a>
+        </fieldset>
+
+
+    </div>
+</section>
+
+    }

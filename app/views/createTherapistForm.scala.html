@@ -11,11 +11,13 @@
         <fieldset>
         
             @inputText(therapistForm("name"), '_label -> "Name")
+            @inputText(therapistForm("surname"), '_label -> "Surname")
             @inputText(therapistForm("address"), '_label -> "Address")
             @inputText(therapistForm("telephone"), '_label -> "Telephone")
             @inputText(therapistForm("birthday"), '_label -> "Birthday")
             @inputText(therapistForm("dni"), '_label -> "DNI")
-            @inputText(therapistForm("nm"), '_label -> "nm")
+            @inputText(therapistForm("nm"), '_label -> "Matricula Nacional")
+            @inputPassword(therapistForm("pass"), '_label -> "Contraseña")
 
         </fieldset>
         

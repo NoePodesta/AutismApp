@@ -1,0 +1,27 @@
+@(patientForm: Form[Patient])
+
+@import helper._
+
+@main("Create Therapist"){
+    
+    <h1>Dar de alta Paciente</h1>
+    
+    @form(routes.Application.saveTherapist()) {
+        
+        <fieldset>
+        
+            @inputText(patientForm("name"), '_label -> "Name")
+            @inputText(patientForm("surname"), '_label -> "Surname")
+            @inputText(patientForm("address"), '_label -> "Address")
+            @inputText(patientForm("telephone"), '_label -> "Telephone")
+            @inputText(patientForm("birthday"), '_label -> "Birthday")
+            @inputText(patientForm("dni"), '_label -> "DNI")
+
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Agregar Pacient" class="btn primary"> or
+        </div>
+        
+    }
+}

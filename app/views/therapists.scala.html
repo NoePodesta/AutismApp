@@ -1,5 +1,5 @@
 @(title: String)(therapistList: List[models.Therapist])
-
+@import helper._
     @main(title) {
 
 
@@ -7,6 +7,11 @@
     <div class="container">
         <h1>AUTISM APPLICATION</h1>
 
+        @if(flash.containsKey("success")) {
+        <div class="alert-message warning">
+            <strong>Done!</strong> @flash.get("success")
+        </div>
+        }
 
         @if(therapistList.isEmpty()) {
 
@@ -27,6 +32,7 @@
                 <td>Mail</td>
                 <td>Fecha de Nacimiento</td>
                 <td>Matricula Nacional</td>
+                <td class ="remove"></td>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +47,12 @@
                 <td>@therapist.mail</td>
                 <td>@therapist.birthday.format("dd MMM yyyy")</td>
                 <td>@therapist.nm</td>
+                @form(routes.Application.removeTherapist(therapist.id)) {
+                <td class = "remove">
+                    <input type="submit" value="Eliminar" class="btn danger">
+                </td>
+                }
+
             </tr>
             }
 
@@ -48,9 +60,11 @@
         </table>
         }
 
-        <fieldset>
+        <fieldset class="pull-right">
             <a class="btn success" id="add" href="@routes.Application.createTherapist()">Add a new therapist</a>
         </fieldset>
+
+
     </div>
 </section>
 

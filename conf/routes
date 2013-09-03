@@ -3,25 +3,36 @@
 # ~~~~
 
 # Home page
-GET     /                       controllers.Application.login()
-GET     /home                   controllers.Application.index()
+GET     /                               controllers.Application.login()
+GET     /home                           controllers.Application.index()
 
 # List Therapist
-GET     /therapists              controllers.Application.therapistList()
+GET     /therapists                     controllers.Application.therapistList()
 
 
 # List Pacient
-GET     /pacients              controllers.Application.pacientList()
+GET     /pacients                       controllers.Application.patientList()
 
 
 # Profile
-GET     /profile              controllers.Application.profile()
+GET     /profile                        controllers.Application.profile()
 
 
+
+# Add Patient
+GET     /patients/new                   controllers.Application.createPatient()
+POST    /patients                       controllers.Application.savePatient()
+
+# Remove Patient
+POST    /patients/id/removePatient      controllers.Application.removePatient(id: Integer)
 
 # Add Therapist
-GET     /therapists/new              controllers.Application.createTherapist()
-POST    /therapists                  controllers.Application.saveTherapist()
+GET     /therapists/new                 controllers.Application.createTherapist()
+POST    /therapists                     controllers.Application.saveTherapist()
+
+# Remove Therapist
+POST    /therapists/id/removeTherapist  controllers.Application.removeTherapist(id: Integer)
+
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                   controllers.Assets.at(path="/public", file)
