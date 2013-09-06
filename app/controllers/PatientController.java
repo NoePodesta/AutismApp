@@ -1,6 +1,6 @@
 package controllers;
 
-import views.html.*;
+import play.mvc.Controller;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,5 +9,5 @@ import views.html.*;
  * Time: 12:15
  * To change this template use File | Settings | File Templates.
  */
-public class PatientController {
+public class PatientController extends Controller {
 }

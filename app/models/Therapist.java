@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name="Therapist")
+@Table(name="Therapists")
 //@DiscriminatorValue("aTherapist")
 public class Therapist
         extends User  {
@@ -28,8 +28,6 @@ public class Therapist
     public String password;
     @ManyToMany(mappedBy="therapists")
     private List<Patient> patients;
-
-    //private String dummy;
 
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);

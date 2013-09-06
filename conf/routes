@@ -6,10 +6,11 @@
 GET     /                               controllers.Application.login()
 GET     /login                          controllers.Application.login()
 POST    /login                          controllers.Application.authenticate()
+GET     /logout                          controllers.Application.logout()
 GET     /index                          controllers.Application.index()
 
 # List Therapist
-GET     /therapists                     controllers.Application.therapistList()
+GET     /therapists                     controllers.TherapistController.therapistList()
 
 
 # List Pacient
@@ -29,16 +30,16 @@ POST    /patients                       controllers.Application.savePatient()
 POST    /patients/id/removePatient      controllers.Application.removePatient(id: Integer)
 
 # Add Therapist
-GET     /therapists/new                 controllers.Application.createTherapist()
-POST    /therapists                     controllers.Application.saveTherapist()
+GET     /therapists/new                 controllers.TherapistController.createTherapist()
+POST    /therapists                     controllers.TherapistController.saveTherapist()
 
 # Remove Therapist
-POST    /therapists/id/removeTherapist  controllers.Application.removeTherapist(id: Integer)
+POST    /therapists/id/removeTherapist  controllers.TherapistController.removeTherapist(id: Integer)
 
 
 # Edit existing Therapist
-GET     /therapists/:id              controllers.Application.editTherapist(id:Integer)
-POST    /therapists/:id              controllers.Application.updateTherapist(id:Integer)
+GET     /therapists/:id              controllers.TherapistController.editTherapist(id:Integer)
+POST    /therapists/:id              controllers.TherapistController.updateTherapist(id:Integer)
 
 
 

@@ -6,7 +6,7 @@
 
 <h1>Edit computer</h1>
 
-@form(routes.Application.updateTherapist(id)) {
+@form(routes.TherapistController.updateTherapist(id)) {
 
 <fieldset>
 
@@ -25,7 +25,7 @@
 
 <div class="actions">
     <input type="submit" value="Guardar" class="btn primary"> or
-    <a href="@routes.Application.therapistList()" class="btn">Cancel</a>
+    <a href="@routes.TherapistController.therapistList()" class="btn">Cancel</a>
 </div>
 
 }

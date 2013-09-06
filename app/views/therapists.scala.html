@@ -48,12 +48,12 @@
                 <td>@therapist.mail</td>
                 <td>@therapist.birthday.format("dd MMM yyyy")</td>
                 <td>@therapist.nm</td>
-                @form(routes.Application.removeTherapist(therapist.id)) {
+                @form(routes.TherapistController.removeTherapist(therapist.id)) {
                 <td class = "remove">
                     <input type="submit" value="Eliminar" class="btn danger">
                 </td>
                 <td class = "edit">
-                    <a class="btn success" href="@routes.Application.editTherapist(therapist.id)">Editar</a>
+                    <a class="btn success" href="@routes.TherapistController.editTherapist(therapist.id)">Editar</a>
                 </td>
                 }
 
@@ -65,7 +65,7 @@
         }
 
         <fieldset class="pull-right">
-            <a class="btn success" id="add" href="@routes.Application.createTherapist()">Agregar Terapeuta</a>
+            <a class="btn success" id="add" href="@routes.TherapistController.createTherapist()">Agregar Terapeuta</a>
         </fieldset>
 
 

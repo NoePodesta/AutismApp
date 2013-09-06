@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name="Patient")
+@Table(name="Patients")
 //@DiscriminatorValue("aPatient")
 public class Patient
         extends User {
@@ -40,7 +40,6 @@ public class Patient
     private int qAwardB;
     private int qAwardC;
 
-    public String summy;
 
     public Patient(final String name, final String surname, final String telephone, final String address, final int dni,
                    final String mail, final Date birthday,

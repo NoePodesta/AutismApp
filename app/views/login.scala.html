@@ -21,9 +21,14 @@
                     @form.globalError.message
                 </p>
                 }
+                @if(flash.contains("success")) {
+                <p class="success">
+                    @flash.get("success")
+                </p>
+                }
                 <input name="dni" placeholder="Ingrese su dni" value="@form("dni").value">
                 <input name="password"  type="password" placeholder="Ingrese su password">
-                <button id="add" type="submit">Login</button>
+                <input type="submit" value="Login" class="btn success"/>
             </fieldset>
         </form>
         }
