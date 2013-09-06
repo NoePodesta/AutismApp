@@ -17,9 +17,11 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "Patients")
+@Table(name="Patient")
+//@DiscriminatorValue("aPatient")
 public class Patient
         extends User {
+
 
     @Constraints.Required
     private String medicalCoverage;
@@ -36,6 +38,7 @@ public class Patient
     private int qAwardB;
     private int qAwardC;
 
+    public String summy;
 
     public Patient(final String name, final String surname, final String telephone, final String address, final int dni,
                    final String mail, final Date birthday,
@@ -47,7 +50,7 @@ public class Patient
         this.disease = disease;
         this.gradeDisease = gradeDisease;
         this.progress = new ArrayList<Results>();
-        this.therapists = therapists;
+       // this.therapists = therapists;
 
         this.qAwardA = 0;
         this.qAwardB = 0;
@@ -68,7 +71,7 @@ public class Patient
     public void gainAwardC(int value){
         qAwardC = qAwardC+value;
     }
-
+        /*
     public void addTherapist(Therapist therapist){
         therapists.add(therapist);
     }
@@ -76,7 +79,7 @@ public class Patient
     public void removeTherapist(Therapist therapist){
         therapists.remove(therapist);
     }
-
+                       */
     public static List<Patient> all() {
         return find.all();
     }

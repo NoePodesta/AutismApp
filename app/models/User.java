@@ -4,9 +4,7 @@ import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -18,7 +16,8 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "User")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name="User")
 public class User extends Model {
 
 
@@ -38,6 +37,10 @@ public class User extends Model {
     @Formats.DateTime(pattern="dd/MM/yyyy")
     public Date birthday;
 
+    public static Finder<Integer,User> find = new Finder<Integer,User>(Integer.class, User.class);
+
+
+
     public User(String name, String surname, String telephone, String address, int dni, String mail, Date birthday) {
         this.name = name;
         this.surname = surname;
@@ -47,10 +50,6 @@ public class User extends Model {
         this.mail = mail;
         this.birthday = birthday;
     }
-
-    public static Finder<Integer,User> find = new Finder<Integer,User>(
-            Integer.class, User.class
-    );
 
 
 

@@ -4,7 +4,6 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,16 +16,21 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "Therapists")
+@Table(name="Therapist")
+//@DiscriminatorValue("aTherapist")
 public class Therapist
         extends User  {
 
+
+
     public int nm;
-    @Column(name = "Password")
     @Constraints.Required
-    public String pass;
+    public String password;
     @ManyToMany(mappedBy="therapists")
     private List<Patient> patients;
+
+    //private String dummy;
+
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
 
@@ -35,8 +39,8 @@ public class Therapist
     {
         super(name, surname, telephone, address, dni, mail, birthday);
         this.nm =  nm;
-        this.pass = password;
-        this.patients = new ArrayList<Patient>();
+        this.password = password;
+        //this.patients = new ArrayList<Patient>();
     }
 
     public void addPatient(Patient patient){
@@ -51,6 +55,13 @@ public class Therapist
         return find.all();
     }
 
+
+    public static Therapist authenticate(int dni, String password) {
+        return find.where()
+                .eq("dni", dni)
+                .eq("password", password)
+                .findUnique();
+    }
 
 
 }

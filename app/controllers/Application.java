@@ -5,21 +5,54 @@ import com.avaje.ebean.Ebean;
 import models.Patient;
 import models.Therapist;
 import play.data.Form;
-import play.mvc.*;
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
 
-import javax.persistence.EntityManager;
+import java.util.Date;
+
+import views.html.*;
 
 import static play.data.Form.form;
 
 public class Application extends Controller {
 
+    public static class Login {
+        public int dni;
+        public String password;
+
+        public String validate() {
+            if (Therapist.authenticate(dni, password) == null) {
+                return "Invalid user or password";
+            }
+            return null;
+        }
+
+    }
+
     public static Result index() {
         return ok(therapists.render("Autism Application", Therapist.all()));
     }
 
-    public static Result login() {
-        return ok(login.render());
+    public static Result login(){
+        Therapist therapist = new Therapist("Juan", "Molteni", "47911306",
+                "Calle Flase 123", 123, "j@j.com",new Date(),
+                123, "asd");
+        therapist.save();
+        Ebean.save(therapist);
+        return ok(login.render(form(Login.class)));
+    }
+
+
+    public static Result authenticate() {
+        Form<Login> loginForm = form(Login.class).bindFromRequest();
+        if (loginForm.hasErrors()) {
+            return TODO;
+            //return badRequest(login.render(loginForm));
+        } else {
+            session().clear();
+            session("dni", Integer.toString(loginForm.get().dni));
+            return redirect(routes.Application.index());
+        }
     }
 
     public static Result createTherapist() {
@@ -47,8 +80,7 @@ public class Application extends Controller {
     }
 
     public static Result profile() {
-        return ok(
-                login.render());
+        return ok();
     }
 
     public static Result saveTherapist() {
@@ -60,7 +92,7 @@ public class Application extends Controller {
         Therapist therapistFromForm = therapistForm.get();
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
                 therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
-                therapistFromForm.nm, therapistFromForm.pass);
+                therapistFromForm.nm, therapistFromForm.password);
         therapist.save();
         Ebean.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +

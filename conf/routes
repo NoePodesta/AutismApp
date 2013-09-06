@@ -4,7 +4,9 @@
 
 # Home page
 GET     /                               controllers.Application.login()
-GET     /home                           controllers.Application.index()
+GET     /login                          controllers.Application.login()
+POST    /login                          controllers.Application.authenticate()
+GET     /index                          controllers.Application.index()
 
 # List Therapist
 GET     /therapists                     controllers.Application.therapistList()
