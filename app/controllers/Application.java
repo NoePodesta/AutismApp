@@ -8,12 +8,13 @@ import org.apache.commons.io.FileUtils;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-
-import java.util.Date;
-
-import views.html.*;
-
 import play.mvc.Http;
+import views.html.createPatientForm;
+import views.html.createTherapistForm;
+import views.html.editTherapistForm;
+import views.html.login;
+import views.html.patients;
+import views.html.therapists;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +24,7 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
     public static class Login {
-        public int dni;
+        public String dni;
         public String password;
 
         public String validate() {
@@ -36,7 +37,7 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        return ok(therapists.render("Autism Application", Therapist.all()));
+        return ok(therapists.render(Therapist.all()));
     }
 
     public static Result login(){
@@ -52,7 +53,7 @@ public class Application extends Controller {
             //return badRequest(login.render(loginForm));
         } else {
             session().clear();
-            session("dni", Integer.toString(loginForm.get().dni));
+            session("dni", loginForm.get().dni);
             return redirect(routes.Application.index());
         }
     }
@@ -73,12 +74,12 @@ public class Application extends Controller {
 
     public static Result therapistList() {
         return ok(
-                therapists.render("Terapeutas", Therapist.all()));
+                therapists.render(Therapist.all()));
     }
 
     public static Result patientList() {
         return ok(
-                patients.render("Pacientes", Patient.all()));
+                patients.render(Patient.all()));
     }
 
     public static Result profile() {
@@ -115,7 +116,8 @@ public class Application extends Controller {
             }
         }
 
-        Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
+        Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname,
+                therapistFromForm.telephone, therapistFromForm.cellphone,
                 therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
                 therapistFromForm.nm, therapistFromForm.password, "/assets/uploads/" + therapistFromForm.name +
                 therapistFromForm.surname + "//" + fileName);
@@ -153,7 +155,7 @@ public class Application extends Controller {
                 Therapist.find.byId(id)
         );
         return ok(
-                editTherapistForm.render("Editar",id, therapistForm)
+                editTherapistForm.render(id, therapistForm)
         );
     }
 
@@ -165,7 +167,7 @@ public class Application extends Controller {
     public static Result updateTherapist(int id) {
         Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
         if(therapistForm.hasErrors()) {
-            return badRequest(editTherapistForm.render("Editar", id, therapistForm));
+            return badRequest(editTherapistForm.render(id, therapistForm));
         }
         therapistForm.get().update(id);
         flash("success", "Sus cambios han sido guardados");

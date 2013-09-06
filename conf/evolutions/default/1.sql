@@ -10,7 +10,7 @@ create table Administrator (
   address                   varchar(255),
   cellphone                 varchar(255),
   telephone                 varchar(255),
-  dni                       integer,
+  dni                       varchar(255),
   mail                      varchar(255),
   birthday                  datetime,
   image                     varchar(255),
@@ -25,11 +25,11 @@ create table Coordinator (
   address                   varchar(255),
   cellphone                 varchar(255),
   telephone                 varchar(255),
-  dni                       integer,
+  dni                       varchar(255),
   mail                      varchar(255),
   birthday                  datetime,
   image                     varchar(255),
-  nm                        integer,
+  nm                        varchar(255),
   password                  varchar(255),
   constraint pk_Coordinator primary key (id))
 ;
@@ -47,7 +47,7 @@ create table Patient (
   address                   varchar(255),
   cellphone                 varchar(255),
   telephone                 varchar(255),
-  dni                       integer,
+  dni                       varchar(255),
   mail                      varchar(255),
   birthday                  datetime,
   image                     varchar(255),
@@ -58,7 +58,6 @@ create table Patient (
   q_award_a                 integer,
   q_award_b                 integer,
   q_award_c                 integer,
-  summy                     varchar(255),
   constraint pk_Patient primary key (id))
 ;
 
@@ -72,20 +71,20 @@ create table Results (
   constraint pk_Results primary key (idResult))
 ;
 
-create table Therapist (
+create table Therapists (
   id                        integer auto_increment not null,
   name                      varchar(255),
   surname                   varchar(255),
   address                   varchar(255),
   cellphone                 varchar(255),
   telephone                 varchar(255),
-  dni                       integer,
+  dni                       varchar(255),
   mail                      varchar(255),
   birthday                  datetime,
   image                     varchar(255),
-  nm                        integer,
+  nm                        varchar(255),
   password                  varchar(255),
-  constraint pk_Therapist primary key (id))
+  constraint pk_Therapists primary key (id))
 ;
 
 create table User (
@@ -95,7 +94,7 @@ create table User (
   address                   varchar(255),
   cellphone                 varchar(255),
   telephone                 varchar(255),
-  dni                       integer,
+  dni                       varchar(255),
   mail                      varchar(255),
   birthday                  datetime,
   image                     varchar(255),
@@ -103,23 +102,23 @@ create table User (
 ;
 
 
-create table Patient_Therapist (
+create table Patient_Therapists (
   Patient_id                     integer not null,
-  Therapist_id                   integer not null,
-  constraint pk_Patient_Therapist primary key (Patient_id, Therapist_id))
+  Therapists_id                  integer not null,
+  constraint pk_Patient_Therapists primary key (Patient_id, Therapists_id))
 ;
 alter table Results add constraint fk_Results_game_1 foreign key (game_idGame) references Game (idGame) on delete restrict on update restrict;
 create index ix_Results_game_1 on Results (game_idGame);
 alter table Results add constraint fk_Results_patient_2 foreign key (patient_id) references Patient (id) on delete restrict on update restrict;
 create index ix_Results_patient_2 on Results (patient_id);
-alter table Results add constraint fk_Results_therapist_3 foreign key (therapist_id) references Therapist (id) on delete restrict on update restrict;
+alter table Results add constraint fk_Results_therapist_3 foreign key (therapist_id) references Therapists (id) on delete restrict on update restrict;
 create index ix_Results_therapist_3 on Results (therapist_id);
 
 
 
-alter table Patient_Therapist add constraint fk_Patient_Therapist_Patient_01 foreign key (Patient_id) references Patient (id) on delete restrict on update restrict;
+alter table Patient_Therapists add constraint fk_Patient_Therapists_Patient_01 foreign key (Patient_id) references Patient (id) on delete restrict on update restrict;
 
-alter table Patient_Therapist add constraint fk_Patient_Therapist_Therapist_02 foreign key (Therapist_id) references Therapist (id) on delete restrict on update restrict;
+alter table Patient_Therapists add constraint fk_Patient_Therapists_Therapists_02 foreign key (Therapists_id) references Therapists (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -129,7 +128,7 @@ drop table Administrator;
 
 drop table Coordinator;
 
-drop table Patient_Therapist;
+drop table Patient_Therapists;
 
 drop table Game;
 
@@ -137,7 +136,7 @@ drop table Patient;
 
 drop table Results;
 
-drop table Therapist;
+drop table Therapists;
 
 drop table User;
 

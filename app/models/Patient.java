@@ -18,7 +18,6 @@ import java.util.List;
 
 @Entity
 @Table(name="Patient")
-//@DiscriminatorValue("aPatient")
 public class Patient
         extends User {
 
@@ -40,20 +39,21 @@ public class Patient
     private int qAwardB;
     private int qAwardC;
 
-    public String summy;
 
-    public Patient(final String name, final String surname, final String telephone, final String address, final int dni,
+
+    public Patient(final String name, final String surname, final String telephone, final String cellphone,
+                   final String address, final String dni,
                    final String mail, final Date birthday,
                    final String medicalCoverage, final int nMedicalCoverage, final String disease,
                    int gradeDisease, List<Therapist> therapists, final String image) {
 
-        super(name, surname, telephone, address, dni, mail, birthday, image);
+        super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
         this.medicalCoverage = medicalCoverage;
         this.nMedicalCoverage = nMedicalCoverage;
         this.disease = disease;
         this.gradeDisease = gradeDisease;
         this.progress = new ArrayList<Results>();
-       // this.therapists = therapists;
+        this.therapists = therapists;
 
         this.qAwardA = 0;
         this.qAwardB = 0;
@@ -74,7 +74,7 @@ public class Patient
     public void gainAwardC(int value){
         qAwardC = qAwardC+value;
     }
-        /*
+
     public void addTherapist(Therapist therapist){
         therapists.add(therapist);
     }
@@ -82,7 +82,7 @@ public class Patient
     public void removeTherapist(Therapist therapist){
         therapists.remove(therapist);
     }
-                       */
+
     public static List<Patient> all() {
         return find.all();
     }

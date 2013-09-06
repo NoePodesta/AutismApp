@@ -1,0 +1,46 @@
+# Default messages
+
+# --- Constraints
+constraint.required=Obligatorio
+constraint.min=Valor mínimo: value: {0}
+constraint.max=Valor máximo: {0}
+constraint.minLength=Longitud minima: {0}
+constraint.maxLength=Longitud máxima: {0}
+constraint.email= Ingrese un correo electrónico válido
+constraint.pattern= Debes seguir el siguiente patron {}
+
+# --- Formats
+format.date=(''{0}'')
+format.numeric= Numérico
+format.real=Real
+
+# --- Errors
+error.invalid=Valor inválido
+error.invalid.java.util.Date=Fecha no válida
+error.required=Este campo es obligatorio
+error.number=Valor numérico esperado
+error.real=Valor real esperado
+error.real.precision=Real number value with no more than {0} digit(s) including {1} decimal(s) expected
+error.min=Debe ser mayor o igual a {0}
+error.min.strict=Debe ser estrictamente mayor a {0}
+error.max=Debe ser menor o igual a {0}
+error.max.strict=Debe ser estrictamente menor a {0}
+error.minLength=Longitud mínima de {0}
+error.maxLength=Longitud máxima de {0}
+error.email=Ingrese un correo electrónico válido
+error.pattern=Debe seguir el siguiente patrón: {0}
+
+error.expected.date= Fecha esperada
+error.expected.date.isoformat=Iso date value expected
+error.expected.jodadate.format=Joda date value expected
+error.expected.jsarray=Array value expected
+error.expected.jsboolean=Boolean value expected
+error.expected.jsnumber=Number value expected
+error.expected.jsobject=Object value expected
+error.expected.jsstring=String value expected
+error.expected.jsnumberorjsstring=String or number expected
+error.expected.keypathnode=Node value expected
+
+error.path.empty=Empty path
+error.path.missing=Missing path
+error.path.result.multiple=Multiple results for the given path

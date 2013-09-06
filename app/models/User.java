@@ -1,5 +1,6 @@
 package models;
 
+
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -16,27 +17,22 @@ import java.util.Date;
  */
 
 @Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name="User")
 public class User extends Model {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
-    @Constraints.Required(message = "Campo Requerido")
+    @Constraints.Required
     public String name;
-    @Constraints.Required(message = "Campo Requerido")
+    @Constraints.Required
     public String surname;
-    @Constraints.Required(message = "Campo Requerido")
+    @Constraints.Required
     public String address;
-    @Constraints.Pattern(value = "[0-9.+]+", message = "Ingrese un número válido")
     public String cellphone;
-    @Constraints.Required(message = "Campo Requerido")
-    @Constraints.Pattern(value = "[0-9]{3}-[0-9]{4}-[0-9]{4}", message = "Ingrese un número válido")
     public String telephone;
-    @Constraints.Required(message = "Campo Requerido")
-    public int dni;
+    @Constraints.Required
+    public String dni;
     @Constraints.Email
     public String mail;
     @Formats.DateTime(pattern="dd/MM/yyyy")
@@ -47,11 +43,12 @@ public class User extends Model {
 
 
 
-    public User(String name, String surname, String telephone, String address, int dni, String mail, Date birthday,
-                String image) {
+    public User(String name, String surname, String telephone, String cellphone, String address, String dni, String mail,
+                Date birthday, String image) {
         this.name = name;
         this.surname = surname;
         this.telephone = telephone;
+        this.cellphone = cellphone;
         this.address = address;
         this.dni = dni;
         this.mail = mail;

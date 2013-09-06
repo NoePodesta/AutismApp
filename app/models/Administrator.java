@@ -21,9 +21,10 @@ public class Administrator
     @Column(name = "Password")
     private String pass;
 
-    public Administrator(String name, String surname, String telephone, String address, int dni,
-                         String mail, Date birthday, String pass, String image) {
-        super(name, surname, telephone, address, dni, mail, birthday, image);
+    public Administrator(final String name, final String surname, final String telephone, final String cellphone,
+                         final String address, final String dni, final String mail, final Date birthday,
+                         final String pass, String image) {
+        super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
         this.pass = pass;
     }
 }
