@@ -22,17 +22,20 @@ public class User extends Model {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
-    @Constraints.Required
+    @Constraints.Required(message = "Campo Requerido")
     public String name;
-    @Constraints.Required
+    @Constraints.Required(message = "Campo Requerido")
     public String surname;
-    @Constraints.Required
+    @Constraints.Required(message = "Campo Requerido")
     public String address;
-    @Constraints.Required
     @Constraints.Pattern(value = "[0-9.+]+", message = "Ingrese un número válido")
+    public String cellphone;
+    @Constraints.Required(message = "Campo Requerido")
+    @Constraints.Pattern(value = "[0-9]{3}-[0-9]{4}-[0-9]{4}", message = "Ingrese un número válido")
     public String telephone;
-    @Constraints.Required
+    @Constraints.Required(message = "Campo Requerido")
     public int dni;
     @Constraints.Email
     public String mail;

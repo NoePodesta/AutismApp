@@ -40,11 +40,7 @@ public class Application extends Controller {
     }
 
     public static Result login(){
-        Therapist therapist = new Therapist("Juan", "Molteni", "47911306",
-                "Calle Flase 123", 123, "j@j.com",new Date(),
-                123, "asd");
-        therapist.save();
-        Ebean.save(therapist);
+
         return ok(login.render(form(Login.class)));
     }
 
