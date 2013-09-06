@@ -36,5 +36,11 @@ POST    /therapists                     controllers.Application.saveTherapist()
 POST    /therapists/id/removeTherapist  controllers.Application.removeTherapist(id: Integer)
 
 
+# Edit existing Therapist
+GET     /therapists/:id              controllers.Application.editTherapist(id:Integer)
+POST    /therapists/:id              controllers.Application.updateTherapist(id:Integer)
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                   controllers.Assets.at(path="/public", file)

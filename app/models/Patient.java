@@ -26,6 +26,8 @@ public class Patient
     @Constraints.Required
     private String medicalCoverage;
     @Constraints.Required
+    private int nMedicalCoverage;
+    @Constraints.Required
     private String disease;
     @Constraints.Required
     private int gradeDisease;
@@ -42,11 +44,12 @@ public class Patient
 
     public Patient(final String name, final String surname, final String telephone, final String address, final int dni,
                    final String mail, final Date birthday,
-                   final String medicalCoverage, final String disease,
-                   int gradeDisease, List<Therapist> therapists) {
+                   final String medicalCoverage, final int nMedicalCoverage, final String disease,
+                   int gradeDisease, List<Therapist> therapists, final String image) {
 
-        super(name, surname, telephone, address, dni, mail, birthday);
+        super(name, surname, telephone, address, dni, mail, birthday, image);
         this.medicalCoverage = medicalCoverage;
+        this.nMedicalCoverage = nMedicalCoverage;
         this.disease = disease;
         this.gradeDisease = gradeDisease;
         this.progress = new ArrayList<Results>();

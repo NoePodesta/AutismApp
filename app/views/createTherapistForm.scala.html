@@ -6,7 +6,7 @@
     
     <h1>Dar de alta Terapeuta</h1>
     
-    @form(routes.Application.saveTherapist()) {
+    @form(routes.Application.saveTherapist(), 'enctype -> "multipart/form-data") {
         
         <fieldset>
         
@@ -14,10 +14,12 @@
             @inputText(therapistForm("surname"), '_label -> "Surname")
             @inputText(therapistForm("address"), '_label -> "Address")
             @inputText(therapistForm("telephone"), '_label -> "Telephone")
+            @inputText(therapistForm("mail"), '_label -> "E-Mail")
             @inputText(therapistForm("birthday"), '_label -> "Birthday")
             @inputText(therapistForm("dni"), '_label -> "DNI")
             @inputText(therapistForm("nm"), '_label -> "Matricula Nacional")
             @inputPassword(therapistForm("pass"), '_label -> "Contraseña")
+            <input type="file" accept="image/*" name="picture">
 
         </fieldset>
         

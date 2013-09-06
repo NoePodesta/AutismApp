@@ -1,0 +1,33 @@
+@(title: String)(id: Integer)(therapistForm: Form[Therapist])
+
+@import helper._
+
+@main(title) {
+
+<h1>Edit computer</h1>
+
+@form(routes.Application.updateTherapist(id)) {
+
+<fieldset>
+
+    @inputText(therapistForm("name"), '_label -> "Name")
+    @inputText(therapistForm("surname"), '_label -> "Surname")
+    @inputText(therapistForm("address"), '_label -> "Address")
+    @inputText(therapistForm("telephone"), '_label -> "Telephone")
+    @inputText(therapistForm("birthday"), '_label -> "Birthday")
+    @inputText(therapistForm("mail"), '_label -> "E-Mail")
+    @inputText(therapistForm("dni"), '_label -> "DNI")
+    @inputText(therapistForm("nm"), '_label -> "Matricula Nacional")
+    @inputPassword(therapistForm("pass"), '_label -> "Contraseña")
+    @inputFile(therapistForm("image"), '_label -> "Imagen de perfil")
+
+</fieldset>
+
+<div class="actions">
+    <input type="submit" value="Guardar" class="btn primary"> or
+    <a href="@routes.Application.therapistList()" class="btn">Cancel</a>
+</div>
+
+}
+
+}

@@ -10,4 +10,5 @@ import play.mvc.Controller;
  * To change this template use File | Settings | File Templates.
  */
 public class TherapistController extends Controller {
+
 }

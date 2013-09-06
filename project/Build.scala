@@ -9,6 +9,7 @@ object ApplicationBuild extends Build {
 
 
   val appDependencies = Seq(
+    "commons-io" % "commons-io" % "2.3",
     jdbc,
     javaCore,
     javaEbean,

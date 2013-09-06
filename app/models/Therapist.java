@@ -35,9 +35,10 @@ public class Therapist
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
 
     public Therapist(final String name, final String surname, final String telephone, final String address,
-                     final int dni, final String mail, Date birthday,  final int nm, final String password)
+                     final int dni, final String mail, Date birthday,  final int nm, final String password,
+                     final String image)
     {
-        super(name, surname, telephone, address, dni, mail, birthday);
+        super(name, surname, telephone, address, dni, mail, birthday, image);
         this.nm =  nm;
         this.password = password;
         //this.patients = new ArrayList<Patient>();

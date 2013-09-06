@@ -16,7 +16,7 @@
         @if(therapistList.isEmpty()) {
 
         <div class="well">
-            <em>Nothing to display</em>
+            <em>No se han ingresado terapeutas</em>
         </div>
 
         } else {
@@ -29,10 +29,11 @@
                 <td>Address</td>
                 <td>Thelephone</td>
                 <td>DNI</td>
-                <td>Mail</td>
+                <td>E-Mail</td>
                 <td>Fecha de Nacimiento</td>
                 <td>Matricula Nacional</td>
                 <td class ="remove"></td>
+                <td class ="edit"></td>
             </tr>
             </thead>
             <tbody>
@@ -51,6 +52,9 @@
                 <td class = "remove">
                     <input type="submit" value="Eliminar" class="btn danger">
                 </td>
+                <td class = "edit">
+                    <a class="btn success" href="@routes.Application.editTherapist(therapist.id)">Editar</a>
+                </td>
                 }
 
             </tr>
@@ -61,7 +65,7 @@
         }
 
         <fieldset class="pull-right">
-            <a class="btn success" id="add" href="@routes.Application.createTherapist()">Add a new therapist</a>
+            <a class="btn success" id="add" href="@routes.Application.createTherapist()">Agregar Terapeuta</a>
         </fieldset>
 
 
