@@ -4,6 +4,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,14 +17,14 @@ import java.util.List;
  */
 
 @Entity
-@Table(name="Therapists")
 //@DiscriminatorValue("aTherapist")
+@Table(name="Therapists")
 public class Therapist
         extends User  {
 
 
 
-    public int nm;
+    public String nm;
     @Constraints.Required
     public String password;
     @ManyToMany(mappedBy="therapists")
@@ -32,14 +33,15 @@ public class Therapist
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
 
-    public Therapist(final String name, final String surname, final String telephone, final String address,
-                     final int dni, final String mail, Date birthday,  final int nm, final String password,
+    public Therapist(final String name, final String surname, final String telephone, final String cellphone,
+                     final String address,
+                     final String dni, final String mail, Date birthday,  final String nm, final String password,
                      final String image)
     {
-        super(name, surname, telephone, address, dni, mail, birthday, image);
+        super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
         this.nm =  nm;
         this.password = password;
-        //this.patients = new ArrayList<Patient>();
+        this.patients = new ArrayList<Patient>();
     }
 
     public void addPatient(Patient patient){
@@ -55,7 +57,7 @@ public class Therapist
     }
 
 
-    public static Therapist authenticate(int dni, String password) {
+    public static Therapist authenticate(String dni, String password) {
         return find.where()
                 .eq("dni", dni)
                 .eq("password", password)

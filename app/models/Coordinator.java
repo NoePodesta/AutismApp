@@ -18,9 +18,9 @@ public class Coordinator
         extends Therapist {
 
 
-    public Coordinator(final String name, final String surname, final String telephone, final String address,
-                       final int dni, final  String mail, final Date birthday, final int nm,
+    public Coordinator(final String name, final String surname, final String telephone, final String cellphone,
+                       final String address, final String dni, final  String mail, final Date birthday, final String nm,
                        final String password, final String image) {
-        super(name, surname, telephone, address, dni, mail, birthday, nm, password, image);
+        super(name, surname, telephone, cellphone, address, dni, mail, birthday, nm, password, image);
     }
 }

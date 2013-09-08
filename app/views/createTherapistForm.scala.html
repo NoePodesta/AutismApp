@@ -1,30 +1,70 @@
 @(therapistForm: Form[Therapist])
 
 @import helper._
+@import helper.twitterBootstrap._
 
-@main("Create Therapist"){
-    
-    <h1>Dar de alta Terapeuta</h1>
-    
+
+    @title = {
+    Dar de alta terapeuta
+}
+
+@main(title, nav = ""){
+
+    @if(therapistForm.hasErrors) {
+    <div class="alert-message error">
+        <p><strong>Oops!</strong> Hay algunos errores</p>
+    </div>
+    }
+
+
     @form(routes.TherapistController.saveTherapist(), 'enctype -> "multipart/form-data") {
+
         
         <fieldset>
+            <legend>Información General</legend>
+
         
-            @inputText(therapistForm("name"), '_label -> "Name")
-            @inputText(therapistForm("surname"), '_label -> "Surname")
-            @inputText(therapistForm("address"), '_label -> "Address")
-            @inputText(therapistForm("telephone"), '_label -> "Telephone")
-            @inputText(therapistForm("mail"), '_label -> "E-Mail")
-            @inputText(therapistForm("birthday"), '_label -> "Birthday")
+            @inputText(therapistForm("name"), '_label -> "Nombre")
+            @inputText(therapistForm("surname"), '_label -> "Apellido")
+            @inputText(therapistForm("address"), '_label -> "Dirección")
+            @inputText(therapistForm("telephone"), '_label -> "Teléfono")
+            @inputText(therapistForm("cellphone"), '_label -> "Celular")
+            @inputText(therapistForm("mail"), '_label -> "Correo electrónico")
+            @inputText(therapistForm("birthday"), '_label -> "Fecha de Nacimiento")
             @inputText(therapistForm("dni"), '_label -> "DNI")
             @inputText(therapistForm("nm"), '_label -> "Matricula Nacional")
-            @inputPassword(therapistForm("pass"), '_label -> "Contraseña")
-            <input type="file" accept="image/*" name="picture">
+            @inputPassword(therapistForm("password"), '_label -> "Contraseña")
+
+            <div class="clearfix  " id="repeatPassword_field"> 
+                <label for="repeatPassword">Confirmar contraseña</label> 
+                <div class="input"> 
+
+                     <input type="password" id="repeatPassword" name="repeatPassword" value="@therapistForm("pass").value"> 
+
+                    <span class="help-inline"></span>
+                    <span class="help-block">Ingrese nuevamente la contraseña</span>
+                </div>
+            </div>
+
+            <div class="clearfix  " id="picture_field">
+                <label for="picture">Imagen de Perfil</label>
+                <div class="input">
+
+                    <input type="file" id="picture" name="picture" accept="image/*" >
+                    <span class="help-inline"></span>
+                    <span class="help-block">Ingrese una imagen de perfil.</span>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Pacientes</legend>
 
         </fieldset>
         
         <div class="actions">
-            <input type="submit" value="Agregar Terapeuta" class="btn primary"> or
+            <input type="submit" value="Agregar Terapeuta" class="btn primary">
         </div>
         
     }

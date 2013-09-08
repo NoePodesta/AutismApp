@@ -1,11 +1,10 @@
-@(title: String)(patientList: List[models.Patient])
+@(patientList: List[models.Patient])
 @import helper._
-    @main(title) {
 
-
-<section class="index">
-    <div class="container">
-        <h1>AUTISM APPLICATION</h1>
+@title = {
+    Pacientes
+}
+    @main(title,nav = "patients") {
 
         @if(flash.containsKey("success")) {
         <div class="alert-message warning">
@@ -63,7 +62,5 @@
         </fieldset>
 
 
-    </div>
-</section>
 
     }

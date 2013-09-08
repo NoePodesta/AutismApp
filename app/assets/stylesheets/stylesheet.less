@@ -7,6 +7,22 @@
   border-radius: @radius;
 }
 
+.ButtonOrange{
+    background-color: @orange;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#FFAD5c), to(#FF9933));
+    background-image: -moz-linear-gradient(top, #FFAD5c, #FF9933);
+    background-image: -ms-linear-gradient(top, #FFAD5c, #FF9933);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FF9933), color-stop(100%, #FF9933));
+    background-image: -webkit-linear-gradient(top, #FFAD5c, #FF9933);
+    background-image: -o-linear-gradient(top, #FFAD5c, #FF9933);
+    background-image: linear-gradient(top, #FFAD5c, #FF9933);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFAD5c', endColorstr='#FF9933', GradientType=0);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border-color: #FFAD5c #FFAD5c #FF9933;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
 @font-face
 {
   font-family: chalk;
@@ -26,13 +42,21 @@
 }
 
 
-body{
-  background: #000;
+html, body{
+  background: #eee;
   color: #bababa;
-  text-align: center;
+  text-align: left;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+body{
+  padding-top: 40px;
+}
+
+
+/* --------------------------------------------- TOPBAR --------------------------------------------- */
+
 
 .topbar{
   background-image: -moz-linear-gradient(top, #222222, #333333) !important;
@@ -42,12 +66,6 @@ body{
   background-image: linear-gradient(to bottom, #222222, #333333) !important;
   background-repeat: repeat-x !important;
   border-color: #252525 !important;
-//
-//  background-image: linear-gradient(bottom, rgb(51,51,51) 27%, rgb(0,0,0) 58%) !important;
-//  background-image: -o-linear-gradient(bottom, rgb(51,51,51) 27%, rgb(0,0,0) 58%) !important;
-//  background-image: -moz-linear-gradient(bottom, rgb(51,51,51) 27%, rgb(0,0,0) 58%) !important;
-//  background-image: -webkit-linear-gradient(bottom, rgb(51,51,51) 27%, rgb(0,0,0) 58%) !important;
-//  background-image: -ms-linear-gradient(bottom, rgb(51,51,51) 27%, rgb(0,0,0) 58%) !important;
 
   .brand{
     padding-right: 0 !important;
@@ -71,45 +89,12 @@ body{
 }
 
 
-
-fieldset{
-  border: none;
-  margin: auto;
-  width: auto;
-  padding: 10px;
-}
-
 input:focus{
   outline-color: @orange;
- }
-
-input {
-  .Border-radius(5px);
-  display: block;
-  width: 100%;
-  height: 20%;
-  position: relative;
-  padding: 1%;
-  margin: 3% 0% 1% 0%;
-  text-align: center;
-  font-size: 12px;
 }
 
-.btn.success, .alert-message.success {
-  background-color: @orange;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#FFAD5c), to(#FF9933));
-  background-image: -moz-linear-gradient(top, #FFAD5c, #FF9933);
-  background-image: -ms-linear-gradient(top, #FFAD5c, #FF9933);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FF9933), color-stop(100%, #FF9933));
-  background-image: -webkit-linear-gradient(top, #FFAD5c, #FF9933);
-  background-image: -o-linear-gradient(top, #FFAD5c, #FF9933);
-  background-image: linear-gradient(top, #FFAD5c, #FF9933);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFAD5c', endColorstr='#FF9933', GradientType=0);
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  border-color: #FFAD5c #FFAD5c #FF9933;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-}
+
+/* --------------------------------------------- BUTTONS --------------------------------------------- */
 
 .btn {
   cursor: pointer;
@@ -162,8 +147,64 @@ input {
   background-position: center;
 }
 
+.actions{
+  .btn.primary{
+    .ButtonOrange;
+  }
+}
+
 .remove{
   background-color: none;
+}
+
+
+/* --------------------------------------------- GENERAL PAGE --------------------------------------------- */
+
+.container {
+  width: 900px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+}
+
+.content {
+  background-color: #fff;
+  padding: 20px;
+  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  min-height: 10px;
+}
+
+
+
+.page-header {
+  background-color: #f5f5f5;
+  padding: 20px 20px 10px;
+  margin: -20px -20px 20px;
+}
+
+/* --------------------------------------------- FORM --------------------------------------------- */
+
+fieldset{
+  input{
+    height: 30px;
+  }
+  input:focus{
+    outline-color: @orange;
+    border-color: @orange;
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px @orange;
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px @orange;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px @orange;
+  }
+}
+
+
+/* --------------------------------------------- LOGIN PAGE --------------------------------------------- */
+#login{
+  text-align: center;
+  padding-top: 0;
 }
 
 .login{
@@ -173,6 +214,11 @@ input {
   background-size: 100% 100%;
   width:100%;
   height: 100%;
+
+
+  .btn.success, .alert-message.success {
+    .ButtonOrange;
+  }
 
   h1{
     color: @orange;
@@ -196,6 +242,26 @@ input {
     top: 33%;
     box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
 
+
+    fieldset{
+      border: none;
+      margin: auto;
+      width: auto;
+      padding: 10px;
+    }
+
+    input {
+      .Border-radius(5px);
+      display: block;
+      width: 100%;
+      height: 20%;
+      position: relative;
+      padding: 1%;
+      margin: 3% 0% 1% 0%;
+      text-align: center;
+      font-size: 12px;
+    }
+
     form {
       width: auto;
       display: block;
@@ -204,8 +270,8 @@ input {
 
       .btn{
         float: right;
-        margin-top: 2%;
-        width: 25%;
+        margin-top: 5%;
+        width: 20%;
 
       }
 

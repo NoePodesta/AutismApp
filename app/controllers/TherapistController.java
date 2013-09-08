@@ -69,7 +69,7 @@ public class TherapistController extends Controller {
         }
 
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
-                therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
+                therapistFromForm.cellphone,therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
                 therapistFromForm.nm, therapistFromForm.password, "/assets/uploads/" + therapistFromForm.name +
                 therapistFromForm.surname + "//" + fileName);
 

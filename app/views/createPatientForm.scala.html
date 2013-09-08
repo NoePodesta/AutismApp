@@ -2,14 +2,16 @@
 
 @import helper._
 
-@main("Create Therapist"){
-    
-    <h1>Dar de alta Paciente</h1>
+@title = {
+    Dar de alta al Paciente
+}
+
+
+@main(title, nav = ""){
     
     @form(routes.TherapistController.saveTherapist()) {
         
         <fieldset>
-        
             @inputText(patientForm("name"), '_label -> "Name")
             @inputText(patientForm("surname"), '_label -> "Surname")
             @inputText(patientForm("address"), '_label -> "Address")
@@ -20,7 +22,7 @@
         </fieldset>
         
         <div class="actions">
-            <input type="submit" value="Agregar Pacient" class="btn primary"> or
+            <input type="submit" value="Agregar Pacient" class="btn success"> or
         </div>
         
     }

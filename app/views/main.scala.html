@@ -1,11 +1,11 @@
-@(title: String)(content: Html)
+@(title: Html, nav: String = "")(content: Html)
 
 
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
     <head>
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
 
     </head>
@@ -17,13 +17,13 @@
                 <a class="brand" href="@routes.Application.index()"> Autism Application</a>
                 <div class="nav">
                     <ul class="nav">
-                        <li>
+                        <li class="@("active".when(nav == "perfil"))">
                             <a href="@routes.Application.profile()"> Mi Perfil</a>
                         </li>
-                        <li>
+                        <li class="@("active".when(nav == "therapists"))">
                             <a href="@routes.TherapistController.therapistList()"> Terapeutas</a>
                         </li>
-                        <li>
+                        <li class="@("active".when(nav == "patients"))">
                             <a href="@routes.Application.patientList()"> Pacientes</a>
                         </li>
                         <li>
@@ -37,6 +37,29 @@
             </div>
         </div>
     </header>
-    @content
+
+    <div class="container">
+
+        <div class="content">
+
+            <div class="page-header">
+                <h1>@title</h1>
+            </div>
+
+            <div class="bodyPage">
+                <div class="span15">
+                    @content
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>
+                J&N Studios®
+            </p>
+        </footer>
+
+    </div>
     </body>
 </html>
