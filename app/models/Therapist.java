@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -22,13 +23,15 @@ import java.util.List;
 public class Therapist
         extends User  {
 
-
-
     public String nm;
     @Constraints.Required
     public String password;
     @ManyToMany(mappedBy="therapists")
     private List<Patient> patients;
+    @Enumerated(EnumType.STRING)
+    private TherapistType therapistType;
+
+
 
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
@@ -36,12 +39,13 @@ public class Therapist
     public Therapist(final String name, final String surname, final String telephone, final String cellphone,
                      final String address,
                      final String dni, final String mail, Date birthday,  final String nm, final String password,
-                     final String image)
+                     final String image, final TherapistType therapistType)
     {
         super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
         this.nm =  nm;
         this.password = password;
         this.patients = new ArrayList<Patient>();
+        this.therapistType = therapistType;
     }
 
     public void addPatient(Patient patient){
@@ -64,4 +68,41 @@ public class Therapist
     }
 
 
+    public static void save(Therapist therapist) {
+        therapist.save();
+        Ebean.save(therapist);
+    }
+
+
+    public static boolean isAdmin(String dni) {
+        Therapist therapist =  find.where().eq("dni", dni).findUnique();
+        return therapist.therapistType.name().equals(TherapistType.ADMIN.name()) || therapist.therapistType.name().equals(TherapistType.ADMIN_COORDINATOR.name());
+    }
+
+    public static Therapist findTherapistById(int id){
+        return find.byId(id);
+    }
+
+    public static void updateTherapist(int id, Therapist therapist) {
+        therapist.update(id);
+    }
+
+    public static boolean deleteTherapist(int id) {
+        Therapist therapistToDelete = findTherapistById(id);
+        if(therapistToDelete != null){
+            therapistToDelete.delete();
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public TherapistType getTherapistType() {
+        return therapistType;
+    }
+
+    public void setTherapistType(TherapistType therapistType) {
+        this.therapistType = therapistType;
+    }
 }

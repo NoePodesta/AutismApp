@@ -6,12 +6,7 @@ import models.Therapist;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Security;
-import views.html.createPatientForm;
-import views.html.login;
-import views.html.patients;
-import views.html.therapists;
-
+import views.html.*;
 
 import static play.data.Form.form;
 
@@ -30,7 +25,15 @@ public class Application extends Controller {
 
     }
 
-    @Security.Authenticated(Secured.class)
+    public static Result signUp() {
+        Form<Therapist> therapistForm = form(Therapist.class);
+        return ok(signUp.render("Sign Up Form", therapistForm));
+    }
+
+    public static Result registerAdmin() {
+        return TherapistController.saveTherapist(true);
+    }
+
     public static Result index() {
         return ok(therapists.render(Therapist.all()));
     }

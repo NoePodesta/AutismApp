@@ -39,6 +39,7 @@ public class User extends Model {
     public Date birthday;
     public String image;
 
+
     public static Finder<Integer,User> find = new Finder<Integer,User>(Integer.class, User.class);
 
 

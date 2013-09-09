@@ -1,0 +1,50 @@
+@(title: String, therapistForm : Form[Therapist])
+
+@import helper._
+
+<html>
+<head>
+    <title>Autism Application - Login</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
+    <!--<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">-->
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
+
+</head>
+<body id="login">
+<div class="login">
+    <h1>AUTISM APPLICATION</h1>
+    <div class="container">
+        @form(routes.Application.registerAdmin(), 'enctype -> "multipart/form-data") {
+
+        <fieldset>
+            @inputText(therapistForm("name"), '_label -> "Name")
+            @inputText(therapistForm("surname"), '_label -> "Surname")
+            @inputText(therapistForm("address"), '_label -> "Address")
+            @inputText(therapistForm("telephone"), '_label -> "Telephone")
+            @inputText(therapistForm("birthday"), '_label -> "Birthday")
+            @inputText(therapistForm("mail"), '_label -> "E-Mail")
+            @inputText(therapistForm("dni"), '_label -> "DNI")
+            @inputText(therapistForm("nm"), '_label -> "Matricula Nacional")
+            @inputPassword(therapistForm("password"), '_label -> "Contraseña")
+            <div class="clearfix  " id="picture_field">
+                <label for="picture">Imagen de Perfil</label>
+                <div class="input">
+                    <input type="file" id="picture" name="picture" accept="image/*" >
+                    <span class="help-inline"></span>
+                    <span class="help-block">Ingrese una imagen de perfil.</span>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" value="Guardar" class="btn primary"> or
+            <a href="@routes.Application.registerAdmin()" class="btn">Cancel</a>
+        </div>
+
+        }
+
+
+    </div>
+</div>
+</body>
+</html>

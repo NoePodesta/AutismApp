@@ -1,6 +1,7 @@
 package controllers;
 
 
+import models.Therapist;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -22,5 +23,9 @@ public class Secured extends Security.Authenticator {
     @Override
     public Result onUnauthorized(Context ctx) {
         return redirect(routes.Application.login());
+    }
+
+    public static boolean isAdmin() {
+        return Therapist.isAdmin(Context.current().request().username());
     }
 }

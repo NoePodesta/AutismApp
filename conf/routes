@@ -8,6 +8,11 @@ POST    /login                          controllers.Application.authenticate()
 GET     /logout                          controllers.Application.logout()
 GET     /index                          controllers.Application.index()
 
+#Sign Up
+GET    /signUp                          controllers.Application.signUp()
+POST   /registerAdmin                   controllers.Application.registerAdmin()
+
+
 # List Therapist
 GET     /therapists                     controllers.TherapistController.therapistList()
 

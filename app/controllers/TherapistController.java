@@ -1,12 +1,13 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import models.Therapist;
+import models.TherapistType;
 import org.apache.commons.io.FileUtils;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.createTherapistForm;
 import views.html.editTherapistForm;
 import views.html.therapists;
@@ -23,22 +24,30 @@ import static play.data.Form.form;
  * Time: 11:27 PM
  * To change this template use File | Settings | File Templates.
  */
+@Security.Authenticated(Secured.class)
 public class TherapistController extends Controller {
 
 
     public static Result createTherapist() {
-        Form<Therapist> therapistForm = form(Therapist.class);
-        return ok(
-                createTherapistForm.render(therapistForm)
-        );
+        if (Secured.isAdmin()) {
+            Form<Therapist> therapistForm = form(Therapist.class);
+            return ok(
+                    createTherapistForm.render(therapistForm)
+            );
+        }else{
+            return forbidden();
+        }
     }
 
     public static Result therapistList() {
-        return ok(
-                therapists.render(Therapist.all()));
+        return ok(therapists.render(Therapist.all()));
     }
 
-    public static Result saveTherapist() {
+    public static Result saveTherapist(){
+        return saveTherapist(false);
+    }
+
+    public static Result saveTherapist(boolean isAdminAndCoordinator) {
 
         Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
         if(therapistForm.hasErrors()) {
@@ -71,11 +80,9 @@ public class TherapistController extends Controller {
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
                 therapistFromForm.cellphone,therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
                 therapistFromForm.nm, therapistFromForm.password, "/assets/uploads/" + therapistFromForm.name +
-                therapistFromForm.surname + "//" + fileName);
+                therapistFromForm.surname + "//" + fileName, TherapistType.ADMIN_COORDINATOR);
 
-
-        therapist.save();
-        Ebean.save(therapist);
+        Therapist.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +
                 "dada de alta");
         return therapistList();
@@ -84,7 +91,7 @@ public class TherapistController extends Controller {
 
     public static Result editTherapist(int id) {
         Form<Therapist> therapistForm = form(Therapist.class).fill(
-                Therapist.find.byId(id)
+                Therapist.findTherapistById(id)
         );
         return ok(
                 editTherapistForm.render(id, therapistForm)
@@ -101,18 +108,22 @@ public class TherapistController extends Controller {
         if(therapistForm.hasErrors()) {
             return badRequest(editTherapistForm.render(id, therapistForm));
         }
-        therapistForm.get().update(id);
+        Therapist.updateTherapist(id, therapistForm.get());
         flash("success", "Sus cambios han sido guardados");
         return therapistList();
     }
 
     public static Result removeTherapist(int id) {
-        Therapist therapist = Therapist.find.ref(id);
-        if(therapist != null){
-            therapist.delete();
+        if(Therapist.deleteTherapist(id)){
             flash("success", "El terapeuta ha sido eliminado");
+        }else{
+            //Do Error Message
         }
         return therapistList();
     }
+
+
+
+
 
 }
