@@ -56,7 +56,6 @@ public class Therapist
         return find.all();
     }
 
-
     public static Therapist authenticate(String dni, String password) {
         return find.where()
                 .eq("dni", dni)

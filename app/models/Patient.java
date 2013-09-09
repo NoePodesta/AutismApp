@@ -26,7 +26,7 @@ public class Patient
     @Constraints.Required
     private String medicalCoverage;
     @Constraints.Required
-    private int nMedicalCoverage;
+    private String nMedicalCoverage;
     @Constraints.Required
     private String disease;
     @Constraints.Required
@@ -45,7 +45,7 @@ public class Patient
     public Patient(final String name, final String surname, final String telephone, final String cellphone,
                    final String address, final String dni,
                    final String mail, final Date birthday,
-                   final String medicalCoverage, final int nMedicalCoverage, final String disease,
+                   final String medicalCoverage, final String nMedicalCoverage, final String disease,
                    int gradeDisease, List<Therapist> therapists, final String image) {
 
         super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
@@ -87,5 +87,17 @@ public class Patient
     public static List<Patient> all() {
         return find.all();
     }
+
+    public static List<String> allPatientsByName() {
+        List<String> patients = new ArrayList<String>();
+        for(Patient patient : Patient.all()){
+            patients.add(patient.name + " " + patient.surname);
+        }
+
+        return patients;
+    }
+
+
+
 
 }

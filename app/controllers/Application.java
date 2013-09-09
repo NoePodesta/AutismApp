@@ -71,7 +71,6 @@ public class Application extends Controller {
         return ok();
     }
 
-
     public static Result logout() {
         session().clear();
         flash("success", "You've been logged out");
@@ -79,8 +78,6 @@ public class Application extends Controller {
                 routes.Application.login()
         );
     }
-
-
 
     public static Result savePatient() {
 

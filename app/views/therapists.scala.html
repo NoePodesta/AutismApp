@@ -25,6 +25,8 @@
         <table class="computers zebra-striped">
             <thead>
             <tr>
+
+                <td>Photo</td>
                 <td>Name</td>
                 <td>Surname</td>
                 <td>Address</td>
@@ -41,6 +43,13 @@
 
             @for(therapist <- therapistList) {
             <tr>
+                <td>
+                @if(therapist.image!= null){
+                    <img src="@routes.Assets.at(therapist.image)" alt="@therapist.name" height="42" width="42">
+                }else{
+                    <em>No se ha especificado</em>
+                }
+                </td>
                 <td>@therapist.name</td>
                 <td>@therapist.surname</td>
                 <td>@therapist.address</td>
@@ -49,7 +58,7 @@
                 <td>@therapist.mail</td>
                 <td>
                     @if(therapist.birthday == null){
-                        <em>No ha ingresado</em>
+                        <em>No ha especificado</em>
                     }else{
                         @therapist.birthday.format("dd MMM yyyy")</td>
                 }

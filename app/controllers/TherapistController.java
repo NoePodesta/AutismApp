@@ -35,7 +35,7 @@ public class TherapistController extends Controller {
 
     public static Result therapistList() {
         return ok(
-                therapists.render("Terapeutas", Therapist.all()));
+                therapists.render(Therapist.all()));
     }
 
     public static Result saveTherapist() {
@@ -87,7 +87,7 @@ public class TherapistController extends Controller {
                 Therapist.find.byId(id)
         );
         return ok(
-                editTherapistForm.render("Editar", id, therapistForm)
+                editTherapistForm.render(id, therapistForm)
         );
     }
 
@@ -99,7 +99,7 @@ public class TherapistController extends Controller {
     public static Result updateTherapist(int id) {
         Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
         if(therapistForm.hasErrors()) {
-            return badRequest(editTherapistForm.render("Editar", id, therapistForm));
+            return badRequest(editTherapistForm.render(id, therapistForm));
         }
         therapistForm.get().update(id);
         flash("success", "Sus cambios han sido guardados");
