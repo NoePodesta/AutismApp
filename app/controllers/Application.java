@@ -3,6 +3,7 @@ package controllers;
 
 import models.Patient;
 import models.Therapist;
+import models.TherapistType;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -31,7 +32,7 @@ public class Application extends Controller {
     }
 
     public static Result registerAdmin() {
-        return TherapistController.saveTherapist(true);
+        return TherapistController.saveTherapist(TherapistType.ADMIN_COORDINATOR);
     }
 
     public static Result index() {

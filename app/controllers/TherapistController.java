@@ -44,10 +44,10 @@ public class TherapistController extends Controller {
     }
 
     public static Result saveTherapist(){
-        return saveTherapist(false);
+        return saveTherapist(TherapistType.NO_PRIVILEGES);
     }
 
-    public static Result saveTherapist(boolean isAdminAndCoordinator) {
+    public static Result saveTherapist(TherapistType type) {
 
         Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
         if(therapistForm.hasErrors()) {
@@ -80,7 +80,7 @@ public class TherapistController extends Controller {
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
                 therapistFromForm.cellphone,therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
                 therapistFromForm.nm, therapistFromForm.password, "/assets/uploads/" + therapistFromForm.name +
-                therapistFromForm.surname + "//" + fileName, TherapistType.ADMIN_COORDINATOR);
+                therapistFromForm.surname + "//" + fileName, type);
 
         Therapist.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +
