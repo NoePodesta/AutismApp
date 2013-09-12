@@ -18,7 +18,6 @@ import java.util.List;
 
 @Entity
 @Table(name="Patients")
-//@DiscriminatorValue("aPatient")
 public class Patient
         extends User {
 
@@ -34,8 +33,8 @@ public class Patient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient",
             fetch = FetchType.LAZY)
     private List<Results> progress;
-    @ManyToMany
-    private List<Therapist> therapists;
+    @OneToOne
+    public Team team;
     private int qAwardA;
     private int qAwardB;
     private int qAwardC;
@@ -46,7 +45,7 @@ public class Patient
                    final String address, final String dni,
                    final String mail, final Date birthday,
                    final String medicalCoverage, final String nMedicalCoverage, final String disease,
-                   int gradeDisease, List<Therapist> therapists, final String image) {
+                   int gradeDisease, Team therapists, final String image) {
 
         super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
         this.medicalCoverage = medicalCoverage;
@@ -54,8 +53,6 @@ public class Patient
         this.disease = disease;
         this.gradeDisease = gradeDisease;
         this.progress = new ArrayList<Results>();
-        this.therapists = therapists;
-
         this.qAwardA = 0;
         this.qAwardB = 0;
         this.qAwardC = 0;
@@ -76,14 +73,6 @@ public class Patient
         qAwardC = qAwardC+value;
     }
 
-    public void addTherapist(Therapist therapist){
-        therapists.add(therapist);
-    }
-
-    public void removeTherapist(Therapist therapist){
-        therapists.remove(therapist);
-    }
-
     public static List<Patient> all() {
         return find.all();
     }
@@ -95,6 +84,14 @@ public class Patient
         }
 
         return patients;
+    }
+
+
+    public static Patient findPatientByName(String name, String surname) {
+        return find.where()
+                .eq("name", name)
+                .eq("surname", surname)
+                .findUnique();
     }
 
 

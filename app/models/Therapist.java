@@ -18,7 +18,6 @@ import java.util.List;
  */
 
 @Entity
-//@DiscriminatorValue("aTherapist")
 @Table(name="Therapists")
 public class Therapist
         extends User  {
@@ -26,12 +25,10 @@ public class Therapist
     public String nm;
     @Constraints.Required
     public String password;
-    @ManyToMany(mappedBy="therapists")
-    private List<Patient> patients;
+    @ManyToMany
+    private List<Team> team;
     @Enumerated(EnumType.STRING)
     private TherapistType therapistType;
-
-
 
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
@@ -44,16 +41,8 @@ public class Therapist
         super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
         this.nm =  nm;
         this.password = password;
-        this.patients = new ArrayList<Patient>();
+        this.team = new ArrayList<Team>();
         this.therapistType = therapistType;
-    }
-
-    public void addPatient(Patient patient){
-        patients.add(patient);
-    }
-
-    public void remove(Patient patient){
-        patients.remove(patient);
     }
 
     public static List<Therapist> all() {
@@ -76,7 +65,8 @@ public class Therapist
 
     public static boolean isAdmin(String dni) {
         Therapist therapist =  find.where().eq("dni", dni).findUnique();
-        return therapist.therapistType.name().equals(TherapistType.ADMIN.name()) || therapist.therapistType.name().equals(TherapistType.ADMIN_COORDINATOR.name());
+        return therapist.therapistType.name().equals(TherapistType.ADMIN.name()) ||
+                therapist.therapistType.name().equals(TherapistType.ADMIN_COORDINATOR.name());
     }
 
     public static Therapist findTherapistById(int id){

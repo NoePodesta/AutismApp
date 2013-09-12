@@ -30,7 +30,7 @@
             @inputText(therapistForm("telephone"), '_label -> "Teléfono")
             @inputText(therapistForm("cellphone"), '_label -> "Celular")
             @inputText(therapistForm("mail"), '_label -> "Correo electrónico")
-            @inputDate(therapistForm("birthday"), '_label -> "Fecha de Nacimiento")
+            @inputText(therapistForm("birthday"), '_label -> "Fecha de Nacimiento")
             @inputText(therapistForm("dni"), '_label -> "DNI")
             @inputText(therapistForm("nm"), '_label -> "Matricula Nacional")
             @inputPassword(therapistForm("password"), '_label -> "Contraseña")
@@ -58,18 +58,6 @@
 
         </fieldset>
 
-        <fieldset>
-            <legend>Pacientes</legend>
-
-            @select(
-                therapistForm("pacient"),
-                options = options(Patient.allPatientsByName()),
-                '_default -> "--- Elige un paciente ---",
-                '_label -> "Paciente"
-            )
-
-        </fieldset>
-        
         <div class="actions">
             <input type="submit" value="Agregar Terapeuta" class="btn primary">
         </div>

@@ -18,6 +18,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="User")
+
 public class User extends Model {
 
 

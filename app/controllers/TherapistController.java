@@ -1,5 +1,7 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import models.Patient;
 import models.Therapist;
 import models.TherapistType;
 import org.apache.commons.io.FileUtils;
@@ -59,11 +61,12 @@ public class TherapistController extends Controller {
         Http.MultipartFormData body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart picture = body.getFile("picture");
 
-        String fileName = null;
+
+        String pathFile = null;
 
         if(picture != null){
 
-            fileName = picture.getFilename();
+            String fileName = picture.getFilename();
             File file = picture.getFile();
 
             File destinationFile = new File(play.Play.application().path().toString() + "//public//uploads//"
@@ -75,14 +78,15 @@ public class TherapistController extends Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            pathFile = "/assets/uploads/" + therapistFromForm.name + therapistFromForm.surname + "/" + fileName;
         }
 
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
                 therapistFromForm.cellphone,therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
-                therapistFromForm.nm, therapistFromForm.password, "/assets/uploads/" + therapistFromForm.name +
-                therapistFromForm.surname + "//" + fileName, type);
+                therapistFromForm.nm, therapistFromForm.password, pathFile, TherapistType.NO_PRIVILEGES);
 
-        Therapist.save(therapist);
+        Ebean.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +
                 "dada de alta");
         return therapistList();

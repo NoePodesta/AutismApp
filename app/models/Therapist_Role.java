@@ -12,6 +12,8 @@ import javax.persistence.*;
  * Time: 12:05 AM
  * To change this template use File | Settings | File Templates.
  */
+@Table
+@Entity
 public class Therapist_Role extends Model {
 
     @Id

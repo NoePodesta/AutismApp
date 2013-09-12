@@ -2,6 +2,8 @@ package models;
 
 import com.avaje.ebean.annotation.EnumValue;
 
+import javax.persistence.Entity;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Juani
@@ -9,6 +11,7 @@ import com.avaje.ebean.annotation.EnumValue;
  * Time: 11:03 PM
  * To change this template use File | Settings | File Templates.
  */
+
 public enum TherapistType{
 
     @EnumValue("ADMIN")
