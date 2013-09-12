@@ -78,7 +78,7 @@ create table therapist_role (
   constraint pk_therapist_role primary key (id))
 ;
 
-create table user (
+create table User (
   id                        integer auto_increment not null,
   name                      varchar(255),
   surname                   varchar(255),
@@ -89,7 +89,7 @@ create table user (
   mail                      varchar(255),
   birthday                  datetime,
   image                     varchar(255),
-  constraint pk_user primary key (id))
+  constraint pk_User primary key (id))
 ;
 
 
@@ -147,7 +147,7 @@ drop table Therapists_team;
 
 drop table therapist_role;
 
-drop table user;
+drop table User;
 
 SET FOREIGN_KEY_CHECKS=1;
 
