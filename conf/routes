@@ -3,49 +3,54 @@
 # ~~~~
 
 # Home page
-GET     /                               controllers.Application.login()
-POST    /login                          controllers.Application.authenticate()
-GET     /logout                          controllers.Application.logout()
-GET     /index                          controllers.Application.index()
+GET         /                                     controllers.Application.login()
+POST        /login                                controllers.Application.authenticate()
+GET         /logout                               controllers.Application.logout()
+GET         /index                                controllers.Application.index()
 
 #Sign Up
-GET    /signUp                          controllers.Application.signUp()
-POST   /registerAdmin                   controllers.Application.registerAdmin()
-
-
-# List Therapist
-GET     /therapists                     controllers.TherapistController.therapistList()
-
-
-# List Pacient
-GET     /pacients                       controllers.Application.patientList()
+GET         /signUp                               controllers.Application.signUp()
+POST        /registerAdmin                        controllers.Application.registerAdmin()
 
 
 # Profile
-GET     /profile                        controllers.Application.profile()
+GET         /profile                              controllers.Application.profile()
 
 
+# List Pacient
+GET         /pacients                             controllers.PatientController.patientList()
 
 # Add Patient
-GET     /patients/new                   controllers.Application.createPatient()
-POST    /patients                       controllers.Application.savePatient()
+GET         /patients/new                         controllers.PatientController.createPatient()
+POST        /patients                             controllers.PatientController.savePatient()
 
 # Remove Patient
-POST    /patients/id/removePatient      controllers.Application.removePatient(id: Integer)
+POST        /patients/id/removePatient            controllers.PatientController.removePatient(id: Integer)
+
+
+# List Therapist
+GET         /therapists                           controllers.TherapistController.therapistList()
 
 # Add Therapist
-GET     /therapists/new                 controllers.TherapistController.createTherapist()
-POST    /therapists                     controllers.TherapistController.saveTherapist()
+GET         /therapists/new                       controllers.TherapistController.createTherapist()
+POST        /therapists                           controllers.TherapistController.saveTherapist()
 
 # Remove Therapist
-POST    /therapists/id/removeTherapist  controllers.TherapistController.removeTherapist(id: Integer)
-
+POST        /therapists/id/removeTherapist        controllers.TherapistController.removeTherapist(id: Integer)
 
 # Edit existing Therapist
-GET     /therapists/:id              controllers.TherapistController.editTherapist(id:Integer)
-POST    /therapists/:id              controllers.TherapistController.updateTherapist(id:Integer)
+GET         /therapists/:id                       controllers.TherapistController.editTherapist(id:Integer)
+POST        /therapists/:id                       controllers.TherapistController.updateTherapist(id:Integer)
+
+
+
+# List Team
+GET         /teams                                controllers.TeamController.teamList()
+
+# Add Team
+GET         /teams/new                            controllers.TeamController.createTeam()
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                   controllers.Assets.at(path="/public", file)
+GET         /assets/*file                         controllers.Assets.at(path="/public", file)

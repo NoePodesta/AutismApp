@@ -6,6 +6,7 @@ import models.Therapist;
 import models.TherapistType;
 import org.apache.commons.io.FileUtils;
 import play.data.Form;
+import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -16,6 +17,7 @@ import views.html.therapists;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static play.data.Form.form;
 
@@ -52,9 +54,25 @@ public class TherapistController extends Controller {
     public static Result saveTherapist(TherapistType type) {
 
         Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
+
+        // Check repeated password
+        if(!therapistForm.field("password").valueOr("").isEmpty()) {
+            if(!therapistForm.field("password").valueOr("").equals(therapistForm.field("repeatPassword").value())) {
+                therapistForm.reject("repeatPassword", "La contraseña no coincide");
+            }
+        }
+
+        // Check if the username is valid
+        if(!therapistForm.hasErrors()) {
+            if(Therapist.findTherapistByDNI(therapistForm.get().dni) != null) {
+                therapistForm.reject("dni", "Ya se ha ingresado este dni");
+            }
+        }
+
         if(therapistForm.hasErrors()) {
             return badRequest(createTherapistForm.render(therapistForm));
         }
+
         Therapist therapistFromForm = therapistForm.get();
 
 
@@ -84,7 +102,7 @@ public class TherapistController extends Controller {
 
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
                 therapistFromForm.cellphone,therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
-                therapistFromForm.nm, therapistFromForm.password, pathFile, TherapistType.NO_PRIVILEGES);
+                therapistFromForm.nm, therapistFromForm.password, pathFile, type);
 
         Ebean.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +

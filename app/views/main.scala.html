@@ -24,7 +24,10 @@
                             <a href="@routes.TherapistController.therapistList()"> Terapeutas</a>
                         </li>
                         <li class="@("active".when(nav == "patients"))">
-                            <a href="@routes.Application.patientList()"> Pacientes</a>
+                            <a href="@routes.PatientController.patientList()"> Pacientes</a>
+                        </li>
+                        <li class="@("active".when(nav == "teams"))">
+                            <a href="@routes.TeamController.teamList()"> Equipos de Trabajo</a>
                         </li>
                         <li>
                             <a href="@routes.Application.logout()">Logout</a>

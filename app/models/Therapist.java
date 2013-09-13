@@ -24,6 +24,7 @@ public class Therapist
 
     public String nm;
     @Constraints.Required
+    @Constraints.MinLength(value = 6)
     public String password;
     @ManyToMany
     private List<Team> team;
@@ -53,6 +54,12 @@ public class Therapist
         return find.where()
                 .eq("dni", dni)
                 .eq("password", password)
+                .findUnique();
+    }
+
+    public static Therapist findTherapistByDNI(String dni) {
+        return find.where()
+                .eq("dni", dni)
                 .findUnique();
     }
 

@@ -24,27 +24,53 @@
             <legend>Información General</legend>
 
         
-            @inputText(therapistForm("name"), '_label -> "Nombre")
-            @inputText(therapistForm("surname"), '_label -> "Apellido")
-            @inputText(therapistForm("address"), '_label -> "Dirección")
-            @inputText(therapistForm("telephone"), '_label -> "Teléfono")
-            @inputText(therapistForm("cellphone"), '_label -> "Celular")
-            @inputText(therapistForm("mail"), '_label -> "Correo electrónico")
-            @inputText(therapistForm("birthday"), '_label -> "Fecha de Nacimiento")
-            @inputText(therapistForm("dni"), '_label -> "DNI")
-            @inputText(therapistForm("nm"), '_label -> "Matricula Nacional")
-            @inputPassword(therapistForm("password"), '_label -> "Contraseña")
-
-            <div class="clearfix  " id="repeatPassword_field"> 
-                <label for="repeatPassword">Confirmar contraseña</label> 
-                <div class="input"> 
-
-                     <input type="password" id="repeatPassword" name="repeatPassword" value="@therapistForm("pass").value">
-
-                    <span class="help-inline"></span>
-                    <span class="help-block">Ingrese nuevamente la contraseña</span>
-                </div>
-            </div>
+            @inputText(therapistForm("name"),
+                '_label -> "Nombre"
+            )
+            @inputText(
+                therapistForm("surname"),
+                '_label -> "Apellido"
+            )
+            @inputText(
+                therapistForm("address"),
+                '_label -> "Dirección"
+            )
+            @inputText(
+                therapistForm("telephone"),
+                '_label -> "Teléfono"
+            )
+            @inputText(
+                therapistForm( "cellphone"),
+                '_label -> "Celular"
+            )
+            @inputText(
+                therapistForm("mail"),
+                '_label -> "Correo electrónico"
+            )
+            @inputText(
+                therapistForm("birthday"),
+                '_label -> "Fecha de Nacimiento"
+            )
+            @inputText(
+                therapistForm("dni"),
+                '_label -> "DNI",
+                '_error -> therapistForm.globalError
+            )
+            @inputText(
+                therapistForm("nm"),
+                '_label -> "Matricula Nacional"
+            )
+            @inputPassword(
+                therapistForm("password"),
+                '_label -> "Contraseña",
+                '_help -> "La contraseña debe tener al menos 6 caracteres."
+            )
+            @inputPassword(
+                therapistForm("repeatPassword"),
+                '_label -> "Confirmar contraseña",
+                '_help -> "Por Favor ingrese su contraseña nuevamente",
+                '_error -> therapistForm.error("password")
+            )
 
             <div class="clearfix  " id="picture_field">
                 <label for="picture">Imagen de Perfil</label>

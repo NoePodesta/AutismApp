@@ -44,7 +44,7 @@
                 <td>@patient.dni</td>
                 <td>@patient.mail</td>
                 <td>@patient.birthday.format("dd MMM yyyy")</td>
-                @form(routes.Application.removePatient(patient.id)) {
+                @form(routes.PatientController.removePatient(patient.id)) {
                 <td class = "remove">
                     <input type="submit" value="Eliminar" class="btn danger">
                 </td>
@@ -58,7 +58,7 @@
         }
 
         <fieldset class="pull-right">
-            <a class="btn success" id="add" href="@routes.Application.createPatient()">Agregar Paciente</a>
+            <a class="btn success" id="add" href="@routes.PatientController.createPatient()">Agregar Paciente</a>
         </fieldset>
 
 

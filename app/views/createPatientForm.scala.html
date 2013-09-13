@@ -7,9 +7,9 @@
 }
 
 
-@main(title, nav = ""){
+@main(title,  nav = ""){
     
-    @form(routes.TherapistController.saveTherapist()) {
+    @form(routes.PatientController.savePatient()) {
         
         <fieldset>
             @inputText(patientForm("name"), '_label -> "Name")

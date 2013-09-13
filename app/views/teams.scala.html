@@ -1,0 +1,39 @@
+@(teamList: List[models.Team])
+@import helper._
+
+@title = {
+    Pacientes
+}
+    @main(title,nav = "teams") {
+
+        @if(flash.containsKey("success")) {
+        <div class="alert-message warning">
+            <strong>Done!</strong> @flash.get("success")
+        </div>
+        }
+
+        @if(teamList.isEmpty()) {
+
+        <div class="well">
+            <em>No se han ingresado pacientes</em>
+        </div>
+
+        } else {
+
+            @for(team <- teamList) {
+                <label>Patient: @team.patient</label>
+                <label>Supervisora: @team.getSupervisor</label>
+                <label>Coordinadora: @team.getCoordinator</label>
+                <label>Terapeutas: @team.getTherapists</label>
+
+            }
+
+        }
+
+        <fieldset class="pull-right">
+            <a class="btn success" id="add" href="@routes.TeamController.createTeam()"> Agregar Equipo de Trabajo</a>
+        </fieldset>
+
+
+
+    }

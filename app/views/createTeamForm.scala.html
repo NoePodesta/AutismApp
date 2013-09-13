@@ -1,0 +1,30 @@
+@(teamForm: Form[Team])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+
+    @title = {
+    Dar de alta Equipo de Trabajo
+}
+
+@main(title, nav = ""){
+
+
+    @form(routes.TherapistController.saveTherapist(), 'enctype -> "multipart/form-data") {
+
+        
+        <fieldset>
+            <legend>Información General</legend>
+
+        
+
+
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" value="Agregar" class="btn primary">
+        </div>
+        
+    }
+}

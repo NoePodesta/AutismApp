@@ -2,6 +2,7 @@ package controllers;
 
 
 import models.Patient;
+import models.Team;
 import models.Therapist;
 import models.TherapistType;
 import play.data.Form;
@@ -55,22 +56,6 @@ public class Application extends Controller {
         }
     }
 
-
-
-    public static Result createPatient() {
-        Form<Patient> patientForm = form(Patient.class);
-        return ok(
-                createPatientForm.render(patientForm)
-        );
-    }
-
-
-
-    public static Result patientList() {
-        return ok(
-                patients.render(Patient.all()));
-    }
-
     public static Result profile() {
         return ok();
     }
@@ -83,33 +68,4 @@ public class Application extends Controller {
         );
     }
 
-    public static Result savePatient() {
-
-//        Form<Patient> patientForm = form(Patient.class).bindFromRequest();
-//        if(patientForm.hasErrors()) {
-//            return badRequest(createPatientForm.render(patientForm));
-//        }
-//        Patient pacientFromForm = patientForm.get();
-//        Therapist pacient = new Therapist(pacientFromForm.name, pacientFromForm.surname, pacientFromForm.telephone,
-//                pacientFromForm.address, pacientFromForm.dni, pacientFromForm.mail,pacientFromForm.birthday,
-//                pacientFromForm.nm, pacientFromForm.pass);
-//        pacient.save();
-//        Ebean.save(pacient);
-//        flash("success", "La terapeuta " + patientForm.get().name + " " + patientForm.get().surname + " ya ha sido " +
-//                "dada de alta");
-        return patientList();
-    }
-
-
-
-
-
-    public static Result removePatient(int id) {
-        Patient patient = Patient.find.ref(id);
-        if(patient != null){
-            patient.delete();
-            flash("success", "El paciente ha sido eliminado");
-        }
-        return patientList();
-    }
 }

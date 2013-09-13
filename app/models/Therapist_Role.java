@@ -32,6 +32,11 @@ public class Therapist_Role extends Model {
         this.role = role;
     }
 
+    public Therapist getTherapist() {
+        return therapist;
+    }
+
+
 
 
 
