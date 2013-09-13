@@ -21,9 +21,10 @@ public class Team extends Model {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @OneToOne
-    public Patient patient;
-    @ManyToMany
-    public List<Therapist_Role> therapists;
+    private Patient patient;
+    @OneToMany
+    private List<Therapist_Role> therapists;
+
 
     public static Model.Finder<Integer,Team> find = new Model.Finder(Integer.class, Team.class);
 

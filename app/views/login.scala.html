@@ -1,38 +1,56 @@
-@(form: Form[Application.Login])
+@(loginForm: Form[Application.Login], signUpForm: Form[Therapist])
+
 
 <html>
 <head>
     <title>Autism Application - Login</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
-    <!--<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">-->
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
 
+
 </head>
-<body id="login">
-<div class="login">
+<body class="mainpage">
+
+<div class="container">
     <h1>AUTISM APPLICATION</h1>
-    <div class="container">
-        @helper.form(routes.Application.authenticate) {
-        <form>
-            <fieldset>
-                <legend>Log in</legend>
-                @if(form.hasGlobalErrors) {
-                <p class="error">
-                    @form.globalError.message
-                </p>
-                }
-                @if(flash.contains("success")) {
-                <p class="success">
-                    @flash.get("success")
-                </p>
-                }
-                <input name="dni" placeholder="Ingrese su dni" value="@form("dni").value">
-                <input name="password"  type="password" placeholder="Ingrese su password">
-                <input type="submit" value="Login" class="btn success"/>
-            </fieldset>
-        </form>
-        <a href="@routes.Application.signUp()" class="btn success">Sign Up</a>
-        }
+    <div class="row">
+        <div class="span6">
+            <Legend>Una nueva forma de trabajar junto a sus chicos</Legend>
+        </div>
+        <div class="span6">
+            @helper.form(routes.Application.authenticate, 'class -> "form-signin") {
+            <form>
+                    <h2 class="form-signin-heading">Sign In</h2>
+                    @if(loginForm.hasGlobalErrors) {
+                    <p class="error">
+                        @loginForm.globalError.message
+                    </p>
+                    }
+                    @if(flash.contains("success")) {
+                    <p class="success">
+                        @flash.get("success")
+                    </p>
+                    }
+                    <input name="dni" class="input-block-level" type="text" placeholder="Ingrese su dni" value="@loginForm("dni").value">
+                    <input name="password"  class="input-block-level" type="password" placeholder="Ingrese su password">
+                    <input type="submit" value="Login" class="btn btn-success"/>
+            </form>
+            }
+
+
+            @helper.form(routes.Application.registerAdmin, 'class -> "form-signin") {
+            <form class="form-signin">
+                    <h2 class="form-signin-heading">Sign Up</h2>
+                    <input name="dni" class="input-block-level" type="text" placeholder="Ingrese su dni" value="@signUpForm("dni").value">
+                    <input name="password"  class="input-block-level" type="password" placeholder="Ingrese su password">
+                    <input name="mail"  class="input-block-level" type="text" placeholder="Ingrese su mail">
+                    <input type="submit" value="Sign Up" class="btn btn-success"/>
+            </form>
+            }
+
+        </div>
+
     </div>
 </div>
 </body>

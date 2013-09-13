@@ -203,110 +203,7 @@ fieldset{
 }
 
 
-/* --------------------------------------------- LOGIN PAGE --------------------------------------------- */
-#login{
-  text-align: center;
-  padding-top: 0;
-}
-
-.login{
-
-  background: url("/assets/images/pizarron.png");
-  position: absolute;
-  background-size: 100% 100%;
-  width:100%;
-  height: 100%;
-
-
-  .btn.success, .alert-message.success {
-    .ButtonOrange;
-  }
-
-  h1{
-    color: @orange;
-    text-shadow: 3px 0px black;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    font-family: chalk2;
-    margin-top: 50px;
-    font-size: 50px;
-
-  }
-
-  .container{
-    position: absolute;
-    width: 25%;
-    height: 33%;
-    text-align: center;
-    background: rgba(41, 41, 41, 0.5);
-    .Border-radius(10px);
-    left: 38%;
-    top: 33%;
-    box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
-
-
-    fieldset{
-      border: none;
-      margin: auto;
-      width: auto;
-      padding: 10px;
-    }
-
-    input {
-      .Border-radius(5px);
-      display: block;
-      width: 100%;
-      height: 20%;
-      position: relative;
-      padding: 1%;
-      margin: 3% 0% 1% 0%;
-      text-align: center;
-      font-size: 12px;
-    }
-
-    a{
-      margin-top: 3%;
-    }
-
-    form {
-      width: auto;
-      display: block;
-      padding: 10px;
-      .Border-radius(5px);
-
-      .btn{
-        float: right;
-        margin-top: 3%;
-        width: 20%;
-        height: 30px;
-
-      }
-
-
-      legend {
-        width: 100%;
-        text-align: center;
-        font: 22px bold;
-        text-transform: uppercase;
-        border-bottom: 3px solid #ffa500;
-        color: white;
-        display: block;
-        line-height: 1;
-        padding-bottom: 10px;
-        font-family: chalk;
-      }
-    }
-
-  }
-}
-
-
 /* --------------------------------------------- MAIN PAGE --------------------------------------------- */
-#mainpage{
-  text-align: center;
-  padding-top: 0;
-}
-
 .mainpage{
 
   background: url("/assets/images/pizarron.png");
@@ -326,73 +223,38 @@ fieldset{
     letter-spacing: 6px;
     text-transform: uppercase;
     font-family: chalk2;
-    margin-top: 50px;
     font-size: 50px;
-
+    text-align: center;
+    padding-top: 0;
   }
 
-  .container{
-    position: absolute;
-    width: 25%;
-    height: 28%;
-    text-align: center;
+  .form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+
+    margin: 20px auto auto 20px;
     background: rgba(41, 41, 41, 0.5);
     .Border-radius(10px);
-    left: 38%;
-    top: 33%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
     box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
-
-
-    fieldset{
-      border: none;
-      margin: auto;
-      width: auto;
-      padding: 10px;
-    }
-
-    input {
-      .Border-radius(5px);
-      display: block;
-      width: 100%;
-      height: 20%;
-      position: relative;
-      padding: 1%;
-      margin: 3% 0% 1% 0%;
-      text-align: center;
-      font-size: 12px;
-    }
-
-    a{
-      margin-top: 3%;
-    }
-
-    form {
-      width: auto;
-      display: block;
-      padding: 10px;
-      .Border-radius(5px);
-
-      .btn{
-        float: right;
-        margin-top: 3%;
-        width: 20%;
-
-      }
-
-
-      legend {
-        width: 100%;
-        text-align: center;
-        font: 22px bold;
-        text-transform: uppercase;
-        border-bottom: 3px solid #ffa500;
-        color: white;
-        display: block;
-        line-height: 1;
-        padding-bottom: 10px;
-        font-family: chalk;
-      }
-    }
+    box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
+  }
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-signin input[type="text"],
+  .form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+  }
 
   }
-}
+
+
