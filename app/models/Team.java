@@ -21,7 +21,7 @@ public class Team extends Model {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @OneToOne
-    private Patient patient;
+    public Patient patient;
     @OneToMany
     private List<Therapist_Role> therapists;
 
