@@ -42,12 +42,12 @@ public class Patient
 
 
     public Patient(final String name, final String surname, final String telephone, final String cellphone,
-                   final String address, final String dni,
+                   final Address address, final String dni, final Gender gender,
                    final String mail, final Date birthday,
                    final String medicalCoverage, final String nMedicalCoverage, final String disease,
-                   int gradeDisease, Team therapists, final String image) {
+                   int gradeDisease, final String image) {
 
-        super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
+        super(name, surname, telephone, cellphone, address, dni, gender, mail, birthday, image);
         this.medicalCoverage = medicalCoverage;
         this.nMedicalCoverage = nMedicalCoverage;
         this.disease = disease;

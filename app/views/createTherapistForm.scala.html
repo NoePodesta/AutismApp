@@ -9,7 +9,7 @@
 }
 
 @main(title, nav = ""){
-
+<div id=therapistForm>
     @if(therapistForm.hasErrors) {
     <div class="alert-message error">
         <p><strong>Oops!</strong> Hay algunos errores</p>
@@ -19,7 +19,7 @@
 
     @form(routes.TherapistController.saveTherapist(), 'enctype -> "multipart/form-data") {
 
-        
+
         <fieldset>
             <legend>Información General</legend>
 
@@ -31,45 +31,36 @@
                 therapistForm("surname"),
                 '_label -> "Apellido"
             )
-            @inputText(
-                therapistForm("address"),
-                '_label -> "Dirección"
-            )
-            @inputText(
-                therapistForm("telephone"),
-                '_label -> "Teléfono"
-            )
-            @inputText(
-                therapistForm( "cellphone"),
-                '_label -> "Celular"
-            )
-            @inputText(
-                therapistForm("mail"),
-                '_label -> "Correo electrónico"
-            )
-            @inputText(
-                therapistForm("birthday"),
-                '_label -> "Fecha de Nacimiento"
-            )
+
             @inputText(
                 therapistForm("dni"),
                 '_label -> "DNI",
                 '_error -> therapistForm.globalError
             )
+
+            @select(
+                therapistForm("gender"),
+                options = options(Gender.all()),
+                '_default -> "--- Eliga el sexo ---",
+                '_label -> "Sexo",
+                '_error -> therapistForm("gender").error.map(_.withMessage("Por Favor seleccione un sexo"))
+            )
+
+            @helper.inputDate(
+                therapistForm("birthday"),
+                '_label -> "Fecha de Nacimiento",
+                '_help -> "format dd/MM/yyyy" ,
+                'format -> "dd/MM/yyyy"
+            )
+
+            @inputText(
+                therapistForm("mail"),
+                '_label -> "Correo electrónico"
+            )
+
             @inputText(
                 therapistForm("nm"),
                 '_label -> "Matricula Nacional"
-            )
-            @inputPassword(
-                therapistForm("password"),
-                '_label -> "Contraseña",
-                '_help -> "La contraseña debe tener al menos 6 caracteres."
-            )
-            @inputPassword(
-                therapistForm("repeatPassword"),
-                '_label -> "Confirmar contraseña",
-                '_help -> "Por Favor ingrese su contraseña nuevamente",
-                '_error -> therapistForm.error("password")
             )
 
             <div class="clearfix  " id="picture_field">
@@ -84,9 +75,88 @@
 
         </fieldset>
 
+        <fieldset>
+
+            <legend>Dirección</legend>
+
+            @inputText(
+                therapistForm("address.cp"),
+                '_label -> "Codigo Postal"
+            )
+
+            @inputText(
+                therapistForm("address.street"),
+                '_label -> "Calle"
+            )
+
+            @inputText(
+                therapistForm("address.number"),
+                '_label -> "Número",'class -> "mini",
+                '_showConstraints -> false
+            )
+
+            @inputText(
+                therapistForm("address.floor"),
+                '_label -> "Piso", 'class -> "mini"
+            )
+
+            @inputText(
+                therapistForm("address.depto"),
+                '_label -> "Departamento", 'class -> "mini"
+            )
+
+            @inputText(
+                therapistForm("address.locality"),
+                '_label -> "Localidad"
+            )
+
+            @select(
+                therapistForm("address.province"),
+                options = options(Province.list),
+                '_default -> "--- Eliga una provincia ---",
+                '_label -> "Provincia",
+                '_error -> therapistForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
+            )
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Teléfonos</legend>
+
+            @inputText(
+                therapistForm("telephone"),
+                '_label -> "Teléfono"
+            )
+            @inputText(
+                therapistForm( "cellphone"),
+                '_label -> "Celular"
+            )
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Contraseña</legend>
+
+            @inputPassword(
+                therapistForm("password"),
+                '_label -> "Contraseña",
+                '_help -> "La contraseña debe tener al menos 6 caracteres."
+            )
+            @inputPassword(
+                therapistForm("repeatPassword"),
+                '_label -> "Confirmar contraseña",
+                '_help -> "Por Favor ingrese su contraseña nuevamente",
+                '_error -> therapistForm.error("password")
+            )
+
+        </fieldset>
+
         <div class="actions">
             <input type="submit" value="Agregar Terapeuta" class="btn primary">
         </div>
         
     }
+</div>
 }

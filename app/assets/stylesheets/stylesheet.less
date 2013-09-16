@@ -8,19 +8,23 @@
 }
 
 .ButtonOrange{
-    background-color: @orange;
-    background-repeat: repeat-x;
-    background-image: -khtml-gradient(linear, left top, left bottom, from(#FFAD5c), to(#FF9933));
-    background-image: -moz-linear-gradient(top, #FFAD5c, #FF9933);
-    background-image: -ms-linear-gradient(top, #FFAD5c, #FF9933);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FF9933), color-stop(100%, #FF9933));
-    background-image: -webkit-linear-gradient(top, #FFAD5c, #FF9933);
-    background-image: -o-linear-gradient(top, #FFAD5c, #FF9933);
-    background-image: linear-gradient(top, #FFAD5c, #FF9933);
+    .BackgroundOrange;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFAD5c', endColorstr='#FF9933', GradientType=0);
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     border-color: #FFAD5c #FFAD5c #FF9933;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.BackgroundOrange{
+  background-color: @orange;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#FFAD5c), to(#FF9933));
+  background-image: -moz-linear-gradient(top, #FFAD5c, #FF9933);
+  background-image: -ms-linear-gradient(top, #FFAD5c, #FF9933);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FF9933), color-stop(100%, #FF9933));
+  background-image: -webkit-linear-gradient(top, #FFAD5c, #FF9933);
+  background-image: -o-linear-gradient(top, #FFAD5c, #FF9933);
+  background-image: linear-gradient(top, #FFAD5c, #FF9933);
 }
 
 @font-face
@@ -202,6 +206,112 @@ fieldset{
   }
 }
 
+/* --------------------------------------------- THERAPIST FORM --------------------------------------------- */
+
+#therapistForm{
+
+  fieldset{
+
+    border-top: solid lightgray;
+
+    legend{
+      padding-left: 0;
+      padding-right: 10px;
+      color: @orange;
+    }
+  }
+
+
+  #address_number_field, #address_floor_field, #address_depto_field {
+    display: inline-block;
+  }
+
+  form #address_floor_field{
+    .input{
+      margin-left: 70px ;
+    }
+    label{
+      width: 50px;
+    }
+
+  }
+
+  form  #address_depto_field{
+    .input{
+      margin-left: 130px ;
+    }
+    label{
+      width: 118px;
+    }
+
+  }
+
+
+}
+
+
+
+/* --------------------------------------------- PATIENTS --------------------------------------------- */
+
+
+.patient{
+  text-align: center;
+  .Border-radius(10px);
+  box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+
+  img{
+    border: solid;
+    box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+  }
+
+  label{
+    display: block;
+    float: none;
+    width: 300px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .name{
+    text-transform: uppercase;
+    color: @orange;
+    font-weight: bold;
+
+  }
+  .dni{
+    font-style: italic;
+  }
+
+}
+
+
+/* --------------------------------------------- SPAN --------------------------------------------- */
+
+.patient.span5{
+  margin: 30px;
+  height: 150px;
+}
+
+.span5{
+  width: 450px;
+}
+
+.span1{
+  float:left;
+  width: 110px;
+}
+
+.container-fluid{
+  padding: 20px;
+}
+
+.span4 {
+  width: 300px;
+  height: 120px;
+  margin-left: 115px;
+  text-align: left;
+  position: absolute;
+}
 
 /* --------------------------------------------- MAIN PAGE --------------------------------------------- */
 .mainpage{

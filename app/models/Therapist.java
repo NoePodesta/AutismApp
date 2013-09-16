@@ -5,6 +5,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 public class Therapist
         extends User  {
 
+    @Pattern(regexp = "^([0-9]*)$", message = "Ingrese un número válido")
     public String nm;
     @Constraints.Required
     @Constraints.MinLength(value = 6)
@@ -35,11 +37,11 @@ public class Therapist
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
 
     public Therapist(final String name, final String surname, final String telephone, final String cellphone,
-                     final String address,
-                     final String dni, final String mail, Date birthday,  final String nm, final String password,
+                     final Address address,
+                     final String dni, final String mail, Date birthday, Gender gender,  final String nm, final String password,
                      final String image, final TherapistType therapistType)
     {
-        super(name, surname, telephone, cellphone, address, dni, mail, birthday, image);
+        super(name, surname, telephone, cellphone, address, dni,gender, mail, birthday, image);
         this.nm =  nm;
         this.password = password;
         this.team = new ArrayList<Therapist_Role>();

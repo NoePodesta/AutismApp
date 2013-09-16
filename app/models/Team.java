@@ -63,4 +63,9 @@ public class Team extends Model {
         return therapistsList;
     }
 
+    public Patient getPatient(){
+
+       return patient;
+    }
+
 }
