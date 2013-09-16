@@ -20,9 +20,13 @@ public class Therapist_Role extends Model {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Constraints.Required
+    @OneToMany
     private Therapist therapist;
     @Enumerated(EnumType.STRING)
     private TherapistRole role;
+    @ManyToOne
+    private Team team;
+
 
     public TherapistRole getRole() {
         return role;

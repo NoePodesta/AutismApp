@@ -28,8 +28,8 @@ public class Therapist
     @Constraints.Required
     @Constraints.MinLength(value = 6)
     public String password;
-    @ManyToMany
-    private List<Team> team;
+    @ManyToOne
+    private List<Therapist_Role> team;
     @Enumerated(EnumType.STRING)
     private TherapistType therapistType;
 
@@ -44,7 +44,7 @@ public class Therapist
         super(name, surname, telephone, cellphone, address, dni,gender, mail, birthday, image);
         this.nm =  nm;
         this.password = password;
-        this.team = new ArrayList<Team>();
+        this.team = new ArrayList<Therapist_Role>();
         this.therapistType = therapistType;
     }
 
@@ -74,8 +74,7 @@ public class Therapist
 
     public static boolean isAdmin(String dni) {
         Therapist therapist =  find.where().eq("dni", dni).findUnique();
-        return therapist.therapistType.name().equals(TherapistType.ADMIN.name()) ||
-                therapist.therapistType.name().equals(TherapistType.ADMIN_COORDINATOR.name());
+        return therapist.therapistType.name().equals(TherapistType.ADMIN.name());
     }
 
     public static Therapist findTherapistById(int id){

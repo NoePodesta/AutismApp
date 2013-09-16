@@ -2,8 +2,6 @@ package models;
 
 import com.avaje.ebean.annotation.EnumValue;
 
-import javax.persistence.Entity;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Juani
@@ -16,12 +14,6 @@ public enum TherapistType{
 
     @EnumValue("ADMIN")
     ADMIN,
-
-    @EnumValue("COORDINATOR")
-    COORDINATOR,
-
-    @EnumValue("ADMIN_COORDINATOR")
-    ADMIN_COORDINATOR,
 
     @EnumValue("NO_PRIVILEGES")
     NO_PRIVILEGES,

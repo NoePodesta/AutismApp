@@ -33,7 +33,7 @@ public class Application extends Controller {
     }
 
     public static Result registerAdmin() {
-        return TherapistController.saveTherapist(TherapistType.ADMIN_COORDINATOR);
+        return TherapistController.saveTherapist(TherapistType.ADMIN);
     }
 
     public static Result index() {
@@ -41,14 +41,14 @@ public class Application extends Controller {
     }
 
     public static Result login(){
-        return ok(login.render(form(Login.class)));
+        return ok(login.render(form(Login.class),form(Therapist.class)));
     }
 
 
     public static Result authenticate() {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
         if (loginForm.hasErrors()) {
-            return badRequest(login.render(loginForm));
+            return badRequest(login.render(loginForm,form(Therapist.class)));
         } else {
             session().clear();
             session("dni", loginForm.get().dni);

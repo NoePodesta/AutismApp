@@ -84,12 +84,14 @@ create table Therapists (
   therapist_type            varchar(17),
   constraint ck_Therapists_gender check (gender in ('Female','MALE')),
   constraint ck_Therapists_therapist_type check (therapist_type in ('ADMIN','ADMIN_COORDINATOR','NO_PRIVILEGES','COORDINATOR')),
+
   constraint pk_Therapists primary key (id))
 ;
 
 create table therapist_role (
   id                        integer auto_increment not null,
   role                      varchar(11),
+  team_id                   integer,
   constraint ck_therapist_role_role check (role in ('COORDINATOR','SUPERVISOR','INTEGRATOR','THERAPIST')),
   constraint pk_therapist_role primary key (id))
 ;
@@ -109,6 +111,7 @@ create table User (
   constraint ck_User_gender check (gender in ('Female','MALE')),
   constraint pk_User primary key (id))
 ;
+
 
 
 create table team_therapist_role (
@@ -141,13 +144,6 @@ create index ix_User_address_8 on User (address_id);
 
 
 
-alter table team_therapist_role add constraint fk_team_therapist_role_team_01 foreign key (team_id) references team (id) on delete restrict on update restrict;
-
-alter table team_therapist_role add constraint fk_team_therapist_role_therapist_role_02 foreign key (therapist_role_id) references therapist_role (id) on delete restrict on update restrict;
-
-alter table Therapists_team add constraint fk_Therapists_team_Therapists_01 foreign key (Therapists_id) references Therapists (id) on delete restrict on update restrict;
-
-alter table Therapists_team add constraint fk_Therapists_team_team_02 foreign key (team_id) references team (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -165,11 +161,7 @@ drop table Results;
 
 drop table team;
 
-drop table team_therapist_role;
-
 drop table Therapists;
-
-drop table Therapists_team;
 
 drop table therapist_role;
 
