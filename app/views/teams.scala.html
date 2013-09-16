@@ -21,7 +21,7 @@
         } else {
 
             @for(team <- teamList) {
-                <label>Patient: @team.patient</label>
+                <label>Patient: @team.getPatient</label>
                 <label>Supervisora: @team.getSupervisor</label>
                 <label>Coordinadora: @team.getCoordinator</label>
                 <label>Terapeutas: @team.getTherapists</label>

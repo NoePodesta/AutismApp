@@ -81,10 +81,9 @@ create table Therapists (
   image                     varchar(255),
   nm                        varchar(255),
   password                  varchar(255),
-  therapist_type            varchar(17),
+  therapist_type            varchar(13),
   constraint ck_Therapists_gender check (gender in ('Female','MALE')),
-  constraint ck_Therapists_therapist_type check (therapist_type in ('ADMIN','ADMIN_COORDINATOR','NO_PRIVILEGES','COORDINATOR')),
-
+  constraint ck_Therapists_therapist_type check (therapist_type in ('ADMIN','NO_PRIVILEGES')),
   constraint pk_Therapists primary key (id))
 ;
 
@@ -112,19 +111,6 @@ create table User (
   constraint pk_User primary key (id))
 ;
 
-
-
-create table team_therapist_role (
-  team_id                        integer not null,
-  therapist_role_id              integer not null,
-  constraint pk_team_therapist_role primary key (team_id, therapist_role_id))
-;
-
-create table Therapists_team (
-  Therapists_id                  integer not null,
-  team_id                        integer not null,
-  constraint pk_Therapists_team primary key (Therapists_id, team_id))
-;
 alter table Patients add constraint fk_Patients_address_1 foreign key (address_id) references address (id) on delete restrict on update restrict;
 create index ix_Patients_address_1 on Patients (address_id);
 alter table Patients add constraint fk_Patients_team_2 foreign key (team_id) references team (id) on delete restrict on update restrict;
@@ -139,9 +125,10 @@ alter table team add constraint fk_team_patient_6 foreign key (patient_id) refer
 create index ix_team_patient_6 on team (patient_id);
 alter table Therapists add constraint fk_Therapists_address_7 foreign key (address_id) references address (id) on delete restrict on update restrict;
 create index ix_Therapists_address_7 on Therapists (address_id);
-alter table User add constraint fk_User_address_8 foreign key (address_id) references address (id) on delete restrict on update restrict;
-create index ix_User_address_8 on User (address_id);
-
+alter table therapist_role add constraint fk_therapist_role_team_8 foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_therapist_role_team_8 on therapist_role (team_id);
+alter table User add constraint fk_User_address_9 foreign key (address_id) references address (id) on delete restrict on update restrict;
+create index ix_User_address_9 on User (address_id);
 
 
 
