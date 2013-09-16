@@ -1,66 +1,52 @@
 @(patientList: List[models.Patient])
-@import helper._
+    @import helper._
 
-@title = {
-    Pacientes
-}
+    @title = {
+        Pacientes
+    }
     @main(title,nav = "patients") {
 
         @if(flash.containsKey("success")) {
-        <div class="alert-message warning">
-            <strong>Done!</strong> @flash.get("success")
-        </div>
+            <div class="alert-message warning">
+                <strong>Done!</strong> @flash.get("success")
+            </div>
         }
 
         @if(patientList.isEmpty()) {
 
-        <div class="well">
-            <em>No se han ingresado pacientes</em>
-        </div>
+            <div class="well">
+                <em>No se han ingresado pacientes</em>
+            </div>
 
         } else {
 
-        <table class="computers zebra-striped">
-            <thead>
-            <tr>
-                <td>Nombre</td>
-                <td>Apellido</td>
-                <td>Dirección</td>
-                <td>Telefono</td>
-                <td>DNI</td>
-                <td>E-Mail</td>
-                <td>Fecha de Nacimiento</td>
-                <td class ="remove"></td>
-            </tr>
-            </thead>
-            <tbody>
 
+            <div class="row">
             @for(patient <- patientList) {
-            <tr>
-                <td>@patient.name</td>
-                <td>@patient.surname</td>
-                <td>@patient.address</td>
-                <td>@patient.telephone</td>
-                <td>@patient.dni</td>
-                <td>@patient.mail</td>
-                <td>@patient.birthday.format("dd MMM yyyy")</td>
-                @form(routes.PatientController.removePatient(patient.id)) {
-                <td class = "remove">
-                    <input type="submit" value="Eliminar" class="btn danger">
-                </td>
-                }
 
-            </tr>
+                <div class="patient span5">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="span1">
+                                <img src="@routes.Assets.at(patient.image)" alt="@patient.name" height="100" width="100">
+                             </div>
+                        <div class="span4">
+                            <label class="name">@patient.name @patient.surname</label>
+                            <label class="dni">@patient.dni</label>
+                            @form(routes.PatientController.removePatient(patient.id)) {
+                                <label class = "remove">
+                                    <input type="submit" value="Eliminar" class="btn danger">
+                                </label>
+                            }
+                        </div>
+                        </div>
+                    </div>
+                </div>
             }
-
-            </tbody>
-        </table>
+            </div>
         }
 
         <fieldset class="pull-right">
             <a class="btn success" id="add" href="@routes.PatientController.createPatient()">Agregar Paciente</a>
         </fieldset>
-
-
-
     }

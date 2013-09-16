@@ -1,12 +1,12 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import models.Patient;
+import models.Gender;
 import models.Therapist;
 import models.TherapistType;
+import models.User;
 import org.apache.commons.io.FileUtils;
 import play.data.Form;
-import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -17,7 +17,7 @@ import views.html.therapists;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 import static play.data.Form.form;
 
@@ -75,6 +75,7 @@ public class TherapistController extends Controller {
 
         Therapist therapistFromForm = therapistForm.get();
 
+        Gender gender = (therapistFromForm.gender.equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
 
         Http.MultipartFormData body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart picture = body.getFile("picture");
@@ -98,12 +99,22 @@ public class TherapistController extends Controller {
             }
 
             pathFile = "/assets/uploads/" + therapistFromForm.name + therapistFromForm.surname + "/" + fileName;
+        }else{
+            pathFile = gender.isFemale() ? "/assets/uploads/female.jpg" : "/assets/uploads/male.jpg";
+
         }
 
-        Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
-                therapistFromForm.cellphone,therapistFromForm.address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
-                therapistFromForm.nm, therapistFromForm.password, pathFile, type);
 
+
+        User.Address address = new User.Address(therapistFromForm.address.street,therapistFromForm.address.number,
+                therapistFromForm.address.floor, therapistFromForm.address.depto,therapistFromForm.address.cp,
+                therapistFromForm.address.locality,therapistFromForm.address.province);
+
+        Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
+                therapistFromForm.cellphone,address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
+                gender, therapistFromForm.nm, therapistFromForm.password, pathFile, type);
+
+        Ebean.save(address);
         Ebean.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +
                 "dada de alta");
