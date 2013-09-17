@@ -9,60 +9,53 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
 
     </head>
+
     <body>
-    <header>
-        <div class="topbar">
-
-            <div class="container">
-                <a class="brand" href="@routes.Application.index()"> Autism Application</a>
-                <div class="nav">
-                    <ul class="nav">
-                        <li class="@("active".when(nav == "perfil"))">
-                            <a href="@routes.Application.profile()"> Mi Perfil</a>
-                        </li>
-                        <li class="@("active".when(nav == "therapists"))">
-                            <a href="@routes.TherapistController.therapistList()"> Terapeutas</a>
-                        </li>
-                        <li class="@("active".when(nav == "patients"))">
-                            <a href="@routes.PatientController.patientList()"> Pacientes</a>
-                        </li>
-                        <li class="@("active".when(nav == "teams"))">
-                            <a href="@routes.TeamController.teamList()"> Equipos de Trabajo</a>
-                        </li>
-                        <li>
-                            <a href="@routes.Application.logout()">Logout</a>
-                        </li>
-                    </ul>
-
-
-
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="@routes.Application.index()"> Autism Application</a>
+                    <div class="nav">
+                        <ul class="nav">
+                            <li class="@("active".when(nav == "perfil"))">
+                                <a href="@routes.Application.profile()"> Mi Perfil</a>
+                            </li>
+                            <li class="@("active".when(nav == "therapists"))">
+                                <a href="@routes.TherapistController.therapistList()"> Terapeutas</a>
+                            </li>
+                            <li class="@("active".when(nav == "patients"))">
+                                <a href="@routes.PatientController.patientList()"> Pacientes</a>
+                            </li>
+                            <li class="@("active".when(nav == "teams"))">
+                                <a href="@routes.TeamController.teamList()"> Equipos de Trabajo</a>
+                            </li>
+                            <li>
+                                <a href="@routes.Application.logout()">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
-
-    <div class="container">
-
-        <div class="content">
-
-            <div class="page-header">
-                <h1>@title</h1>
+        <header>
+            <div class="container">
+                    <h1>@title</h1>
             </div>
-
-            <div class="bodyPage">
+        </header>
+    <div class="container">
+        <div class="row">
                 <div class="span17">
                     @content
-                </div>
             </div>
+        </div>
 
         </div>
 
-        <footer>
-            <p>
-                J&N Studios®
-            </p>
+        <footer class="footer">
+            <div class="container">
+                <p>J&N Studios®</p>
+            </div>
         </footer>
 
-    </div>
     </body>
 </html>

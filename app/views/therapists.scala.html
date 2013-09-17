@@ -22,7 +22,7 @@
 
         } else {
 
-        <table class="computers zebra-striped">
+        <table class="table table-striped">
             <thead>
             <tr>
 
@@ -63,10 +63,10 @@
                 <td>@therapist.nm</td>
                 @form(routes.TherapistController.removeTherapist(therapist.id)) {
                 <td class = "remove">
-                    <input type="submit" value="Eliminar" class="btn danger">
+                    <input type="submit" value="Eliminar" class="btn btn-danger disabled">
                 </td>
                 <td class = "edit">
-                    <a class="btn success" href="@routes.TherapistController.editTherapist(therapist.id)">Editar</a>
+                    <a class="btn btn-info disabled" href="@routes.TherapistController.editTherapist(therapist.id)">Editar</a>
                 </td>
                 }
 
@@ -79,7 +79,7 @@
 
 
         <fieldset class="actions">
-            <a class="btn success" id="add" href="@routes.TherapistController.createTherapist()">Agregar Terapeuta</a>
+            <a class="btn btn-success disabled" id="add" href="@routes.TherapistController.createTherapist()">Agregar Terapeuta</a>
         </fieldset>
 
 
