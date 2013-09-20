@@ -1,33 +1,161 @@
 @(id: Integer)(therapistForm: Form[Therapist])
 
 @import helper._
+@import helper.twitterBootstrap._
 
-@main(Html("Editar Terapeuta"), nav = "") {
 
-<h1>Edit computer</h1>
-
-@form(routes.TherapistController.updateTherapist(id)) {
-
-<fieldset>
-
-    @inputText(therapistForm("name"), '_label -> "Name")
-    @inputText(therapistForm("surname"), '_label -> "Surname")
-    @inputText(therapistForm("address"), '_label -> "Address")
-    @inputText(therapistForm("telephone"), '_label -> "Telephone")
-    @inputText(therapistForm("birthday"), '_label -> "Birthday")
-    @inputText(therapistForm("mail"), '_label -> "E-Mail")
-    @inputText(therapistForm("dni"), '_label -> "DNI")
-    @inputText(therapistForm("nm"), '_label -> "Matricula Nacional")
-    @inputPassword(therapistForm("password"), '_label -> "Contraseña")
-    @inputFile(therapistForm("image"), '_label -> "Imagen de perfil")
-
-</fieldset>
-
-<div class="actions">
-    <input type="submit" value="Guardar" class="btn primary"> or
-    <a href="@routes.TherapistController.therapistList()" class="btn">Cancel</a>
-</div>
-
+@title = {
+    Editar terapeuta
 }
 
+@main(title, nav = ""){
+    <div id=therapistForm>
+        @if(therapistForm.hasErrors) {
+        <div class="alert-message error">
+            <p><strong>Oops!</strong> Hay algunos errores</p>
+        </div>
+        }
+
+        @form(routes.TherapistController.updateTherapist(id), 'enctype -> "multipart/form-data") {
+
+
+            <fieldset>
+                <legend>Información General</legend>
+
+
+                @inputText(therapistForm("name"),
+                    '_label -> "Nombre"
+                )
+                @inputText(
+                    therapistForm("surname"),
+                    '_label -> "Apellido"
+                )
+
+                @inputText(
+                    therapistForm("dni"),
+                    '_label -> "DNI",
+                    '_error -> therapistForm.globalError
+                )
+
+                @select(
+                    therapistForm("gender"),
+                    options = options(Gender.all()),
+                    '_default -> "--- Eliga el sexo ---",
+                    '_label -> "Sexo",
+                    '_error -> therapistForm("gender").error.map(_.withMessage("Por Favor seleccione un sexo"))
+                )
+
+                @helper.inputDate(
+                    therapistForm("birthday"),
+                    '_label -> "Fecha de Nacimiento",
+                    '_help -> "Formato dd/MM/yyyy" ,
+                    'format -> "dd/MM/yyyy"
+                )
+
+                @inputText(
+                    therapistForm("mail"),
+                    '_label -> "Correo electrónico"
+                )
+
+                @inputText(
+                    therapistForm("nm"),
+                    '_label -> "Matricula Nacional"
+                )
+
+                <div class="clearfix  " id="picture_field">
+                    <label for="picture">Imagen de Perfil</label>
+                    <div class="input">
+
+                        <input type="file" id="picture" name="picture" accept="image/*" >
+                        <span class="help-inline"></span>
+                        <span class="help-block">Ingrese una imagen de perfil.</span>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Dirección</legend>
+
+                @inputText(
+                    therapistForm("address.cp"),
+                    '_label -> "Codigo Postal"
+                )
+
+                @inputText(
+                    therapistForm("address.street"),
+                    '_label -> "Calle"
+                )
+
+                @inputText(
+                    therapistForm("address.number"),
+                    '_label -> "Número",'class -> "mini",
+                    '_showConstraints -> false
+                )
+
+                @inputText(
+                    therapistForm("address.floor"),
+                    '_label -> "Piso", 'class -> "mini"
+                )
+
+                @inputText(
+                    therapistForm("address.depto"),
+                    '_label -> "Departamento", 'class -> "mini"
+                )
+
+                @inputText(
+                    therapistForm("address.locality"),
+                    '_label -> "Localidad"
+                )
+
+                @select(
+                    therapistForm("address.province"),
+                    options = options(Province.list),
+                    '_default -> "--- Eliga una provincia ---",
+                    '_label -> "Provincia",
+                    '_error -> therapistForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
+                )
+
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Teléfonos</legend>
+
+                @inputText(
+                    therapistForm("telephone"),
+                    '_label -> "Teléfono"
+                )
+                @inputText(
+                    therapistForm( "cellphone"),
+                    '_label -> "Celular"
+                )
+
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Contraseña</legend>
+
+                @inputPassword(
+                    therapistForm("password"),
+                    '_label -> "Contraseña",
+                    '_help -> "La contraseña debe tener al menos 6 caracteres."
+                )
+                @inputPassword(
+                    therapistForm("repeatPassword"),
+                    '_label -> "Confirmar contraseña",
+                    '_help -> "Por Favor ingrese su contraseña nuevamente",
+                    '_error -> therapistForm.error("password")
+                )
+
+            </fieldset>
+
+            <div class="actions">
+                <input type="submit" value="Guardar" class="btn btn-success">
+            </div>
+
+        }
+    </div>
 }

@@ -42,7 +42,7 @@ create table Patients (
   medical_coverage          varchar(255),
   n_medical_coverage        varchar(255),
   disease                   varchar(255),
-  grade_disease             integer,
+  grade_disease             varchar(255),
   team_id                   integer,
   q_award_a                 integer,
   q_award_b                 integer,

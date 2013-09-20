@@ -74,7 +74,7 @@ public class User extends Model {
     }
 
     @Entity
-    public static class Address {
+    public static class Address extends Model {
 
         @Id
         public int id;
@@ -106,6 +106,7 @@ public class User extends Model {
             this.locality = locality;
             this.province = province;
         }
+
     }
 
 

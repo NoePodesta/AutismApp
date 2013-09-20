@@ -37,7 +37,7 @@ insert into Patients (id,name,surname,address_id,cellphone,telephone,dni,gender,
 insert into Patients (id,name,surname,address_id,cellphone,telephone,dni,gender,mail,birthday,image,medical_coverage,n_medical_coverage,
                       disease,grade_disease,q_award_a, q_award_b, q_award_c) values
 (9,'Genaro', 'Frap',1, '1145679876','54329876','45876976', 'Female','geniii@gmail.com','2009-07-10', 'uploads/male.jpg', 'osde',
- '3467876456','tgd',1, 2, 0, 0 );
+ '3467876456','tgd','ALto', 2, 0, 0 );
 
 # --- !Downs
 

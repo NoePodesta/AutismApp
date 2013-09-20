@@ -18,7 +18,7 @@ GET         /profile                              controllers.Application.profil
 
 
 # List Pacient
-GET         /pacients                             controllers.PatientController.patientList()
+GET         /patients                             controllers.PatientController.patientList()
 
 # Add Patient
 GET         /patients/new                         controllers.PatientController.createPatient()

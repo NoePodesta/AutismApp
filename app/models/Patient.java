@@ -4,6 +4,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,13 +24,14 @@ public class Patient
 
 
     @Constraints.Required
-    private String medicalCoverage;
+    public String medicalCoverage;
     @Constraints.Required
-    private String nMedicalCoverage;
+    @Pattern(regexp = "^([0-9].+)$", message = "Ingrese un número válido.")
+    public String nMedicalCoverage;
     @Constraints.Required
-    private String disease;
+    public String disease;
     @Constraints.Required
-    private int gradeDisease;
+    public String gradeDisease;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient",
             fetch = FetchType.LAZY)
     private List<Results> progress;
@@ -45,7 +47,7 @@ public class Patient
                    final Address address, final String dni, final Gender gender,
                    final String mail, final Date birthday,
                    final String medicalCoverage, final String nMedicalCoverage, final String disease,
-                   int gradeDisease, final String image) {
+                   String gradeDisease, final String image) {
 
         super(name, surname, telephone, cellphone, address, dni, gender, mail, birthday, image);
         this.medicalCoverage = medicalCoverage;

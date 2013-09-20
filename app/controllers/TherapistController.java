@@ -140,8 +140,24 @@ public class TherapistController extends Controller {
         Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
         if(therapistForm.hasErrors()) {
             return badRequest(editTherapistForm.render(id, therapistForm));
-        }
-        Therapist.updateTherapist(id, therapistForm.get());
+       }
+
+        Therapist realTherapist = Therapist.findTherapistById(id);
+        Therapist therapist = therapistForm.get();
+        User.Address addressForm = therapist.address;
+        User.Address address = realTherapist.address;
+        address.street = addressForm.street;
+        address.number = addressForm.number;
+        address.floor = addressForm.floor;
+        address.depto = addressForm.depto;
+        address.cp = addressForm.cp;
+        address.locality = addressForm.locality;
+        address.province = addressForm.province;
+
+        Ebean.update(realTherapist.address);
+        Ebean.update(realTherapist);
+
+
         flash("success", "Sus cambios han sido guardados");
         return therapistList();
     }
