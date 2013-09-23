@@ -8,7 +8,7 @@
         Dar de alta paciente
     }
 
-    @main(title, nav = ""){
+    @main(title, nav = " "){
         <div id=therapistForm>
             @if(patienttForm.hasErrors) {
                 <div class="alert-message error">
@@ -39,11 +39,11 @@
                     )
 
                     @select(
-                        patienttForm("gender"),
+                        patienttForm("genero"),
                         options = options(Gender.all()),
                         '_default -> "--- Eliga el sexo ---",
                         '_label -> "Sexo",
-                        '_error -> patienttForm("gender").error.map(_.withMessage("Por Favor seleccione un sexo"))
+                        '_error -> patienttForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo"))
                     )
 
                     @helper.inputDate(

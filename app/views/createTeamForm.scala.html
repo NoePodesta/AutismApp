@@ -8,16 +8,67 @@
     Dar de alta Equipo de Trabajo
 }
 
-@main(title, nav = ""){
+@main(title, nav = " "){
 
 
-    @form(routes.TherapistController.saveTherapist(), 'enctype -> "multipart/form-data") {
+    @form(routes.TeamController.saveTeam()) {
 
-        
         <fieldset>
-            <legend>Información General</legend>
-
+            <legend>Paciente</legend>
+            @select(
+                teamForm("paciente"),
+                options = options(Patient.allPatientsByNameAndDni()),
+                '_default -> "--- Eliga un paciente ---",
+                '_label -> "Paciente",
+                '_error -> teamForm("paciente").error.map(_.withMessage("Por favor seleccione un paciente"))
+            )
         </fieldset>
+
+        <fieldset>
+            <legend>Supervisor</legend>
+            @select(
+                teamForm("supervisor"),
+                options = options(Therapist.allTherapistsByNameAndDni()),
+                '_default -> "--- Eliga un supervisor ---",
+                '_label -> "Supervisor",
+                '_error -> teamForm("supervisor").error.map(_.withMessage("Por favor seleccione un supervisor"))
+            )
+        </fieldset>
+
+        <fieldset>
+            <legend>Coordinador</legend>
+            @select(
+                teamForm("coordinator"),
+                options = options(Therapist.allTherapistsByNameAndDni()),
+                '_default -> "--- Eliga un coordinador ---",
+                '_label -> "Cordinador",
+                '_error -> teamForm("coordinator").error.map(_.withMessage("Por Favor seleccione un coordinador"))
+            )
+        </fieldset>
+
+        <fieldset>
+            <legend>Integrador</legend>
+            @select(
+                teamForm("integrator"),
+                options = options(Therapist.allTherapistsByNameAndDni()),
+                '_default -> "--- Eliga un integrador ---",
+                '_label -> "Integrador",
+                '_error -> teamForm("integrator").error.map(_.withMessage("Por favor seleccione un integrador"))
+            )
+        </fieldset>
+
+        <fieldset>
+            <legend>Terapeutas</legend>
+            @select(
+                teamForm("therapist"),
+                options = options(Therapist.allTherapistsByNameAndDni()),
+                '_default -> "--- Eliga un terapeuta ---",
+                '_label -> "Terapeuta",
+                '_error -> teamForm("therapist").error.map(_.withMessage("Por favor seleccione un terapeuta"))
+            )
+        </fieldset>
+
+
 
         <div class="actions">
             <input type="submit" value="Agregar" class="btn primary">

@@ -2,9 +2,9 @@
 @import helper._
 
 @title = {
-    Pacientes
+    Equipos de Trabajo
 }
-    @main(title,nav = "teams") {
+    @main(title, nav = "teams") {
 
         @if(flash.containsKey("success")) {
         <div class="alert-message warning">
@@ -15,18 +15,37 @@
         @if(teamList.isEmpty()) {
 
         <div class="well">
-            <em>No se han ingresado pacientes</em>
+            <em>No se han ingresado equipos de trabajo</em>
         </div>
 
         } else {
 
+            <div class="row">
             @for(team <- teamList) {
-                <label>Patient: @team.getPatient</label>
-                <label>Supervisora: @team.getSupervisor</label>
-                <label>Coordinadora: @team.getCoordinator</label>
-                <label>Terapeutas: @team.getTherapists</label>
+
+
+                <div class="patient span5">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="span1"></div>
+                            @*<div class="span1">*@
+                                @*<img src="@routes.Assets.at(team.getPatient.image)" alt="@team.getPatient.name" height="100" width="100">*@
+                            @*</div>*@
+                            <div class="span4">
+                                @*<label class="name"> @team.getPatient.name  @team.getPatient.surname</label>*@
+                                <label>Supervisora: @team.getSupervisor.name @team.getSupervisor.surname </label>
+                                <label>Coordinadora: @team.getCoordinator.name @team.getCoordinator.surname</label>
+                                @for(therapist <-  team.getTherapists){
+                                    <label>Terapeutas: @therapist.name @therapist.surname</label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             }
+            </div>
 
         }
 

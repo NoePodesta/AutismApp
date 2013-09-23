@@ -40,7 +40,10 @@ public class User extends Model {
     @OneToOne
     @Valid
     public Address address;
+    @Pattern(regexp = "^(\\d*)$", message = "Ingrese un número de celular válido")
     public String cellphone;
+    @Pattern(regexp = "^(\\d*)$", message = "Ingrese un número de teléfono válido")
+    @Constraints.Required
     public String telephone;
     @Pattern(regexp = "^(\\d{8})$", message = "Ingrese un dni válido")
     @Constraints.Required

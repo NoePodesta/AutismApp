@@ -23,8 +23,13 @@ public class Team extends Model {
     @OneToOne
     public Patient patient;
     @OneToMany
-    private List<Therapist_Role> therapists;
+    public List<Therapist_Role> therapists;
 
+
+
+    public Team(){
+        therapists = new ArrayList<Therapist_Role>();
+    }
 
     public static Model.Finder<Integer,Team> find = new Model.Finder(Integer.class, Team.class);
 

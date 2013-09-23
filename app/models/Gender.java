@@ -9,28 +9,37 @@ import java.util.List;
 public enum Gender {
 
     @EnumValue("Female")
-    FEMALE,
+    FEMALE("Female"),
 
-    @EnumValue("MALE")
-    MALE;
+    @EnumValue("Male")
+    MALE("Male");
 
+    String value;
 
+    Gender(String value){
+        this.value = value;
+
+    }
+
+    String getValue(){
+        return value;
+    }
     public static List<String> all(){
 
         List<String> result = new ArrayList<String>();
 
-        result.add(FEMALE.name());
-        result.add(MALE.name());
+        result.add(FEMALE.getValue());
+        result.add(MALE.getValue());
 
         return result;
     }
 
     public boolean isFemale(){
-        return equals(FEMALE);
+        return equals(FEMALE.toString());
     }
 
     public boolean isMale(){
-        return equals(MALE);
+        return equals(MALE.toString());
     }
 
 }

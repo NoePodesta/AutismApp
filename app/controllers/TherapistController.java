@@ -5,18 +5,13 @@ import models.Gender;
 import models.Therapist;
 import models.TherapistType;
 import models.User;
-import org.apache.commons.io.FileUtils;
 import play.data.Form;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.createTherapistForm;
 import views.html.editTherapistForm;
 import views.html.therapists;
-
-import java.io.File;
-import java.io.IOException;
 
 
 import static play.data.Form.form;
@@ -62,7 +57,7 @@ public class TherapistController extends Controller {
             }
         }
 
-        // Check if the username is valid
+        // Check if the dni is valid
         if(!therapistForm.hasErrors()) {
             if(Therapist.findTherapistByDNI(therapistForm.get().dni) != null) {
                 therapistForm.reject("dni", "Ya se ha ingresado este dni");
@@ -75,36 +70,9 @@ public class TherapistController extends Controller {
 
         Therapist therapistFromForm = therapistForm.get();
 
-        Gender gender = (therapistFromForm.gender.equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
+        Gender gender = (therapistForm.data().get("genero").equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
 
-        Http.MultipartFormData body = request().body().asMultipartFormData();
-        Http.MultipartFormData.FilePart picture = body.getFile("picture");
-
-
-        String pathFile = null;
-
-        if(picture != null){
-
-            String fileName = picture.getFilename();
-            File file = picture.getFile();
-
-            File destinationFile = new File(play.Play.application().path().toString() + "//public//uploads//"
-                    + therapistFromForm.name + therapistFromForm.surname + "//" + fileName);
-
-            try {
-                FileUtils.copyFile(file, destinationFile);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            pathFile = "/assets/uploads/" + therapistFromForm.name + therapistFromForm.surname + "/" + fileName;
-        }else{
-            pathFile = gender.isFemale() ? "/assets/uploads/female.jpg" : "/assets/uploads/male.jpg";
-
-        }
-
-
+        String pathFile = UserController.getPathName(therapistFromForm, gender);
 
         User.Address address = new User.Address(therapistFromForm.address.street,therapistFromForm.address.number,
                 therapistFromForm.address.floor, therapistFromForm.address.depto,therapistFromForm.address.cp,
@@ -121,8 +89,7 @@ public class TherapistController extends Controller {
         return therapistList();
     }
 
-
-    public static Result editTherapist(int id) {
+   public static Result editTherapist(int id) {
         Form<Therapist> therapistForm = form(Therapist.class).fill(
                 Therapist.findTherapistById(id)
         );

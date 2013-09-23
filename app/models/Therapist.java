@@ -29,7 +29,7 @@ public class Therapist
     @Constraints.MinLength(value = 6)
     public String password;
     @ManyToOne
-    private List<Therapist_Role> team;
+    public List<Therapist_Role> team;
     @Enumerated(EnumType.STRING)
     private TherapistType therapistType;
 
@@ -94,6 +94,24 @@ public class Therapist
             return false;
         }
 
+    }
+
+    public static List<String> allTherapistsByName() {
+        List<String> therapists = new ArrayList<String>();
+        for(Therapist therapist : Therapist.all()){
+            therapists.add(therapist.name + " " + therapist.surname);
+        }
+
+        return therapists;
+    }
+
+    public static List<String> allTherapistsByNameAndDni() {
+        List<String> therapists = new ArrayList<String>();
+        for(Therapist therapist : Therapist.all()){
+            therapists.add(therapist.name + " " + therapist.surname + " - " + therapist.dni);
+        }
+
+        return therapists;
     }
 
     public TherapistType getTherapistType() {

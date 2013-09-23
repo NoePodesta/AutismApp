@@ -49,6 +49,8 @@ GET         /teams                                controllers.TeamController.tea
 
 # Add Team
 GET         /teams/new                            controllers.TeamController.createTeam()
+POST        /teams                                controllers.TeamController.saveTeam()
+
 
 
 

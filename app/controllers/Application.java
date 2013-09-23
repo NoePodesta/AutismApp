@@ -1,18 +1,26 @@
 package controllers;
 
 
+import models.Gender;
 import models.Patient;
 import models.Team;
 import models.Therapist;
 import models.TherapistType;
+import models.User;
+import org.apache.commons.io.FileUtils;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.*;
+
+import java.io.File;
+import java.io.IOException;
 
 import static play.data.Form.form;
 
 public class Application extends Controller {
+
 
     public static class Login {
         public String dni;

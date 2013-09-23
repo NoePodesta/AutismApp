@@ -23,10 +23,8 @@ public class Patient
         extends User {
 
 
-    @Constraints.Required
     public String medicalCoverage;
-    @Constraints.Required
-    @Pattern(regexp = "^([0-9].+)$", message = "Ingrese un número válido.")
+    @Pattern(regexp = "^([0-9]*)$", message = "Ingrese un número válido.")
     public String nMedicalCoverage;
     @Constraints.Required
     public String disease;
@@ -88,11 +86,29 @@ public class Patient
         return patients;
     }
 
+    public static List<String> allPatientsByNameAndDni() {
+        List<String> patients = new ArrayList<String>();
+        for(Patient patient : Patient.all()){
+            patients.add(patient.name + " " + patient.surname + " - " + patient.dni);
+        }
+
+        return patients;
+    }
+
+
+
+
 
     public static Patient findPatientByName(String name, String surname) {
         return find.where()
                 .eq("name", name)
                 .eq("surname", surname)
+                .findUnique();
+    }
+
+    public static Patient findPatientByDNI(String dni) {
+        return find.where()
+                .eq("dni", dni)
                 .findUnique();
     }
 

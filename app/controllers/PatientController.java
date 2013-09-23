@@ -3,12 +3,9 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import models.Gender;
 import models.Patient;
-import models.Therapist;
 import models.User;
-import org.apache.commons.io.FileUtils;
 import play.data.Form;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import views.html.createPatientForm;
 
@@ -44,9 +41,9 @@ public class PatientController
 
         Form<Patient> patientForm = form(Patient.class).bindFromRequest();
 
-        // Check if the username is valid
+        // Check if the dni is valid
         if(!patientForm.hasErrors()) {
-            if(Therapist.findTherapistByDNI(patientForm.get().dni) != null) {
+            if(Patient.findPatientByDNI(patientForm.get().dni) != null) {
                 patientForm.reject("dni", "Ya se ha ingresado este dni");
             }
         }
@@ -57,34 +54,9 @@ public class PatientController
 
         Patient patientFromForm = patientForm.get();
 
-        Gender gender = (patientFromForm.gender.equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
+        Gender gender = (patientForm.data().get("genero").equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
 
-        Http.MultipartFormData body = request().body().asMultipartFormData();
-        Http.MultipartFormData.FilePart picture = body.getFile("picture");
-
-
-        String pathFile;
-
-        if(picture != null){
-
-            String fileName = picture.getFilename();
-            File file = picture.getFile();
-
-            File destinationFile = new File(play.Play.application().path().toString() + "//public//uploads//"
-                    + patientFromForm.name + patientFromForm.surname + "//" + fileName);
-
-            try {
-                FileUtils.copyFile(file, destinationFile);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            pathFile = "/assets/uploads/" + patientFromForm.name + patientFromForm.surname + "/" + fileName;
-        }else{
-            pathFile = gender.isFemale() ? "/assets/uploads/female.jpg" : "/assets/uploads/male.jpg";
-
-        }
+        String pathFile = UserController.getPathName(patientFromForm,gender);
 
         User.Address address = new User.Address(patientFromForm.address.street,patientFromForm.address.number,
                 patientFromForm.address.floor, patientFromForm.address.depto,patientFromForm.address.cp,

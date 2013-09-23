@@ -17,17 +17,17 @@ insert into Therapists (id,name,surname,cellphone, telephone,address_id,dni,gend
 'Perez','1144047681', '45673456',1,'34543123', 'Female' ,'emi@gmail.com','1989-12-30', 'uploads/female.jpg', '45678', 'emi123','ADMIN');
 
 insert into Therapists (id,name,surname,cellphone,telephone,address_id,dni,gender,mail,birthday,image, nm,password,therapist_type) values (5,'Laura',
-'Carrazco', '1149871981','4532468',1,'4567457', 'Female','lauchi@gmail.com','1986-10-04', 'uploads/female.jpg', '98765', 'lau123','ADMIN');
+'Carrasco', '1149871981','4532468',1,'4567457', 'Female','lauchi@gmail.com','1986-10-04', 'uploads/female.jpg', '98765', 'lau123','ADMIN');
 
 insert into Patients (id,name,surname,address_id,cellphone,telephone,dni,gender,mail,birthday,image,medical_coverage,n_medical_coverage,
                      disease,grade_disease,q_award_a, q_award_b, q_award_c) values
-(6,'Genaro', 'Frap',1, '1145679876','54329876','45876976', 'Female','geniii@gmail.com','2009-07-10', 'uploads/male.jpg', 'osde',
+(6,'Genaro', 'Frapole',1, '1145679876','54329876','45876976', 'Female','geniii@gmail.com','2009-07-10', 'uploads/male.jpg', 'osde',
 '3467876456','tgd',1, 2, 0, 0 );
 
 insert into Patients (id,name,surname,address_id,cellphone,telephone,dni,gender,mail,birthday,image,medical_coverage,n_medical_coverage,
                       disease,grade_disease,q_award_a, q_award_b, q_award_c) values
-(7,'Genaro', 'Frap',1, '1145679876','54329876','45876976', 'Female','geniii@gmail.com','2009-07-10', 'uploads/male.jpg', 'osde',
- '3467876456','tgd',1, 2, 0, 0 );
+(7,'Genaro', 'Fraper',1, '1145679876','54329876','45876976', 'Female','geniii@gmail.com','2009-07-10', 'uploads/male.jpg', 'osde',
+ '3467876456','thhgd',1, 2, 0, 0 );
 
 insert into Patients (id,name,surname,address_id,cellphone,telephone,dni,gender,mail,birthday,image,medical_coverage,n_medical_coverage,
                       disease,grade_disease,q_award_a, q_award_b, q_award_c) values
@@ -44,4 +44,6 @@ insert into Patients (id,name,surname,address_id,cellphone,telephone,dni,gender,
 delete from Therapists;
 delete from Patients;
 delete from Address;
+delete from therapist_role;
+
 
