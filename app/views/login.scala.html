@@ -1,4 +1,4 @@
-@(loginForm: Form[Application.Login], signUpForm: Form[Therapist])
+@(loginForm: Form[Application.Login], signUpForm: Form[Application.PartialSignUp])
 
 
 <html>
@@ -39,12 +39,12 @@
             }
 
 
-            @helper.form(routes.Application.registerAdmin, 'class -> "form-signin") {
+            @helper.form(routes.Application.signUpPartial(), 'class -> "form-signin") {
             <form class="form-signin">
                     <h2 class="form-signin-heading">Sign Up</h2>
                     <input name="dni" class="input-block-level" type="text" placeholder="Ingrese su dni" value="@signUpForm("dni").value">
                     <input name="password"  class="input-block-level" type="password" placeholder="Ingrese su password">
-                    <input name="mail"  class="input-block-level" type="text" placeholder="Ingrese su mail">
+                    <input name="email"  class="input-block-level" type="text" placeholder="Ingrese su mail">
                     <input type="submit" value="Sign Up" class="btn btn-success"/>
             </form>
             }

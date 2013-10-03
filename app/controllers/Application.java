@@ -1,21 +1,16 @@
 package controllers;
 
 
-import models.Gender;
-import models.Patient;
-import models.Team;
 import models.Therapist;
 import models.TherapistType;
-import models.User;
-import org.apache.commons.io.FileUtils;
 import play.data.Form;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
-import views.html.*;
 
-import java.io.File;
-import java.io.IOException;
+import views.html.login;
+import views.html.signUp;
+import views.html.therapists;
+
 
 import static play.data.Form.form;
 
@@ -27,17 +22,31 @@ public class Application extends Controller {
         public String password;
 
         public String validate() {
-            if (Therapist.authenticate(dni, password) == null) {
-                return "Invalid user or password";
-            }
+            if (Therapist.authenticate(dni, password) == null) return "Invalid user or password";
             return null;
         }
-
     }
 
-    public static Result signUp() {
+    public static class PartialSignUp {
+        public String dni;
+        public String password;
+        public String email;
+    }
+
+    public static Result signUpPartial(){
+        PartialSignUp partialSignUp = form(PartialSignUp.class).bindFromRequest().get();
+        Form<PartialSignUp> partialSignUpForm = form(PartialSignUp.class);
+        partialSignUpForm.fill(partialSignUp);
+        return signUp(partialSignUpForm);
+    }
+
+    public static Result signUp(){
+        return signUp(form(PartialSignUp.class));
+    }
+
+    public static Result signUp(Form<PartialSignUp> partialSignUpForm) {
         Form<Therapist> therapistForm = form(Therapist.class);
-        return ok(signUp.render("Sign Up Form", therapistForm));
+        return ok(signUp.render("Sign Up Form", therapistForm, partialSignUpForm));
     }
 
     public static Result registerAdmin() {
@@ -49,14 +58,14 @@ public class Application extends Controller {
     }
 
     public static Result login(){
-        return ok(login.render(form(Login.class),form(Therapist.class)));
+        return ok(login.render(form(Login.class), form(PartialSignUp.class)));
     }
 
 
     public static Result authenticate() {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
         if (loginForm.hasErrors()) {
-            return badRequest(login.render(loginForm,form(Therapist.class)));
+            return badRequest(login.render(form(Login.class), form(PartialSignUp.class)));
         } else {
             session().clear();
             session("dni", loginForm.get().dni);

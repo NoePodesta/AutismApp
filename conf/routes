@@ -9,8 +9,9 @@ GET         /logout                               controllers.Application.logout
 GET         /index                                controllers.Application.index()
 
 #Sign Up
-GET         /signUp                               controllers.Application.signUp()
+POST        /signup                               controllers.Application.signUpPartial()
 POST        /registerAdmin                        controllers.Application.registerAdmin()
+GET         /signUp                               controllers.Application.signUp()
 
 
 # Profile
