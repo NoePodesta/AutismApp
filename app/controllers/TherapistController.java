@@ -43,12 +43,13 @@ public class TherapistController extends Controller {
     }
 
     public static Result saveTherapist(){
-        return saveTherapist(TherapistType.NO_PRIVILEGES);
+        return saveTherapist(TherapistType.NO_PRIVILEGES, form(Therapist.class).bindFromRequest());
     }
 
-    public static Result saveTherapist(TherapistType type) {
+    public static Result saveTherapist(TherapistType type, Form<Therapist> form) {
 
-        Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
+
+        Form<Therapist> therapistForm = form;
 
         // Check repeated password
         if(!therapistForm.field("password").valueOr("").isEmpty()) {

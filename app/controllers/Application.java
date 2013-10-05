@@ -30,13 +30,11 @@ public class Application extends Controller {
     public static class PartialSignUp {
         public String dni;
         public String password;
-        public String email;
+        public String mail;
     }
 
     public static Result signUpPartial(){
-        PartialSignUp partialSignUp = form(PartialSignUp.class).bindFromRequest().get();
-        Form<PartialSignUp> partialSignUpForm = form(PartialSignUp.class);
-        partialSignUpForm.fill(partialSignUp);
+        Form<PartialSignUp> partialSignUpForm = form(PartialSignUp.class).bindFromRequest();
         return signUp(partialSignUpForm);
     }
 
@@ -50,7 +48,7 @@ public class Application extends Controller {
     }
 
     public static Result registerAdmin() {
-        return TherapistController.saveTherapist(TherapistType.ADMIN);
+        return TherapistController.saveTherapist(TherapistType.ADMIN, form(Therapist.class).bindFromRequest());
     }
 
     public static Result index() {
