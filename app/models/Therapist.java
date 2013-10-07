@@ -32,7 +32,7 @@ public class Therapist
     public List<Therapist_Role> team;
     @Enumerated(EnumType.STRING)
     private TherapistType therapistType;
-
+    public Institution institution;
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
 

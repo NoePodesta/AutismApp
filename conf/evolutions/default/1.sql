@@ -3,7 +3,7 @@
 
 # --- !Ups
 
-create table address (
+create table Address (
   id                        integer auto_increment not null,
   street                    varchar(255),
   number                    varchar(255),
@@ -12,7 +12,7 @@ create table address (
   cp                        varchar(255),
   locality                  varchar(255),
   province                  varchar(255),
-  constraint pk_address primary key (id))
+  constraint pk_Address primary key (id))
 ;
 
 create table Game (
@@ -24,6 +24,7 @@ create table Game (
 create table Institutions (
   id                        integer auto_increment not null,
   name                      varchar(255),
+  telephone                 varchar(255),
   constraint pk_Institutions primary key (id))
 ;
 
@@ -112,7 +113,7 @@ create table User (
   constraint pk_User primary key (id))
 ;
 
-alter table Patients add constraint fk_Patients_address_1 foreign key (address_id) references address (id) on delete restrict on update restrict;
+alter table Patients add constraint fk_Patients_address_1 foreign key (address_id) references Address (id) on delete restrict on update restrict;
 create index ix_Patients_address_1 on Patients (address_id);
 alter table Patients add constraint fk_Patients_team_2 foreign key (team_id) references team (id) on delete restrict on update restrict;
 create index ix_Patients_team_2 on Patients (team_id);
@@ -124,13 +125,13 @@ alter table Results add constraint fk_Results_therapist_5 foreign key (therapist
 create index ix_Results_therapist_5 on Results (therapist_id);
 alter table team add constraint fk_team_patient_6 foreign key (patient_id) references Patients (id) on delete restrict on update restrict;
 create index ix_team_patient_6 on team (patient_id);
-alter table Therapists add constraint fk_Therapists_address_7 foreign key (address_id) references address (id) on delete restrict on update restrict;
+alter table Therapists add constraint fk_Therapists_address_7 foreign key (address_id) references Address (id) on delete restrict on update restrict;
 create index ix_Therapists_address_7 on Therapists (address_id);
 alter table therapist_role add constraint fk_therapist_role_therapist_8 foreign key (therapist_id) references Therapists (id) on delete restrict on update restrict;
 create index ix_therapist_role_therapist_8 on therapist_role (therapist_id);
 alter table therapist_role add constraint fk_therapist_role_team_9 foreign key (team_id) references team (id) on delete restrict on update restrict;
 create index ix_therapist_role_team_9 on therapist_role (team_id);
-alter table User add constraint fk_User_address_10 foreign key (address_id) references address (id) on delete restrict on update restrict;
+alter table User add constraint fk_User_address_10 foreign key (address_id) references Address (id) on delete restrict on update restrict;
 create index ix_User_address_10 on User (address_id);
 
 
@@ -139,7 +140,7 @@ create index ix_User_address_10 on User (address_id);
 
 SET FOREIGN_KEY_CHECKS=0;
 
-drop table address;
+drop table Address;
 
 drop table Game;
 

@@ -1,10 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import models.Gender;
-import models.Therapist;
-import models.TherapistType;
-import models.User;
+import models.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -75,14 +72,20 @@ public class TherapistController extends Controller {
 
         String pathFile = UserController.getPathName(therapistFromForm, gender);
 
-        User.Address address = new User.Address(therapistFromForm.address.street,therapistFromForm.address.number,
-                therapistFromForm.address.floor, therapistFromForm.address.depto,therapistFromForm.address.cp,
-                therapistFromForm.address.locality,therapistFromForm.address.province);
+        Address address = new Address(therapistFromForm.address.street, therapistFromForm.address.number,
+                therapistFromForm.address.floor, therapistFromForm.address.depto, therapistFromForm.address.cp,
+                therapistFromForm.address.locality, therapistFromForm.address.province);
 
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
                 therapistFromForm.cellphone,address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
                 gender, therapistFromForm.nm, therapistFromForm.password, pathFile, type);
 
+        Address institutionAddress = therapistFromForm.institution.address;
+        Institution institution = therapistFromForm.institution;
+
+
+        Ebean.save(institutionAddress);
+        Ebean.save(institution);
         Ebean.save(address);
         Ebean.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +
@@ -112,8 +115,8 @@ public class TherapistController extends Controller {
 
         Therapist realTherapist = Therapist.findTherapistById(id);
         Therapist therapist = therapistForm.get();
-        User.Address addressForm = therapist.address;
-        User.Address address = realTherapist.address;
+        Address addressForm = therapist.address;
+        Address address = realTherapist.address;
         address.street = addressForm.street;
         address.number = addressForm.number;
         address.floor = addressForm.floor;

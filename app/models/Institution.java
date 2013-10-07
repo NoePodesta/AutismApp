@@ -14,14 +14,23 @@ import javax.persistence.*;
  */
 
 @Entity
-//@DiscriminatorValue("aTherapist")
 @Table(name="Institutions")
 public class Institution extends Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    public int id;
+
     @Constraints.Required
-    private String name;
+    public String name;
+
+    public Address address;
+
+    public String telephone;
+
+
+
+
+
 
 }

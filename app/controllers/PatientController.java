@@ -1,16 +1,13 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import models.Address;
 import models.Gender;
 import models.Patient;
-import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.createPatientForm;
-
-import java.io.File;
-import java.io.IOException;
 
 import static play.data.Form.form;
 
@@ -58,9 +55,9 @@ public class PatientController
 
         String pathFile = UserController.getPathName(patientFromForm,gender);
 
-        User.Address address = new User.Address(patientFromForm.address.street,patientFromForm.address.number,
-                patientFromForm.address.floor, patientFromForm.address.depto,patientFromForm.address.cp,
-                patientFromForm.address.locality,patientFromForm.address.province);
+        Address address = new Address(patientFromForm.address.street, patientFromForm.address.number,
+                patientFromForm.address.floor, patientFromForm.address.depto, patientFromForm.address.cp,
+                patientFromForm.address.locality, patientFromForm.address.province);
 
         Patient patient = new Patient(patientFromForm.name, patientFromForm.surname, patientFromForm.telephone,
                 patientFromForm.cellphone,address, patientFromForm.dni, patientFromForm.gender, patientFromForm.mail,
