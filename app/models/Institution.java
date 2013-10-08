@@ -2,8 +2,10 @@ package models;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+import views.html.therapists;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,14 +25,18 @@ public class Institution extends Model {
 
     @Constraints.Required
     public String name;
-
+    @OneToOne
     public Address address;
 
     public String telephone;
 
+    @OneToMany
+    public ArrayList<Therapist> therapists;
+
+    public static Model.Finder<Integer,Institution> find = new Model.Finder(Integer.class, Institution.class);
 
 
-
-
-
+    public static Institution getById(int institutionId) {
+        return find.byId(institutionId);
+    }
 }

@@ -35,15 +35,19 @@ public class TherapistController extends Controller {
         }
     }
 
+    public static Result therapistList(int institutionId) {
+        return ok(therapists.render(Therapist.findByInstitutionId(institutionId)));
+    }
+
     public static Result therapistList() {
         return ok(therapists.render(Therapist.all()));
     }
 
     public static Result saveTherapist(){
-        return saveTherapist(TherapistType.NO_PRIVILEGES, form(Therapist.class).bindFromRequest());
+        return saveTherapist(TherapistType.NO_PRIVILEGES, form(Therapist.class).bindFromRequest(), false);
     }
 
-    public static Result saveTherapist(TherapistType type, Form<Therapist> form) {
+    public static Result saveTherapist(TherapistType type, Form<Therapist> form, boolean autoLogin) {
 
 
         Form<Therapist> therapistForm = form;
@@ -72,16 +76,21 @@ public class TherapistController extends Controller {
 
         String pathFile = UserController.getPathName(therapistFromForm, gender);
 
+        Address institutionAddress = therapistFromForm.institution.address;
+        Institution institution = therapistFromForm.institution;
+
         Address address = new Address(therapistFromForm.address.street, therapistFromForm.address.number,
                 therapistFromForm.address.floor, therapistFromForm.address.depto, therapistFromForm.address.cp,
                 therapistFromForm.address.locality, therapistFromForm.address.province);
 
+        String hashed = BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
+
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
                 therapistFromForm.cellphone,address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
-                gender, therapistFromForm.nm, therapistFromForm.password, pathFile, type);
+                gender, therapistFromForm.nm, hashed, pathFile, type, institution);
 
-        Address institutionAddress = therapistFromForm.institution.address;
-        Institution institution = therapistFromForm.institution;
+
+
 
 
         Ebean.save(institutionAddress);
@@ -90,7 +99,14 @@ public class TherapistController extends Controller {
         Ebean.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +
                 "dada de alta");
-        return therapistList();
+
+        if(autoLogin){
+            session().clear();
+            session("dni", therapist.dni);
+
+        }
+
+        return therapistList(institution.id);
     }
 
    public static Result editTherapist(int id) {

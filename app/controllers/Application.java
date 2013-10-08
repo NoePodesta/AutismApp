@@ -22,7 +22,7 @@ public class Application extends Controller {
         public String password;
 
         public String validate() {
-            if (Therapist.authenticate(dni, password) == null) return "Invalid user or password";
+            if (Therapist.authenticate(dni, password)) return "Invalid user or password";
             return null;
         }
     }
@@ -48,11 +48,12 @@ public class Application extends Controller {
     }
 
     public static Result registerAdmin() {
-        return TherapistController.saveTherapist(TherapistType.ADMIN, form(Therapist.class).bindFromRequest());
+        return TherapistController.saveTherapist(TherapistType.ADMIN, form(Therapist.class).bindFromRequest(), true);
     }
 
     public static Result index() {
-        return ok(therapists.render(Therapist.all()));
+        //return ok(therapists.render(Therapist.findByInstitutionId()));
+        return TODO;
     }
 
     public static Result login(){
@@ -67,7 +68,7 @@ public class Application extends Controller {
         } else {
             session().clear();
             session("dni", loginForm.get().dni);
-            return redirect(routes.Application.index());
+            return ok(therapists.render(Therapist.findByInstitutionId(Therapist.findTherapistByDNI(loginForm.get().dni).institution.id)));
         }
     }
 

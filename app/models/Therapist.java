@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import controllers.BCrypt;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -32,6 +33,7 @@ public class Therapist
     public List<Therapist_Role> team;
     @Enumerated(EnumType.STRING)
     private TherapistType therapistType;
+    @ManyToOne
     public Institution institution;
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
@@ -39,24 +41,29 @@ public class Therapist
     public Therapist(final String name, final String surname, final String telephone, final String cellphone,
                      final Address address,
                      final String dni, final String mail, Date birthday, Gender gender,  final String nm, final String password,
-                     final String image, final TherapistType therapistType)
+                     final String image, final TherapistType therapistType, Institution institution)
     {
         super(name, surname, telephone, cellphone, address, dni,gender, mail, birthday, image);
         this.nm =  nm;
         this.password = password;
         this.team = new ArrayList<Therapist_Role>();
         this.therapistType = therapistType;
+        this.institution = institution;
     }
 
     public static List<Therapist> all() {
         return find.all();
     }
 
-    public static Therapist authenticate(String dni, String password) {
-        return find.where()
-                .eq("dni", dni)
-                .eq("password", password)
-                .findUnique();
+    public static boolean authenticate(String dni, String password) {
+        Therapist therapist = find.where().eq("dni", dni).findUnique();
+        if(therapist != null){
+            String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+            if(BCrypt.checkpw(therapist.password, hashed)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static Therapist findTherapistByDNI(String dni) {
@@ -120,5 +127,12 @@ public class Therapist
 
     public void setTherapistType(TherapistType therapistType) {
         this.therapistType = therapistType;
+    }
+
+    public static List<Therapist> findByInstitutionId(int institutionId) {
+        Institution institution = Institution.getById(institutionId);
+        return find.where()
+                .eq("institution", institution)
+                .findList();
     }
 }
