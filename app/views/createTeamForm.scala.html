@@ -28,7 +28,7 @@
             <legend>Supervisor</legend>
             @select(
                 teamForm("supervisor"),
-                options = options(Therapist.allTherapistsByNameAndDni()),
+                options = options(TherapistController.allTherapistsByNameAndDni(session.get("dni"))),
                 '_default -> "--- Eliga un supervisor ---",
                 '_label -> "Supervisor",
                 '_error -> teamForm("supervisor").error.map(_.withMessage("Por favor seleccione un supervisor"))
@@ -39,7 +39,7 @@
             <legend>Coordinador</legend>
             @select(
                 teamForm("coordinator"),
-                options = options(Therapist.allTherapistsByNameAndDni()),
+                options = options(TherapistController.allTherapistsByNameAndDni(session.get("dni")))),
                 '_default -> "--- Eliga un coordinador ---",
                 '_label -> "Cordinador",
                 '_error -> teamForm("coordinator").error.map(_.withMessage("Por Favor seleccione un coordinador"))
@@ -50,7 +50,7 @@
             <legend>Integrador</legend>
             @select(
                 teamForm("integrator"),
-                options = options(Therapist.allTherapistsByNameAndDni()),
+                options = options(TherapistController.allTherapistsByNameAndDni(session.get("dni")))),
                 '_default -> "--- Eliga un integrador ---",
                 '_label -> "Integrador",
                 '_error -> teamForm("integrator").error.map(_.withMessage("Por favor seleccione un integrador"))

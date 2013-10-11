@@ -135,4 +135,10 @@ public class Therapist
                 .eq("institution", institution)
                 .findList();
     }
+
+    public static List<Therapist> findByInstitution(Institution institution) {
+        return find.where()
+                .eq("institution", institution)
+                .findList();
+    }
 }

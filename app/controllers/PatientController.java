@@ -1,12 +1,11 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import models.Address;
-import models.Gender;
-import models.Patient;
+import models.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.createPatientForm;
 
 import static play.data.Form.form;
@@ -17,7 +16,7 @@ import static play.data.Form.form;
  * Date: 03/09/13
  * Time: 12:15
  */
-
+@Security.Authenticated(Secured.class)
 public class PatientController
         extends Controller {
 
@@ -30,7 +29,7 @@ public class PatientController
 
     public static Result patientList() {
         return ok(
-                views.html.patients.render(Patient.all())
+                views.html.patients.render(Patient.findPatientByInstitution(Therapist.findTherapistByDNI(session().get("dni")).institution))
         );
     }
 
@@ -55,6 +54,8 @@ public class PatientController
 
         String pathFile = UserController.getPathName(patientFromForm,gender);
 
+        Institution institution = InstitutionController.getInsitutionById(Therapist.findTherapistByDNI(session().get("dni")).institution.id);
+
         Address address = new Address(patientFromForm.address.street, patientFromForm.address.number,
                 patientFromForm.address.floor, patientFromForm.address.depto, patientFromForm.address.cp,
                 patientFromForm.address.locality, patientFromForm.address.province);
@@ -62,7 +63,7 @@ public class PatientController
         Patient patient = new Patient(patientFromForm.name, patientFromForm.surname, patientFromForm.telephone,
                 patientFromForm.cellphone,address, patientFromForm.dni, patientFromForm.gender, patientFromForm.mail,
                 patientFromForm.birthday, patientFromForm.medicalCoverage,patientFromForm.nMedicalCoverage,patientFromForm.disease,
-                patientFromForm.gradeDisease,pathFile);
+                patientFromForm.gradeDisease,pathFile, institution);
 
         Ebean.save(address);
         Ebean.save(patient);

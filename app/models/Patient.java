@@ -39,13 +39,16 @@ public class Patient
     private int qAwardB;
     private int qAwardC;
 
+    @ManyToOne
+    public Institution institution;
+
 
 
     public Patient(final String name, final String surname, final String telephone, final String cellphone,
                    final Address address, final String dni, final Gender gender,
                    final String mail, final Date birthday,
                    final String medicalCoverage, final String nMedicalCoverage, final String disease,
-                   String gradeDisease, final String image) {
+                   String gradeDisease, final String image, final Institution institution) {
 
         super(name, surname, telephone, cellphone, address, dni, gender, mail, birthday, image);
         this.medicalCoverage = medicalCoverage;
@@ -56,6 +59,7 @@ public class Patient
         this.qAwardA = 0;
         this.qAwardB = 0;
         this.qAwardC = 0;
+        this.institution = institution;
     }
 
     public static Model.Finder<Integer,Patient> find = new Model.Finder(Integer.class, Patient.class);
@@ -113,6 +117,9 @@ public class Patient
     }
 
 
-
-
+    public static List<Patient> findPatientByInstitution(Institution institution) {
+        return find.where()
+                .eq("institution", institution)
+                .findList();
+    }
 }

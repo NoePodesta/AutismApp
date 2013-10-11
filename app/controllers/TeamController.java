@@ -9,6 +9,7 @@ import models.TherapistRole;
 import models.Therapist_Role;
 import play.data.Form;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.createTeamForm;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import static play.mvc.Results.ok;
  * Time: 20:47
  * To change this template use File | Settings | File Templates.
  */
+@Security.Authenticated(Secured.class)
 public class TeamController {
 
     public static Result createTeam() {
@@ -125,8 +127,6 @@ public class TeamController {
         team.therapists.add(therapistRole);
 
         Ebean.save(team);
-
-
 
 
         flash("success", "El equipo de trabajo ha sido creado");

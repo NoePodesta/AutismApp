@@ -11,6 +11,9 @@ import views.html.editTherapistForm;
 import views.html.therapists;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static play.data.Form.form;
 
 /**
@@ -35,8 +38,17 @@ public class TherapistController extends Controller {
         }
     }
 
-    public static Result therapistList(int institutionId) {
-        return ok(therapists.render(Therapist.findByInstitutionId(institutionId)));
+    public static List<String> allTherapistsByNameAndDni(String dni) {
+        List<String> therapists = new ArrayList<String>();
+        for(Therapist therapist : Therapist.findByInstitution(Therapist.findTherapistByDNI(dni).institution)){
+            therapists.add(therapist.name + " " + therapist.surname + " - " + therapist.dni);
+        }
+
+        return therapists;
+    }
+
+    public static Result therapistList(Institution institution) {
+        return ok(therapists.render(Therapist.findByInstitution(institution)));
     }
 
     public static Result therapistList() {
@@ -72,29 +84,38 @@ public class TherapistController extends Controller {
 
         Therapist therapistFromForm = therapistForm.get();
 
+        String hashed = "";
+        Institution institution = null;
+        if(type == TherapistType.NO_PRIVILEGES){
+            String newPassword = "";
+            try {
+                newPassword = RandomStringGenerator.generateRandomString(6, RandomStringGenerator.Mode.ALPHANUMERIC);
+                sendNewUserEmail(therapistFromForm.mail, newPassword);
+            } catch (Exception e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            hashed =  BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
+            institution = InstitutionController.getInsitutionById(Therapist.findTherapistByDNI(session().get("dni")).institution.id);
+        }else{
+             hashed = BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
+             Address institutionAddress = therapistFromForm.institution.address;
+             institution = therapistFromForm.institution;
+             Ebean.save(institutionAddress);
+             Ebean.save(institution);
+        }
+
+
         Gender gender = (therapistForm.data().get("genero").equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
-
         String pathFile = UserController.getPathName(therapistFromForm, gender);
-
-        Address institutionAddress = therapistFromForm.institution.address;
-        Institution institution = therapistFromForm.institution;
 
         Address address = new Address(therapistFromForm.address.street, therapistFromForm.address.number,
                 therapistFromForm.address.floor, therapistFromForm.address.depto, therapistFromForm.address.cp,
                 therapistFromForm.address.locality, therapistFromForm.address.province);
-
-        String hashed = BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
-
         Therapist therapist = new Therapist(therapistFromForm.name, therapistFromForm.surname, therapistFromForm.telephone,
                 therapistFromForm.cellphone,address, therapistFromForm.dni, therapistFromForm.mail,therapistFromForm.birthday,
                 gender, therapistFromForm.nm, hashed, pathFile, type, institution);
 
 
-
-
-
-        Ebean.save(institutionAddress);
-        Ebean.save(institution);
         Ebean.save(address);
         Ebean.save(therapist);
         flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +
@@ -106,10 +127,14 @@ public class TherapistController extends Controller {
 
         }
 
-        return therapistList(institution.id);
+        return therapistList(institution);
     }
 
-   public static Result editTherapist(int id) {
+    private static void sendNewUserEmail(String email, String password) {
+        MailService.sendNewUserEmail(email, password);
+    }
+
+    public static Result editTherapist(int id) {
         Form<Therapist> therapistForm = form(Therapist.class).fill(
                 Therapist.findTherapistById(id)
         );
@@ -157,6 +182,8 @@ public class TherapistController extends Controller {
         }
         return therapistList();
     }
+
+
 
 
 

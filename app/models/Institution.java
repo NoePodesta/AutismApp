@@ -33,8 +33,16 @@ public class Institution extends Model {
     @OneToMany
     public ArrayList<Therapist> therapists;
 
+    @OneToMany
+    public ArrayList<Patient> patients;
+
     public static Model.Finder<Integer,Institution> find = new Model.Finder(Integer.class, Institution.class);
 
+    public Institution(final String name, final Address address, final String telephone){
+        this.name = name;
+        this.address = address;
+        this.telephone = telephone;
+    }
 
     public static Institution getById(int institutionId) {
         return find.byId(institutionId);
