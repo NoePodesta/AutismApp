@@ -122,4 +122,10 @@ public class Patient
                 .eq("institution", institution)
                 .findList();
     }
+
+    public static Patient findPatientById(int id){
+        return find.where()
+                .eq("id",id)
+                .findUnique();
+    }
 }

@@ -61,16 +61,38 @@
                         @therapist.birthday.format("dd MMM yyyy")</td>
                 }
                 <td>@therapist.nm</td>
-                @form(routes.TherapistController.removeTherapist(therapist.id)) {
+
                 <td class = "remove">
-                    <input type="submit" value="Eliminar" class="btn btn-danger disabled">
+                    <a data-toggle="modal" href="#myModal" class="btn btn-danger disabled">Eliminar</a>
                 </td>
+
                 <td class = "edit">
                     <a class="btn btn-info disabled" href="@routes.TherapistController.editTherapist(therapist.id)">Editar</a>
                 </td>
-                }
 
             </tr>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Eliminar Terapeuta</h4>
+                        </div>
+                        <div class="modal-body">
+                            Estas seguro que queres eliminar a este terapeuta?
+                            @therapist.dni
+                        </div>
+                        <div class="modal-footer">
+                        @form(routes.TherapistController.removeTherapist(therapist.id)) {
+                            <input type="submit" value="Eliminar" class="btn btn-danger disabled">
+                        }
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
             }
 
             </tbody>

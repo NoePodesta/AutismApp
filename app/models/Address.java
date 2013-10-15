@@ -33,7 +33,7 @@ public class Address extends Model {
     public String locality;
     @Constraints.Required
     public String province;
-
+    public static Model.Finder<Integer,Address> find = new Model.Finder(Integer.class, Address.class);
     public Address(String street, String number, String floor, String depto, String cp, String locality, String province) {
         this.street = street;
         this.number = number;
@@ -42,5 +42,9 @@ public class Address extends Model {
         this.cp = cp;
         this.locality = locality;
         this.province = province;
+    }
+
+    public static Address findById(int id) {
+        return find.where().eq("id", id).findUnique();
     }
 }

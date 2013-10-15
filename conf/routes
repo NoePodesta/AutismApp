@@ -4,60 +4,62 @@
 
 #Populate Database
 
-GET         /populateDatabase                    controllers.DatabasePopulator.populateTherapistDatabase()
+GET         /populateDatabase                      controllers.DatabasePopulator.populateTherapistDatabase()
 
 # Home page
-GET         /                                     controllers.Application.login()
-POST        /login                                controllers.Application.authenticate()
-GET         /logout                               controllers.Application.logout()
-GET         /index                                controllers.Application.index()
+GET         /                                      controllers.Application.login()
+POST        /login                                 controllers.Application.authenticate()
+GET         /logout                                controllers.Application.logout()
+GET         /index                                 controllers.Application.index()
+POST        /recoverPassword                       controllers.Application.recoverPassword()
 
 #Sign Up
-POST        /signup                               controllers.Application.signUpPartial()
-POST        /registerAdmin                        controllers.Application.registerAdmin()
-GET         /signUp                               controllers.Application.signUp()
+POST        /signup                                controllers.Application.signUpPartial()
+POST        /registerAdmin                         controllers.Application.registerAdmin()
+GET         /signUp                                controllers.Application.signUp()
 
 
 # Profile
-GET         /profile                              controllers.Application.profile()
+GET         /profile                               controllers.TherapistController.profile()
 
 
 # List Pacient
-GET         /patients                             controllers.PatientController.patientList()
+GET         /patients                              controllers.PatientController.patientList()
 
 # Add Patient
-GET         /patients/new                         controllers.PatientController.createPatient()
-POST        /patients                             controllers.PatientController.savePatient()
+GET         /patients/new                          controllers.PatientController.createPatient()
+POST        /patients                              controllers.PatientController.savePatient()
+
+# Edit Patient
+GET         /patient/:id                            controllers.PatientController.editPatient(id:Integer)
 
 # Remove Patient
-POST        /patients/id/removePatient            controllers.PatientController.removePatient(id: Integer)
+POST        /patients/removePatient/:id             controllers.PatientController.removePatient(id: Integer)
 
 
 # List Therapist
-GET         /therapists                           controllers.TherapistController.therapistList()
+GET         /therapists                            controllers.TherapistController.therapistList()
 
 # Add Therapist
-GET         /therapists/new                       controllers.TherapistController.createTherapist()
-POST        /therapists                           controllers.TherapistController.saveTherapist()
+GET         /therapists/new                        controllers.TherapistController.createTherapist()
+POST        /therapists                            controllers.TherapistController.saveTherapist()
 
 # Remove Therapist
-POST        /therapists/id/removeTherapist        controllers.TherapistController.removeTherapist(id: Integer)
+POST        /therapists/removeTherapist/:id        controllers.TherapistController.removeTherapist(id: Integer)
 
 # Edit existing Therapist
-GET         /therapists/:id                       controllers.TherapistController.editTherapist(id:Integer)
-POST        /therapists/:id                       controllers.TherapistController.updateTherapist(id:Integer)
-
-
+GET         /therapists/:id                        controllers.TherapistController.editTherapist(id:Integer)
+POST        /editTherapists                        controllers.TherapistController.updateTherapist()
 
 # List Team
-GET         /teams                                controllers.TeamController.teamList()
+GET         /teams                                 controllers.TeamController.teamList()
 
 # Add Team
-GET         /teams/new                            controllers.TeamController.createTeam()
-POST        /teams                                controllers.TeamController.saveTeam()
+GET         /teams/new                             controllers.TeamController.createTeam()
+POST        /teams                                 controllers.TeamController.saveTeam()
 
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                         controllers.Assets.at(path="/public", file)
+GET         /assets/*file                          controllers.Assets.at(path="/public", file)

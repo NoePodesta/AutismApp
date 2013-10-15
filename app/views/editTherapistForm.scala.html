@@ -1,4 +1,4 @@
-@(id: Integer)(therapistForm: Form[Therapist])
+@(id: Integer)(therapistForm: Form[Therapist])(self: Boolean)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -16,12 +16,12 @@
         </div>
         }
 
-        @form(routes.TherapistController.updateTherapist(id), 'enctype -> "multipart/form-data") {
+        @form(routes.TherapistController.updateTherapist(), 'enctype -> "multipart/form-data") {
 
 
             <fieldset>
                 <legend>Información General</legend>
-
+                <input type="hidden" value="@therapistForm("id").value" name="id" />
 
                 @inputText(therapistForm("name"),
                     '_label -> "Nombre"
@@ -133,7 +133,7 @@
                 )
 
             </fieldset>
-
+            @if(self){
             <fieldset>
 
                 <legend>Contraseña</legend>
@@ -151,7 +151,7 @@
                 )
 
             </fieldset>
-
+            }
             <div class="actions">
                 <input type="submit" value="Guardar" class="btn btn-success">
             </div>

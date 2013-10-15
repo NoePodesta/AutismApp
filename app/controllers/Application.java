@@ -34,6 +34,11 @@ public class Application extends Controller {
         public String mail;
     }
 
+    public static class RecoverPassword {
+        public String dni;
+        public String mail;
+    }
+
     public static Result signUpPartial(){
         Form<PartialSignUp> partialSignUpForm = form(PartialSignUp.class).bindFromRequest();
         return signUp(partialSignUpForm);
@@ -58,24 +63,22 @@ public class Application extends Controller {
     }
 
     public static Result login(){
-        return ok(login.render(form(Login.class), form(PartialSignUp.class)));
+        return ok(login.render(form(Login.class), form(PartialSignUp.class), form(RecoverPassword.class)));
     }
 
 
     public static Result authenticate() {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
         if (loginForm.hasErrors()) {
-            return badRequest(login.render(form(Login.class), form(PartialSignUp.class)));
+            return badRequest(login.render(form(Login.class), form(PartialSignUp.class), form(RecoverPassword.class)));
         } else {
             session().clear();
             session("dni", loginForm.get().dni);
-            return ok(therapists.render(Therapist.findByInstitutionId(Therapist.findTherapistByDNI(loginForm.get().dni).institution.id)));
+            return TherapistController.therapistList();
         }
     }
 
-    public static Result profile() {
-        return ok();
-    }
+
 
     public static Result logout() {
         session().clear();
@@ -83,6 +86,17 @@ public class Application extends Controller {
         return redirect(
                 routes.Application.login()
         );
+    }
+
+    public static Result recoverPassword(){
+        RecoverPassword recoverPassword = form(RecoverPassword.class).bindFromRequest().get();
+
+        if(MailService.recoverPassword(recoverPassword.dni, recoverPassword.mail)){
+            flash("success", "Se te envio un mail con los nuevos datos");
+        }else{
+            flash("success", "La informacion proporcionada no es valida");
+        }
+        return login();
     }
 
 }

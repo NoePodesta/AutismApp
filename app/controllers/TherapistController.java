@@ -8,6 +8,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.createTherapistForm;
 import views.html.editTherapistForm;
+import views.html.profile;
 import views.html.therapists;
 
 
@@ -48,13 +49,31 @@ public class TherapistController extends Controller {
     }
 
     public static Result therapistList(Institution institution) {
-        return ok(therapists.render(Therapist.findByInstitution(institution)));
+        ArrayList<Therapist> therapistsToShow = new ArrayList<Therapist>();
+        Therapist current = Therapist.findTherapistByDNI(session().get("dni"));
+        for(Therapist therapist : Therapist.findByInstitution(institution)){
+            if(therapist.id != current.id){
+                therapistsToShow.add(therapist);
+            }
+        }
+        return ok(therapists.render(therapistsToShow));
     }
 
     public static Result therapistList() {
+        ArrayList<Therapist> therapistsToShow = new ArrayList<Therapist>();
+        Therapist current = Therapist.findTherapistByDNI(session().get("dni"));
+        for(Therapist therapist : Therapist.findByInstitution(current.institution)){
+            if(therapist.id != current.id){
+                therapistsToShow.add(therapist);
+            }
+        }
+        return ok(therapists.render(therapistsToShow));
+    }
+     /*
+    public static Result therapistList() {
         return ok(therapists.render(Therapist.all()));
     }
-
+      */
     public static Result saveTherapist(){
         return saveTherapist(TherapistType.NO_PRIVILEGES, form(Therapist.class).bindFromRequest(), false);
     }
@@ -136,29 +155,42 @@ public class TherapistController extends Controller {
     }
 
     public static Result editTherapist(int id) {
-        Form<Therapist> therapistForm = form(Therapist.class).fill(
-                Therapist.findTherapistById(id)
-        );
-        return ok(
-                editTherapistForm.render(id, therapistForm)
-        );
+        Therapist therapistToFill = Therapist.findTherapistById(id);
+        Form<Therapist> therapistForm = form(Therapist.class).fill(therapistToFill);
+        if(therapistToFill.dni.equals(session().get("dni"))){
+            return ok(editTherapistForm.render(id, therapistForm, true));
+        }else{
+            return ok(editTherapistForm.render(id, therapistForm, false));
+        }
     }
+
+
 
     /**
      * Handle the 'edit form' submission
      *
-     * @param id Id of the computer to edit
+     *
      */
-    public static Result updateTherapist(int id) {
+    public static Result updateTherapist() {
         Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
+        //Declarado asi por un bug de play
         if(therapistForm.hasErrors()) {
-            return badRequest(editTherapistForm.render(id, therapistForm));
-       }
+            String id = therapistForm.data().get("id");
+            Therapist therapist = Therapist.findTherapistById(Integer.parseInt(id));
+            if(therapist.dni.equals(session().get("dni"))){
+                return badRequest(editTherapistForm.render(therapist.id, therapistForm, true));
+            }else{
+                return badRequest(editTherapistForm.render(therapist.id, therapistForm, false));
+            }
 
-        Therapist realTherapist = Therapist.findTherapistById(id);
+        }
         Therapist therapist = therapistForm.get();
+        String newPassword = BCrypt.hashpw(therapist.password, BCrypt.gensalt());
+        therapist.password = newPassword;
+
+        Address address = Address.findById(Therapist.findTherapistById(therapist.id).address.id);
+
         Address addressForm = therapist.address;
-        Address address = realTherapist.address;
         address.street = addressForm.street;
         address.number = addressForm.number;
         address.floor = addressForm.floor;
@@ -167,8 +199,10 @@ public class TherapistController extends Controller {
         address.locality = addressForm.locality;
         address.province = addressForm.province;
 
-        Ebean.update(realTherapist.address);
-        Ebean.update(realTherapist);
+        therapist.address = address;
+
+        Ebean.update(address);
+        Ebean.update(therapist);
 
 
         flash("success", "Sus cambios han sido guardados");
@@ -184,10 +218,26 @@ public class TherapistController extends Controller {
         return therapistList();
     }
 
+    public static Therapist getTherapistByDNI(String dni) {
+        return Therapist.findTherapistByDNI(dni);
+    }
 
 
+    public static String updatePassword(Therapist therapist) {
+        String newPassword = "";
+        try {
+            newPassword = RandomStringGenerator.generateRandomString(6, RandomStringGenerator.Mode.ALPHANUMERIC);
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        therapist.password = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+        Ebean.update(therapist);
 
+        return newPassword;  //To change body of created methods use File | Settings | File Templates.
+    }
 
-
-
+    public static Result profile() {
+        Therapist therapist = Therapist.findTherapistByDNI(session().get("dni"));
+        return ok(profile.render(therapist));
+    }
 }

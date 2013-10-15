@@ -1,0 +1,18 @@
+@(currentTherapist: Therapist)
+
+@title = {
+    Profile
+}
+
+@main(title ,nav = "") {
+
+    <td>@currentTherapist.name</td>
+    <td>@currentTherapist.surname</td>
+    <td>@currentTherapist.telephone</td>
+    <td>@currentTherapist.dni</td>
+    <td>@currentTherapist.mail</td>
+
+    <td class = "edit">
+        <a class="btn btn-info disabled" href="@routes.TherapistController.editTherapist(currentTherapist.id)">Editar</a>
+    </td>
+}
