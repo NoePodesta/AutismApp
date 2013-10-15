@@ -64,12 +64,7 @@ public class TherapistController extends Controller {
 
         Form<Therapist> therapistForm = form;
 
-        // Check repeated password
-        if(!therapistForm.field("password").valueOr("").isEmpty()) {
-            if(!therapistForm.field("password").valueOr("").equals(therapistForm.field("repeatPassword").value())) {
-                therapistForm.reject("repeatPassword", "La contraseña no coincide");
-            }
-        }
+
 
         // Check if the dni is valid
         if(!therapistForm.hasErrors()) {
@@ -97,6 +92,12 @@ public class TherapistController extends Controller {
             hashed =  BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
             institution = InstitutionController.getInsitutionById(Therapist.findTherapistByDNI(session().get("dni")).institution.id);
         }else{
+             // Check repeated password
+             if(!therapistForm.field("password").valueOr("").isEmpty()) {
+                 if(!therapistForm.field("password").valueOr("").equals(therapistForm.field("repeatPassword").value())) {
+                     therapistForm.reject("repeatPassword", "La contraseña no coincide");
+                 }
+             }
              hashed = BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
              Address institutionAddress = therapistFromForm.institution.address;
              institution = therapistFromForm.institution;

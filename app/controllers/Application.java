@@ -22,7 +22,8 @@ public class Application extends Controller {
         public String password;
 
         public String validate() {
-            if (Therapist.authenticate(dni, password)) return "Invalid user or password";
+            if (!Therapist.authenticate(dni, password))
+                return "Invalid user or password";
             return null;
         }
     }

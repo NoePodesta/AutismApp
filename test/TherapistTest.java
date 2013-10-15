@@ -6,28 +6,13 @@
  * To change this template use File | Settings | File Templates.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.avaje.ebean.Ebean;
 import models.*;
+import org.junit.Test;
 
 import java.util.Date;
-import org.codehaus.jackson.JsonNode;
-import org.junit.*;
 
-import play.mvc.*;
-import play.test.*;
-import play.data.DynamicForm;
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.RequiredValidator;
-import play.i18n.Lang;
-import play.libs.F;
-import play.libs.F.*;
-
-import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class TherapistTest extends BaseModelTest {
 
@@ -39,8 +24,35 @@ public class TherapistTest extends BaseModelTest {
 
         Therapist therapist = new Therapist("Juan","Molteni","47911306","123",therapistAddress,"33850398","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"asd","123456","", TherapistType.ADMIN,institution);
 
+        Ebean.save(institutionAddress);
+        Ebean.save(therapistAddress);
+        Ebean.save(institution);
+        Ebean.save(therapist);
+
         Therapist therapistAssert = Therapist.findTherapistByDNI(therapist.dni);
 
-        assertThat(therapist).isEqualTo(therapistAssert);
+        assertThat(therapist.id).isEqualTo(therapistAssert.id);
     }
+
+    @Test
+    public void AddTherapistsTest() {
+        Address therapistAddress = new Address("Cabildo","1250","3","D","1638","Vicente Lopez","Buenos Aires");
+        Institution institution = Institution.getById(1);
+
+        Therapist therapist = new Therapist("Juan","Molteni","47911306","123",therapistAddress,"33850398","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"asd","123456","", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist2 = new Therapist("Juan","Molteni","47911306","123",therapistAddress,"33850397","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"asd","123456","", TherapistType.NO_PRIVILEGES,institution);
+
+        Ebean.save(therapistAddress);
+        Ebean.save(therapist);
+        Ebean.save(therapist2);
+
+        Therapist therapistAssert = Therapist.findTherapistByDNI(therapist.dni);
+        Therapist therapistAssert2 = Therapist.findTherapistByDNI(therapist2.dni);
+
+        assertThat(therapist.id).isEqualTo(therapistAssert.id);
+        assertThat(therapist2.id).isEqualTo(therapistAssert2.id);
+    }
+
+
+
 }

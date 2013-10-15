@@ -58,8 +58,7 @@ public class Therapist
     public static boolean authenticate(String dni, String password) {
         Therapist therapist = find.where().eq("dni", dni).findUnique();
         if(therapist != null){
-            String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-            if(BCrypt.checkpw(therapist.password, hashed)){
+            if(BCrypt.checkpw(password, therapist.password)){
                 return true;
             }
         }
