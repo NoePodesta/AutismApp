@@ -8,9 +8,11 @@ import models.Therapist;
 import models.TherapistRole;
 import models.Therapist_Role;
 import play.data.Form;
+import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.createTeamForm;
+import views.html.editTeamForm;
 
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ import static play.mvc.Results.ok;
  * To change this template use File | Settings | File Templates.
  */
 @Security.Authenticated(Secured.class)
-public class TeamController {
+public class TeamController extends Controller {
 
     public static Result createTeam() {
 //        if (Secured.isAdmin()) {
@@ -50,16 +52,24 @@ public class TeamController {
         }
 
         Team team = new Team();
+
         Ebean.save(team);
+
 
         //Patient
         String patientDni = teamForm.data().get("paciente");
         String[] patientArray = patientDni.split("-");
-        Patient patient = Patient.findPatientByDNI(patientArray[1]);
+        Patient patient = Patient.findPatientByDNI(patientArray[1].trim());
         team.patient = patient;
 
         patient.team = team;
-        Ebean.save(patient);
+        Ebean.update(patient);
+
+        String patientName =  patient.name + " " + patient.surname;
+
+        //Institution
+        team.institution = patient.institution;
+
 
         //Supervisor
         String supervisorDni = teamForm.data().get("supervisor");
@@ -73,7 +83,9 @@ public class TeamController {
             supervisor.team = new ArrayList<Therapist_Role>();
         }
         supervisor.team.add(supervisorRole);
-        Ebean.save(supervisor);
+
+        MailService.sendNewTeamMail("Supervisor", supervisor.mail, patientName);
+        Ebean.update(supervisor);
 
         //Coordinator
         String coordinatorDni = teamForm.data().get("coordinator");
@@ -87,7 +99,9 @@ public class TeamController {
             coordinator.team = new ArrayList<Therapist_Role>();
         }
         coordinator.team.add(coordinatorRole);
-        Ebean.save(coordinator);
+
+        MailService.sendNewTeamMail("Coordinador", coordinator.mail, patientName);
+        Ebean.update(coordinator);
 
 
         //Integrator
@@ -102,7 +116,8 @@ public class TeamController {
             integrator.team = new ArrayList<Therapist_Role>();
         }
         integrator.team.add(integratorRole);
-        Ebean.save(integrator);
+        MailService.sendNewTeamMail("Integrador", integrator.mail, patientName);
+        Ebean.update(integrator);
 
 
         //Therapist
@@ -117,7 +132,8 @@ public class TeamController {
             therapist.team = new ArrayList<Therapist_Role>();
         }
         therapist.team.add(therapistRole);
-        Ebean.save(therapist);
+        MailService.sendNewTeamMail("Terapeuta", therapist.mail, patientName);
+        Ebean.update(therapist);
 
 
 
@@ -126,7 +142,7 @@ public class TeamController {
         team.therapists.add(integratorRole);
         team.therapists.add(therapistRole);
 
-        Ebean.save(team);
+        Ebean.update(team);
 
 
         flash("success", "El equipo de trabajo ha sido creado");
@@ -136,9 +152,32 @@ public class TeamController {
 
     public static Result teamList() {
         return ok(
-                views.html.teams.render(Team.all())
+                views.html.teams.render(Team.findByInstitution(TherapistController.getTherapistByDNI(session().get("dni")).institution))
         );
 
+    }
+
+    public static Result editTeam(int id) {
+        Team teamToFill = Team.findTeamById(id);
+        Form<Team> teamForm = form(Team.class).fill(teamToFill);
+        return ok(editTeamForm.render(teamForm));
+    }
+
+    public static Result removeTeam(int id){
+        if(Team.deleteTeam(id)){
+            flash("success", "El equipo ha sido eliminado");
+        }else{
+            //Do Error Message
+        }
+        return teamList();
+    }
+
+    public static Result updateTeam(){
+        /*
+        Team team = form(Team.class).bindFromRequest().get();
+        Ebean.update(team);
+        */
+        return TODO;
     }
 
 

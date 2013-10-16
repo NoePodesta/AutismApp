@@ -240,4 +240,8 @@ public class TherapistController extends Controller {
         Therapist therapist = Therapist.findTherapistByDNI(session().get("dni"));
         return ok(profile.render(therapist));
     }
+
+    public static Therapist getTherapistById(int id) {
+        return Therapist.findTherapistById(id);  //To change body of created methods use File | Settings | File Templates.
+    }
 }

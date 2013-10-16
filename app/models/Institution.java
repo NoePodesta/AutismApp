@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import views.html.therapists;
@@ -36,6 +37,9 @@ public class Institution extends Model {
     @OneToMany
     public ArrayList<Patient> patients;
 
+    @OneToMany
+    public ArrayList<Team> teams;
+
     public static Model.Finder<Integer,Institution> find = new Model.Finder(Integer.class, Institution.class);
 
     public Institution(final String name, final Address address, final String telephone){
@@ -46,5 +50,10 @@ public class Institution extends Model {
 
     public static Institution getById(int institutionId) {
         return find.byId(institutionId);
+    }
+
+    public static void updateInstitution(Institution institution) {
+        Ebean.update(institution);
+
     }
 }

@@ -1,0 +1,85 @@
+@(institutionForm: Form[Institution])
+
+@title = {
+Modificar Institution
+}
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(title, nav = " "){
+<div id=institutionForm>
+    @if(institutionForm.hasErrors) {
+    <div class="alert-message error">
+        <p><strong>Oops!</strong> Hay algunos errores</p>
+    </div>
+    }
+
+
+    @helper.form(routes.InstitutionController.updateInstitution(), 'enctype -> "multipart/form-data") {
+    <input type="hidden" value="@institutionForm("id").value" name="id" />
+
+    <fieldset>
+        <legend>Información General</legend>
+
+
+        @inputText(
+        institutionForm("name"),
+        '_label -> "Nombre"
+        )
+
+        @inputText(
+        institutionForm("address.cp"),
+        '_label -> "Codigo Postal"
+        )
+
+        @inputText(
+        institutionForm("address.street"),
+        '_label -> "Calle"
+        )
+
+        @inputText(
+        institutionForm("address.number"),
+        '_label -> "Número",'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @inputText(
+        institutionForm("address.floor"),
+        '_label -> "Piso", 'class -> "mini"
+        )
+
+        @inputText(
+        institutionForm("address.depto"),
+        '_label -> "Departamento", 'class -> "mini"
+        )
+
+        @inputText(
+        institutionForm("address.locality"),
+        '_label -> "Localidad"
+        )
+
+        @select(
+        institutionForm("address.province"),
+        options = options(Province.list),
+        '_default -> "--- Eliga una provincia ---",
+        '_label -> "Provincia",
+        '_error -> institutionForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
+        )
+
+        @inputText(
+        institutionForm("telephone"),
+        '_label -> "Teléfono"
+        )
+
+
+
+
+        <div class="actions">
+        <input type="submit" value="Actualizar" class="btn primary">
+    </div>
+
+    }
+</div>
+}
+

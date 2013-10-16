@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -19,11 +20,14 @@ public class Team extends Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    public int id;
     @OneToOne
     public Patient patient;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     public List<Therapist_Role> therapists;
+
+    @ManyToOne
+    public Institution institution;
 
 
 
@@ -73,4 +77,26 @@ public class Team extends Model {
        return patient;
     }
 
+    public static boolean deleteTeam(int id) {
+        Team teamToDelete = findTeamById(id);
+        if(teamToDelete != null){
+            teamToDelete.delete();
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public static Team findTeamById(int id) {
+        return find.byId(id);  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public static void updateTeam(Team team) {
+        team.update();
+    }
+
+    public static List<Team> findByInstitution(Institution institution) {
+        return find.where().eq("institution", institution).findList();  //To change body of created methods use File | Settings | File Templates.
+    }
 }

@@ -54,4 +54,16 @@ public class MailService extends Controller {
         }
         return false;
     }
+
+    public static void sendNewTeamMail(String rol, String email, String nombrePaciente) {
+
+        mail.setSubject("Te han asignado dentro de un equipo");
+        mail.addRecipient(email);
+        mail.addFrom("Team GetTogether <noreply@GetTogether.com>");
+        mail.send( "Hola!" +
+                "\n\nHas recibido este mail porque has sido asignado dentro de un nuevo equipo. Tu rol para el paciente " +
+                nombrePaciente + " es el de " +  rol +
+                "\n\nSaludos," +
+                "\nEquipo GetTogether" );
+    }
 }

@@ -31,10 +31,11 @@ GET         /patients/new                          controllers.PatientController
 POST        /patients                              controllers.PatientController.savePatient()
 
 # Edit Patient
-GET         /patient/:id                            controllers.PatientController.editPatient(id:Integer)
+GET         /patient/:id                           controllers.PatientController.editPatient(id:Integer)
+POST        /patient/updatePatient                 controllers.PatientController.updatePatient()
 
 # Remove Patient
-POST        /patients/removePatient/:id             controllers.PatientController.removePatient(id: Integer)
+POST        /patients/removePatient/:id            controllers.PatientController.removePatient(id: Integer)
 
 
 # List Therapist
@@ -58,6 +59,17 @@ GET         /teams                                 controllers.TeamController.te
 GET         /teams/new                             controllers.TeamController.createTeam()
 POST        /teams                                 controllers.TeamController.saveTeam()
 
+#Edit Team
+GET         /teams/:id                             controllers.TeamController.editTeam(id:Integer)
+POST        /editTeam                               controllers.TeamController.updateTeam()
+
+#Remove Team
+POST        /teams/:id                              controllers.TeamController.removeTeam(id:Integer)
+
+
+#Edit Institution
+GET         /institution/:id                        controllers.InstitutionController.editInstitution(id:Integer)
+POST        /editInstitution                        controllers.InstitutionController.updateInstitution()
 
 
 

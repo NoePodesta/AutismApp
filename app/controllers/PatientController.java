@@ -7,6 +7,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.createPatientForm;
+import views.html.editPatientForm;
 import views.html.editTherapistForm;
 
 import static play.data.Form.form;
@@ -54,42 +55,29 @@ public class PatientController
 
         Patient patientFromForm = patientForm.get();
 
-        if(Patient.findPatientById(patientFromForm.id) == null){
-            Gender gender = (patientForm.data().get("genero").equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
 
-            String pathFile = UserController.getPathName(patientFromForm,gender);
+        Gender gender = (patientForm.data().get("genero").equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
 
-            Institution institution = InstitutionController.getInsitutionById(Therapist.findTherapistByDNI(session().get("dni")).institution.id);
+        String pathFile = UserController.getPathName(patientFromForm,gender);
 
-            Address address = new Address(patientFromForm.address.street, patientFromForm.address.number,
-                    patientFromForm.address.floor, patientFromForm.address.depto, patientFromForm.address.cp,
-                    patientFromForm.address.locality, patientFromForm.address.province);
+        Institution institution = InstitutionController.getInsitutionById(Therapist.findTherapistByDNI(session().get("dni")).institution.id);
 
-            Patient patient = new Patient(patientFromForm.name, patientFromForm.surname, patientFromForm.telephone,
-                    patientFromForm.cellphone,address, patientFromForm.dni, patientFromForm.gender, patientFromForm.mail,
-                    patientFromForm.birthday, patientFromForm.medicalCoverage,patientFromForm.nMedicalCoverage,patientFromForm.disease,
-                    patientFromForm.gradeDisease,pathFile, institution);
+        Address address = new Address(patientFromForm.address.street, patientFromForm.address.number,
+                patientFromForm.address.floor, patientFromForm.address.depto, patientFromForm.address.cp,
+                patientFromForm.address.locality, patientFromForm.address.province);
 
-            Ebean.save(address);
-            Ebean.save(patient);
-            flash("success", "El paciente " + patientForm.get().name +" " + patientForm.get().surname + " ya ha sido " +
-                    "dada de alta");
-        }else{
+        Patient patient = new Patient(patientFromForm.name, patientFromForm.surname, patientFromForm.telephone,
+                patientFromForm.cellphone,address, patientFromForm.dni, patientFromForm.gender, patientFromForm.mail,
+                patientFromForm.birthday, patientFromForm.medicalCoverage,patientFromForm.nMedicalCoverage,patientFromForm.disease,
+                patientFromForm.gradeDisease,pathFile, institution);
 
-            Address address = Address.findById(patientFromForm.address.id);
-            Address addressForm = patientFromForm.address;
-            address.street = addressForm.street;
-            address.number = addressForm.number;
-            address.floor = addressForm.floor;
-            address.depto = addressForm.depto;
-            address.cp = addressForm.cp;
-            address.locality = addressForm.locality;
-            address.province = addressForm.province;
-            patientFromForm.address = address;
-            Ebean.update(address);
-            Ebean.update(patientFromForm);
-            flash("success", "Sus cambios han sido guardados");
-        }
+        Ebean.save(address);
+        Ebean.save(patient);
+        flash("success", "El paciente " + patientForm.get().name +" " + patientForm.get().surname + " ya ha sido " +
+                "dada de alta");
+
+
+
 
 
         return patientList();
@@ -104,9 +92,44 @@ public class PatientController
         return patientList();
     }
 
+    public static Result updatePatient(){
+        Form<Patient> patientForm = form(Patient.class).bindFromRequest();
+
+
+        if(patientForm.hasErrors()) {
+            return badRequest(createPatientForm.render("Modificar Paciente",patientForm));
+        }
+
+        // Check if the dni is valid
+        if(!patientForm.hasErrors()) {
+            if(Patient.findPatientByDNI(patientForm.get().dni) != null) {
+                patientForm.reject("dni", "Ya se ha ingresado este dni");
+            }
+        }
+
+        Patient patientFromForm = patientForm.get();
+        Address address = Address.findById(Patient.findPatientById(patientFromForm.id).address.id);
+        Address addressForm = patientFromForm.address;
+        address.street = addressForm.street;
+        address.number = addressForm.number;
+        address.floor = addressForm.floor;
+        address.depto = addressForm.depto;
+        address.cp = addressForm.cp;
+        address.locality = addressForm.locality;
+        address.province = addressForm.province;
+        patientFromForm.address = address;
+        Ebean.update(address);
+        Ebean.update(patientFromForm);
+        flash("success", "Sus cambios han sido guardados");
+
+
+
+        return patientList();
+    }
+
     public static Result editPatient(int id) {
         Patient patientToFill = Patient.findPatientById(id);
         Form<Patient> patientForm = form(Patient.class).fill(patientToFill);
-        return ok(createPatientForm.render("Modificar Paciente", patientForm));
+        return ok(editPatientForm.render("Modificar Paciente", patientForm));
     }
 }
