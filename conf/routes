@@ -61,16 +61,21 @@ POST        /teams                                 controllers.TeamController.sa
 
 #Edit Team
 GET         /teams/:id                             controllers.TeamController.editTeam(id:Integer)
-POST        /editTeam                               controllers.TeamController.updateTeam()
+POST        /editTeam                              controllers.TeamController.updateTeam()
 
 #Remove Team
-POST        /teams/:id                              controllers.TeamController.removeTeam(id:Integer)
+POST        /teams/:id                             controllers.TeamController.removeTeam(id:Integer)
 
 
 #Edit Institution
-GET         /institution/:id                        controllers.InstitutionController.editInstitution(id:Integer)
-POST        /editInstitution                        controllers.InstitutionController.updateInstitution()
+GET         /institution/:id                       controllers.InstitutionController.editInstitution(id:Integer)
+POST        /editInstitution                       controllers.InstitutionController.updateInstitution()
 
+
+#Mobile Application
+
+GET         /testConnection                        controllers.MobileApplicationController.testConnection()
+POST        /loginMobile                           controllers.MobileApplicationController.loginMobile()
 
 
 # Map static resources from the /public folder to the /assets URL path
