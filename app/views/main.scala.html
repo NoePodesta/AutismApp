@@ -16,11 +16,14 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="@routes.Application.index()"> Autism Application</a>
+                    <a class="brand" href="@routes.Application.index()"> Get Together</a>
                     <div class="nav">
                         <ul class="nav">
                             <li class="@("active".when(nav == "perfil"))">
                                 <a href="@routes.TherapistController.profile()"> Mi Perfil</a>
+                            </li>
+                            <li class="@("active".when(nav == "intitution"))">
+                                <a href="@routes.TherapistController.profile()"> Institución</a>
                             </li>
                             <li class="@("active".when(nav == "therapists"))">
                                 <a href="@routes.TherapistController.therapistList()"> Terapeutas</a>

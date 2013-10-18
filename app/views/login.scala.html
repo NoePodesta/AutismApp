@@ -2,82 +2,87 @@
 
 
 <html>
-<head>
-    <title>Autism Application - Login</title>
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
-    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
-    <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+    <head>
+        <title>Autism Application - Login</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
 
 
 </head>
-<body class="mainpage">
+    <body class="mainpage">
 
-    <div class="container">
-        <h1>AUTISM APPLICATION</h1>
-        <div class="row">
-            <div class="span6">
-                <Legend>Una nueva forma de trabajar junto a sus chicos</Legend>
+        <div class="container">
+            <h1>GET TOGETHER</h1>
+            <div class="row subtitle">
+                <span>Una nueva forma de trabajar junto a tus chicos</span>
             </div>
-            <div class="span6">
+            <div class="row boxes">
+                <div class="span5">
                 @helper.form(routes.Application.authenticate, 'class -> "form-signin") {
-                <form>
+                    <form>
                         <h2 class="form-signin-heading">Sign In</h2>
                         @if(loginForm.hasGlobalErrors) {
-                        <p class="error">
+                            <p class="error">
                             @loginForm.globalError.message
-                        </p>
+                            </p>
                         }
                         @if(flash.contains("success")) {
-                        <p class="success">
+                            <p class="success">
                             @flash.get("success")
-                        </p>
+                            </p>
                         }
                         <input name="dni" class="input-block-level" type="text" placeholder="Ingrese su dni" value="@loginForm("dni").value">
                         <input name="password"  class="input-block-level" type="password" placeholder="Ingrese su password">
-                        <input type="submit" value="Login" class="btn btn-success"/>
-                        <a data-toggle="modal" href="#myModal" class="btn btn-success">Recuperar contraseña</a>
-                </form>
+                        <input type="submit" value="Login" class="btn btn-login"/>
+                        <a data-toggle="modal" href="#myModal" class="btn btn-login">Recuperar contraseña</a>
+                    </form>
                 }
+                </div>
 
-
+                <div class="span5 offset1">
                 @helper.form(routes.Application.signUpPartial(), 'class -> "form-signin") {
-                <form class="form-signin">
+                    <form class="form-signin">
                         <h2 class="form-signin-heading">Sign Up</h2>
                         <input name="dni" class="input-block-level" type="text" placeholder="Ingrese su dni" value="@signUpForm("dni").value">
                         <input name="password"  class="input-block-level" type="password" placeholder="Ingrese su password">
                         <input name="mail"  class="input-block-level" type="text" placeholder="Ingrese su mail">
-                        <input type="submit" value="Sign Up" class="btn btn-success"/>
-                </form>
+                        <input type="submit" value="Sign Up" class="btn btn-login"/>
+                    </form>
                 }
-
+                </div>
             </div>
-
         </div>
-    </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Recuperar contraseña</h4>
-                </div>
-                <div class="modal-body">
-                    Para recuperar tu contraseña, ingresa tu numero de DNI y tu email
-                    @helper.form(routes.Application.recoverPassword()) {
-                    <input name="dni" class="input-block-level" type="text" placeholder="DNI">
-                    <input name="mail"  class="input-block-level" placeholder="Email">
-                </div>
-                <div class="modal-footer">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Recuperar contraseña</h4>
+                    </div>
+                    <div class="modal-body">
+                        Para recuperar su contraseña, ingrese su numero de DNI y su email
+                        @helper.form(routes.Application.recoverPassword()) {
+                            <input name="dni" class="input-block-level" type="text" placeholder="DNI">
+                            <input name="mail"  class="input-block-level" placeholder="Email">
+                        </div>
+                    <div class="modal-footer">
                         <input type="submit" value="Recuperar" class="btn btn-success">
-                    }
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+                        }
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
-</body>
+        <footer class="footer">
+            <div class="container">
+                <p>J&N Studios®</p>
+            </div>
+        </footer>
+
+    </body>
 </html>
