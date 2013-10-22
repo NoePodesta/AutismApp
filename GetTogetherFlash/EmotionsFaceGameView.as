@@ -53,8 +53,8 @@
 		function onCompleteGIFLoad ( pEvt:GIFPlayerEvent ):void
 
 		{
-			myGIFPlayer.x = 15;
-			myGIFPlayer.y = 10;
+			myGIFPlayer.x = 40;
+			myGIFPlayer.y = 15;
 			answerGraphicArea.addChild ( myGIFPlayer );
 			(manager as EmotionsFaceGameManager).loadGIFComplete();
 			

@@ -34,7 +34,7 @@
 			answerGraphicArea.y = 115;
 			answerGraphicArea.x = 1024 / 2 - answerGraphicArea.width/2;
 			
-			answer.x = 1024 / 2 - 96; 
+			answer.x = 1024 / 2 - 72; 
 			answer.y = 130;
 			
 			answerTextArea = new TextField();
