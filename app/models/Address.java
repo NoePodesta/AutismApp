@@ -32,8 +32,13 @@ public class Address extends Model {
     @Pattern(regexp = "^([a-zA-Z].+)$", message = "Ingrese un calle válida. Utilice solamente letras")
     public String locality;
     @Constraints.Required
+
     public String province;
+
+
     public static Model.Finder<Integer,Address> find = new Model.Finder(Integer.class, Address.class);
+
+
     public Address(String street, String number, String floor, String depto, String cp, String locality, String province) {
         this.street = street;
         this.number = number;

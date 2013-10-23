@@ -6,9 +6,6 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.createPatientForm;
-import views.html.editPatientForm;
-import views.html.editTherapistForm;
 
 import static play.data.Form.form;
 
@@ -26,13 +23,13 @@ public class PatientController
         Form<Patient> patientForm = form(Patient.class);
 
         return ok(
-                views.html.createPatientForm.render("Dar de alta paciente", patientForm)
+                views.html.patient.createPatientForm.render(patientForm)
         );
     }
 
     public static Result patientList() {
         return ok(
-                views.html.patients.render(Patient.findPatientByInstitution(Therapist.findTherapistByDNI(session().get("dni")).institution))
+                views.html.patient.patients.render(Patient.findPatientByInstitution(Therapist.findTherapistByDNI(session().get("dni")).institution))
         );
     }
 
@@ -42,7 +39,7 @@ public class PatientController
 
 
         if(patientForm.hasErrors()) {
-            return badRequest(createPatientForm.render("Dar de alta paciente",patientForm));
+            return badRequest(views.html.patient.createPatientForm.render(patientForm));
         }
 
         // Check if the dni is valid
@@ -97,7 +94,7 @@ public class PatientController
 
 
         if(patientForm.hasErrors()) {
-            return badRequest(createPatientForm.render("Modificar Paciente",patientForm));
+            return badRequest(views.html.patient.createPatientForm.render(patientForm));
         }
 
         // Check if the dni is valid
@@ -130,6 +127,6 @@ public class PatientController
     public static Result editPatient(int id) {
         Patient patientToFill = Patient.findPatientById(id);
         Form<Patient> patientForm = form(Patient.class).fill(patientToFill);
-        return ok(editPatientForm.render("Modificar Paciente", patientForm));
+        return ok(views.html.patient.editPatientForm.render(patientForm));
     }
 }

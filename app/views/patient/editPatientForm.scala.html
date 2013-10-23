@@ -1,13 +1,13 @@
-@(titleString: String, patientForm: Form[Patient])
+@(patientForm: Form[Patient])
 
-@title = {
-    @titleString
-}
+    @title = {
+        Editar Paciente
+    }
 
 @import helper._
 @import helper.twitterBootstrap._
 
-@main(title, nav = " "){
+@main(title , nav = " "){
     <div id=therapistForm>
         @if(patientForm.hasErrors) {
             <div class="alert-message error">
@@ -16,8 +16,8 @@
         }
 
 
-        @helper.form(routes.PatientController.savePatient(), 'enctype -> "multipart/form-data") {
-
+        @helper.form(routes.PatientController.updatePatient(), 'enctype -> "multipart/form-data") {
+            <input type="hidden" value="@patientForm("id").value" name="id" />
 
             <fieldset>
                 <legend>Información General</legend>
@@ -160,7 +160,7 @@
 
 
             <div class="actions">
-                <input type="submit" value="Agregar Paciente" class="btn primary">
+                <input type="submit" value="Actualizar" class="btn primary">
             </div>
 
         }

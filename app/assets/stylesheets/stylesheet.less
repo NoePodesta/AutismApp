@@ -27,6 +27,10 @@
   background-image: linear-gradient(top, #FFAD5c, #FF9933);
 }
 
+.underline{
+  text-decoration: underline;
+}
+
 @font-face
 {
   font-family: chalk;
@@ -68,6 +72,42 @@
   src: url("/assets/fonts/LEVIBRUSH.ttf")
 }
 
+@font-face
+{
+  font-family: alwayss;
+  src: url("/assets/fonts/always.ttf")
+}
+
+@font-face
+{
+  font-family: cartoon;
+  src: url("/assets/fonts/Cartoon.ttf")
+}
+
+@font-face
+{
+  font-family: coolvetica;
+  src: url("/assets/fonts/coolvetica.ttf")
+}
+
+@font-face
+{
+  font-family: littleSwag;
+  src: url("/assets/fonts/KGALittleSwag.ttf")
+}
+
+@font-face
+{
+  font-family: song;
+  src: url("/assets/fonts/song.ttf")
+}
+
+@font-face
+{
+  font-family: vintage;
+  src: url("/assets/fonts/Vintage_fair.ttf")
+}
+
 
 html, body{
   background: #eee;
@@ -90,7 +130,7 @@ body{
   background-color: #f5f5f5;
   height:20px;
   bottom: 0;
-  position: fixed;
+//  position: fixed;
   width: 100%;
 
 }
@@ -124,18 +164,26 @@ body{
 
 .container .bodyPage{
   background-color: white;
-
+  height: 100%;
   padding-left: 20px;
   padding-right: 20px;
   text-align: justify;
   box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
-
+  padding-top: 10px;
 
 }
 
-.imageContainer {
-    background-image: url("/assets/images/background.png");
-    background-repeat: repeat;
+//.imageContainer {
+//    background-image: url("/assets/images/stripeBackground.png");
+//    background-repeat: repeat;
+//}
+
+h1{
+  font-family: love;
+}
+
+h2{
+  font-family: alwayss;
 }
 
 
@@ -144,6 +192,12 @@ body{
 
 body > .navbar {
   font-size: 13px;
+}
+
+.navbar.navbar-inverse.navbar-fixed-top {
+  margin-right: auto;
+  margin-left: auto;
+  width: 1064px;
 }
 
 /* Change the docs' brand */
@@ -263,6 +317,211 @@ fieldset{
 
 }
 
+/* ---------------------------------------- THERAPIST PROFILE ---------------------------------------- */
+
+
+.image-btn.btn.btn-info.disabled{
+  z-index: 1;
+  position: absolute;
+}
+
+.img-profile{
+  position: absolute;
+}
+
+.teamInfo{
+
+  color: black;
+  margin-top: 80px;
+
+  h2{
+    border-bottom: solid gray;
+    color: #000000;
+  }
+  .information{
+    font-family: song;
+    font-size: 15px;
+    padding-top: 5px;
+  }
+
+  .btn.btn-info{
+    float: right;
+    background-color:#2f96b4;
+  }
+
+  .icon-user{
+    padding-right: 10px;
+  }
+
+  .icon-home{
+    padding-right: 10px;
+  }
+
+  .icon-envelope{
+    padding-right: 10px;
+  }
+
+  .icon-telephone{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    padding-right: 10px;
+    background-image: url("/assets/img/phone.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+
+  }
+
+  .icon-cellphone{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    padding-right: 10px;
+    background-image: url("/assets/img/cellphone.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+
+  }
+}
+
+.profileInfo{
+
+  color: black;
+
+  h2{
+    border-bottom: solid gray;
+    color: #000000;
+  }
+  .information{
+    font-family: song;
+    font-size: 15px;
+    padding-top: 5px;
+  }
+
+  .btn.btn-info{
+    float: right;
+    background-color:#2f96b4;
+  }
+
+  .icon-user{
+    padding-right: 10px;
+  }
+
+  .icon-home{
+    padding-right: 10px;
+  }
+
+  .icon-envelope{
+    padding-right: 10px;
+  }
+
+  .icon-telephone{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    padding-right: 10px;
+    background-image: url("/assets/img/phone.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+
+  }
+
+  .icon-cellphone{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    padding-right: 10px;
+    background-image: url("/assets/img/cellphone.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+
+  }
+}
+
+#profileImage{
+
+  .modal-content {
+    width: 600px;
+    height: 700px;
+  }
+  .modal-dialog {
+    width: 600px;
+    height: 700px;
+  }
+  .modal-header {
+    padding: 0;
+    border: none;
+  }
+  .modal-body {
+    width: 515px;
+    height: 650px;
+    max-height: none;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+  .close {
+    background-image: url("/assets/images/close.png");
+    position: absolute;
+    border: none;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    left: -20px;
+    top: -20px;
+    opacity: 1;
+  }
+}
+
+
+/* --------------------------------------------- TEAMS --------------------------------------------- */
+
+
+.team{
+  text-align: center;
+  .Border-radius(10px);
+  box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+
+  img{
+    border: solid;
+    box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+  }
+
+  label{
+    display: block;
+    float: none;
+    width: 300px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .name{
+    text-transform: uppercase;
+    color: @orange;
+    font-weight: bold;
+
+  }
+  .dni{
+    font-style: italic;
+  }
+
+}
+
 
 
 /* --------------------------------------------- PATIENTS --------------------------------------------- */
@@ -304,6 +563,11 @@ fieldset{
 .patient.span5{
   margin: 30px;
   height: 150px;
+}
+
+.team.span5{
+  margin: 30px;
+  height: 200px;
 }
 
 .span5{
@@ -424,5 +688,12 @@ fieldset{
   background-color: #f57a7a;
   *background-color: #f46868;
 }
+
+.help-inline {
+  color: lightcoral;
+  font-size: 12px;
+  font-style: oblique;
+}
+
 
 

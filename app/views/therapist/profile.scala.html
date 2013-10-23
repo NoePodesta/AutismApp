@@ -1,0 +1,92 @@
+@(currentTherapist: Therapist)
+
+@title = {
+    Profile
+}
+
+@main(title , nav = "profile") {
+
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <a class="image-btn btn btn-info disabled" data-toggle="modal" href="#changeImage">Modificar</a>
+                <a href="#profileImage" data-toggle="modal"><img class="img-polaroid img-profile" src="@routes.Assets.at(currentTherapist.image)" alt="@currentTherapist.name"
+                height="200" width="200"></a>
+
+            </div>
+            <div class="span9">
+                <div class="profileInfo">
+                        <td class = "edit">
+                            <a class="btn btn-info" href="@routes.TherapistController.editTherapist(currentTherapist.id)">Editar</a>
+                        </td>
+                    <h2>Informacion Personal</h2>
+                    <div class="information"><i class="icon-user"></i>@currentTherapist.name @currentTherapist.surname</div>
+                    <div class="information"><i class="icon-home"></i>@currentTherapist.address.street @currentTherapist.address.number @currentTherapist.address.floor
+                        @currentTherapist.address.depto, @currentTherapist.address.cp,
+                        @currentTherapist.address.locality, @currentTherapist.address.province</div>
+                    <div class="information"><i class="icon-telephone"></i>@currentTherapist.telephone</div>
+                    <div class="information"><i class="icon-cellphone"></i>@currentTherapist.cellphone</div>
+                    <div class="information"><i class="icon-envelope"></i>@currentTherapist.mail</div>
+                    <div class="information underline">DNI: @currentTherapist.dni</div>
+                    <div class="information underline">Matricula Nacional: <td>@currentTherapist.nm</td></div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="teamInfo">
+            <h2>Equipos de trabajo</h2>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="changeImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*Button to close the modal*@
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Modificar Imagen</h4>
+                </div>
+                @helper.form(routes.TherapistController.updateTherapistImage(), 'enctype -> "multipart/form-data") {
+                <div class="modal-body">
+                    <div class="clearfix  " id="picture_field">
+                        <label for="picture">Imagen de Perfil</label>
+                        <div class="input">
+
+                            <input type="file" id="picture" name="picture" accept="image/*" >
+                            <span class="help-inline"></span>
+                            <span class="help-block">Ingrese una imagen de perfil.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="actions">
+                        <input type="submit" value="Actualizar" class="btn btn-success">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                    </div>
+
+                </div>
+                }
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="profileImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-profile" src="@routes.Assets.at(currentTherapist.image)" alt="@currentTherapist.name"
+                    height="100%" width="100%">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+}

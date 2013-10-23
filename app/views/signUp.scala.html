@@ -1,40 +1,12 @@
 @(title: String, therapistForm : Form[Therapist], partialSignUpForm : Form[Application.PartialSignUp])
 
-@import helper._
+    @import helper._
 
-<html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
+    @title = {
+        Sign Up
+    }
 
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
-    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
-    <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
-    </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="#"> Autism Application</a>
-                </div>
-            </div>
-        </div>
-        <header>
-            <div class="imageContainer">
-                <div class="container">
-                    <div class="wraparound">
-                        <div class="header">
-                            <h1>@title</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div class="imageContainer">
-            <div class="container">
-                <div class="bodyPage">
-
+    @main(title, nav=" "){
                     <div id=therapistForm>
                         @if(therapistForm.hasErrors) {
                             <div class="alert-message error">
@@ -45,6 +17,8 @@
                         @form(routes.Application.registerAdmin(), 'enctype -> "multipart/form-data") {
                             <fieldset>
                                 <legend>Información General</legend>
+
+                                <div class="span5">
                                 @inputText(therapistForm("name"),
                                     '_label -> "Nombre"
                                 )
@@ -67,6 +41,9 @@
                                     '_label -> "Sexo",
                                     '_error -> therapistForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo"))
                                 )
+
+                                </div>
+                                <div class="span5 offset">
 
                                 @helper.inputDate(
                                     therapistForm("birthday"),
@@ -92,6 +69,8 @@
                                         <span class="help-inline"></span>
                                         <span class="help-block">Ingrese una imagen de perfil.</span>
                                     </div>
+                                </div>
+
                                 </div>
 
                             </fieldset>
@@ -246,25 +225,8 @@
                             </div>
 
                         }
-
-                </div>
-
-            </div>
-                    <!-- Modal -->
+                    </div>
 
 
-
-        </div>
-
-
-
-
-        <footer class="footer">
-            <div class="container">
-                <p>J&N Studios®</p>
-            </div>
-        </footer>
-
-    </body>
-</html>
+}
 

@@ -1,60 +1,65 @@
-@(titleString: String, patientForm: Form[Patient])
-
-    @title = {
-    @titleString
-    }
+@(id: Integer)(therapistForm: Form[Therapist])(self: Boolean)
 
 @import helper._
 @import helper.twitterBootstrap._
 
-@main(title, nav = " "){
+
+@title = {
+    Editar terapeuta
+}
+
+@main(title , nav = " "){
     <div id=therapistForm>
-        @if(patientForm.hasErrors) {
-            <div class="alert-message error">
-                <p><strong>Oops!</strong> Hay algunos errores</p>
-            </div>
+        @if(therapistForm.hasErrors) {
+        <div class="alert-message error">
+            <p><strong>Oops!</strong> Hay algunos errores</p>
+        </div>
         }
 
+        @form(routes.TherapistController.updateTherapist(), 'enctype -> "multipart/form-data") {
 
-        @helper.form(routes.PatientController.updatePatient(), 'enctype -> "multipart/form-data") {
-            <input type="hidden" value="@patientForm("id").value" name="id" />
 
             <fieldset>
                 <legend>Información General</legend>
+                <input type="hidden" value="@therapistForm("id").value" name="id" />
 
-
-                @inputText(patientForm("name"),
+                @inputText(therapistForm("name"),
                     '_label -> "Nombre"
                 )
                 @inputText(
-                    patientForm("surname"),
+                    therapistForm("surname"),
                     '_label -> "Apellido"
                 )
 
                 @inputText(
-                    patientForm("dni"),
+                    therapistForm("dni"),
                     '_label -> "DNI",
-                    '_error -> patientForm.globalError
+                    '_error -> therapistForm.globalError
                 )
 
                 @select(
-                    patientForm("genero"),
+                    therapistForm("gender"),
                     options = options(Gender.all()),
                     '_default -> "--- Eliga el sexo ---",
                     '_label -> "Sexo",
-                    '_error -> patientForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo"))
+                    '_error -> therapistForm("gender").error.map(_.withMessage("Por Favor seleccione un sexo"))
                 )
 
                 @helper.inputDate(
-                    patientForm("birthday"),
+                    therapistForm("birthday"),
                     '_label -> "Fecha de Nacimiento",
                     '_help -> "Formato dd/MM/yyyy" ,
                     'format -> "dd/MM/yyyy"
                 )
 
                 @inputText(
-                    patientForm("mail"),
+                    therapistForm("mail"),
                     '_label -> "Correo electrónico"
+                )
+
+                @inputText(
+                    therapistForm("nm"),
+                    '_label -> "Matricula Nacional"
                 )
 
                 <div class="clearfix  " id="picture_field">
@@ -74,42 +79,42 @@
                 <legend>Dirección</legend>
 
                 @inputText(
-                    patientForm("address.cp"),
+                    therapistForm("address.cp"),
                     '_label -> "Codigo Postal"
                 )
 
                 @inputText(
-                    patientForm("address.street"),
+                    therapistForm("address.street"),
                     '_label -> "Calle"
                 )
 
                 @inputText(
-                    patientForm("address.number"),
+                    therapistForm("address.number"),
                     '_label -> "Número",'class -> "mini",
                     '_showConstraints -> false
                 )
 
                 @inputText(
-                    patientForm("address.floor"),
+                    therapistForm("address.floor"),
                     '_label -> "Piso", 'class -> "mini"
                 )
 
                 @inputText(
-                    patientForm("address.depto"),
+                    therapistForm("address.depto"),
                     '_label -> "Departamento", 'class -> "mini"
                 )
 
                 @inputText(
-                    patientForm("address.locality"),
+                    therapistForm("address.locality"),
                     '_label -> "Localidad"
                 )
 
                 @select(
-                    patientForm("address.province"),
+                    therapistForm("address.province"),
                     options = options(Province.list),
                     '_default -> "--- Eliga una provincia ---",
                     '_label -> "Provincia",
-                    '_error -> patientForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
+                    '_error -> therapistForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
                 )
 
             </fieldset>
@@ -119,48 +124,36 @@
                 <legend>Teléfonos</legend>
 
                 @inputText(
-                    patientForm("telephone"),
+                    therapistForm("telephone"),
                     '_label -> "Teléfono"
                 )
                 @inputText(
-                    patientForm( "cellphone"),
+                    therapistForm( "cellphone"),
                     '_label -> "Celular"
                 )
+
             </fieldset>
-
-
+            @if(self){
             <fieldset>
 
-                <legend>Enfermedad</legend>
+                <legend>Contraseña</legend>
 
-                @inputText(
-                    patientForm("disease"),
-                    '_label -> "Enfermedad"
+                @inputPassword(
+                    therapistForm("password"),
+                    '_label -> "Contraseña",
+                    '_help -> "La contraseña debe tener al menos 6 caracteres."
                 )
-                @inputText(
-                    patientForm("gradeDisease"),
-                    '_label -> "Grado de Enfermedad"
+                @inputPassword(
+                    therapistForm("repeatPassword"),
+                    '_label -> "Confirmar contraseña",
+                    '_help -> "Por Favor ingrese su contraseña nuevamente",
+                    '_error -> therapistForm.error("password")
                 )
+
             </fieldset>
-
-            <fieldset>
-
-                <legend>Cobertura Médica</legend>
-
-                @inputText(
-                    patientForm("medicalCoverage"),
-                    '_label -> "Cobertura Médica"
-                )
-                @inputText(
-                    patientForm("nMedicalCoverage"),
-                    '_label -> "Número"
-                )
-            </fieldset>
-
-
-
+            }
             <div class="actions">
-                <input type="submit" value="Actualizar" class="btn primary">
+                <input type="submit" value="Actualizar" class="btn btn-success">
             </div>
 
         }

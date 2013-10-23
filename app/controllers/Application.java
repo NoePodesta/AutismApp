@@ -9,7 +9,6 @@ import play.mvc.Result;
 
 import views.html.login;
 import views.html.signUp;
-import views.html.therapists;
 
 
 import static play.data.Form.form;

@@ -8,10 +8,10 @@ insert into Therapists (id,name,surname,cellphone, telephone, address_id,dni, ge
 (6,'Sofia','Martuch','1156042381', '45673456',3,'32456321','Female', 'sofimart@gmail.com','1985-10-30', 'uploads/female.jpg', '45678', 'sofi12', 'ADMIN');
 
 insert into Therapists (id,name,surname,cellphone, telephone,address_id,dni,gender,mail,birthday,image,nm,password, therapist_type) values (7,'Belén',
-'Podesta','1155041451', '45463187', 3,'33567834', 'Female','podestamb@gmail.com','1988-08-08', '/uploads/belupodesta/DSC03551-001.JPG' ,'57896', 'belu12','ADMIN');
+'Podesta','1156041451', '45463187', 3,'33567834', 'Female','podestamb@gmail.com','1988-08-08', '/uploads/belupodesta/DSC03551-001.JPG' ,'57896', 'belu12','ADMIN');
 
 insert into Therapists (id,name,surname,cellphone, telephone,address_id,dni,gender,mail,birthday,image,nm,password, therapist_type) values (8,'emilia',
-'Perez','1144047681', '45673456',3,'34543123', 'Female' ,'emi@gmail.com','1989-12-30', 'uploads/female.jpg', '45678', 'emi123','ADMIN');
+'Perez','1144047681', '45673466',3,'34543123', 'Female' ,'emi@gmail.com','1989-12-30', 'uploads/female.jpg', '45678', 'emi123','ADMIN');
 
 insert into Therapists (id,name,surname,cellphone,telephone,address_id,dni,gender,mail,birthday,image, nm,password,therapist_type) values (9,'Laura',
 'Carrasco', '1149871981','4532468',3,'4567457', 'Female','lauchi@gmail.com','1986-10-04', 'uploads/female.jpg', '98765', 'lau123','ADMIN');
@@ -40,6 +40,7 @@ insert into Patients (id,name,surname,address_id,cellphone,telephone,dni,gender,
 
 delete from Therapists;
 delete from Patients;
+delete from institutions;
 delete from Address;
 delete from therapist_role;
 

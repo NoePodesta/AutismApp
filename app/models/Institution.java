@@ -3,7 +3,6 @@ package models;
 import com.avaje.ebean.Ebean;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
-import views.html.therapists;
 
 import javax.persistence.*;
 import java.util.ArrayList;

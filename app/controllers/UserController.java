@@ -33,7 +33,7 @@ public class UserController extends Controller {
             File file = picture.getFile();
 
             File destinationFile = new File(play.Play.application().path().toString() + "//public//uploads//"
-                    + user.name + user.surname + "//" + fileName);
+                    + Utils.removeSpaces(user.name) + Utils.removeSpaces(user.surname) + "//" + fileName);
 
             try {
                 FileUtils.copyFile(file, destinationFile);
@@ -42,9 +42,9 @@ public class UserController extends Controller {
                 e.printStackTrace();
             }
 
-            pathFile = "/assets/uploads/" + user.name + user.surname + "/" + fileName;
+            pathFile = "uploads/" + Utils.removeSpaces(user.name) + Utils.removeSpaces(user.surname) + "/" + fileName;
         }else{
-            pathFile = gender.isFemale() ? "/assets/uploads/female.jpg" : "/assets/uploads/male.jpg";
+            pathFile = gender.isFemale() ? "/assets/images/female.jpg" : "/assets/images/male.jpg";
 
         }
         return pathFile;

@@ -19,10 +19,6 @@ POST        /registerAdmin                         controllers.Application.regis
 GET         /signUp                                controllers.Application.signUp()
 
 
-# Profile
-GET         /profile                               controllers.TherapistController.profile()
-
-
 # List Pacient
 GET         /patients                              controllers.PatientController.patientList()
 
@@ -38,6 +34,10 @@ POST        /patient/updatePatient                 controllers.PatientController
 POST        /patients/removePatient/:id            controllers.PatientController.removePatient(id: Integer)
 
 
+# Therapist Profile
+GET         /profile                               controllers.TherapistController.profile()
+
+
 # List Therapist
 GET         /therapists                            controllers.TherapistController.therapistList()
 
@@ -51,6 +51,8 @@ POST        /therapists/removeTherapist/:id        controllers.TherapistControll
 # Edit existing Therapist
 GET         /therapists/:id                        controllers.TherapistController.editTherapist(id:Integer)
 POST        /editTherapists                        controllers.TherapistController.updateTherapist()
+POST        /modifyTherapistImage                  controllers.TherapistController.updateTherapistImage()
+
 
 # List Team
 GET         /teams                                 controllers.TeamController.teamList()
@@ -67,9 +69,15 @@ POST        /editTeam                              controllers.TeamController.up
 POST        /teams/:id                             controllers.TeamController.removeTeam(id:Integer)
 
 
+#Institution Profile
+GET         /institution                           controllers.InstitutionController.profile()
+
+
 #Edit Institution
 GET         /institution/:id                       controllers.InstitutionController.editInstitution(id:Integer)
 POST        /editInstitution                       controllers.InstitutionController.updateInstitution()
+
+
 
 
 #Mobile Application
