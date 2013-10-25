@@ -81,10 +81,10 @@ public class PatientController
     }
 
     public static Result removePatient(int id) {
-        Patient patient = Patient.find.ref(id);
-        if(patient != null){
-            patient.delete();
-            flash("success", "El paciente ha sido eliminado");
+        if(Patient.delete(id)){
+            flash("success", "El terapeuta ha sido eliminado");
+        }else{
+            //Do Error Message
         }
         return patientList();
     }

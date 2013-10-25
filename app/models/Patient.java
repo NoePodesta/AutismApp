@@ -128,4 +128,14 @@ public class Patient
                 .eq("id",id)
                 .findUnique();
     }
+
+    public static boolean delete(int id) {
+        Patient patientToDelete = findPatientById(id);
+        if(patientToDelete != null){
+            patientToDelete.delete();
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

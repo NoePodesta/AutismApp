@@ -31,6 +31,10 @@
   text-decoration: underline;
 }
 
+.inline{
+  display: inline;
+}
+
 @font-face
 {
   font-family: chalk;
@@ -164,7 +168,6 @@ body{
 
 .container .bodyPage{
   background-color: white;
-  height: 100%;
   padding-left: 20px;
   padding-right: 20px;
   text-align: justify;
@@ -281,12 +284,34 @@ fieldset{
   fieldset{
 
     border-top: solid lightgray;
+    //font-family: song;
+    font-size: 18px;
+    color: #000000;
 
     legend{
       padding-left: 0;
       padding-right: 10px;
       color: @orange;
+      font-family: alwayss;
+      font-size: 40px;
     }
+
+    .span10 input{
+      display: inline;
+      float: left;
+      width: 80px;
+      margin-right: 20px;
+
+    }
+    .span10 label{
+      display: inline;
+      float: left;
+      padding-right: 10px;
+    }
+
+    margin-bottom: 20px;
+    margin-top: 10px;
+
   }
 
 
@@ -337,59 +362,9 @@ fieldset{
   h2{
     border-bottom: solid gray;
     color: #000000;
-  }
-  .information{
-    font-family: song;
-    font-size: 15px;
-    padding-top: 5px;
+    font-size: 40px;
   }
 
-  .btn.btn-info{
-    float: right;
-    background-color:#2f96b4;
-  }
-
-  .icon-user{
-    padding-right: 10px;
-  }
-
-  .icon-home{
-    padding-right: 10px;
-  }
-
-  .icon-envelope{
-    padding-right: 10px;
-  }
-
-  .icon-telephone{
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    margin-top: 1px;
-    *margin-right: .3em;
-    line-height: 14px;
-    vertical-align: text-top;
-    padding-right: 10px;
-    background-image: url("/assets/img/phone.png");
-    background-repeat: no-repeat;
-    background-position: 0;
-
-  }
-
-  .icon-cellphone{
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    margin-top: 1px;
-    *margin-right: .3em;
-    line-height: 14px;
-    vertical-align: text-top;
-    padding-right: 10px;
-    background-image: url("/assets/img/cellphone.png");
-    background-repeat: no-repeat;
-    background-position: 0;
-
-  }
 }
 
 .profileInfo{
@@ -399,10 +374,11 @@ fieldset{
   h2{
     border-bottom: solid gray;
     color: #000000;
+    font-size: 40px;
   }
   .information{
     font-family: song;
-    font-size: 15px;
+    font-size: 20px;
     padding-top: 5px;
   }
 

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -51,5 +52,9 @@ public class Address extends Model {
 
     public static Address findById(int id) {
         return find.where().eq("id", id).findUnique();
+    }
+
+    public static List<Address> all() {
+        return find.all();
     }
 }

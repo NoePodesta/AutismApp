@@ -28,14 +28,30 @@
                     <div class="information"><i class="icon-telephone"></i>@currentTherapist.telephone</div>
                     <div class="information"><i class="icon-cellphone"></i>@currentTherapist.cellphone</div>
                     <div class="information"><i class="icon-envelope"></i>@currentTherapist.mail</div>
-                    <div class="information underline">DNI: @currentTherapist.dni</div>
-                    <div class="information underline">Matricula Nacional: <td>@currentTherapist.nm</td></div>
+                    <div class="information"><p class="inline underline">DNI:</p>
+                        <p class="inline">@currentTherapist.dni</p></div>
+                    <div class="information"><p class="inline underline">Matricula Nacional:</p>
+                        <p class="inline">@currentTherapist.nm</p></div>
                 </div>
             </div>
         </div>
         <div class="row-fluid">
             <div class="teamInfo">
-            <h2>Equipos de trabajo</h2>
+                <h2>Equipos de trabajo</h2>
+                @if(currentTherapist.team != null){
+
+
+                    @for(team <- currentTherapist.team){
+                        <div class="span4">
+                            @team.team.getPatient.name @team.team.getPatient.surname
+
+                        </div>
+                    }
+                }else{
+                    <div class="well">
+                        <em>No pertenece a ningun equipo de trabajo</em>
+                    </div>
+                }
             </div>
 
         </div>

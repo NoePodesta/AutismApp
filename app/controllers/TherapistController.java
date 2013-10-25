@@ -213,7 +213,7 @@ public class TherapistController extends Controller {
     }
 
     public static Result removeTherapist(int id) {
-        if(Therapist.deleteTherapist(id)){
+        if(Therapist.delete(id)){
             flash("success", "El terapeuta ha sido eliminado");
         }else{
             //Do Error Message

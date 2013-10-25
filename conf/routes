@@ -4,7 +4,12 @@
 
 #Populate Database
 
-GET         /populateDatabase                      controllers.DatabasePopulator.populateTherapistDatabase()
+GET         /populateDatabase                      controllers.DatabasePopulator.populateDatabase()
+
+#Clean Database
+
+GET         /cleanDatabase                         controllers.DatabasePopulator.cleanDataBase()
+
 
 # Home page
 GET         /                                      controllers.Application.login()
