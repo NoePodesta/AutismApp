@@ -24,19 +24,42 @@
             @for(team <- teamList) {
 
 
-                <div class="patient span5">
+                <div class="team span5">
                     <div class="container-fluid">
                         <div class="row-fluid">
                             <div class="span1"></div>
                             @*<div class="span1">*@
-                                @*<img src="@routes.Assets.at(team.getPatient.image)" alt="@team.getPatient.name" height="100" width="100">*@
+                            @*<img src="@routes.Assets.at(team.getPatient.image)" alt="@team.getPatient.name" height="100" width="100">*@
                             @*</div>*@
                             <div class="span4">
-                                <label class="name"> @team.getPatient.name  @team.getPatient.surname</label>
-                                <label>Supervisora: @team.getSupervisor.name @team.getSupervisor.surname </label>
-                                <label>Coordinadora: @team.getCoordinator.name @team.getCoordinator.surname</label>
-                                @for(therapist <-  team.getTherapists){
-                                    <label>Terapeutas: @therapist.name @therapist.surname</label>
+                                @if(team.getPatient != null){
+                                    <label class="name"> @team.getPatient.name  @team.getPatient.surname</label>
+                                }else{
+                                    <label class="name">No se ha Asignado ningún paciente</label>
+                                }
+                                @if(team.getSupervisor != null){
+                                    <label>Supervisor: @team.getSupervisor.name @team.getSupervisor.surname </label>
+                                }else{
+                                    <label>Supervisor: No se ha asignado ningún supervisor</label>
+                                }
+
+                                @if(team.getCoordinator() != null){
+                                    <label>Coordinador: @team.getCoordinator.name @team.getCoordinator.surname</label>
+                                }else{
+                            <label>Coordinador: No se ha asignado ningún coordinador</label>
+                                }
+
+                                @if(team.getIntegrator() != null){
+                                    <label>Integrador: @team.getIntegrator.name @team.getIntegrator.surname</label>
+                                }else{
+                            <label>Coordinador: No se ha asignado ningún coordinador</label>
+                                }
+                                @if(!team.getTherapists.isEmpty){
+                                    @for(therapist <-  team.getTherapists){
+                                        <label>Terapeutas: @therapist.name @therapist.surname</label>
+                                    }
+                                }else{
+                                    <label>Terapeutas: No se han asignado terapeutas</label>
                                 }
                                 @form(routes.TeamController.removeTeam(team.id)) {
                                     <label class = "remove">
@@ -80,10 +103,11 @@
 
         }
 
-        <fieldset class="pull-right">
-            <a class="btn success" id="add" href="@routes.TeamController.createTeam()"> Agregar Equipo de Trabajo</a>
+        <fieldset class="actionst">
+            <a class="btn btn-success" id="add" href="@routes.TeamController.createTeam()"> Agregar Equipo de Trabajo</a>
         </fieldset>
 
 
 
-    }
+
+}

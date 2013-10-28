@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -32,8 +33,13 @@ public class Address extends Model {
     @Pattern(regexp = "^([a-zA-Z].+)$", message = "Ingrese un calle válida. Utilice solamente letras")
     public String locality;
     @Constraints.Required
+
     public String province;
+
+
     public static Model.Finder<Integer,Address> find = new Model.Finder(Integer.class, Address.class);
+
+
     public Address(String street, String number, String floor, String depto, String cp, String locality, String province) {
         this.street = street;
         this.number = number;
@@ -46,5 +52,9 @@ public class Address extends Model {
 
     public static Address findById(int id) {
         return find.where().eq("id", id).findUnique();
+    }
+
+    public static List<Address> all() {
+        return find.all();
     }
 }

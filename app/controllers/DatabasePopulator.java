@@ -6,31 +6,59 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.Date;
+import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Juanola
- * Date: 10/15/13
- * Time: 2:23 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class DatabasePopulator extends Controller {
 
-    public static Result populateTherapistDatabase(){
+    public static Result populateDatabase(){
 
+        populateInstitution();
+        populateTherapistDatabase();
+        populatePatientDatabase();
+        populateAddressDatabase();
+
+        return Application.login();
+    }
+
+    private static void populateInstitution() {
+
+    }
+
+    private static void populateAddressDatabase() {
         Address institutionAddress = new Address("Libertad","1250","3","D","1638","Vicente Lopez","Buenos Aires");
-        Address therapistAddress = new Address("Cabildo","1250","3","D","1638","Vicente Lopez","Buenos Aires");
-        Address noeAddress = new Address("Congreso","3441",null,null,"1430", "Capital Federal","Capital Federal");
         Institution institution = new Institution("Dacaid",institutionAddress,"47911234");
 
+        Ebean.save(institutionAddress);
+        Ebean.save(institution);
+
+    }
+
+    private static void populatePatientDatabase() {
+
+        Address therapistAddress = new Address("Cabildo","1250","3","D","1638","Vicente Lopez","Buenos Aires");
+        Institution institution = Institution.getById(1);
+        Patient patient = new Patient("Francisco","Tenaglia","5673214","165439076",therapistAddress,"38789564",
+                Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","high",
+                "uploads/JuanMolteni/JuaniMolteni.jpg",institution);
+
+        Ebean.save(therapistAddress);
+        Ebean.save(patient);
+
+    }
+
+    private static void populateTherapistDatabase() {
+
+        Address therapistAddress = new Address("Cabildo","1250","3","D","1638","Vicente Lopez","Buenos Aires");
+        Address noeAddress = new Address("Congreso","3441",null,null,"1430", "Capital Federal","Capital Federal");
+
+        Institution institution = Institution.getById(1);
         Therapist therapist = new Therapist("Juan","Molteni","47911306","123",therapistAddress,"33850398",
                 "juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"asd",BCrypt.hashpw("123456", BCrypt.gensalt()),
                 "uploads/JuanMolteni/JuaniMolteni.jpg", TherapistType.ADMIN,institution);
 
-        Ebean.save(institutionAddress);
         Ebean.save(therapistAddress);
         Ebean.save(noeAddress);
-        Ebean.save(institution);
         Ebean.save(therapist);
 
 
@@ -43,7 +71,36 @@ public class DatabasePopulator extends Controller {
 
         Ebean.save(therapist3);
         Ebean.save(therapist2);
+    }
+
+    public static Result cleanDataBase(){
+
+        List<Therapist> therapistList = Therapist.all();
+        for(Therapist therapist : therapistList){
+            therapist.delete();
+        }
+
+        List<Patient> patientList = Patient.all();
+        for(Patient patient : patientList){
+            patient.delete();
+        }
+
+        List<Institution> institutionList = Institution.all();
+        for(Institution institution : institutionList){
+            institution.delete();
+        }
+
+//        List<Address> addressList = Address.all();
+//        for(Address address : addressList){
+//            address.delete();
+//        }
+
+
 
         return Application.login();
+
     }
+
+
+
 }

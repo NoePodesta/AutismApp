@@ -72,6 +72,17 @@ public class Team extends Model {
         return therapistsList;
     }
 
+    public Therapist getIntegrator(){
+
+        for(Therapist_Role therapistRole : therapists){
+            if(therapistRole.getRole().equals(TherapistRole.INTEGRATOR)){
+                return therapistRole.getTherapist();
+            }
+        }
+        return null;
+    }
+
+
     public Patient getPatient(){
 
        return patient;

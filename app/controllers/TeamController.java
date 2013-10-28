@@ -11,17 +11,10 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.createTeamForm;
-import views.html.editTeamForm;
 
 import java.util.ArrayList;
 
 import static play.data.Form.form;
-import static play.mvc.Controller.flash;
-import static play.mvc.Results.badRequest;
-import static play.mvc.Results.forbidden;
-import static play.mvc.Results.ok;
-
 /**
  * Created with IntelliJ IDEA.
  * User: NoePodesta
@@ -36,7 +29,7 @@ public class TeamController extends Controller {
 //        if (Secured.isAdmin()) {
             Form<Team> teamForm = form(Team.class);
             return ok(
-                    createTeamForm.render(teamForm)
+                    views.html.team.createTeamForm.render(teamForm)
             );
 //        }else{
 //            return forbidden();
@@ -48,7 +41,7 @@ public class TeamController extends Controller {
         Form<Team> teamForm = form(Team.class).bindFromRequest();
 
         if(teamForm.hasErrors()) {
-            return badRequest(createTeamForm.render(teamForm));
+            return badRequest( views.html.team.createTeamForm.render(teamForm));
         }
 
         Team team = new Team();
@@ -152,7 +145,7 @@ public class TeamController extends Controller {
 
     public static Result teamList() {
         return ok(
-                views.html.teams.render(Team.findByInstitution(TherapistController.getTherapistByDNI(session().get("dni")).institution))
+                views.html.team.teams.render(Team.findByInstitution(TherapistController.getTherapistByDNI(session().get("dni")).institution))
         );
 
     }
@@ -160,7 +153,7 @@ public class TeamController extends Controller {
     public static Result editTeam(int id) {
         Team teamToFill = Team.findTeamById(id);
         Form<Team> teamForm = form(Team.class).fill(teamToFill);
-        return ok(editTeamForm.render(teamForm));
+        return ok(views.html.team.editTeamForm.render(teamForm));
     }
 
     public static Result removeTeam(int id){

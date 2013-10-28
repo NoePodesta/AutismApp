@@ -7,7 +7,6 @@ import models.Therapist;
 import play.data.Form;
 import play.mvc.Result;
 import play.mvc.Controller;
-import views.html.editInstitution;
 
 import static play.data.Form.form;
 
@@ -27,12 +26,26 @@ public class InstitutionController extends Controller {
     public static Result editInstitution(int id){
         Institution insitutionToFill = getInsitutionById(TherapistController.getTherapistById(id).institution.id);
         Form<Institution> institutionForm = form(Institution.class).fill(insitutionToFill);
-        return ok(editInstitution.render(institutionForm));
+        return ok(views.html.institution.editInstitution.render(institutionForm));
+
+    }
+
+    public static Result profile(){
+        Therapist current = Therapist.findTherapistByDNI(session().get("dni"));
+        Institution institution = current.institution;
+        Form<Institution> institutionForm = form(Institution.class).fill(institution);
+        return ok(views.html.institution.institutionProfile.render(institutionForm));
 
     }
 
     public static Result updateInstitution(){
-        Institution institutionFromForm = form(Institution.class).bindFromRequest().get();
+
+        Form<Institution> institutionForm = form(Institution.class).bindFromRequest();
+        Institution institutionFromForm = institutionForm.get();
+
+        if(institutionForm.hasErrors()) {
+            return badRequest(views.html.institution.institutionProfile.render(institutionForm));
+        }
 
         Address address = Address.findById(getInsitutionById(institutionFromForm.id).address.id);
 
@@ -49,7 +62,7 @@ public class InstitutionController extends Controller {
 
         Ebean.update(address);
         Ebean.update(institutionFromForm);
-        return TherapistController.profile();
+        return profile();
 
     }
 }

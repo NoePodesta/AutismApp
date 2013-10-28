@@ -5,6 +5,7 @@ import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,7 +38,7 @@ public class User extends Model {
     @Pattern(regexp = "^([a-zA-Z].+)$", message = "Ingrese un apellido válido. Utilice solamente letras")
     @Constraints.Required
     public String surname;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @Valid
     public Address address;
     @Pattern(regexp = "^(\\d*)$", message = "Ingrese un número de celular válido")
@@ -47,6 +48,7 @@ public class User extends Model {
     public String telephone;
     @Pattern(regexp = "^(\\d{8})$", message = "Ingrese un dni válido")
     @Constraints.Required
+
     public String dni;
     @Enumerated(EnumType.STRING)
     public Gender gender;

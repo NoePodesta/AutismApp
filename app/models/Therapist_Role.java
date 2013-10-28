@@ -25,7 +25,7 @@ public class Therapist_Role extends Model {
     @Enumerated(EnumType.STRING)
     private TherapistRole role;
     @ManyToOne
-    private Team team;
+    public Team team;
 
     public Therapist_Role(Therapist therapist, TherapistRole role, Team team){
         this.therapist = therapist;

@@ -91,7 +91,7 @@ public class Therapist
         therapist.update(id);
     }
 
-    public static boolean deleteTherapist(int id) {
+    public static boolean delete(int id) {
         Therapist therapistToDelete = findTherapistById(id);
         if(therapistToDelete != null){
             therapistToDelete.delete();

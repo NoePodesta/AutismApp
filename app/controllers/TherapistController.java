@@ -6,10 +6,6 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.createTherapistForm;
-import views.html.editTherapistForm;
-import views.html.profile;
-import views.html.therapists;
 
 
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ public class TherapistController extends Controller {
         if (Secured.isAdmin()) {
             Form<Therapist> therapistForm = form(Therapist.class);
             return ok(
-                    createTherapistForm.render(therapistForm)
+                    views.html.therapist.createTherapistForm.render(therapistForm)
             );
         }else{
             return forbidden();
@@ -56,7 +52,7 @@ public class TherapistController extends Controller {
                 therapistsToShow.add(therapist);
             }
         }
-        return ok(therapists.render(therapistsToShow));
+        return ok(views.html.therapist.therapists.render(therapistsToShow));
     }
 
     public static Result therapistList() {
@@ -67,15 +63,22 @@ public class TherapistController extends Controller {
                 therapistsToShow.add(therapist);
             }
         }
-        return ok(therapists.render(therapistsToShow));
+        return ok(views.html.therapist.therapists.render(therapistsToShow));
     }
-     /*
-    public static Result therapistList() {
-        return ok(therapists.render(Therapist.all()));
-    }
-      */
+
     public static Result saveTherapist(){
         return saveTherapist(TherapistType.NO_PRIVILEGES, form(Therapist.class).bindFromRequest(), false);
+    }
+
+    public static Result updateTherapistImage(){
+
+        Therapist therapist = Therapist.findTherapistByDNI(session().get("dni"));
+        String pathFile = UserController.getPathName(therapist, therapist.gender);
+        therapist.image = pathFile;
+        Ebean.save(therapist);
+
+        return profile();
+
     }
 
     public static Result saveTherapist(TherapistType type, Form<Therapist> form, boolean autoLogin) {
@@ -93,7 +96,7 @@ public class TherapistController extends Controller {
         }
 
         if(therapistForm.hasErrors()) {
-            return badRequest(createTherapistForm.render(therapistForm));
+            return badRequest(views.html.therapist.createTherapistForm.render(therapistForm));
         }
 
         Therapist therapistFromForm = therapistForm.get();
@@ -158,9 +161,9 @@ public class TherapistController extends Controller {
         Therapist therapistToFill = Therapist.findTherapistById(id);
         Form<Therapist> therapistForm = form(Therapist.class).fill(therapistToFill);
         if(therapistToFill.dni.equals(session().get("dni"))){
-            return ok(editTherapistForm.render(id, therapistForm, true));
+            return ok(views.html.therapist.editTherapistForm.render(id, therapistForm, true));
         }else{
-            return ok(editTherapistForm.render(id, therapistForm, false));
+            return ok(views.html.therapist.editTherapistForm.render(id, therapistForm, false));
         }
     }
 
@@ -178,9 +181,9 @@ public class TherapistController extends Controller {
             String id = therapistForm.data().get("id");
             Therapist therapist = Therapist.findTherapistById(Integer.parseInt(id));
             if(therapist.dni.equals(session().get("dni"))){
-                return badRequest(editTherapistForm.render(therapist.id, therapistForm, true));
+                return badRequest(views.html.therapist.editTherapistForm.render(therapist.id, therapistForm, true));
             }else{
-                return badRequest(editTherapistForm.render(therapist.id, therapistForm, false));
+                return badRequest(views.html.therapist.editTherapistForm.render(therapist.id, therapistForm, false));
             }
 
         }
@@ -210,7 +213,7 @@ public class TherapistController extends Controller {
     }
 
     public static Result removeTherapist(int id) {
-        if(Therapist.deleteTherapist(id)){
+        if(Therapist.delete(id)){
             flash("success", "El terapeuta ha sido eliminado");
         }else{
             //Do Error Message
@@ -228,17 +231,17 @@ public class TherapistController extends Controller {
         try {
             newPassword = RandomStringGenerator.generateRandomString(6, RandomStringGenerator.Mode.ALPHANUMERIC);
         } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         therapist.password = BCrypt.hashpw(newPassword, BCrypt.gensalt());
         Ebean.update(therapist);
 
-        return newPassword;  //To change body of created methods use File | Settings | File Templates.
+        return newPassword;
     }
 
     public static Result profile() {
         Therapist therapist = Therapist.findTherapistByDNI(session().get("dni"));
-        return ok(profile.render(therapist));
+        return ok(views.html.therapist.profile.render(therapist));
     }
 
     public static Therapist getTherapistById(int id) {
