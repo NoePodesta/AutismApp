@@ -1,0 +1,1 @@
+{"articles":[{"data":789,"label":"La"},{"data":1,"label":"El"}],"sustantivs":[{"data":1,"label":"Martillo"},{"data":233,"label":"Oso"}],"adjectives":[{"data":7,"label":"Rojo"},{"data":1,"label":"Marron"}],"answerImage":"ElementsImages/hammer.png","verbs":[{"data":1,"label":"Es"},{"data":456,"label":"Esta"}]}

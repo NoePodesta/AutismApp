@@ -29,6 +29,11 @@
 		var currentGame : GameManager;
 		var cardsManager : CardManager;
 		
+		var currentGameType : String;
+		var currentGameCategory : String;
+		
+		var jLoader : JSONLoader;
+		
 		public function Main() {
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;				
 			//Initialize Views			
@@ -56,6 +61,33 @@
             mainScreen.username_txt.addEventListener( SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardEvent );
             mainScreen.username_txt.addEventListener( SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardEvent );
 			*/
+			
+			
+			jLoader = new JSONLoader(this);
+			/*
+			var QAJson:Object = new Object();
+			var graphicOptions : Array = new Array({graphicOption:"SignsImages/thumbsUp.png",classificationGroup:0,quantity:1},
+													{graphicOption:"ElementsImages/hammer.png",classificationGroup:1,quantity:3},
+													{graphicOption:"ShapesImages/reptiloide.png",classificationGroup:2,quantity:4});
+			var answerAreas : Array = new Array({textOption:"Manos",classificationGroup:0},
+													{textOption:"Martillo",classificationGroup:1},
+													{textOption:"Reptiloide",classificationGroup:2});
+													
+			var textOption : Array = new Array({textOption:"Manos",classificationGroup:0},
+												{textOption:"Martillo",classificationGroup:1},
+												{textOption:"Reptiloide",classificationGroup:2});
+										 
+			QAJson.graphicOptions = graphicOptions;
+			QAJson.answerAreas = answerAreas;
+			QAJson.textOption = textOption;
+			
+				
+
+			trace(jLoader.parseJSON(QAJson));
+		
+			*/
+			
+	
 		}
 		
 		public function goToGameSelectionScreenEvent(e : TouchEvent) : void{
@@ -118,29 +150,57 @@
 			addChild(gameTypeSelectionScreen);
 		}
 		
+		public function loadGame(gameContent : Object):void{
+			if(currentGameCategory == "QA"){
+				currentGame = new QAGameManager(this,gameContent,currentGameType);
+			}else if(currentGameCategory == "Classification"){
+				currentGame = new ClassificationGameManager(this,gameContent,2,currentGameType);	
+			}else if(currentGameCategory == "Sentence"){
+				currentGame = new SentenceGameManager(this,gameContent,currentGameType);
+			}else if(currentGameCategory == "Conversation"){
+				currentGame = new ConversationGameManager(this,gameContent,currentGameType);
+			}else if(currentGameCategory == "SoCoCo"){
+				currentGame = new SoCoCoGameManager(this,gameContent,currentGameType);
+			}
+			
+		}
+		
 		public function startGame(subSelectionGameScreen : SubSelectionGameScreen, selection : int){
 			addChildAt(loadingScreen, 1);
 			if(subSelectionGameScreen is EmotionSubSelectionScreen){
 				if(selection == 0){
-					currentGame = new EmotionGameManager(this);
+					jLoader.getJSON("JSONs/EmotionSplitFaceGIFQA.txt");	
+					currentGameCategory = "QA";
 				}else if(selection == 1){
-					currentGame = new EmotionsFaceGameManager(this);
+					jLoader.getJSON("JSONs/EmotionFaceQA.txt");
+					currentGameCategory = "QA";
 				}else if(selection == 2){
-					currentGame = new EmotionStoryGameManager(this);
+					jLoader.getJSON("JSONs/EmotionStoryQA.txt");
+					currentGameCategory = "QA";					
 				}
+				currentGameType = GameType.Emotions;
 			}else if(subSelectionGameScreen is CognitionSubSelectionScreen){
 				if(selection == 0){
-					currentGame = new CognititionUseGameManager(this);
+					jLoader.getJSON("JSONs/CognitionSentence.txt");
+					currentGameCategory = "Sentence";
+				}else if(selection == 1){
+					jLoader.getJSON("JSONs/CognitionSoCoCo.txt");
+					currentGameCategory = "SoCoCo";
+				}else if(selection == 2){
+					jLoader.getJSON("JSONs/CognitionUseClassification.txt");
+					currentGameCategory = "Classification";
 				}
+				currentGameType = GameType.Cognition;
 			}else{
 				if (selection == 0){
-					currentGame = new CommunicationsSignsGameManager(this);
+					jLoader.getJSON("JSONs/CognitionUseClassification.txt");
+					currentGameCategory = "Classification";
+				}else if(selection == 1){
+					jLoader.getJSON("JSONs/CommunicationsConversation.txt");
+					currentGameCategory = "Conversation";
 				}
+				currentGameType = GameType.Communications;
 			}
-			
-			
-			
-		
 		}
 		
 		public function showGameView(gameManager : GameManager){

@@ -1,0 +1,1 @@
+{"answer":"Juan Y Noe estan haciendo la tesis. Como se sienten ellos?","optionsType":"Text","optionsLength":4,"answerType":"Text","options":[{"label":"Contento","correctAnswer":true},{"label":"Triste","correctAnswer":false},{"label":"Enojado","correctAnswer":false},{"label":"Sorprendido","correctAnswer":false}]}

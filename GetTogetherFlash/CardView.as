@@ -17,7 +17,7 @@
 		
 		var answerImage : Bitmap;
 		
-		var imageLoader:Loader 
+		var imageLoader:Loader; 
 	
 	
 		

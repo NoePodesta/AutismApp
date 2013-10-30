@@ -16,10 +16,23 @@
 		var gameJingle : Sound; 
 		
 		var winGameScreen : MovieClip;
+		
+		var totalLoaded : int;
+		var totalOptions : int;
+		
+		var gameType : String;
+		var gameContent : Object;
+		
 
 		
-		public function GameManager(mainManager : Main){
+		public function GameManager(mainManager : Main, gameType : String, gameContent : Object){
 			this.mainManager = mainManager;
+			this.gameType = gameType;
+			this.gameContent = gameContent;
+			
+			
+			
+			
 			gameJingle = new PlayingJingle();
 			winGameScreen = new winScreen_mc;
 			winGameScreen.y = 68;
@@ -36,15 +49,9 @@
 		public function closeView():void{
 			removeChild(gameView);
 			mainManager.goToGameTypeSelectionScreen();
-		}
+		}		
 		
-		public function showView() : void{			
-			addChild(gameView);
-		}
 		
-		public function startGame() : void{
-			
-		}
 		
 		public function endGame(){
 			addChild(winGameScreen);
@@ -71,6 +78,7 @@
 		}
 
 		function onLoadComplete():void{
+			addChild(gameView);
 			mainManager.showGameView(this);
 		}
 		
@@ -81,10 +89,33 @@
 			
 		}	
 		
-		public function checkAnswer(answer : QAOption, positionX : int, positionY : int) : void{
-			
+	
 		
+		public function checkClassificationAnswer(answer : ClassificationOption, dropped : ClassificationAnswerArea) : void{
+			if(dropped != null){
+				if(dropped.classificationGroup == answer.classificationGroup){
+					trace("Correcto");
+					//right.play();					
+					endGame();
+				}else{
+					answer.resetPosition();
+					//wrong.play();
+				}
+				
+			}
 		}
+		
+		 public function loadImageComplete() : void{
+			
+			
+		}
+		
+		public function onOptionLoadComplete():void{
+			
+		}
+		
+		
+		
 	}
 	
 }

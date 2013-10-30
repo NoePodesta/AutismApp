@@ -1,0 +1,1 @@
+{"answer":"Juan esta atacando a los reptiloides. Como se siente el?","options":[{"correctAnswer":true,"label":"EmotionsGifs/happy.png"},{"correctAnswer":false,"label":"EmotionsGifs/happy.png"},{"correctAnswer":false,"label":"EmotionsGifs/happy.png"},{"correctAnswer":false,"label":"EmotionsGifs/happy.png"}],"optionsType":"Image","optionsLength":4,"answerType":"Text"}
