@@ -1,6 +1,5 @@
 # --- !Ups
-INSERT INTO Address (id,street,number,floor,depto,cp,locality,province) VALUES (1,'9909 Donec Street','5310','12','26','6128','Kt','Macedonia, the former Yugoslav Republic of');
-INSERT INTO Address (id,street,number,floor,depto,cp,locality,province) VALUES (2,'672-5847 Gravida Ave','4362','90','9B','0102','SL','Burkina Faso');
+
 INSERT INTO Address (id,street,number,floor,depto,cp,locality,province) VALUES (3,'9656 Risus. Ave','2557','91','0E','2662','YK','Reunion');
 INSERT INTO Address (id,street,number,floor,depto,cp,locality,province) VALUES (4,'191-7195 Purus Ave','1099','08','29','4855','Paraíba','Thailand');
 INSERT INTO Address (id,street,number,floor,depto,cp,locality,province) VALUES (5,'P.O. Box 651, 6545 Urna. Rd.','2189','59','AB','9569','Toscana','Korea, South');

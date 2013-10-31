@@ -1,56 +1,66 @@
 ﻿package  {
 	
 	import flash.events.TouchEvent;
+	import flash.events.Event;
+	import flash.display.Loader;
+	import flash.net.URLRequest;
+
+	
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	
-	public class DragableTextOption extends QAOption {
+	public class DragableTextOption extends ClassificationOption {
 
 
 		
-		var answerTextArea : TextField;
-		var answerTextFormat : TextFormat;
+		var textArea : TextField;
+		var textFormat : TextFormat;
 		
-		public function DragableTextOption(gameManager : GameManager,optionText : String, positionX : int, positionY : int, correctAnswer : Boolean) {
-			super(gameManager, new int(positionX), new int(positionY), correctAnswer);
+		
+		public function DragableTextOption(gameManager : GameManager,content : String, positionX : int, positionY : int, group : int) {
+			super(gameManager, new int(positionX), new int(positionY), group);
 			addEventListener(TouchEvent.TOUCH_BEGIN, onTouchBegin);
 			addEventListener(TouchEvent.TOUCH_END, onTouchEnd);
-	
-			x = positionX;
-			y = positionY;
-			
-			answerTextArea = new TextField();
-			answerTextArea.width = 220;
-			answerTextArea.height = 35;
-			answerTextArea.border = true;
-			answerTextArea.wordWrap = true;
-			answerTextArea.background = true;
-			answerTextArea.backgroundColor = 0xFFFFFF;
 			
 			
-			answerTextFormat = new TextFormat;
-			answerTextFormat.size = 25;
-			answerTextFormat.align = TextFormatAlign.CENTER;
-			answerTextFormat.font = "Charlemagne Std";
-			answerTextFormat.bold = true;
 			
-			answerTextArea.defaultTextFormat = answerTextFormat;
-			answerTextArea.text = optionText;
+		
+			textArea = new TextField();
+			textArea.width = 220;
+			textArea.height = 35;
+			textArea.border = true;
+			textArea.wordWrap = true;
+			textArea.background = true;
+			textArea.backgroundColor = 0xFFFFFF;				
 			
-			addChild(answerTextArea);
+			textFormat = new TextFormat;
+			textFormat.size = 25;
+			textFormat.align = TextFormatAlign.CENTER;
+			textFormat.font = "Charlemagne Std";
+			textFormat.bold = true;
 			
+			textArea.defaultTextFormat = textFormat;
+			textArea.text = content;				
+			
+			addChild(textArea);
+			onCompleteTextLoad();
+			
+			
+			
+			
+		}
+
+				
+		
+		function onCompleteTextLoad ():void
+		{
+			y = originalY;
+			x = originalX;
+			
+			gameManager.onOptionLoadComplete();
 		}
 		
-		function onTouchBegin(e:TouchEvent) { 
-			startTouchDrag(e.touchPointID); 
-			gameManager.checkAnswer(this, e.stageX, e.stageY);
-		} 
- 
-		function onTouchEnd(e:TouchEvent) { 
-			stopTouchDrag(e.touchPointID);
-			gameManager.checkAnswer(this, e.stageX, e.stageY);
-		}
 
 	}
 	

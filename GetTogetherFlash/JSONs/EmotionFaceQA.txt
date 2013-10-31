@@ -1,0 +1,1 @@
+{"options":[{"label":"Contento","correctAnswer":true},{"label":"Triste","correctAnswer":false},{"label":"Enojado","correctAnswer":false},{"label":"Sorprendido","correctAnswer":false}],"optionsType":"Text","optionsLength":4,"answerType":"Image","answer":"EmotionsGifs/Happy.png"}

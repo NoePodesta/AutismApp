@@ -1,0 +1,1 @@
+{"options":[{"label":"ShapesImages/reptiloide.png","classificationGroup":0},{"label":"ShapesImages/reptiloide.png","classificationGroup":0},{"label":"SignsImages/thumbsUp.png","classificationGroup":1},{"label":"SignsImages/thumbsUp.png","classificationGroup":1}],"optionsLength":4,"optionsType":"Image"}

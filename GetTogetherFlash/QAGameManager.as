@@ -7,38 +7,93 @@
 		
 	public class QAGameManager extends GameManager {
 
-		var graphicOptions : Array;
-		var textOptions : Array;
+		
+		var options : Array;
 		
 		//var answer : QAOption;
 		
 		var right:Sound;
-		var wrong:Sound;
+		var wrong:Sound;				
+		var answerArea : ClassificationAnswerArea;
 		
-		var answerBoundaries : Rectangle;
 		
-		public function QAGameManager(mainManager : Main){
-			super(mainManager);	
+		var optionsLength : int;
+
+		
+		
+		public function QAGameManager(mainManager : Main, gameContent : Object, gameType : String){
+			super(mainManager, gameType, gameContent);
+		
+			optionsLength = gameContent.optionsLength;
+			
+			totalOptions = optionsLength + 1;
+			totalLoaded = 0;			
+			options = new Array(optionsLength);						
+			
+			
+			if(gameContent.optionsType == "Text"){
+				buildTextOptions();
+			}else if(gameContent.optionsType == "Image"){
+				buildImageOptions();
+			}else if(gameContent.optionsType == "GIF"){
+				buildGIFOptions();
+			}
+			
+			if(gameContent.answerType == "Text"){
+				answerArea = new ClassificationTextAnswerArea(this,1,"",gameContent.answer,50);
+				answerArea.onLoadComplete();
+			}else if(gameContent.answerType == "Image"){
+				answerArea = new ClassificationImageAnswerArea(this,1,"",gameContent.answer,50);
+			}else if(gameContent.answerType == "GIF"){
+				answerArea = new ClassificationGIFAnswerArea(this,1,"",gameContent.answer,50);
+			}
 		}
 		
-		override public function checkAnswer(answer : QAOption, positionX : int, positionY : int) : void{
-			var correctPosition : Boolean = false;
-			if(positionY > answerBoundaries.top && positionY<answerBoundaries.bottom && positionX < answerBoundaries.right && positionX > answerBoundaries.left){
-				correctPosition = true;
-			}
-			if(correctPosition){
-				if(answer.getCorrectAnswer()){
-					right.play();
-					endGame();
+		private function buildTextOptions():void{
+			for(var i :int = 0;i < optionsLength ; i++){
+				if(gameContent.options[i].correctAnswer){
+					options[i] = new DragableTextOption(this, gameContent.options[i].label,100 + 230 * i, 600, 1);
 				}else{
-					wrong.play();
-					answer.resetPosition();
-				}	
-			}else{
-				answer.resetPosition();
+					options[i] = new DragableTextOption(this, gameContent.options[i].label,100 + 230 * i, 600, 0);
+				}				
 			}
-					
+			
 		}
+		
+		private function buildImageOptions():void{
+			for(var i :int = 0;i < optionsLength ; i++){
+				if(gameContent.options[i].correctAnswer){
+					options[i] = new DragableImageOption(this, gameContent.options[i].label,100 + 230 * i, 600, 1);
+				}else{
+					options[i] = new DragableImageOption(this, gameContent.options[i].label,100 + 230 * i, 600, 0);
+				}				
+			}
+			
+		}
+		
+		private function buildGIFOptions():void{
+			for(var i :int = 0;i < optionsLength ; i++){
+				if(gameContent.options[i].correctAnswer){
+					options[i] = new DragableGIFOption(this, gameContent.options[i].label,100 + 230 * i, 600, 1);
+				}else{
+					options[i] = new DragableGIFOption(this, gameContent.options[i].label,100 + 230 * i, 600, 0);
+				}				
+			}
+			
+		}
+		
+		override public function onOptionLoadComplete():void{
+			totalLoaded++;
+			if(totalLoaded == totalOptions){
+				gameView = new QAGameView(this, options, answerArea, gameType);
+				onLoadComplete();
+				
+			}			
+		}
+		
+		
+		
+				
 
 	}
 	

@@ -11,12 +11,21 @@
 		var manager : GameManager;
 		var playingMusic : Boolean;
 		
-		var answerGraphicArea : MovieClip ;
 		
-		public function GameView(manager : GameManager){
+		
+		public function GameView(manager : GameManager, gameType : String){
 			this.manager = manager;
 			playingMusic = true;
 			
+			if(gameType == GameType.Cognition){
+				background = new cognitionGameView_mc();
+			}else if(gameType == GameType.Emotions){
+				background = new emotionGameView_mc();
+			}else if(gameType == GameType.Communications){
+				background = new communicationsGameView_mc();
+			}
+			addChild(background);
+			setEventListeners();
 		
 		}
 		
@@ -42,9 +51,7 @@
 			
 		}
 		
-		public function getAnswerBoundaries() : Rectangle{
-			return answerGraphicArea.getRect(this) as Rectangle;
-		}
+	
 	
 	}
 	
