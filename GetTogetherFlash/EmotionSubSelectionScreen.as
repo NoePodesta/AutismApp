@@ -7,11 +7,11 @@
 
 		var emotionSubSelectionScreen : MovieClip;
 		
-		public function EmotionSubSelectionScreen(manager : Main) {
-			super(manager);
+		
+		public function EmotionSubSelectionScreen(manager : Main, packages : Array) {
+			super(manager, packages);
 			
-			selection = 0;
-			
+			selection = 0;			
 			emotionSubSelectionScreen = new emotionGameSubSelectionScreen_mc();
 			emotionSubSelectionScreen.emotionsButton0_mc.gotoAndStop(2);
 			emotionSubSelectionScreen.emotionsButton0_mc.addEventListener(TouchEvent.TOUCH_BEGIN, selectGame0);
@@ -20,6 +20,7 @@
 			emotionSubSelectionScreen.playButton_mc.addEventListener(TouchEvent.TOUCH_BEGIN, startGame);
 			emotionSubSelectionScreen.backArrow_mc.addEventListener(TouchEvent.TOUCH_BEGIN, goBack);
 			addChild(emotionSubSelectionScreen);
+			addChild(packageOptionPicker);
 		}
 		
 		public function selectGame0(e : TouchEvent) : void{

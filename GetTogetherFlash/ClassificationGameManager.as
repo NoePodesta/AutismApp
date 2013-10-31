@@ -1,71 +1,62 @@
 ﻿package  {
+	import flash.display.JointStyle;
 	
 	public class ClassificationGameManager extends GameManager{
 
 		var options : Array;
-		
-		
-
-		
-		var optionsLength : int;
-		
-		var optionsQuantity : int;
+		var currentStage : int;
 		var totalCorrectAnswers : int;
 		
-		var answerAreas : Array;
+		
+		var stagesOptions : Array;
+		var stagesAnswers : Array;
 		
 		public function ClassificationGameManager(manager : Main,gameContent : Object, totalAnswerAreas : int, gameType : String) {
 			super(manager, gameType, gameContent);
 			
-			optionsLength = gameContent.optionsLength;
+			for(var i : int = 0;i<gameContent.totalStages;i++){
+				totalOptions += gameContent.stages[i].optionsLength;
+			}
 			
-			totalOptions = optionsLength;
-			totalLoaded = 0;			
-			options = new Array(optionsLength);						
+			
+			totalLoaded = 0;	
+			currentStage = 0;
+				
+			stagesOptions = new Array(totalStages);
+			stagesAnswers = new Array(totalStages);
+			for(var i : int = 0;i<gameContent.totalStages;i++){
+				stagesAnswers[i] = new Array(gameContent.stages[i].totalAnswerAreas);
+			}
+			
 			
 			totalCorrectAnswers = 0;		
 			
-			if(gameContent.optionsType == "Text"){
-				buildTextOptions();
-			}else if(gameContent.optionsType == "Image"){
-				buildImageOptions();
-			}else if(gameContent.optionsType == "GIF"){
-				buildGIFOptions();
-			}
-			
-			answerAreas = new Array(totalAnswerAreas);
-			
-			for(var  i : int = 0; i<totalAnswerAreas;i++){
-				answerAreas[i] = new ClassificationAnswerArea(this, "", i, 60);
-				answerAreas[i].x = 150 + 500 * i;
-			}
-			
-		
 		
 			
-			
+			loadAllJSON();			
 			
 			
 		}	
 		
-		private function buildTextOptions():void{
-			for(var i :int = 0;i < optionsLength ; i++){				
-				options[i] = new DragableTextOption(this, gameContent.options[i].label,100 + 230 * i, 600, gameContent.options[i].classificationGroup);
+	
+		private function buildTextOptions(currentStage : int):void{
+			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){				
+				options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, gameContent.stages[currentStage].options[i].classificationGroup);
 			}
+			stagesOptions[currentStage] = options;
+		}
+		
+		private function buildImageOptions(currentStage : int):void{
+			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){	
+				options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, gameContent.stages[currentStage].options[i].classificationGroup);
+			}
+			stagesOptions[currentStage] = options;
 			
 		}
 		
-		private function buildImageOptions():void{
-			for(var i :int = 0;i < optionsLength ; i++){
-				options[i] = new DragableImageOption(this, gameContent.options[i].label,100 + 230 * i, 600, gameContent.options[i].classificationGroup);
-			
-			}
-			
-		}
-		
-		private function buildGIFOptions():void{
-			for(var i :int = 0;i < optionsLength ; i++){
-				options[i] = new DragableGIFOption(this, gameContent.options[i].label,100 + 230 * i, 600, gameContent.options[i].classificationGroup);
+		private function buildGIFOptions(currentStage : int):void{
+			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){	
+				options[i] = new DragableGIFOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, gameContent.stages[currentStage].options[i].classificationGroup);
 			}
 			
 		}
@@ -73,23 +64,52 @@
 		override public function onOptionLoadComplete():void{
 			totalLoaded++;
 			if(totalLoaded == totalOptions){
-				gameView = new ClassificationGameView(this, options, answerAreas, gameType);
+				gameView = new ClassificationGameView(this, stagesOptions, stagesAnswers, gameType);
+				(gameView as ClassificationGameView).showStage(currentStage);
 				onLoadComplete();				
 			}			
+		}
+		
+		public function loadAllJSON():void{
+			
+			for(var i: int = 0;i<totalStages;i++){
+				options = new Array(gameContent.stages[i].optionsLength);
+				if(gameContent.stages[i].optionsType == "Text"){
+					buildTextOptions(i);
+				}else if(gameContent.stages[i].optionsType == "Image"){
+					buildImageOptions(i);
+				}else if(gameContent.stages[i].optionsType == "GIF"){
+					buildGIFOptions(i);
+				}
+				
+				for(var  j : int = 0; j<gameContent.stages[i].totalAnswerAreas;j++){
+					var answerArea : ClassificationAnswerArea = new ClassificationAnswerArea(this, gameContent.stages[i].answerLabel[j], j, 60);
+					answerArea.x = 150 + 500 * j;
+					stagesAnswers[i][j] = answerArea;
+				}
+				
+			}
+			
 		}
 		
 		override public function checkClassificationAnswer(answer : ClassificationOption, dropped : ClassificationAnswerArea) : void{
 			if(dropped != null){
 				if(dropped.classificationGroup == answer.classificationGroup){
 					totalCorrectAnswers++;
-					if(totalCorrectAnswers == optionsLength){
-						endGame();
+					SoundManager.playCorrectSound();
+					if(totalCorrectAnswers == gameContent.stages[currentStage].optionsLength){
+						currentStage++;
+						if(currentStage == totalStages){
+							endGame();
+						}else{
+							(gameView as ClassificationGameView).removeStage(currentStage-1);
+							(gameView as ClassificationGameView).showStage(currentStage);
+							totalCorrectAnswers = 0;
+						}
 					}
-					//right.play();					
-					
 				}else{
+					SoundManager.playWrongSound();
 					answer.resetPosition();
-					//wrong.play();
 				}
 				
 			}

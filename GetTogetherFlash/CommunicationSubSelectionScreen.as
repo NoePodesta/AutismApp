@@ -7,8 +7,8 @@
 
 		var communicationSubSelectionScreen : MovieClip;
 		
-		public function CommunicationSubSelectionScreen(manager : Main) {
-			super(manager);
+		public function CommunicationSubSelectionScreen(manager : Main, packages : Array) {
+			super(manager, packages);
 			
 			selection = 0;
 			
@@ -19,6 +19,7 @@
 			communicationSubSelectionScreen.playButton_mc.addEventListener(TouchEvent.TOUCH_BEGIN, startGame);
 			communicationSubSelectionScreen.backArrow_mc.addEventListener(TouchEvent.TOUCH_BEGIN, goBack);
 			addChild(communicationSubSelectionScreen);
+			addChild(packageOptionPicker);
 		}
 		
 		public function selectGame0(e : TouchEvent) : void{

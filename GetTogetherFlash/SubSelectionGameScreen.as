@@ -9,13 +9,16 @@
 		var selection : int;
 		var manager : Main;
 		
+		var packageOptionPicker : PackageOptionPicker;
+		
 			
-		public function SubSelectionGameScreen(manager : Main) {
+		public function SubSelectionGameScreen(manager : Main, packages:Array) {
 			this.manager = manager;
+			packageOptionPicker = new PackageOptionPicker(packages);
 		}
 		
 		public function startGame(e : TouchEvent) : void{
-			manager.startGame(this,selection);		
+			manager.startGame(this,selection,packageOptionPicker.getSelectedUrl());		
 		}
 		
 		public function goBack(e : TouchEvent) : void{

@@ -36,17 +36,19 @@
 		
 		public function Main() {
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;				
+			//
+			
+			
 			//Initialize Views			
 			mainScreen = new mainScreen_mc();
 			cardsSelectionScreen = new cardsSelectionScreen_mc;
 			gameTypeSelectionScreen = new gameSelectionScreen_mc;
-			emotionSubSelectionScreen = new EmotionSubSelectionScreen(this);
-			communicationSubSelectionScreen = new CommunicationSubSelectionScreen(this);
-			cognitionSubSelectioScreen = new CognitionSubSelectionScreen(this);
+			emotionSubSelectionScreen = new EmotionSubSelectionScreen(this, buildDefaultEmotionsPackages());
+			communicationSubSelectionScreen = new CommunicationSubSelectionScreen(this,buildDefaultEmotionsPackages());
+			cognitionSubSelectioScreen = new CognitionSubSelectionScreen(this,buildDefaultEmotionsPackages());
 			loadingScreen = new loadingScreen_mc;
 			addChild(mainScreen);
-			//Initialize Managers
-			
+			//Initialize Managers			
 			httpManager = new HTTPManager();
 			//Initialize events
 			mainScreen.initializeApplicationButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToGameSelectionScreenEvent);
@@ -61,33 +63,15 @@
             mainScreen.username_txt.addEventListener( SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardEvent );
             mainScreen.username_txt.addEventListener( SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardEvent );
 			*/
-			
-			
-			jLoader = new JSONLoader(this);
-			/*
-			var QAJson:Object = new Object();
-			var graphicOptions : Array = new Array({graphicOption:"SignsImages/thumbsUp.png",classificationGroup:0,quantity:1},
-													{graphicOption:"ElementsImages/hammer.png",classificationGroup:1,quantity:3},
-													{graphicOption:"ShapesImages/reptiloide.png",classificationGroup:2,quantity:4});
-			var answerAreas : Array = new Array({textOption:"Manos",classificationGroup:0},
-													{textOption:"Martillo",classificationGroup:1},
-													{textOption:"Reptiloide",classificationGroup:2});
-													
-			var textOption : Array = new Array({textOption:"Manos",classificationGroup:0},
-												{textOption:"Martillo",classificationGroup:1},
-												{textOption:"Reptiloide",classificationGroup:2});
-										 
-			QAJson.graphicOptions = graphicOptions;
-			QAJson.answerAreas = answerAreas;
-			QAJson.textOption = textOption;
-			
-				
-
-			trace(jLoader.parseJSON(QAJson));
-		
-			*/
+			jLoader = new JSONLoader(this);	
 			
 	
+		}
+		
+		public function buildDefaultEmotionsPackages():Array{
+			var defaultEmotionsPackage : Array = new Array();
+			defaultEmotionsPackage.push(new PackageOption("Emociones Default", "JSONs/EmotionFaceQA.txt"));
+			return defaultEmotionsPackage;
 		}
 		
 		public function goToGameSelectionScreenEvent(e : TouchEvent) : void{
@@ -165,38 +149,38 @@
 			
 		}
 		
-		public function startGame(subSelectionGameScreen : SubSelectionGameScreen, selection : int){
+		public function startGame(subSelectionGameScreen : SubSelectionGameScreen, selection : int,url : String){
 			addChildAt(loadingScreen, 1);
 			if(subSelectionGameScreen is EmotionSubSelectionScreen){
 				if(selection == 0){
-					jLoader.getJSON("JSONs/EmotionSplitFaceGIFQA.txt");	
+					jLoader.getJSON(url);	
 					currentGameCategory = "QA";
 				}else if(selection == 1){
-					jLoader.getJSON("JSONs/EmotionFaceQA.txt");
+					jLoader.getJSON(url);
 					currentGameCategory = "QA";
 				}else if(selection == 2){
-					jLoader.getJSON("JSONs/EmotionStoryQA.txt");
+					jLoader.getJSON(url);
 					currentGameCategory = "QA";					
 				}
 				currentGameType = GameType.Emotions;
 			}else if(subSelectionGameScreen is CognitionSubSelectionScreen){
 				if(selection == 0){
-					jLoader.getJSON("JSONs/CognitionSentence.txt");
+					jLoader.getJSON(url);
 					currentGameCategory = "Sentence";
 				}else if(selection == 1){
-					jLoader.getJSON("JSONs/CognitionSoCoCo.txt");
+					jLoader.getJSON(url);
 					currentGameCategory = "SoCoCo";
 				}else if(selection == 2){
-					jLoader.getJSON("JSONs/CognitionUseClassification.txt");
+					jLoader.getJSON(url);
 					currentGameCategory = "Classification";
 				}
 				currentGameType = GameType.Cognition;
 			}else{
 				if (selection == 0){
-					jLoader.getJSON("JSONs/CognitionUseClassification.txt");
+					jLoader.getJSON(url);
 					currentGameCategory = "Classification";
 				}else if(selection == 1){
-					jLoader.getJSON("JSONs/CommunicationsConversation.txt");
+					jLoader.getJSON(url);
 					currentGameCategory = "Conversation";
 				}
 				currentGameType = GameType.Communications;

@@ -35,7 +35,7 @@
 		}
 		
 		public function goBack(e : TouchEvent) : void{
-			manager.closeView();
+			manager.destroyGame(null);
 		}
 		
 		public function changeMusicState(e : TouchEvent) : void{
@@ -46,9 +46,7 @@
 			}else{
 				background.stopMusic_mc.gotoAndStop(1);
 				playingMusic = true;
-			}
-			
-			
+			}			
 		}
 		
 	

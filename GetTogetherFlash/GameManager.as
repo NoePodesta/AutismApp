@@ -1,8 +1,6 @@
 ﻿package  {
 	
 	import flash.display.MovieClip;
-	import flash.media.Sound;
-	import flash.media.SoundChannel;
 	import flash.events.Event;
 	import flash.events.TouchEvent;
 	
@@ -10,10 +8,7 @@
 
 		
 		var gameView : GameView;
-		var mainManager : Main;
-		
-		var channel:SoundChannel;
-		var gameJingle : Sound; 
+		var mainManager : Main;	
 		
 		var winGameScreen : MovieClip;
 		
@@ -23,27 +18,19 @@
 		var gameType : String;
 		var gameContent : Object;
 		
+		var totalStages : int;
+		
 
 		
 		public function GameManager(mainManager : Main, gameType : String, gameContent : Object){
 			this.mainManager = mainManager;
 			this.gameType = gameType;
-			this.gameContent = gameContent;
-			
-			
-			
-			
-			gameJingle = new PlayingJingle();
+			this.gameContent = gameContent;		
+			this.totalStages = gameContent.totalStages;
 			winGameScreen = new winScreen_mc;
 			winGameScreen.y = 68;
 			winGameScreen.x = 1024/2 - 465.95/2;
 			winGameScreen.winScreenGoBack_mc.addEventListener(TouchEvent.TOUCH_TAP, destroyGame);
-			
-			channel = new SoundChannel();
-			
-			
-	
-			// constructor code
 		}
 		
 		public function closeView():void{
@@ -54,37 +41,28 @@
 		
 		
 		public function endGame(){
-			addChild(winGameScreen);
-			
+			addChild(winGameScreen);			
 		}
 		
-		function loopJingle(e:Event):void
-		{
-			 channel = gameJingle.play();
-			 channel.addEventListener(Event.SOUND_COMPLETE, loopJingle);
-
-		}
+		
 		
 		public function changeMusicState(playingMusic : Boolean):void
 		{
 			if(playingMusic){
-				channel.stop();
-				playingMusic = false;
+				SoundManager.stopGameJingle();
 			}else{
-				channel = gameJingle.play();
-				channel.addEventListener(Event.SOUND_COMPLETE, loopJingle);
-				playingMusic = true;
+				SoundManager.playGameJingle();
 			}
 		}
 
 		function onLoadComplete():void{
 			addChild(gameView);
+			SoundManager.playGameJingle();
 			mainManager.showGameView(this);
 		}
 		
-		public function destroyGame(e : TouchEvent) : void{
-			channel.stop();
-			channel = null;
+		public function destroyGame(e : TouchEvent) : void{			
+			SoundManager.stopGameJingle();
 			mainManager.destroyGame();
 			
 		}	
@@ -92,17 +70,16 @@
 	
 		
 		public function checkClassificationAnswer(answer : ClassificationOption, dropped : ClassificationAnswerArea) : void{
+			/*
 			if(dropped != null){
 				if(dropped.classificationGroup == answer.classificationGroup){
-					trace("Correcto");
-					//right.play();					
+					SoundManager.playCorrectSound();					
 					endGame();
 				}else{
+					SoundManager.playWrongSound();
 					answer.resetPosition();
-					//wrong.play();
-				}
-				
-			}
+				}				
+			*/
 		}
 		
 		 public function loadImageComplete() : void{
@@ -112,6 +89,14 @@
 		
 		public function onOptionLoadComplete():void{
 			
+		}
+		
+		protected function playCorrectSound():void{
+			SoundManager.playCorrectSound();
+		}
+		
+		protected function playWrongSound():void{
+			SoundManager.playWrongSound();
 		}
 		
 		

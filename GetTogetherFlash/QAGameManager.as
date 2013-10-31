@@ -9,8 +9,9 @@
 
 		
 		var options : Array;
+		var stagesOptions : Array;
+		var stagesAnswers : Array;
 		
-		//var answer : QAOption;
 		
 		var right:Sound;
 		var wrong:Sound;				
@@ -18,78 +19,119 @@
 		
 		
 		var optionsLength : int;
+		var currentStage : int;
 
 		
 		
 		public function QAGameManager(mainManager : Main, gameContent : Object, gameType : String){
 			super(mainManager, gameType, gameContent);
-		
-			optionsLength = gameContent.optionsLength;
+			optionsLength = 0;
 			
-			totalOptions = optionsLength + 1;
-			totalLoaded = 0;			
-			options = new Array(optionsLength);						
-			
-			
-			if(gameContent.optionsType == "Text"){
-				buildTextOptions();
-			}else if(gameContent.optionsType == "Image"){
-				buildImageOptions();
-			}else if(gameContent.optionsType == "GIF"){
-				buildGIFOptions();
+			for(var i : int = 0;i<gameContent.totalStages;i++){
+				optionsLength += gameContent.stages[i].optionsLength;
 			}
 			
-			if(gameContent.answerType == "Text"){
-				answerArea = new ClassificationTextAnswerArea(this,1,"",gameContent.answer,50);
-				answerArea.onLoadComplete();
-			}else if(gameContent.answerType == "Image"){
-				answerArea = new ClassificationImageAnswerArea(this,1,"",gameContent.answer,50);
-			}else if(gameContent.answerType == "GIF"){
-				answerArea = new ClassificationGIFAnswerArea(this,1,"",gameContent.answer,50);
-			}
-		}
-		
-		private function buildTextOptions():void{
-			for(var i :int = 0;i < optionsLength ; i++){
-				if(gameContent.options[i].correctAnswer){
-					options[i] = new DragableTextOption(this, gameContent.options[i].label,100 + 230 * i, 600, 1);
-				}else{
-					options[i] = new DragableTextOption(this, gameContent.options[i].label,100 + 230 * i, 600, 0);
-				}				
-			}
+			totalOptions = optionsLength + totalStages;
+			totalLoaded = 0;	
+			currentStage = 0;
+				
+			stagesOptions = new Array(totalStages);
+			stagesAnswers = new Array(totalStages);
+			
+			loadAllJSON();
 			
 		}
 		
-		private function buildImageOptions():void{
-			for(var i :int = 0;i < optionsLength ; i++){
-				if(gameContent.options[i].correctAnswer){
-					options[i] = new DragableImageOption(this, gameContent.options[i].label,100 + 230 * i, 600, 1);
+		private function buildTextOptions(currentStage : int):void{
+			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){
+				if(gameContent.stages[currentStage].options[i].correctAnswer){
+					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 1);
 				}else{
-					options[i] = new DragableImageOption(this, gameContent.options[i].label,100 + 230 * i, 600, 0);
+					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 0);
 				}				
 			}
+			stagesOptions[currentStage] = options;
 			
 		}
 		
-		private function buildGIFOptions():void{
-			for(var i :int = 0;i < optionsLength ; i++){
-				if(gameContent.options[i].correctAnswer){
-					options[i] = new DragableGIFOption(this, gameContent.options[i].label,100 + 230 * i, 600, 1);
+		private function buildImageOptions(currentStage : int):void{
+			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){
+				if(gameContent.stages[currentStage].options[i].correctAnswer){
+					options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 1);
 				}else{
-					options[i] = new DragableGIFOption(this, gameContent.options[i].label,100 + 230 * i, 600, 0);
+					options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 0);
 				}				
 			}
+			stagesOptions[currentStage] = options;
 			
+		}
+		
+		private function buildGIFOptions(currentStage : int):void{
+			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){
+				if(gameContent.stages[currentStage].options[i].correctAnswer){
+					options[i] = new DragableGIFOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 1);
+				}else{
+					options[i] = new DragableGIFOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 0);
+				}				
+			}
+			stagesOptions[currentStage] = options;			
 		}
 		
 		override public function onOptionLoadComplete():void{
 			totalLoaded++;
 			if(totalLoaded == totalOptions){
-				gameView = new QAGameView(this, options, answerArea, gameType);
-				onLoadComplete();
-				
+				gameView = new QAGameView(this, stagesOptions, stagesAnswers, gameType);
+				(gameView as QAGameView).showStage(currentStage);
+				onLoadComplete();				
 			}			
 		}
+		
+		public function loadAllJSON():void{
+			
+			for(var i: int = 0;i<totalStages;i++){
+				options = new Array(gameContent.stages[i].optionsLength);
+				if(gameContent.stages[i].optionsType == "Text"){
+					buildTextOptions(i);
+				}else if(gameContent.stages[i].optionsType == "Image"){
+					buildImageOptions(i);
+				}else if(gameContent.stages[i].optionsType == "GIF"){
+					buildGIFOptions(i);
+				}
+			
+				if(gameContent.stages[i].answerType == "Text"){
+					answerArea = new ClassificationTextAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,50);
+					answerArea.onLoadComplete();
+				}else if(gameContent.stages[i].answerType == "Image"){
+					answerArea = new ClassificationImageAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,50);
+				}else if(gameContent.stages[i].answerType == "GIF"){
+					answerArea = new ClassificationGIFAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,50);
+				}	
+				stagesAnswers[i] = answerArea;
+			}
+			
+		}
+		
+		override public function checkClassificationAnswer(answer : ClassificationOption, dropped : ClassificationAnswerArea) : void{
+			if(dropped != null){
+				if(dropped.classificationGroup == answer.classificationGroup){
+					SoundManager.playCorrectSound();
+					currentStage++;
+					if(currentStage == totalStages){
+						endGame();
+					}else{
+						(gameView as QAGameView).removeStage(currentStage-1);
+						(gameView as QAGameView).showStage(currentStage);
+					}
+					
+				}else{
+					SoundManager.playWrongSound();
+					answer.resetPosition();
+				}
+				
+			}
+		}
+		
+		
 		
 		
 		

@@ -7,8 +7,8 @@
 
 		var cognitionSubSelectionScreen : MovieClip;
 		
-		public function CognitionSubSelectionScreen(manager : Main) {
-			super(manager);
+		public function CognitionSubSelectionScreen(manager : Main, packages : Array) {
+			super(manager, packages);
 			
 			selection = 0;
 			
@@ -20,6 +20,7 @@
 			cognitionSubSelectionScreen.playButton_mc.addEventListener(TouchEvent.TOUCH_BEGIN, startGame);
 			cognitionSubSelectionScreen.backArrow_mc.addEventListener(TouchEvent.TOUCH_BEGIN, goBack);
 			addChild(cognitionSubSelectionScreen);
+			addChild(packageOptionPicker);
 		}
 		
 		public function selectGame0(e : TouchEvent) : void{
