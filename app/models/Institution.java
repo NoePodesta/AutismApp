@@ -31,6 +31,11 @@ public class Institution extends Model {
 
     public String telephone;
 
+    @Constraints.Email
+    public String mail;
+
+    public String image;
+
     @OneToMany(cascade = CascadeType.REMOVE)
 
     public ArrayList<Therapist> therapists;
@@ -43,10 +48,13 @@ public class Institution extends Model {
 
     public static Model.Finder<Integer,Institution> find = new Model.Finder(Integer.class, Institution.class);
 
-    public Institution(final String name, final Address address, final String telephone){
+    public Institution(final String name, final Address address, final String telephone, final String image,
+                       final String mail){
         this.name = name;
         this.address = address;
         this.telephone = telephone;
+        this.image = image;
+        this.mail = mail;
     }
 
     public static Institution getById(int institutionId) {

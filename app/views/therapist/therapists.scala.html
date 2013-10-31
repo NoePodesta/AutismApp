@@ -1,108 +1,63 @@
 @(therapistList: List[models.Therapist])
 @import helper._
 
-@title = {
-    Terapeutas
-}
+    @title = {
+        Terapeutas
+    }
 
 @main(title , nav = "therapists") {
 
 
+    <div class="container-fluid">
+        <div class="row-fluid">
         @if(flash.containsKey("success")) {
-        <div class="alert-message warning">
-            <strong>Done!</strong> @flash.get("success")
-        </div>
+            <div class="alert-message warning">
+                <strong>Done!</strong> @flash.get("success")
+            </div>
         }
+        </div>
+        @if(Secured.isAdmin){
+            <div class="row-fluid">
+                <div class="pull-right btn-margin">
+                    <a class="btn btn-success" href="@routes.TherapistController.createTherapist()">Agregar Terapeuta</a>
+                </div>
+            </div>
+        }
+        <div class="row-fluid">
 
         @if(therapistList.isEmpty()) {
 
-        <div class="well">
-            <em>No se han ingresado terapeutas</em>
-        </div>
+            <div class="well">
+                <em>No se han ingresado terapeutas</em>
+            </div>
 
         } else {
 
-        <table class="table table-striped">
-            <thead>
-            <tr>
-
-                <td>Photo</td>
-                <td>Name</td>
-                <td>Surname</td>
-                <td>Thelephone</td>
-                <td>DNI</td>
-                <td>E-Mail</td>
-                <td>Fecha de Nacimiento</td>
-                <td>Matricula Nacional</td>
-                <td class ="remove"></td>
-                <td class ="edit"></td>
-            </tr>
-            </thead>
-            <tbody>
-
+            <div class="therapistList">
             @for(therapist <- therapistList) {
-            <tr>
-                <td>
-                @if(therapist.image!= null){
-                    <img src="@routes.Assets.at(therapist.image)" alt="@therapist.name" height="42" width="42">
-                }else{
-                    <em>No se ha especificado</em>
-                }
-                </td>
-                <td>@therapist.name</td>
-                <td>@therapist.surname</td>
-                <td>@therapist.telephone</td>
-                <td>@therapist.dni</td>
-                <td>@therapist.mail</td>
-                <td>
-                    @if(therapist.birthday == null){
-                        <em>No ha especificado</em>
-                    }else{
-                        @therapist.birthday.format("dd MMM yyyy")</td>
-                }
-                <td>@therapist.nm</td>
 
-                <td class = "remove">
-                    <a data-toggle="modal" href="#myModal" class="btn btn-danger disabled">Eliminar</a>
-                </td>
+                <div class="span4">
+                    <div class="well">
 
-                <td class = "edit">
-                    <a class="btn btn-info disabled" href="@routes.TherapistController.editTherapist(therapist.id)">Editar</a>
-                </td>
 
-            </tr>
-
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Eliminar Terapeuta</h4>
-                        </div>
-                        <div class="modal-body">
-                            Estas seguro que queres eliminar a este terapeuta?
-                            @therapist.dni
-                        </div>
-                        <div class="modal-footer">
-                        @form(routes.TherapistController.removeTherapist(therapist.id)) {
-                            <input type="submit" value="Eliminar" class="btn btn-danger disabled">
+                        @if(therapist.image!= null){
+                            <img class="img-polaroid" src="@routes.Assets.at(therapist.image)" alt="@therapist.name" height="42" width="42">
                         }
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+
+                    <div class="therapistInfo">
+                        <a href="@routes.TherapistController.therapistProfile(therapist.id)"><p class="inline">@therapist.name @therapist.surname</p></a>
+                        @if(Secured.isAdmin){
+                            <a class="pull-right"><img src="@routes.Assets.at("images/delete.png")" alt="Remove" height="10" width="10"></a>
+                        }
+                    </div>
+                    </div>
+                </div>
+
+
 
             }
-
-            </tbody>
-        </table>
+            </div>
         }
-
-
-        <fieldset class="actions">
-            <a class="btn btn-success" id="add" href="@routes.TherapistController.createTherapist()">Agregar Terapeuta</a>
-        </fieldset>
-
-
-    }
+        </div>
+    </div>
+}

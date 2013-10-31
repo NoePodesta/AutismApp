@@ -41,6 +41,7 @@ POST        /patients/removePatient/:id            controllers.PatientController
 
 # Therapist Profile
 GET         /profile                               controllers.TherapistController.profile()
+GET         /profile/:id                           controllers.TherapistController.therapistProfile(id: Integer)
 
 
 # List Therapist

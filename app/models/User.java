@@ -6,6 +6,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -48,7 +49,7 @@ public class User extends Model {
     public String telephone;
     @Pattern(regexp = "^(\\d{8})$", message = "Ingrese un dni válido")
     @Constraints.Required
-
+    @Column(unique = true)
     public String dni;
     @Enumerated(EnumType.STRING)
     public Gender gender;
