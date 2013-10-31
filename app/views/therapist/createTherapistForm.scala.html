@@ -8,7 +8,7 @@
     Dar de alta terapeuta
 }
 
-@main(title, nav = " "){
+@main(title,nav = " "){
 <div id=therapistForm>
     @if(therapistForm.hasErrors) {
     <div class="alert-message error">
@@ -21,21 +21,26 @@
 
 
         <fieldset>
-            <legend>Información General</legend>
+            <legend>Informacion General</legend>
 
-        
+            <div class="span5">
             @inputText(therapistForm("name"),
-                '_label -> "Nombre"
+                '_label -> "Nombre",
+                '_showConstraints -> false
+
             )
             @inputText(
                 therapistForm("surname"),
-                '_label -> "Apellido"
+                '_label -> "Apellido",
+                '_showConstraints -> false
+
             )
 
             @inputText(
                 therapistForm("dni"),
                 '_label -> "DNI",
-                '_error -> therapistForm.globalError
+                '_showConstraints -> false,
+            '_error -> therapistForm.globalError
             )
 
             @select(
@@ -43,20 +48,25 @@
                 options = options(Gender.all()),
                 '_default -> "--- Eliga el sexo ---",
                 '_label -> "Sexo",
-                '_error -> therapistForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo"))
+                '_error -> therapistForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo")),
+                '_showConstraints -> false
             )
+                </div>
+                <div class="span5">
 
             @helper.inputDate(
                 therapistForm("birthday"),
                 '_label -> "Fecha de Nacimiento",
-                '_help -> "Formato dd/MM/yyyy" ,
-                'format -> "dd/MM/yyyy"
+                'format -> "dd/MM/yyyy",
+                '_showConstraints -> false
+
             )
 
             @inputText(
                 therapistForm("mail"),
-                '_label -> "Correo electrónico"
-            )
+                '_label -> "Correo electrónico",
+                '_showConstraints -> false
+                )
 
             @inputText(
                 therapistForm("nm"),
@@ -68,24 +78,28 @@
 
                     <input type="file" id="picture" name="picture" accept="image/*" >
                     <span class="help-inline"></span>
-                    <span class="help-block">Ingrese una imagen de perfil.</span>
                 </div>
+            </div>
             </div>
 
         </fieldset>
 
         <fieldset>
 
-            <legend>Dirección</legend>
+            <legend>Direccion</legend>
 
             @inputText(
                 therapistForm("address.cp"),
-                '_label -> "Codigo Postal"
+                '_label -> "Codigo Postal" ,
+                '_showConstraints -> false
+
             )
 
             @inputText(
                 therapistForm("address.street"),
-                '_label -> "Calle"
+                '_label -> "Calle",
+                '_showConstraints -> false
+
             )
 
             @inputText(
@@ -96,12 +110,16 @@
 
             @inputText(
                 therapistForm("address.floor"),
-                '_label -> "Piso", 'class -> "mini"
+                '_label -> "Piso", 'class -> "mini",
+                '_showConstraints -> false
             )
 
             @inputText(
                 therapistForm("address.depto"),
-                '_label -> "Departamento", 'class -> "mini"
+                '_label -> "Departamento", 'class -> "mini",
+                '_showConstraints -> false
+
+
             )
 
             @inputText(
@@ -121,7 +139,7 @@
 
         <fieldset>
 
-            <legend>Teléfonos</legend>
+            <legend>Telefonos</legend>
 
             @inputText(
                 therapistForm("telephone"),
@@ -133,25 +151,7 @@
             )
 
         </fieldset>
-         <!--
-        <fieldset>
 
-            <legend>Contraseña</legend>
-             /**
-            @inputPassword(
-                therapistForm("password"),
-                '_label -> "Contraseña",
-                '_help -> "La contraseña debe tener al menos 6 caracteres."
-            )
-            @inputPassword(
-                therapistForm("repeatPassword"),
-                '_label -> "Confirmar contraseña",
-                '_help -> "Por Favor ingrese su contraseña nuevamente",
-                '_error -> therapistForm.error("password")
-            )
-             */
-        </fieldset>
-        -->
         <div class="actions">
             <input type="submit" value="Agregar Terapeuta" class="btn btn-success">
         </div>

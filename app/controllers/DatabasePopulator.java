@@ -27,7 +27,8 @@ public class DatabasePopulator extends Controller {
 
     private static void populateAddressDatabase() {
         Address institutionAddress = new Address("Libertad","1250","3","D","1638","Vicente Lopez","Buenos Aires");
-        Institution institution = new Institution("Dacaid",institutionAddress,"47911234");
+        Institution institution = new Institution("Dacaid",institutionAddress,"47911234","images/home.jpg",
+                "Dacaid@gmail.com");
 
         Ebean.save(institutionAddress);
         Ebean.save(institution);
@@ -90,10 +91,10 @@ public class DatabasePopulator extends Controller {
             institution.delete();
         }
 
-//        List<Address> addressList = Address.all();
-//        for(Address address : addressList){
-//            address.delete();
-//        }
+        List<Address> addressList = Address.all();
+        for(Address address : addressList){
+            address.delete();
+        }
 
 
 

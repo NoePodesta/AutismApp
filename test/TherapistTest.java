@@ -20,7 +20,8 @@ public class TherapistTest extends BaseModelTest {
     public void AddAdminTest() {
         Address institutionAddress = new Address("Libertad","1250","3","D","1638","Vicente Lopez","Buenos Aires");
         Address therapistAddress = new Address("Cabildo","1250","3","D","1638","Vicente Lopez","Buenos Aires");
-        Institution institution = new Institution("Dacaid",institutionAddress,"47911234");
+        Institution institution = new Institution("Dacaid",institutionAddress,"47911234","images/home.jpg",
+                "Dacaid@gmail.com");
 
         Therapist therapist = new Therapist("Juan","Molteni","47911306","123",therapistAddress,"33850398","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"asd","123456","", TherapistType.ADMIN,institution);
 

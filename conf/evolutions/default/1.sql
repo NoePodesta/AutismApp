@@ -26,6 +26,8 @@ create table Institutions (
   name                      varchar(255),
   address_id                integer,
   telephone                 varchar(255),
+  mail                      varchar(255),
+  image                     varchar(255),
   constraint pk_Institutions primary key (id))
 ;
 
@@ -51,6 +53,7 @@ create table Patients (
   q_award_c                 integer,
   institution_id            integer,
   constraint ck_Patients_gender check (gender in ('Female','Male')),
+  constraint uq_Patients_dni unique (dni),
   constraint pk_Patients primary key (id))
 ;
 
@@ -89,6 +92,7 @@ create table Therapists (
   institution_id            integer,
   constraint ck_Therapists_gender check (gender in ('Female','Male')),
   constraint ck_Therapists_therapist_type check (therapist_type in ('ADMIN','NO_PRIVILEGES')),
+  constraint uq_Therapists_dni unique (dni),
   constraint pk_Therapists primary key (id))
 ;
 
@@ -114,6 +118,7 @@ create table User (
   birthday                  datetime,
   image                     varchar(255),
   constraint ck_User_gender check (gender in ('Female','Male')),
+  constraint uq_User_dni unique (dni),
   constraint pk_User primary key (id))
 ;
 

@@ -244,6 +244,11 @@ public class TherapistController extends Controller {
         return ok(views.html.therapist.profile.render(therapist));
     }
 
+    public static Result therapistProfile(int id){
+        Therapist therapist = Therapist.findTherapistById(id);
+        return ok(views.html.therapist.profile.render(therapist));
+    }
+
     public static Therapist getTherapistById(int id) {
         return Therapist.findTherapistById(id);  //To change body of created methods use File | Settings | File Templates.
     }
