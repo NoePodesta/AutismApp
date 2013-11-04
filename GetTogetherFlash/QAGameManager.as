@@ -116,6 +116,7 @@
 				if(dropped.classificationGroup == answer.classificationGroup){
 					SoundManager.playCorrectSound();
 					currentStage++;
+					resultColector.addCorrectAnswer();
 					if(currentStage == totalStages){
 						endGame();
 					}else{
@@ -126,6 +127,7 @@
 				}else{
 					SoundManager.playWrongSound();
 					answer.resetPosition();
+					resultColector.addWrongAnswer();
 				}
 				
 			}

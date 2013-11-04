@@ -30,14 +30,10 @@ public class Patient
     public String disease;
     @Constraints.Required
     public String gradeDisease;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient",
-            fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Results> progress;
     @OneToOne
     public Team team;
-    private int qAwardA;
-    private int qAwardB;
-    private int qAwardC;
 
     @ManyToOne
     public Institution institution;
@@ -56,26 +52,14 @@ public class Patient
         this.disease = disease;
         this.gradeDisease = gradeDisease;
         this.progress = new ArrayList<Results>();
-        this.qAwardA = 0;
-        this.qAwardB = 0;
-        this.qAwardC = 0;
+
         this.institution = institution;
     }
 
     public static Model.Finder<Integer,Patient> find = new Model.Finder(Integer.class, Patient.class);
 
 
-    public void gainAwardA(int value){
-        qAwardA = qAwardA+value;
-    }
 
-    public void gainAwardB(int value){
-        qAwardB = qAwardB+value;
-    }
-
-    public void gainAwardC(int value){
-        qAwardC = qAwardC+value;
-    }
 
     public static List<Patient> all() {
         return find.all();
@@ -99,7 +83,9 @@ public class Patient
         return patients;
     }
 
-
+    public static Patient findByTeam(Team team){
+        return find.where().eq("team", team).findUnique();
+    }
 
 
 
@@ -138,4 +124,6 @@ public class Patient
             return false;
         }
     }
+
+
 }

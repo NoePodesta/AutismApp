@@ -1,6 +1,9 @@
 package models;
 
+import play.db.ebean.Model;
+
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,20 +14,19 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Results")
-public class Results {
+public class Results extends Model {
 
     @Id
-    @Column(name = "idResult")
-    private int idResult;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private int id;
+    @Enumerated(EnumType.STRING)
     private Game game;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
     private Patient patient;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
     private Therapist therapist;
-    private int punctuation;
-    private String description;
-
+    private int correctAnswers;
+    private int wrongAnswers;
+    private Date dateMade;
 
 
 }

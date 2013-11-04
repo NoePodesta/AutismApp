@@ -34,12 +34,18 @@
 		
 		var jLoader : JSONLoader;
 		
+		var topBar : TopBarView;
+		
 		public function Main() {
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;				
-			//
+			
+			//Initialize Managers		
+			jLoader = new JSONLoader(this);	
+			httpManager = new HTTPManager(this, jLoader);
 			
 			
-			//Initialize Views			
+			//Initialize Views	
+			topBar = new TopBarView(httpManager);
 			mainScreen = new mainScreen_mc();
 			cardsSelectionScreen = new cardsSelectionScreen_mc;
 			gameTypeSelectionScreen = new gameSelectionScreen_mc;
@@ -47,23 +53,20 @@
 			communicationSubSelectionScreen = new CommunicationSubSelectionScreen(this,buildDefaultEmotionsPackages());
 			cognitionSubSelectioScreen = new CognitionSubSelectionScreen(this,buildDefaultEmotionsPackages());
 			loadingScreen = new loadingScreen_mc;
-			addChild(mainScreen);
-			//Initialize Managers			
-			httpManager = new HTTPManager();
+			
 			//Initialize events
 			mainScreen.initializeApplicationButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToGameSelectionScreenEvent);
 			mainScreen.initializeCardsButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToCardsSelectionScreenEvent);
-			mainScreen.loginButton_mc.addEventListener(TouchEvent.TOUCH_TAP,testLogin);
 			gameTypeSelectionScreen.emotionsButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToEmotionsSelectionScreen);
 			gameTypeSelectionScreen.cognitionButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToCognitionSelectionScreen);
 			gameTypeSelectionScreen.communicationsButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToCommunicationsSelectionScreen);
 			cardsSelectionScreen.initializeCardGame_mc.addEventListener(TouchEvent.TOUCH_TAP, loadCards);
-			/*
-			mainScreen.username_txt.addEventListener( Event.CHANGE, onTFChange );
-            mainScreen.username_txt.addEventListener( SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardEvent );
-            mainScreen.username_txt.addEventListener( SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardEvent );
-			*/
-			jLoader = new JSONLoader(this);	
+
+
+			
+			
+			addChild(mainScreen);
+			addChild(topBar);
 			
 	
 		}
@@ -207,37 +210,7 @@
 		}
 			
 		
-		//IOS AND HTTP NEEDS
-		public function testConnection(e : TouchEvent):void{
-			httpManager.testConnection();
-		}
-		
-		public function testLogin(e : TouchEvent):void{
-			httpManager.testLogin(mainScreen.username_txt.text, mainScreen.password_txt.text);
-		}
-		
-		
-		
-		
-		
-		private function showKeyboard( event:Event ):void{
-            trace("show");
-            mainScreen.username_txt.requestSoftKeyboard();
-        }
-		
-        private function hideKeyboard( event:Event ):void{
-            trace("hide");
-            this.stage.focus = null;
-        }
-		
-        private function onTFChange( event:Event ):void{
-            trace("Character typed: " + mainScreen.username_txt.text.charAt( mainScreen.username_txt.text.length - 1 ) );
-            //mainScreen.username_txt.text = "";
-        }    
-		
-        private function softKeyboardEvent( event:SoftKeyboardEvent ):void{
-            trace( this.stage.softKeyboardRect );
-        }
+
 
 	
 	}

@@ -28,7 +28,7 @@
 		
 		private function onLoaderComplete(e:Event):void {
 			var loader:URLLoader = URLLoader(e.target);
-			loadedJSON = JSON.parse(loader.data);	
+			loadedJSON = parseJSON(loader.data);	
 			mainManager.loadGame(loadedJSON);
 		}
 		
@@ -36,9 +36,13 @@
 			return loadedJSON;
 		}
 		
-		public function parseJSON(object : Object):String{
+		public function stringifyJson(object : Object):String{
 			var parsedJSON:String = JSON.stringify(object);
 			return parsedJSON;
+		}
+		
+		public function parseJSON(data : String):Object{
+			return JSON.parse(data);
 		}
 
 	}

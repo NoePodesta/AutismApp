@@ -84,7 +84,6 @@ public class Team extends Model {
 
 
     public Patient getPatient(){
-
        return patient;
     }
 

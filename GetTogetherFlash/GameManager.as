@@ -19,6 +19,7 @@
 		var gameContent : Object;
 		
 		var totalStages : int;
+		var resultColector : ResultColector;
 		
 
 		
@@ -27,18 +28,14 @@
 			this.gameType = gameType;
 			this.gameContent = gameContent;		
 			this.totalStages = gameContent.totalStages;
+			resultColector = new ResultColector(gameType,0,0,0);
 			winGameScreen = new winScreen_mc;
 			winGameScreen.y = 68;
 			winGameScreen.x = 1024/2 - 465.95/2;
 			winGameScreen.winScreenGoBack_mc.addEventListener(TouchEvent.TOUCH_TAP, destroyGame);
 		}
 		
-		public function closeView():void{
-			removeChild(gameView);
-			mainManager.goToGameTypeSelectionScreen();
-		}		
-		
-		
+	
 		
 		public function endGame(){
 			addChild(winGameScreen);			
@@ -63,6 +60,7 @@
 		
 		public function destroyGame(e : TouchEvent) : void{			
 			SoundManager.stopGameJingle();
+			trace(resultColector.getJson());
 			mainManager.destroyGame();
 			
 		}	

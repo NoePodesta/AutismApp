@@ -103,12 +103,14 @@
 				if(dropped.classificationGroup == answer.classificationGroup){
 					if(currentStage==0){
 						correctClassificationAnswers++;
+						resultColector.addCorrectAnswer();
 						if(correctClassificationAnswers == optionsQuantity){
 							goToColorStage();
 							correctClassificationAnswers = 0;
 						}
 					}else if(currentStage == 1){
 						correctClassificationAnswers++;
+						resultColector.addCorrectAnswer();
 						if(correctClassificationAnswers == 3){
 							goToCountStage();
 							correctClassificationAnswers = 0;
@@ -118,6 +120,7 @@
 					trace("Correcto");
 					//right.play();
 				}else{
+					resultColector.addWrongAnswer();
 					answer.resetPosition();
 					//wrong.play();
 				}

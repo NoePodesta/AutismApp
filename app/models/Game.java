@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.annotation.EnumValue;
 import play.data.validation.Constraints;
 
 import javax.persistence.Column;
@@ -14,14 +15,25 @@ import javax.persistence.Table;
  */
 
 
-@Entity
-@Table(name = "Game")
-public class Game {
 
-    @Id
-    @Column(name = "idGame")
-    private int id;
-    @Constraints.Required
-    private String name;
+public enum Game{
+
+    @EnumValue("QA")
+    QA,
+
+    @EnumValue("CLASSIFICATION")
+    CLASSIFICATION,
+
+    @EnumValue("SOCOCO")
+    SOCOCO,
+
+    @EnumValue("SENTENCE")
+    SENTENCE,
+
+    @EnumValue("CONVERSATION")
+    CONVERSATION,
+
+
+
 
 }

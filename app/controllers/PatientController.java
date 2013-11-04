@@ -129,4 +129,8 @@ public class PatientController
         Form<Patient> patientForm = form(Patient.class).fill(patientToFill);
         return ok(views.html.patient.editPatientForm.render(patientForm));
     }
+
+    public static Patient getByTeam(Team team){
+        return Patient.findByTeam(team);
+    }
 }

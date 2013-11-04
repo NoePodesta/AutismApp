@@ -12,7 +12,9 @@
 		public function checkSentence(articleData : int, sustantivoData : int,verbData : int,adjetiveData : int):void{
 			if(articleData == sustantivoData == verbData == adjetiveData){
 				endGame();
+				resultColector.addCorrectAnswer();
 			}else{
+				resultColector.addWrongAnswer();
 				trace("Incorrecto");
 			}
 		}

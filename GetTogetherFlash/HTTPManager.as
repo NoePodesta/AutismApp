@@ -7,10 +7,13 @@
 	
 	public class HTTPManager {
 		
-		
+		var topBar : TopBarView;
+		var jsonLoader : JSONLoader;
+		var main : Main;
 
-		public function HTTPManager() {
-			// constructor code
+		public function HTTPManager(main : Main, jsonLoader : JSONLoader) {
+			this.main = main;
+			this.jsonLoader = jsonLoader;
 		}
 		
 		public function testConnection():void{
@@ -30,7 +33,17 @@
 		}
 		
 		public function onComplete (event:Event):void {
-			trace(event.target.data);
+			
+		}
+		
+		public function onLoginComplete (event:Event):void {
+			var loginData : Object = jsonLoader.parseJSON(event.target.data);
+			if(loginData.loggedComplete){
+				topBar.loggedIn(loginData.name + " " + loginData.surname);
+			}else{
+				//TODO LOGIN FAIL
+			}
+			
 		}
 		
 		public function testLogin(username : String, password : String):void{
@@ -46,9 +59,13 @@
 			
 			
 			var loader:URLLoader = new URLLoader();
-			loader.addEventListener(Event.COMPLETE, onComplete);
+			loader.addEventListener(Event.COMPLETE, onLoginComplete);
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
 			loader.load(request);
+		}
+		
+		public function setTopBar(topBar : TopBarView):void{
+			this.topBar = topBar;
 		}
 
 	}

@@ -96,6 +96,7 @@
 			if(dropped != null){
 				if(dropped.classificationGroup == answer.classificationGroup){
 					totalCorrectAnswers++;
+					resultColector.addCorrectAnswer();
 					SoundManager.playCorrectSound();
 					if(totalCorrectAnswers == gameContent.stages[currentStage].optionsLength){
 						currentStage++;
@@ -108,6 +109,7 @@
 						}
 					}
 				}else{
+					resultColector.addWrongAnswer();
 					SoundManager.playWrongSound();
 					answer.resetPosition();
 				}

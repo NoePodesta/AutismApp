@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.FetchConfig;
 import controllers.BCrypt;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -31,10 +32,12 @@ public class Therapist
     public String password;
     @ManyToOne
     public List<Therapist_Role> team;
-    @Enumerated(EnumType.STRING)
     private TherapistType therapistType;
     @ManyToOne
     public Institution institution;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Results> patientProgress;
+
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
 
@@ -80,7 +83,11 @@ public class Therapist
 
     public static boolean isAdmin(String dni) {
         Therapist therapist =  find.where().eq("dni", dni).findUnique();
-        return therapist.therapistType.name().equals(TherapistType.ADMIN.name());
+        if(therapist != null){
+            return therapist.therapistType.name().equals(TherapistType.ADMIN.name());
+        }
+        return false;
+
     }
 
     public static Therapist findTherapistById(int id){
@@ -140,4 +147,19 @@ public class Therapist
                 .eq("institution", institution)
                 .findList();
     }
+
+    public static Therapist findWithTeamsLoaded(String dni){
+        return find.fetch("team", new FetchConfig().query()).where().eq("dni", dni).findUnique();
+    }
+
+    public List<Therapist_Role> getTeam() {
+        return team;
+    }
+
+    public void setTeam(List<Therapist_Role> team) {
+        this.team = team;
+    }
+
+
+
 }

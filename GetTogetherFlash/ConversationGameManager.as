@@ -31,12 +31,14 @@
 		public function checkSentence(result : Boolean):void{
 			if(result){
 				totalAnswered++;
+				resultColector.addCorrectAnswer();
 				if(totalAnswered == totalQuestions){
 					endGame();
 				}else{
 					(gameView as ConversationGameView).proceedToNextQuestion();
 				}
 			}else{
+				resultColector.addWrongAnswer();
 				trace("Incorrecto");
 			}
 		}

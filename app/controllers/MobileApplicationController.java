@@ -1,9 +1,14 @@
 package controllers;
 
+import models.Patient;
 import models.Therapist;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.libs.Json;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -23,11 +28,29 @@ public class MobileApplicationController extends Controller {
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String username = values.get("username")[0];
         String password = values.get("password")[0];
-
+        ObjectNode result = Json.newObject();
         if(Therapist.authenticate(username,password)){
-           return ok("Login Successfull");
+            Therapist therapist = Therapist.findTherapistByDNI(username);
+
+            if(therapist.getTeam() != null){
+
+                for(int i = 0;i<therapist.team.size();i++){
+                    Patient patient = PatientController.getByTeam(therapist.team.get(i).team);
+
+                }
+
+
+            }
+
+            result.put("loggedComplete", true);
+            result.put("name",therapist.name);
+            result.put("surname", therapist.surname);
+
+
+            return ok(result);
        }else{
-           return ok("Login failed");
+           result.put("loggedComplete", false);
+           return ok(result);
        }
     }
 }
