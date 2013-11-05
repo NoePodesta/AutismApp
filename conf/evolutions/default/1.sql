@@ -25,6 +25,13 @@ create table Institutions (
   constraint pk_Institutions primary key (id))
 ;
 
+create table Packages (
+  id                        integer auto_increment not null,
+  package_name              varchar(255),
+  json_content              varchar(255),
+  constraint pk_Packages primary key (id))
+;
+
 create table Patients (
   id                        integer auto_increment not null,
   name                      varchar(255),
@@ -48,7 +55,14 @@ create table Patients (
   constraint pk_Patients primary key (id))
 ;
 
-create table Results (
+create table team (
+  id                        integer auto_increment not null,
+  patient_id                integer,
+  institution_id            integer,
+  constraint pk_team primary key (id))
+;
+
+create table TestResult (
   id                        integer auto_increment not null,
   game                      varchar(14),
   patient_id                integer,
@@ -56,15 +70,9 @@ create table Results (
   correct_answers           integer,
   wrong_answers             integer,
   date_made                 datetime,
-  constraint ck_Results_game check (game in ('QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION')),
-  constraint pk_Results primary key (id))
-;
-
-create table team (
-  id                        integer auto_increment not null,
-  patient_id                integer,
-  institution_id            integer,
-  constraint pk_team primary key (id))
+  a_package_id              integer,
+  constraint ck_TestResult_game check (game in ('QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION')),
+  constraint pk_TestResult primary key (id))
 ;
 
 create table Therapists (
@@ -123,24 +131,26 @@ alter table Patients add constraint fk_Patients_team_3 foreign key (team_id) ref
 create index ix_Patients_team_3 on Patients (team_id);
 alter table Patients add constraint fk_Patients_institution_4 foreign key (institution_id) references Institutions (id) on delete restrict on update restrict;
 create index ix_Patients_institution_4 on Patients (institution_id);
-alter table Results add constraint fk_Results_patient_5 foreign key (patient_id) references Patients (id) on delete restrict on update restrict;
-create index ix_Results_patient_5 on Results (patient_id);
-alter table Results add constraint fk_Results_therapist_6 foreign key (therapist_id) references Therapists (id) on delete restrict on update restrict;
-create index ix_Results_therapist_6 on Results (therapist_id);
-alter table team add constraint fk_team_patient_7 foreign key (patient_id) references Patients (id) on delete restrict on update restrict;
-create index ix_team_patient_7 on team (patient_id);
-alter table team add constraint fk_team_institution_8 foreign key (institution_id) references Institutions (id) on delete restrict on update restrict;
-create index ix_team_institution_8 on team (institution_id);
-alter table Therapists add constraint fk_Therapists_address_9 foreign key (address_id) references Address (id) on delete restrict on update restrict;
-create index ix_Therapists_address_9 on Therapists (address_id);
-alter table Therapists add constraint fk_Therapists_institution_10 foreign key (institution_id) references Institutions (id) on delete restrict on update restrict;
-create index ix_Therapists_institution_10 on Therapists (institution_id);
-alter table therapist_role add constraint fk_therapist_role_therapist_11 foreign key (therapist_id) references Therapists (id) on delete restrict on update restrict;
-create index ix_therapist_role_therapist_11 on therapist_role (therapist_id);
-alter table therapist_role add constraint fk_therapist_role_team_12 foreign key (team_id) references team (id) on delete restrict on update restrict;
-create index ix_therapist_role_team_12 on therapist_role (team_id);
-alter table User add constraint fk_User_address_13 foreign key (address_id) references Address (id) on delete restrict on update restrict;
-create index ix_User_address_13 on User (address_id);
+alter table team add constraint fk_team_patient_5 foreign key (patient_id) references Patients (id) on delete restrict on update restrict;
+create index ix_team_patient_5 on team (patient_id);
+alter table team add constraint fk_team_institution_6 foreign key (institution_id) references Institutions (id) on delete restrict on update restrict;
+create index ix_team_institution_6 on team (institution_id);
+alter table TestResult add constraint fk_TestResult_patient_7 foreign key (patient_id) references Patients (id) on delete restrict on update restrict;
+create index ix_TestResult_patient_7 on TestResult (patient_id);
+alter table TestResult add constraint fk_TestResult_therapist_8 foreign key (therapist_id) references Therapists (id) on delete restrict on update restrict;
+create index ix_TestResult_therapist_8 on TestResult (therapist_id);
+alter table TestResult add constraint fk_TestResult_aPackage_9 foreign key (a_package_id) references Packages (id) on delete restrict on update restrict;
+create index ix_TestResult_aPackage_9 on TestResult (a_package_id);
+alter table Therapists add constraint fk_Therapists_address_10 foreign key (address_id) references Address (id) on delete restrict on update restrict;
+create index ix_Therapists_address_10 on Therapists (address_id);
+alter table Therapists add constraint fk_Therapists_institution_11 foreign key (institution_id) references Institutions (id) on delete restrict on update restrict;
+create index ix_Therapists_institution_11 on Therapists (institution_id);
+alter table therapist_role add constraint fk_therapist_role_therapist_12 foreign key (therapist_id) references Therapists (id) on delete restrict on update restrict;
+create index ix_therapist_role_therapist_12 on therapist_role (therapist_id);
+alter table therapist_role add constraint fk_therapist_role_team_13 foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_therapist_role_team_13 on therapist_role (team_id);
+alter table User add constraint fk_User_address_14 foreign key (address_id) references Address (id) on delete restrict on update restrict;
+create index ix_User_address_14 on User (address_id);
 
 
 
@@ -152,11 +162,13 @@ drop table Address;
 
 drop table Institutions;
 
+drop table Packages;
+
 drop table Patients;
 
-drop table Results;
-
 drop table team;
+
+drop table TestResult;
 
 drop table Therapists;
 

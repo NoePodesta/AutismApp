@@ -36,7 +36,7 @@ public class Therapist
     @ManyToOne
     public Institution institution;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Results> patientProgress;
+    private List<TestResult> patientsProgress;
 
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);

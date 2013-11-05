@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
 import java.util.List;
 
 

@@ -1,0 +1,70 @@
+@(resultsList: List[models.TestResult])
+
+<html>
+<head>
+    <link rel='stylesheet' href="@routes.Assets.at("javascripts/fullcalendar/fullcalendar.css")"  />
+    <link rel='stylesheet' media='print' href="@routes.Assets.at("javascripts/fullcalendar/fullcalendar.print.css")"  />
+    <script src="@routes.Assets.at("javascripts/lib/jquery.min.js")"></script>
+    <script src="@routes.Assets.at("javascripts/lib/jquery-ui.custom.min.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fullcalendar/fullcalendar.min.js")"></script>
+    <script>
+
+         function addData(title){
+             var date = new Date();
+             var d = date.getDate();
+             var m = date.getMonth();
+             var y = date.getFullYear();
+
+             var eventObject = {
+                 title: title,
+                 start: new Date(y, m, 1)
+             };
+
+             $('#calendar').fullCalendar('renderEvent', eventObject, true);
+         }
+
+
+        $(document).ready(function() {
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            $('#calendar').fullCalendar({
+                editable: true,
+                events: [
+                    {
+                        title: 'All Day Event',
+                        start: new Date(y, m, 1)
+                    }
+                ]
+            });
+
+        });
+
+    </script>
+    <style>
+
+        body {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+        }
+
+        #calendar {
+            width: 900px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+@for(result <- resultsList) {
+    addData(@result.correctAnswers);
+
+}
+<div id='calendar'></div>
+</body>
+</html>

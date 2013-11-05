@@ -1,12 +1,6 @@
 package models;
 
 import com.avaje.ebean.annotation.EnumValue;
-import play.data.validation.Constraints;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * Created with IntelliJ IDEA.

@@ -84,6 +84,10 @@ GET         /institution/:id                       controllers.InstitutionContro
 POST        /editInstitution                       controllers.InstitutionController.updateInstitution()
 
 
+#View Results
+GET         /viewResults                            controllers.ResultController.showResult()
+
+
 
 
 #Mobile Application
