@@ -31,10 +31,9 @@ public class Patient
     @Constraints.Required
     public String gradeDisease;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<TestResult> progress;
+    private List<TestResult> testResults;
     @OneToOne
     public Team team;
-
     @ManyToOne
     public Institution institution;
 
@@ -51,7 +50,7 @@ public class Patient
         this.nMedicalCoverage = nMedicalCoverage;
         this.disease = disease;
         this.gradeDisease = gradeDisease;
-        this.progress = new ArrayList<TestResult>();
+        this.testResults = new ArrayList<TestResult>();
 
         this.institution = institution;
     }

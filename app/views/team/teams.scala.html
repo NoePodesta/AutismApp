@@ -54,10 +54,8 @@
                                 }else{
                             <label>Coordinador: No se ha asignado ningún coordinador</label>
                                 }
-                                @if(!team.getTherapists.isEmpty){
-                                    @for(therapist <-  team.getTherapists){
-                                        <label>Terapeutas: @therapist.name @therapist.surname</label>
-                                    }
+                                @if(team.getTherapists() != null){
+                                    <label>Terapeutas: @team.getTherapists().name @team.getTherapists().surname</label>
                                 }else{
                                     <label>Terapeutas: No se han asignado terapeutas</label>
                                 }

@@ -1,20 +1,15 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import models.Patient;
-import models.Team;
+import models.*;
 
-import models.Therapist;
-import models.TherapistRole;
-import models.Therapist_Role;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+
 import java.util.ArrayList;
-
-
 
 import static play.data.Form.form;
 /**
@@ -39,7 +34,6 @@ public class TeamController extends Controller {
     }
 
     public static Result saveTeam() {
-
         Form<Team> teamForm = form(Team.class).bindFromRequest();
 
         if(teamForm.hasErrors()) {
@@ -51,14 +45,13 @@ public class TeamController extends Controller {
         Ebean.save(team);
 
 
+
         //Patient
         String patientDni = teamForm.data().get("paciente");
         String[] patientArray = patientDni.split("-");
         Patient patient = Patient.findPatientByDNI(patientArray[1].trim());
         team.patient = patient;
-
         patient.team = team;
-        Ebean.update(patient);
 
         String patientName =  patient.name + " " + patient.surname;
 
@@ -70,15 +63,18 @@ public class TeamController extends Controller {
         String supervisorDni = teamForm.data().get("supervisor");
         String[] supervisorArray = supervisorDni.split("-");
         Therapist supervisor = Therapist.findTherapistByDNI(supervisorArray[1].trim());
-
-        Therapist_Role supervisorRole = new Therapist_Role(supervisor, TherapistRole.SUPERVISOR, team);
-        Ebean.save(supervisorRole);
-
-        if(supervisor.team == null){
-            supervisor.team = new ArrayList<Therapist_Role>();
+        if(supervisor.getAssignedTeams()!=null){
+            supervisor.addToTeam(team);
+        }else{
+            supervisor.setAssignedTeams(new ArrayList<Team>());
+            supervisor.getAssignedTeams().add(team);
         }
-        supervisor.team.add(supervisorRole);
-
+        TeamRoles supervisorRole = new TeamRoles();
+        supervisorRole.role = TherapistRole.SUPERVISOR.toString();
+        supervisorRole.therapist = supervisor;
+        supervisorRole.team = team;
+        Ebean.save(supervisorRole);
+        team.getTeamRoles().add(supervisorRole);
         MailService.sendNewTeamMail("Supervisor", supervisor.mail, patientName);
         Ebean.update(supervisor);
 
@@ -86,15 +82,19 @@ public class TeamController extends Controller {
         String coordinatorDni = teamForm.data().get("coordinator");
         String[] coordinatorArray = coordinatorDni.split("-");
         Therapist coordinator = Therapist.findTherapistByDNI(coordinatorArray[1].trim());
-
-        Therapist_Role coordinatorRole = new Therapist_Role(coordinator, TherapistRole.COORDINATOR, team);
-        Ebean.save(coordinatorRole);
-
-        if(coordinator.team == null){
-            coordinator.team = new ArrayList<Therapist_Role>();
+        if(coordinator.getAssignedTeams()!=null){
+            coordinator.addToTeam(team);
+        }else{
+            coordinator.setAssignedTeams(new ArrayList<Team>());
+            coordinator.getAssignedTeams().add(team);
         }
-        coordinator.team.add(coordinatorRole);
-
+       // team.getAssignedTherapists().add(1, coordinator);
+        TeamRoles coordinatorRole = new TeamRoles();
+        coordinatorRole.role = TherapistRole.COORDINATOR.toString();
+        coordinatorRole.therapist = coordinator;
+        coordinatorRole.team = team;
+        Ebean.save(coordinatorRole);
+        team.getTeamRoles().add(coordinatorRole);
         MailService.sendNewTeamMail("Coordinador", coordinator.mail, patientName);
         Ebean.update(coordinator);
 
@@ -103,41 +103,49 @@ public class TeamController extends Controller {
         String integratorDni = teamForm.data().get("integrator");
         String[] integratorArray = integratorDni.split("-");
         Therapist integrator = Therapist.findTherapistByDNI(integratorArray[1].trim());
-
-        Therapist_Role integratorRole = new Therapist_Role(integrator, TherapistRole.INTEGRATOR, team);
-        Ebean.save(integratorRole);
-
-        if(integrator.team == null){
-            integrator.team = new ArrayList<Therapist_Role>();
+        if(integrator.getAssignedTeams()!=null){
+            integrator.addToTeam(team);
+        }else{
+            integrator.setAssignedTeams(new ArrayList<Team>());
+            integrator.getAssignedTeams().add(team);
         }
-        integrator.team.add(integratorRole);
+        TeamRoles integratorRole = new TeamRoles();
+        integratorRole.role = TherapistRole.INTEGRATOR.toString();
+        integratorRole.therapist = integrator;
+        integratorRole.team = team;
+        Ebean.save(integratorRole);
+        team.getTeamRoles().add(integratorRole);
         MailService.sendNewTeamMail("Integrador", integrator.mail, patientName);
-        Ebean.update(integrator);
 
+        Ebean.update(integrator);
 
         //Therapist
         String therapistDni = teamForm.data().get("therapist");
         String[] therapistArray = therapistDni.split("-");
         Therapist therapist = Therapist.findTherapistByDNI(therapistArray[1].trim());
-
-        Therapist_Role therapistRole = new Therapist_Role(therapist, TherapistRole.THERAPIST, team);
-        Ebean.save(therapistRole);
-
-        if(therapist.team == null){
-            therapist.team = new ArrayList<Therapist_Role>();
+        if(therapist.getAssignedTeams()!=null){
+            therapist.addToTeam(team);
+        }else{
+            therapist.setAssignedTeams(new ArrayList<Team>());
+            therapist.getAssignedTeams().add(team);
         }
-        therapist.team.add(therapistRole);
+        TeamRoles therapistRole = new TeamRoles();
+        therapistRole.role = TherapistRole.THERAPIST.toString();
+        therapistRole.therapist = integrator;
+        therapistRole.team = team;
+        Ebean.save(therapistRole);
+        team.getTeamRoles().add(therapistRole);
         MailService.sendNewTeamMail("Terapeuta", therapist.mail, patientName);
         Ebean.update(therapist);
 
-
-
-        team.therapists.add(supervisorRole);
-        team.therapists.add(coordinatorRole);
-        team.therapists.add(integratorRole);
-        team.therapists.add(therapistRole);
-
         Ebean.update(team);
+        Ebean.update(patient);
+
+
+
+
+
+
 
 
         flash("success", "El equipo de trabajo ha sido creado");

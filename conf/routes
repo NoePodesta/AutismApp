@@ -85,7 +85,8 @@ POST        /editInstitution                       controllers.InstitutionContro
 
 
 #View Results
-GET         /viewResults                            controllers.ResultController.showResult()
+GET         /viewResults                           controllers.ResultController.showResult()
+GET        /events.json                             controllers.ResultController.json()
 
 
 

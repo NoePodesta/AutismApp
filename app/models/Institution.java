@@ -36,11 +36,10 @@ public class Institution extends Model {
 
     public String image;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-
+    @OneToMany()
     public ArrayList<Therapist> therapists;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany()
     public ArrayList<Patient> patients;
 
     @OneToMany

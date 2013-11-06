@@ -30,13 +30,15 @@ public class Therapist
     @Constraints.Required
     @Constraints.MinLength(value = 6)
     public String password;
-    @ManyToOne
-    public List<Therapist_Role> team;
     private TherapistType therapistType;
     @ManyToOne
     public Institution institution;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<TestResult> patientsProgress;
+    @ManyToMany
+    private List<Team> assignedTeams;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    public ArrayList<Therapist> testResults;
+
+
 
 
     public static Model.Finder<Integer,Therapist> find = new Model.Finder(Integer.class, Therapist.class);
@@ -49,7 +51,7 @@ public class Therapist
         super(name, surname, telephone, cellphone, address, dni,gender, mail, birthday, image);
         this.nm =  nm;
         this.password = password;
-        this.team = new ArrayList<Therapist_Role>();
+        this.assignedTeams = new ArrayList<Team>();
         this.therapistType = therapistType;
         this.institution = institution;
     }
@@ -148,18 +150,21 @@ public class Therapist
                 .findList();
     }
 
-    public static Therapist findWithTeamsLoaded(String dni){
-        return find.fetch("team", new FetchConfig().query()).where().eq("dni", dni).findUnique();
+    public List<Team> getAssignedTeams() {
+        return assignedTeams;
     }
 
-    public List<Therapist_Role> getTeam() {
-        return team;
-    }
-
-    public void setTeam(List<Therapist_Role> team) {
-        this.team = team;
+    public void setAssignedTeams(List<Team> assignedTeams) {
+        this.assignedTeams = assignedTeams;
     }
 
 
-
+    public void addToTeam(Team team) {
+        for(Team teamToAnalyze : assignedTeams){
+            if(teamToAnalyze.id == team.id){
+                return;
+            }
+        }
+        assignedTeams.add(team);
+    }
 }

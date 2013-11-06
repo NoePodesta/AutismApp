@@ -37,15 +37,16 @@
         </div>
         <div class="row-fluid">
             <div class="teamInfo">
+
                 <h2>Equipos de trabajo <span class="badge">
-                    @if(currentTherapist.team!=null){currentTherapist.team.size()}
+                @if(currentTherapist.getAssignedTeams()!=null){currentTherapist.team.size()}
                 </span></h2>
-                @if(currentTherapist.team != null){
+                @if(currentTherapist.getAssignedTeams() != null){
 
 
-                    @for(team <- currentTherapist.team){
+                    @for(team <- currentTherapist.getAssignedTeams()){
                         <div class="span4">
-                            @team.team.getPatient.name @team.team.getPatient.surname
+                            @team.getPatient.name @team.getPatient.surname
 
                         </div>
                     }
@@ -54,6 +55,7 @@
                         <em>No pertenece a ningun equipo de trabajo</em>
                     </div>
                 }
+
             </div>
 
         </div>

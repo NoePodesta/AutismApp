@@ -32,10 +32,10 @@ public class MobileApplicationController extends Controller {
         if(Therapist.authenticate(username,password)){
             Therapist therapist = Therapist.findTherapistByDNI(username);
 
-            if(therapist.getTeam() != null){
+            if(therapist.getAssignedTeams() != null){
 
-                for(int i = 0;i<therapist.team.size();i++){
-                    Patient patient = PatientController.getByTeam(therapist.team.get(i).team);
+                for(int i = 0;i<therapist.getAssignedTeams().size();i++){
+
 
                 }
 

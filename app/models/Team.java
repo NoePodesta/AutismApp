@@ -5,7 +5,9 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-@Table
+@Table(name="Teams")
 public class Team extends Model {
 
     @Id
@@ -23,16 +25,18 @@ public class Team extends Model {
     public int id;
     @OneToOne
     public Patient patient;
-    @OneToMany(cascade = CascadeType.REMOVE)
-    public List<Therapist_Role> therapists;
-
     @ManyToOne
     public Institution institution;
+    @OneToMany
+    private List<TeamRoles> teamRoles;
+
+
+
 
 
 
     public Team(){
-        therapists = new ArrayList<Therapist_Role>();
+        teamRoles = new ArrayList<TeamRoles>();
     }
 
     public static Model.Finder<Integer,Team> find = new Model.Finder(Integer.class, Team.class);
@@ -42,41 +46,42 @@ public class Team extends Model {
     }
 
     public Therapist getSupervisor(){
-
-        for(Therapist_Role therapistRole : therapists){
-            if(therapistRole.getRole().equals(TherapistRole.SUPERVISOR)){
-                return therapistRole.getTherapist();
+        for(TeamRoles role : teamRoles){
+            if(role.role.equals(TherapistRole.SUPERVISOR.toString())){
+                return role.therapist;
             }
         }
         return null;
     }
 
     public Therapist getCoordinator(){
-
-        for(Therapist_Role therapistRole : therapists){
-            if(therapistRole.getRole().equals(TherapistRole.COORDINATOR)){
-                return therapistRole.getTherapist();
+        for(TeamRoles role : teamRoles){
+            if(role.role.equals(TherapistRole.COORDINATOR.toString())){
+                return role.therapist;
             }
         }
         return null;
     }
 
-    public List<Therapist> getTherapists(){
-
-        List<Therapist> therapistsList = new ArrayList<Therapist>();
-        for(Therapist_Role therapistRole : therapists){
-            if(therapistRole.getRole().equals(TherapistRole.THERAPIST)){
-                therapistsList.add(therapistRole.getTherapist());
+    public Therapist getTherapists(){
+        /*
+        ArrayList<Therapist> therapists = new ArrayList<Therapist>();
+        for(int i = 3;i<assignedTherapists.size();i++){
+            therapists.add(assignedTherapists.get(i));
+        }
+         */
+        for(TeamRoles role : teamRoles){
+            if(role.role.equals(TherapistRole.THERAPIST.toString())){
+                return role.therapist;
             }
         }
-        return therapistsList;
+        return null;
     }
 
     public Therapist getIntegrator(){
-
-        for(Therapist_Role therapistRole : therapists){
-            if(therapistRole.getRole().equals(TherapistRole.INTEGRATOR)){
-                return therapistRole.getTherapist();
+        for(TeamRoles role : teamRoles){
+            if(role.role.equals(TherapistRole.INTEGRATOR.toString())){
+                return role.therapist;
             }
         }
         return null;
@@ -109,4 +114,14 @@ public class Team extends Model {
     public static List<Team> findByInstitution(Institution institution) {
         return find.where().eq("institution", institution).findList();  //To change body of created methods use File | Settings | File Templates.
     }
+
+    public List<TeamRoles> getTeamRoles() {
+        return teamRoles;
+    }
+
+    public void setTeamRoles(List<TeamRoles> teamRoles) {
+        this.teamRoles = teamRoles;
+    }
+
+
 }

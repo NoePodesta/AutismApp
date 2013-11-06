@@ -5,14 +5,7 @@ import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
@@ -32,6 +25,7 @@ public class User extends Model {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     @Constraints.Required
     @Pattern(regexp = "^([a-zA-Z].+)$", message = "Ingrese un apellido válido. Utilice solamente letras")

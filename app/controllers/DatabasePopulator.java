@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import models.*;
+import models.Package;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -17,12 +18,24 @@ public class DatabasePopulator extends Controller {
         populateTherapistDatabase();
         populatePatientDatabase();
         populateAddressDatabase();
-
+        //populateResultsDatabase();
         return Application.login();
     }
 
-    private static void populateInstitution() {
+    private static void populateResultsDatabase() {
+        TestResult testResult1 = new TestResult(Game.QA,Patient.findPatientById(1),Therapist.findTherapistById(1),
+                                                 3,2,new Date(),new Package());
+        TestResult.saveResult(testResult1);
 
+    }
+
+    private static void populateInstitution() {
+        Address institutionAddress = new Address("Libertad","1250","3","D","1638","Vicente Lopez","Buenos Aires");
+        Institution institution = new Institution("Dacaid",institutionAddress,"47911234","images/home.jpg",
+                "Dacaid@gmail.com");
+
+        Ebean.save(institutionAddress);
+        Ebean.save(institution);
     }
 
     private static void populateAddressDatabase() {

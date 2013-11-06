@@ -20,10 +20,15 @@ public class Package extends Model {
     private int id;
     private String packageName;
     private String jsonContent;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<TestResult> usedResults;
 
 
 
+    public Package(String packageName, String jsonContent) {
+        this.packageName = packageName;
+        this.jsonContent = jsonContent;
+    }
 
+    public Package() {
+        //To change body of created methods use File | Settings | File Templates.
+    }
 }
