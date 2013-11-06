@@ -15,6 +15,13 @@ create table Address (
   constraint pk_Address primary key (id))
 ;
 
+create table Packages (
+  id                        integer auto_increment not null,
+  package_name              varchar(255),
+  json_content              varchar(255),
+  constraint pk_Packages primary key (id))
+;
+
 create table Institutions (
   id                        integer auto_increment not null,
   name                      varchar(255),
@@ -23,13 +30,6 @@ create table Institutions (
   mail                      varchar(255),
   image                     varchar(255),
   constraint pk_Institutions primary key (id))
-;
-
-create table Packages (
-  id                        integer auto_increment not null,
-  package_name              varchar(255),
-  json_content              varchar(255),
-  constraint pk_Packages primary key (id))
 ;
 
 create table Patients (
@@ -78,7 +78,7 @@ create table TestResult (
   correct_answers           integer,
   wrong_answers             integer,
   date_made                 datetime,
-  a_package_id              integer,
+  a_game_package_id         integer,
   team_id                   integer,
   constraint ck_TestResult_game check (game in ('QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION')),
   constraint pk_TestResult primary key (id))
@@ -149,8 +149,8 @@ alter table TestResult add constraint fk_TestResult_patient_9 foreign key (patie
 create index ix_TestResult_patient_9 on TestResult (patient_id);
 alter table TestResult add constraint fk_TestResult_therapist_10 foreign key (therapist_id) references Therapists (id) on delete restrict on update restrict;
 create index ix_TestResult_therapist_10 on TestResult (therapist_id);
-alter table TestResult add constraint fk_TestResult_aPackage_11 foreign key (a_package_id) references Packages (id) on delete restrict on update restrict;
-create index ix_TestResult_aPackage_11 on TestResult (a_package_id);
+alter table TestResult add constraint fk_TestResult_aGamePackage_11 foreign key (a_game_package_id) references Packages (id) on delete restrict on update restrict;
+create index ix_TestResult_aGamePackage_11 on TestResult (a_game_package_id);
 alter table TestResult add constraint fk_TestResult_team_12 foreign key (team_id) references Teams (id) on delete restrict on update restrict;
 create index ix_TestResult_team_12 on TestResult (team_id);
 alter table Therapists add constraint fk_Therapists_address_13 foreign key (address_id) references Address (id) on delete restrict on update restrict;
@@ -172,9 +172,9 @@ SET FOREIGN_KEY_CHECKS=0;
 
 drop table Address;
 
-drop table Institutions;
-
 drop table Packages;
+
+drop table Institutions;
 
 drop table Patients;
 

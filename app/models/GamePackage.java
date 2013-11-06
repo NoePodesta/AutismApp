@@ -2,8 +2,9 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="Packages")
-public class Package extends Model {
+public class GamePackage extends Model {
 
     @Id
     private int id;
@@ -23,12 +24,10 @@ public class Package extends Model {
 
 
 
-    public Package(String packageName, String jsonContent) {
+    public GamePackage(String packageName, String jsonContent) {
         this.packageName = packageName;
         this.jsonContent = jsonContent;
     }
 
-    public Package() {
-        //To change body of created methods use File | Settings | File Templates.
-    }
+
 }

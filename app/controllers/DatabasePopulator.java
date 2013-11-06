@@ -2,7 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import models.*;
-import models.Package;
+import models.GamePackage;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -18,14 +18,22 @@ public class DatabasePopulator extends Controller {
         populateTherapistDatabase();
         populatePatientDatabase();
         populateAddressDatabase();
-        //populateResultsDatabase();
+        populateResultsDatabase();
         return Application.login();
     }
 
     private static void populateResultsDatabase() {
+        GamePackage gamePackage = new GamePackage("aaaa","bbbbb");
+        Ebean.save(gamePackage);
         TestResult testResult1 = new TestResult(Game.QA,Patient.findPatientById(1),Therapist.findTherapistById(1),
-                                                 3,2,new Date(),new Package());
+                                                 3,2,new Date(),gamePackage);
+        TestResult testResult2 = new TestResult(Game.CLASSIFICATION,Patient.findPatientById(1),Therapist.findTherapistById(1),
+                1,4,new Date(),gamePackage);
+        TestResult testResult3 = new TestResult(Game.SOCOCO,Patient.findPatientById(1),Therapist.findTherapistById(1),
+                0,3,new Date(),gamePackage);
         TestResult.saveResult(testResult1);
+        TestResult.saveResult(testResult2);
+        TestResult.saveResult(testResult3);
 
     }
 

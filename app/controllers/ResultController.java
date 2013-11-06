@@ -1,8 +1,7 @@
 package controllers;
 
+import models.Patient;
 import models.TestResult;
-import org.codehaus.jackson.node.ObjectNode;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.patient.resultShower;
@@ -10,10 +9,7 @@ import views.html.patient.resultShower;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,12 +20,30 @@ import java.util.Map;
  */
 public class ResultController extends Controller {
 
+    private static int selectedPatient = 1;
 
     public static Result showResult() {
-        return ok(
-                resultShower.render(TestResult.all(),"")
+        return ok(resultShower.render(TestResult.all(),""));
+    }
 
-        );
+    public static Result jsonPerPatient(){
+        Patient patient = PatientController.getPatientById(selectedPatient);
+        List<TestResult> results = patient.getTestResults();
+
+
+        ArrayList<Map<Object, Serializable>> allEvents = new ArrayList<Map<Object, Serializable>>();
+        Map<Object, Serializable> eventRemapped = new HashMap<Object, Serializable>();
+        int i = 0;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        for(TestResult testResult : results){
+            eventRemapped.put("id", i++);
+            eventRemapped.put("title", testResult.game);
+            eventRemapped.put("start", df.format(testResult.dateMade));
+            eventRemapped.put("end", df.format(testResult.dateMade));
+
+            allEvents.add(eventRemapped);
+        }
+        return ok(play.libs.Json.toJson(allEvents));
     }
 
     public static Result json() {

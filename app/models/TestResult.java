@@ -4,7 +4,6 @@ import com.avaje.ebean.Ebean;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,30 +22,30 @@ public class TestResult extends Model {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Enumerated(EnumType.STRING)
-    private Game game;
+    public Game game;
     @ManyToOne
     private Patient patient;
     @ManyToOne
     private Therapist therapist;
     public int correctAnswers;
     private int wrongAnswers;
-    private Date dateMade;
+    public Date dateMade;
     @ManyToOne
-    private Package aPackage;
+    private GamePackage aGamePackage;
     @ManyToOne
     private Team team;
 
 
     public static Model.Finder<Integer,TestResult> find = new Model.Finder(Integer.class, TestResult.class);
 
-    public TestResult(Game game, Patient patient, Therapist therapist, int correctAnswers, int wrongAnswers, Date dateMade, Package aPackage) {
+    public TestResult(Game game, Patient patient, Therapist therapist, int correctAnswers, int wrongAnswers, Date dateMade, GamePackage aGamePackage) {
         this.game = game;
         this.patient = patient;
         this.therapist = therapist;
         this.correctAnswers = correctAnswers;
         this.wrongAnswers = wrongAnswers;
         this.dateMade = dateMade;
-        this.aPackage = aPackage;
+        this.aGamePackage = aGamePackage;
     }
 
     public static List<TestResult> all() {

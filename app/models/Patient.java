@@ -124,5 +124,13 @@ public class Patient
         }
     }
 
+    public List<TestResult> getTestResults() {
+        return testResults;
+    }
+
+    public void setTestResults(List<TestResult> testResults) {
+        this.testResults = testResults;
+    }
+
 
 }

@@ -133,4 +133,8 @@ public class PatientController
     public static Patient getByTeam(Team team){
         return Patient.findByTeam(team);
     }
+
+    public static Patient getPatientById(int id) {
+        return Patient.findPatientById(id);
+    }
 }
