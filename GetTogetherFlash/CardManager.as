@@ -30,11 +30,11 @@
 		
 		var currentCard : int;
 		var currX:Number;
+		var cardsContent : Object;
 		
-		
-		public function CardManager(mainManager: Main,cardsAmount : int) {
-			
-			this.totalCards = cardsAmount;
+		public function CardManager(mainManager: Main,cardsContent : Object) {
+			this.cardsContent = cardsContent;
+			this.totalCards = cardsContent.totalCards;
 			this.mainManager = mainManager;
 			cardsArray = new Array(totalCards);
 			finalCardScreen = new finalCardScreen_mc;
@@ -45,6 +45,8 @@
 			currX = 0;
 			
 			addEventListener(Event.ENTER_FRAME, loop);
+			
+			loadCards();
 			
 		}
 		
@@ -83,15 +85,8 @@
 	
 		
 		public function loadCards():void{
-			var i : int;
-			for(i=0;i<totalCards; i++){
-				if(i%2 == 0){
-					cardsArray[i] = new CardView(this,"ElementsImages/hammer.png","Martillo");
-				}else{
-					cardsArray[i] = new CardView(this,"SignsImages/thumbsUp.png","Bueno");
-				}
-				
-				
+			for(var i : int=0;i<totalCards; i++){
+				cardsArray[i] = new CardView(this,cardsContent.cards[i].imageUrl,cardsContent.cards[i].imageName);
 			}
 			
 		}

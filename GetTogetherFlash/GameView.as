@@ -17,11 +17,11 @@
 			this.manager = manager;
 			playingMusic = true;
 			
-			if(gameType == GameType.Cognition){
+			if(gameType == GameType.QA || gameType == GameType.CONVERSATION){
 				background = new cognitionGameView_mc();
-			}else if(gameType == GameType.Emotions){
+			}else if(gameType == GameType.SENTENCE || gameType == GameType.SOCOCO){
 				background = new emotionGameView_mc();
-			}else if(gameType == GameType.Communications){
+			}else if(gameType == GameType.CLASSIFICATION || gameType == GameType.SOUND){
 				background = new communicationsGameView_mc();
 			}
 			addChild(background);

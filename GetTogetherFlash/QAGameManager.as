@@ -30,8 +30,12 @@
 			for(var i : int = 0;i<gameContent.totalStages;i++){
 				optionsLength += gameContent.stages[i].optionsLength;
 			}
+			if(gameType == GameType.SOUND){
+				totalOptions = optionsLength + (totalStages*2);
+			}else{
+				totalOptions = optionsLength + totalStages;
+			}
 			
-			totalOptions = optionsLength + totalStages;
 			totalLoaded = 0;	
 			currentStage = 0;
 				

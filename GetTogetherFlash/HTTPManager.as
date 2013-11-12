@@ -33,15 +33,17 @@
 		}
 		
 		public function onComplete (event:Event):void {
-			
+			trace("Completed url transaction");
 		}
 		
 		public function onLoginComplete (event:Event):void {
 			var loginData : Object = jsonLoader.parseJSON(event.target.data);
 			if(loginData.loggedComplete){
-				topBar.loggedIn(loginData.name + " " + loginData.surname);
+				
+				main.createTherapist(loginData);
 			}else{
-				//TODO LOGIN FAIL
+				//TODO Login Fail
+				trace("Login failed");
 			}
 			
 		}
@@ -66,6 +68,27 @@
 		
 		public function setTopBar(topBar : TopBarView):void{
 			this.topBar = topBar;
+		}
+		
+		public function sendResults(gameType : String, resultColector : ResultColector, therapistId : int, patientId : int){
+			var url:String = "http://localhost:9000/saveResults";
+			var request:URLRequest = new URLRequest(url);
+			request.method = URLRequestMethod.POST;
+
+			var variables:URLVariables = new URLVariables();
+			variables.gameType = gameType;
+			variables.therapistId = therapistId;
+			variables.patientId = patientId;
+			variables.correctAnswers = resultColector.correctAnswers;
+			variables.wrongAnswers = resultColector.wrongAnswers;
+			
+			request.data = variables;
+			
+			
+			var loader:URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, onComplete);
+			loader.dataFormat = URLLoaderDataFormat.TEXT;
+			loader.load(request);
 		}
 
 	}

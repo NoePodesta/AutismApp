@@ -20,7 +20,7 @@ public class TestResult extends Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    public int id;
     @Enumerated(EnumType.STRING)
     public Game game;
     @ManyToOne

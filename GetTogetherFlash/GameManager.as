@@ -18,10 +18,10 @@
 		var gameType : String;
 		var gameContent : Object;
 		
-		var totalStages : int;
+
 		var resultColector : ResultColector;
 		
-
+		var totalStages : int;
 		
 		public function GameManager(mainManager : Main, gameType : String, gameContent : Object){
 			this.mainManager = mainManager;
@@ -33,6 +33,10 @@
 			winGameScreen.y = 68;
 			winGameScreen.x = 1024/2 - 465.95/2;
 			winGameScreen.winScreenGoBack_mc.addEventListener(TouchEvent.TOUCH_TAP, destroyGame);
+			if(mainManager.therapist != null){
+				winGameScreen.sendResults_mc.addEventListener(TouchEvent.TOUCH_TAP, sendResults);
+			}
+			
 		}
 		
 	
@@ -60,7 +64,6 @@
 		
 		public function destroyGame(e : TouchEvent) : void{			
 			SoundManager.stopGameJingle();
-			trace(resultColector.getJson());
 			mainManager.destroyGame();
 			
 		}	
@@ -95,6 +98,10 @@
 		
 		protected function playWrongSound():void{
 			SoundManager.playWrongSound();
+		}
+		
+		public function sendResults(e : Event):void{
+			mainManager.sendResults(gameType, resultColector);
 		}
 		
 		

@@ -36,14 +36,6 @@ public class Institution extends Model {
 
     public String image;
 
-    @OneToMany()
-    public ArrayList<Therapist> therapists;
-
-    @OneToMany()
-    public ArrayList<Patient> patients;
-
-    @OneToMany
-    public ArrayList<Team> teams;
 
     public static Model.Finder<Integer,Institution> find = new Model.Finder(Integer.class, Institution.class);
 

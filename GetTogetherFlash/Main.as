@@ -10,6 +10,9 @@
 	import flash.events.SoftKeyboardEvent;
 	import flash.ui.Keyboard;
 	
+	import fl.controls.ComboBox;
+	import fl.data.DataProvider;
+	
 
 
 	
@@ -17,24 +20,29 @@
 
 		var mainScreen : MovieClip;
 		var gameTypeSelectionScreen : MovieClip;
-		var cardsSelectionScreen : MovieClip;
 		var httpManager : HTTPManager;
 		
-		var emotionSubSelectionScreen : SubSelectionGameScreen;
-		var communicationSubSelectionScreen : SubSelectionGameScreen;
-		var cognitionSubSelectioScreen : SubSelectionGameScreen;
 		var loadingScreen : MovieClip;
 		
-		var loadedSubSelectionScreen : SubSelectionGameScreen;
 		var currentGame : GameManager;
 		var cardsManager : CardManager;
 		
-		var currentGameType : String;
-		var currentGameCategory : String;
+		var currentGameType : String;	
 		
 		var jLoader : JSONLoader;
 		
 		var topBar : TopBarView;
+		
+		var therapist : Therapist;
+		
+		var selectedPatient : int;
+		
+		var patientsComboBox : ComboBox;
+		
+		var packageSelectionScreen : PackageSelectionScreen;
+		
+		var bitacoraManager : BitacoraManager;
+
 		
 		public function Main() {
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;				
@@ -45,36 +53,93 @@
 			
 			
 			//Initialize Views	
-			topBar = new TopBarView(httpManager);
+			topBar = new TopBarView(this, httpManager);
 			mainScreen = new mainScreen_mc();
-			cardsSelectionScreen = new cardsSelectionScreen_mc;
 			gameTypeSelectionScreen = new gameSelectionScreen_mc;
-			emotionSubSelectionScreen = new EmotionSubSelectionScreen(this, buildDefaultEmotionsPackages());
-			communicationSubSelectionScreen = new CommunicationSubSelectionScreen(this,buildDefaultEmotionsPackages());
-			cognitionSubSelectioScreen = new CognitionSubSelectionScreen(this,buildDefaultEmotionsPackages());
+			packageSelectionScreen = new PackageSelectionScreen(this);
 			loadingScreen = new loadingScreen_mc;
 			
 			//Initialize events
 			mainScreen.initializeApplicationButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToGameSelectionScreenEvent);
 			mainScreen.initializeCardsButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToCardsSelectionScreenEvent);
-			gameTypeSelectionScreen.emotionsButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToEmotionsSelectionScreen);
-			gameTypeSelectionScreen.cognitionButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToCognitionSelectionScreen);
-			gameTypeSelectionScreen.communicationsButton_mc.addEventListener(TouchEvent.TOUCH_TAP,goToCommunicationsSelectionScreen);
-			cardsSelectionScreen.initializeCardGame_mc.addEventListener(TouchEvent.TOUCH_TAP, loadCards);
+			
+			gameTypeSelectionScreen.conversationButton_mc.addEventListener(TouchEvent.TOUCH_TAP, conversationSelected);
+			gameTypeSelectionScreen.qaButton_mc.addEventListener(TouchEvent.TOUCH_TAP, qaSelected);
+			gameTypeSelectionScreen.classificationButton_mc.addEventListener(TouchEvent.TOUCH_TAP, classificationSelected);
+			gameTypeSelectionScreen.soCoCoButton_mc.addEventListener(TouchEvent.TOUCH_TAP, soCoCoSelected);
+			gameTypeSelectionScreen.sentenceButton_mc.addEventListener(TouchEvent.TOUCH_TAP, sentenceSelected);
+			gameTypeSelectionScreen.soundButton_mc.addEventListener(TouchEvent.TOUCH_TAP, soundSelected);
+		
 
 
-			
-			
+				
 			addChild(mainScreen);
-			addChild(topBar);
+			addChildAt(topBar,1);
 			
-	
+			
+										  
+			
+			
 		}
 		
-		public function buildDefaultEmotionsPackages():Array{
-			var defaultEmotionsPackage : Array = new Array();
-			defaultEmotionsPackage.push(new PackageOption("Emociones Default", "JSONs/EmotionFaceQA.txt"));
-			return defaultEmotionsPackage;
+		public function getTherapistPackages(packages : Array):void{
+			if(therapist != null){
+				for(var i : int = 0;i<therapist.packages.length;i++){
+					if(therapist.packages[i].packageType == currentGameType){
+						packages.push(new PackageOption(therapist.packages[i].packageName, therapist.packages[i].packageUrl)); 
+					}
+				}	
+			}
+			
+		}
+		
+		public function getCardsPackages():Array{
+			var cardsPackages : Array = new Array();
+			cardsPackages.push(new PackageOption("Cartas Default", "JSONs/Cards.txt"));
+			getTherapistPackages(cardsPackages);
+			return cardsPackages;
+		}
+		
+		public function getQAPackages():Array{
+			var qaPackages : Array = new Array();
+			qaPackages.push(new PackageOption("Emociones Default", "JSONs/EmotionFaceQA.txt"));
+			getTherapistPackages(qaPackages);
+			return qaPackages;
+		}
+		
+		public function getClassificationPackages():Array{
+			var classificationPackages : Array = new Array();
+			classificationPackages.push(new PackageOption("Clasificacion Default", "JSONs/CognitionUseClassification.txt"));
+			getTherapistPackages(classificationPackages);
+			return classificationPackages;
+		}
+		
+		public function getSoCoCoPackages():Array{
+			var soCoCoPackages : Array = new Array();
+			soCoCoPackages.push(new PackageOption("SoCoCo Default", "JSONs/CognitionSoCoCo.txt"));
+			getTherapistPackages(soCoCoPackages);
+			return soCoCoPackages;
+		}
+		
+		public function getSentencePackages():Array{
+			var sentencePackages : Array = new Array();
+			sentencePackages.push(new PackageOption("Oracion Default", "JSONs/Sentence.txt"));
+			getTherapistPackages(sentencePackages);
+			return sentencePackages;
+		}
+		
+		public function getConversationPackages():Array{
+			var conversationPackages : Array = new Array();
+			conversationPackages.push(new PackageOption("Conversacion Default", "JSONs/CommunicationsConversation.txt"));
+			getTherapistPackages(conversationPackages);
+			return conversationPackages;
+		}
+		
+		public function getSoundPackages():Array{
+			var conversationPackages : Array = new Array();
+			conversationPackages.push(new PackageOption("Sonidos Default", "JSONs/SoundQA.txt"));
+			getTherapistPackages(conversationPackages);
+			return conversationPackages;
 		}
 		
 		public function goToGameSelectionScreenEvent(e : TouchEvent) : void{
@@ -83,43 +148,65 @@
 			
 		}	
 		
-		public function goToCardsSelectionScreenEvent(e : TouchEvent) : void{
+		public function conversationSelected(e : TouchEvent): void{
+			currentGameType = GameType.CONVERSATION;
+			packageSelectionScreen.setPackages(getConversationPackages());
+			goToPackagesSelectionScreen();
+		}
+		
+		public function qaSelected(e : TouchEvent): void{
+			currentGameType = GameType.QA;
+			packageSelectionScreen.setPackages(getQAPackages());
+			goToPackagesSelectionScreen();
+		}
+		
+		public function classificationSelected(e : TouchEvent): void{
+			currentGameType = GameType.CLASSIFICATION;
+			packageSelectionScreen.setPackages(getClassificationPackages());
+			goToPackagesSelectionScreen();
+		}
+		
+		public function soCoCoSelected(e : TouchEvent): void{
+			currentGameType = GameType.SOCOCO;
+			packageSelectionScreen.setPackages(getSoCoCoPackages());
+			goToPackagesSelectionScreen();
+		}
+		
+		public function sentenceSelected(e : TouchEvent): void{
+			currentGameType = GameType.SENTENCE;
+			packageSelectionScreen.setPackages(getSentencePackages());
+			goToPackagesSelectionScreen();
+		}
+		
+		public function soundSelected(e : TouchEvent): void{
+			currentGameType = GameType.SOUND;
+			packageSelectionScreen.setPackages(getSoundPackages());
+			goToPackagesSelectionScreen();
+		}
+		
+		function goToPackagesSelectionScreen():void{
+			removeChild(gameTypeSelectionScreen);
+			addChildAt(packageSelectionScreen,0);
+		}
+		
+		public function goToCardsSelectionScreenEvent(e : TouchEvent) : void{			
+			currentGameType = GameType.CARDS;
+			packageSelectionScreen.setPackages(getCardsPackages());
 			removeChild(mainScreen);
-			goToCardSelectionScreen();
-			
+			addChildAt(packageSelectionScreen,0);			
 		}		
 	
-		function goToEmotionsSelectionScreen(e : TouchEvent){
-			loadedSubSelectionScreen = emotionSubSelectionScreen;
-			removeChild(gameTypeSelectionScreen);
-			addChild(loadedSubSelectionScreen);
-		}
 		
-		function goToCommunicationsSelectionScreen(e : TouchEvent){
-			loadedSubSelectionScreen = communicationSubSelectionScreen;
-			removeChild(gameTypeSelectionScreen);
-			addChild(loadedSubSelectionScreen);
-		}
-		
-		function goToCognitionSelectionScreen(e : TouchEvent){
-			loadedSubSelectionScreen = cognitionSubSelectioScreen;
-			removeChild(gameTypeSelectionScreen);
-			addChild(loadedSubSelectionScreen);
-		}
 		
 		public function goToGameTypeSelectionScreen(){
 			gameTypeSelectionScreen.gotoAndPlay(0);
-			addChild(gameTypeSelectionScreen);	
-		}
-		
-		public function goToCardSelectionScreen(){
-			addChild(cardsSelectionScreen);	
-		}
+			addChildAt(gameTypeSelectionScreen,0);	
+		}		
 		
 		
-		public function loadCards(e : TouchEvent) : void{
-			cardsManager = new CardManager(this, 5);
-			addChildAt(loadingScreen, 1);
+		public function loadCards(gameContent : Object) : void{
+			
+			addChildAt(loadingScreen, 2);
 			cardsManager.loadCards();
 		}
 		
@@ -127,86 +214,104 @@
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;	
 			removeChild(cardsManager);
 			cardsManager = null;
-			addChild(mainScreen);
+			addChildAt(mainScreen,0);
 		}
 		
 		
-		public function goBackToGameType(subSelectionGameScreen : SubSelectionGameScreen) : void{
-			removeChild(subSelectionGameScreen);
+		public function goBackToGameType() : void{
+			removeChild(packageSelectionScreen);
 			gameTypeSelectionScreen.gotoAndPlay(0);
-			addChild(gameTypeSelectionScreen);
+			addChildAt(gameTypeSelectionScreen,0);
 		}
 		
 		public function loadGame(gameContent : Object):void{
-			if(currentGameCategory == "QA"){
+			if(currentGameType == GameType.QA){
 				currentGame = new QAGameManager(this,gameContent,currentGameType);
-			}else if(currentGameCategory == "Classification"){
+			}else if(currentGameType == GameType.CLASSIFICATION){
 				currentGame = new ClassificationGameManager(this,gameContent,2,currentGameType);	
-			}else if(currentGameCategory == "Sentence"){
+			}else if(currentGameType == GameType.SENTENCE){
 				currentGame = new SentenceGameManager(this,gameContent,currentGameType);
-			}else if(currentGameCategory == "Conversation"){
+			}else if(currentGameType == GameType.CONVERSATION){
 				currentGame = new ConversationGameManager(this,gameContent,currentGameType);
-			}else if(currentGameCategory == "SoCoCo"){
+			}else if(currentGameType == GameType.SOCOCO){
 				currentGame = new SoCoCoGameManager(this,gameContent,currentGameType);
+			}else if(currentGameType == GameType.SOUND){
+				currentGame = new SoundQAManager(this,gameContent,currentGameType);
+			}else if(currentGameType == GameType.CARDS){
+				cardsManager = new CardManager(this, gameContent);
+				loadCards(gameContent);
 			}
 			
 		}
 		
-		public function startGame(subSelectionGameScreen : SubSelectionGameScreen, selection : int,url : String){
-			addChildAt(loadingScreen, 1);
-			if(subSelectionGameScreen is EmotionSubSelectionScreen){
-				if(selection == 0){
-					jLoader.getJSON(url);	
-					currentGameCategory = "QA";
-				}else if(selection == 1){
-					jLoader.getJSON(url);
-					currentGameCategory = "QA";
-				}else if(selection == 2){
-					jLoader.getJSON(url);
-					currentGameCategory = "QA";					
-				}
-				currentGameType = GameType.Emotions;
-			}else if(subSelectionGameScreen is CognitionSubSelectionScreen){
-				if(selection == 0){
-					jLoader.getJSON(url);
-					currentGameCategory = "Sentence";
-				}else if(selection == 1){
-					jLoader.getJSON(url);
-					currentGameCategory = "SoCoCo";
-				}else if(selection == 2){
-					jLoader.getJSON(url);
-					currentGameCategory = "Classification";
-				}
-				currentGameType = GameType.Cognition;
-			}else{
-				if (selection == 0){
-					jLoader.getJSON(url);
-					currentGameCategory = "Classification";
-				}else if(selection == 1){
-					jLoader.getJSON(url);
-					currentGameCategory = "Conversation";
-				}
-				currentGameType = GameType.Communications;
-			}
+		public function startGame(url : String){
+			addChildAt(loadingScreen, 2);
+			jLoader.getJSON(url);
 		}
 		
 		public function showGameView(gameManager : GameManager){
 			removeChild(loadingScreen);
-			removeChild(loadedSubSelectionScreen);
+			removeChild(packageSelectionScreen);
+			removeChild(topBar);
 			addChild(gameManager);
 		}
 		
 		public function destroyGame(){
 			removeChild(currentGame);
+			addChild(topBar);
 			currentGame = null;
 			goToGameTypeSelectionScreen();
 		}
 		
 		public function startCardGame() : void{
-			removeChild(cardsSelectionScreen);
+			removeChild(packageSelectionScreen);
 			removeChild(loadingScreen);
 			Multitouch.inputMode = MultitouchInputMode.GESTURE;
 			addChild(cardsManager);
+		}
+		
+		public function createTherapist(therapistJSON : Object){
+			therapist = new Therapist(therapistJSON.id, therapistJSON.name, therapistJSON.surname, therapistJSON.patients,therapistJSON.patientsId, therapistJSON.packages);
+			if(therapistJSON.patientsId.length != 0){
+				selectedPatient = therapistJSON.patientsId[0];
+			}else{
+				selectedPatient = -1;
+			}
+			topBar.loggedIn(therapist.therapistName + " " + therapist.surname);
+			topBar.setPatients(therapistJSON.patients);
+		}
+		
+		public function changeSelectedPatient(selectedIndex : int):void{
+			selectedPatient = therapist.patientsId[selectedIndex];
+		}
+		
+		public function sendResults(gameType : String, resultColector : ResultColector){
+			if(selectedPatient != -1){
+				httpManager.sendResults(gameType, resultColector, therapist.id, selectedPatient);
+			}else{
+				trace("No has elegido a ningun paciente");
+			}			
+		}
+		
+		public function logoutTherapist():void{
+			therapist = null;
+		}
+		
+		public function startBitacoraScreen():void{
+			removeChildAt(0);
+			bitacoraManager = new BitacoraManager(this);
+			addChildAt(bitacoraManager, 0);
+		}
+		
+		public function goBackToMainScreen():void{
+			removeChildAt(0);
+			addChildAt(mainScreen,0);
+		}
+		
+		public function sendBitacora(bitacora : String):void{
+			//TODO
+			trace(bitacora);
+			goBackToMainScreen();
 		}
 			
 		

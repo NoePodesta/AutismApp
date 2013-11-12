@@ -1,0 +1,1 @@
+{"totalCards":4,"cards":[{"imageName":"Martillo","imageUrl":"ElementsImages/hammer.png"},{"imageName":"Reptiloide","imageUrl":"ShapesImages/reptiloide.png"},{"imageName":"Bueno","imageUrl":"SignsImages/thumbsUp.png"},{"imageName":"Contento","imageUrl":"EmotionsGifs/happy.png"}]}

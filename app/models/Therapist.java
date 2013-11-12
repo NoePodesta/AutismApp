@@ -31,7 +31,7 @@ public class Therapist
     @Constraints.MinLength(value = 6)
     public String password;
     private TherapistType therapistType;
-    @ManyToOne
+    @OneToOne
     public Institution institution;
     @ManyToMany
     private List<Team> assignedTeams;
@@ -167,4 +167,6 @@ public class Therapist
         }
         assignedTeams.add(team);
     }
+
+
 }

@@ -23,9 +23,9 @@
 		
 		
 	
-		var answerImage : Bitmap;
+		var answerImage : Array;
 		
-		var imageLoader:Loader 
+		var imageLoader:Loader; 
 		
 		  
 		var sustantivos : Array;
@@ -40,26 +40,18 @@
 		var pickerAdjetivos:UIPicker;
 		
 	
-		public function SentenceGameView(gameManager: GameManager,gameType : String, articulos : Array, sustantivos : Array, verbos: Array, adjetivos : Array, url : String){
+		public function SentenceGameView(gameManager: GameManager,gameType : String, totalImages : Array){
 			super(gameManager,gameType);
+			
+			answerImage = new Array(totalImages.length);
+			
 
-			
-			
-
-			this.sustantivos = sustantivos;
-			this.verbos = verbos;
-			this.articulos = articulos;
-			this.adjetivos = adjetivos;
-			
-			
-			imageLoader = new Loader();
-			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteImageLoad);
-			imageLoader.load(new URLRequest(url));
-			
-		
-			
-				
-			
+			for(var i : int = 0;i<totalImages.length;i++){
+				imageLoader = new Loader();
+				imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteImageLoad);
+				imageLoader.load(new URLRequest(totalImages[i]));
+				answerImage[i] = imageLoader;
+			}			
 		}
 		
 		function checkAnswer(event:Event):void { 
@@ -82,46 +74,45 @@
 		}
 		
 		function onCompleteImageLoad (event : Event ):void
-		{
+		{			
+			manager.onOptionLoadComplete();
+				
 			
-			
-			answerImage = imageLoader.content as Bitmap;
-			answerImage.y = 768 / 2;
-			answerImage.x = 1024 / 2 - 100;
-			answerImage.width = 200;
-			answerImage.height = 100;
-			
-			addChild(answerImage);
-			
-			
-			
-			
-			createMadComponents();
-			manager.onLoadComplete();
-			
+		}
+		
+		public function showNextImage(stageImage : int):void{
+			answerImage[stageImage].y = 768 / 2;
+			answerImage[stageImage].x = 1024 / 2 - 100;
+			answerImage[stageImage].width = 200;
+			answerImage[stageImage].height = 100;			
+			addChild(answerImage[stageImage]);
+		}
+		
+		public function removeImage(stageImage : int):void{
+			removeChild(answerImage[stageImage]);
 		}
 		
 		function createMadComponents(){
 			pickerArticulos = new UIPicker(this, <picker/>, new Attributes(100,150,150,200), false, false);
-			pickerArticulos.data = articulos;
+			
 			pickerArticulos.x =212;
 			pickerArticulos.y = 100;
 			
 			
 			pickerSustantivos = new UIPicker(this, <picker/>, new Attributes(250,150,150,200), false, false);
-			pickerSustantivos.data = sustantivos;
+			
 			pickerSustantivos.x =362;
 			pickerSustantivos.y = 100;
 			
 			pickerVerbos = new UIPicker(this, <picker/>, new Attributes(400,150,150,200), false, false);
-			pickerVerbos.data = verbos;
+			
 			pickerVerbos.x =512;
 			pickerVerbos.y = 100;
 			
 			
 			
 			pickerAdjetivos = new UIPicker(this, <picker/>, new Attributes(550,150,150,200), false, false);	
-			pickerAdjetivos.data = adjetivos;
+			
 			pickerAdjetivos.x =662;
 			pickerAdjetivos.y = 100;
 			
@@ -148,6 +139,14 @@
 			button.x = 1024 / 2 - button.width /2;
 			button.addEventListener(TouchEvent.TOUCH_TAP, checkAnswer);
 			
+			
+		}
+		
+		public function setOptions(words : Array):void{
+			pickerArticulos.data = words[0];
+			pickerVerbos.data = words[2];
+			pickerAdjetivos.data = words[3];
+			pickerSustantivos.data = words[1];
 			
 		}
 

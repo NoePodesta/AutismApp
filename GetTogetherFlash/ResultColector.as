@@ -9,7 +9,7 @@
 		var therapist : int;
 		var packageUsed : int;
 		
-		var jsonLoader : JSONLoader;
+
 		var json : String;
 		
 
@@ -20,19 +20,10 @@
 			this.patient = patient;
 			this.therapist = therapist;
 			this.packageUsed = packageUsed;
-			jsonLoader = new JSONLoader(null);
+			
 		}
 		
-		public function getJson():String{
-			var object : Object = new Object;
-			object.correctAnswers = correctAnswers;
-			object.wrongAnswers = wrongAnswers;
-			object.gameType = gameType;
-			object.patient = patient;
-			object.therapist = therapist;
-			object.packageUsed = packageUsed;
-			return jsonLoader.stringifyJson(object);
-		}
+	
 		
 		public function addCorrectAnswer():void{
 			correctAnswers++;

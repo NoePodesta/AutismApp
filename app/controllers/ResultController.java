@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class ResultController extends Controller {
 
-    private static int selectedPatient = 1;
+    private static int selectedPatient = 0;
 
     public static Result showResult() {
         return ok(resultShower.render(TestResult.all(),""));
@@ -32,11 +32,12 @@ public class ResultController extends Controller {
 
 
         ArrayList<Map<Object, Serializable>> allEvents = new ArrayList<Map<Object, Serializable>>();
-        Map<Object, Serializable> eventRemapped = new HashMap<Object, Serializable>();
+
         int i = 0;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for(TestResult testResult : results){
-            eventRemapped.put("id", i++);
+            Map<Object, Serializable> eventRemapped = new HashMap<Object, Serializable>();
+            eventRemapped.put("id", testResult.id);
             eventRemapped.put("title", testResult.game);
             eventRemapped.put("start", df.format(testResult.dateMade));
             eventRemapped.put("end", df.format(testResult.dateMade));
@@ -44,6 +45,11 @@ public class ResultController extends Controller {
             allEvents.add(eventRemapped);
         }
         return ok(play.libs.Json.toJson(allEvents));
+    }
+
+    public static Result viewPatientResults(int id){
+        selectedPatient = id;
+        return showResult();
     }
 
     public static Result json() {

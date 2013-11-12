@@ -23,7 +23,7 @@ public class DatabasePopulator extends Controller {
     }
 
     private static void populateResultsDatabase() {
-        GamePackage gamePackage = new GamePackage("aaaa","bbbbb");
+        GamePackage gamePackage = new GamePackage("aaaa","bbbbb", Game.QA, "cccc", null);
         Ebean.save(gamePackage);
         TestResult testResult1 = new TestResult(Game.QA,Patient.findPatientById(1),Therapist.findTherapistById(1),
                                                  3,2,new Date(),gamePackage);
@@ -31,9 +31,18 @@ public class DatabasePopulator extends Controller {
                 1,4,new Date(),gamePackage);
         TestResult testResult3 = new TestResult(Game.SOCOCO,Patient.findPatientById(1),Therapist.findTherapistById(1),
                 0,3,new Date(),gamePackage);
+        TestResult testResult4 = new TestResult(Game.SOCOCO,Patient.findPatientById(1),Therapist.findTherapistById(1),
+                0,3,new Date(),gamePackage);
+        TestResult testResult5 = new TestResult(Game.SOCOCO,Patient.findPatientById(1),Therapist.findTherapistById(1),
+                0,3,new Date(),gamePackage);
+        TestResult testResult6 = new TestResult(Game.SOCOCO,Patient.findPatientById(1),Therapist.findTherapistById(1),
+                0,3,new Date(),gamePackage);
         TestResult.saveResult(testResult1);
         TestResult.saveResult(testResult2);
         TestResult.saveResult(testResult3);
+        TestResult.saveResult(testResult4);
+        TestResult.saveResult(testResult5);
+        TestResult.saveResult(testResult6);
 
     }
 
@@ -78,10 +87,14 @@ public class DatabasePopulator extends Controller {
         Therapist therapist = new Therapist("Juan","Molteni","47911306","123",therapistAddress,"33850398",
                 "juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"asd",BCrypt.hashpw("123456", BCrypt.gensalt()),
                 "uploads/JuanMolteni/JuaniMolteni.jpg", TherapistType.ADMIN,institution);
-
+        GamePackage gamePackage = new GamePackage("Emociones First Online","bbbbb", Game.QA, "JSONs/EmotionFaceQA.txt", therapist);
         Ebean.save(therapistAddress);
-        Ebean.save(noeAddress);
         Ebean.save(therapist);
+        Ebean.save(gamePackage);
+
+
+        Ebean.save(noeAddress);
+        Ebean.update(therapist);
 
 
         Therapist therapist3 = new Therapist("María Noel","Podestá","45463187","1144041981",noeAddress,"34906400",

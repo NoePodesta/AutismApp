@@ -1,1 +1,0 @@
-{"answerType":"GIF","optionsType":"GIF","answer":"EmotionsGifs/happyTop.gif","options":[{"label":"EmotionsGifs/happyBottom.gif","correctAnswer":true},{"label":"EmotionsGifs/happyBottom.gif","correctAnswer":false},{"label":"EmotionsGifs/happyBottom.gif","correctAnswer":false},{"label":"EmotionsGifs/happyBottom.gif","correctAnswer":false}],"optionsLength":4}

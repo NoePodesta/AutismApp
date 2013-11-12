@@ -34,7 +34,7 @@ public class Patient
     private List<TestResult> testResults;
     @OneToOne
     public Team team;
-    @ManyToOne
+    @OneToOne
     public Institution institution;
 
 

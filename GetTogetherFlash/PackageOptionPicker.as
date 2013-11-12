@@ -7,23 +7,18 @@
 		
 		var packageOptions : Array;
 		var cb:ComboBox;
+		var packagesOptions : Array;
 
-		public function PackageOptionPicker(packageOptions : Array) {
-			this.packageOptions = packageOptions;
+		public function PackageOptionPicker() {
 			
-			var dataProvider : Array = new Array(packageOptions.length);
-			
-			for(var i : int = 0;i<dataProvider.length;i++){
-				dataProvider[i] = packageOptions[i].displayName;
-			}
-			
+
 			cb = new ComboBox();
-			cb.dataProvider = new DataProvider(dataProvider);
+		
 			cb.x = 570;
 			cb.y = 200;
 			cb.width=270;
 			cb.height=92;
-			addChild(cb);
+			
 			
 
 			
@@ -34,11 +29,21 @@
 
 		function getSelectedUrl():String {
 			if(cb.selectedIndex == -1){
-				return packageOptions[0].url;
+				return packagesOptions[0].url;
 			}else{
-				return packageOptions[cb.selectedIndex].url;
+				return packagesOptions[cb.selectedIndex].url;
 			}
 			
+		}
+		
+		public function setPackages(packages : Array){
+			this.packagesOptions = packages;	
+			var displayNames : Array = new Array();
+			for(var i : int = 0;i<packagesOptions.length;i++){
+				displayNames.push(packagesOptions[i].displayName);
+			}
+			cb.dataProvider = new DataProvider(displayNames);
+			addChild(cb);
 		}
 
 	}
