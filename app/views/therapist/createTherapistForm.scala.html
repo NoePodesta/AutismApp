@@ -8,7 +8,7 @@
     Dar de alta terapeuta
 }
 
-@main(title,nav = " "){
+@main2(title,nav = " ", null){
 <div id=therapistForm>
     @if(therapistForm.hasErrors) {
     <div class="alert-message error">
@@ -88,6 +88,7 @@
 
             <legend>Direccion</legend>
 
+            <div class="span5">
             @inputText(
                 therapistForm("address.cp"),
                 '_label -> "Codigo Postal" ,
@@ -101,30 +102,15 @@
                 '_showConstraints -> false
 
             )
+                </div>
+            <div class="span5">
 
-            @inputText(
-                therapistForm("address.number"),
-                '_label -> "Número",'class -> "mini",
-                '_showConstraints -> false
-            )
-
-            @inputText(
-                therapistForm("address.floor"),
-                '_label -> "Piso", 'class -> "mini",
-                '_showConstraints -> false
-            )
-
-            @inputText(
-                therapistForm("address.depto"),
-                '_label -> "Departamento", 'class -> "mini",
-                '_showConstraints -> false
-
-
-            )
 
             @inputText(
                 therapistForm("address.locality"),
-                '_label -> "Localidad"
+                '_label -> "Localidad",
+                '_showConstraints -> false
+
             )
 
             @select(
@@ -132,8 +118,28 @@
                 options = options(Province.list),
                 '_default -> "--- Eliga una provincia ---",
                 '_label -> "Provincia",
-                '_error -> therapistForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
+                '_error -> therapistForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia")),
+                '_showConstraints -> false
             )
+            </div>
+            <div class="span10" >
+                <label for="address_number">Número</label>
+                <div class="input">
+                    <input type="text" id="address_number" name="address.number">
+                    <span class="help-inline"></span>
+                </div>
+                <label for="address_floor">Piso</label>
+                <div class="input">
+                    <input type="text" id="address_floor" name="address.floor">
+                    <span class="help-inline"></span>
+                </div>
+                <label for="address_depto">Departamento</label>
+                <div class="input">
+                    <input type="text" id="address_depto" name="address.depto">
+                    <span class="help-inline"></span>
+                </div>
+
+            </div>
 
         </fieldset>
 
@@ -141,14 +147,20 @@
 
             <legend>Telefonos</legend>
 
+            <div class="span5">
             @inputText(
                 therapistForm("telephone"),
-                '_label -> "Teléfono"
+                '_label -> "Teléfono",
+                '_showConstraints -> false
+
             )
             @inputText(
                 therapistForm( "cellphone"),
-                '_label -> "Celular"
+                '_label -> "Celular",
+                '_showConstraints -> false
+
             )
+            </div>
 
         </fieldset>
 

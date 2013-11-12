@@ -4,6 +4,7 @@ import com.avaje.ebean.Ebean;
 import models.Address;
 import models.Institution;
 import models.Therapist;
+import msg.Msg;
 import play.data.Form;
 import play.mvc.Result;
 import play.mvc.Controller;
@@ -31,7 +32,7 @@ public class InstitutionController extends Controller {
     }
 
     public static Result profile(){
-        Therapist current = Therapist.findTherapistByDNI(session().get("dni"));
+        Therapist current = Therapist.findTherapistByDNI(session().get(Msg.DNI));
         Institution institution = current.institution;
         Form<Institution> institutionForm = form(Institution.class).fill(institution);
         return ok(views.html.institution.institutionProfile.render(institutionForm));
@@ -62,6 +63,18 @@ public class InstitutionController extends Controller {
 
         Ebean.update(address);
         Ebean.update(institutionFromForm);
+        return profile();
+
+    }
+
+    public static Result updateInstitutionImage(){
+
+        Therapist currentTherapist = Application.getCurrentTherapist();
+        Institution institution = currentTherapist.institution;
+        String pathFile = ImageController.getInstImagePathName(institution);
+        institution.image = pathFile;
+        Ebean.save(institution);
+
         return profile();
 
     }

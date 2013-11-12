@@ -3,10 +3,12 @@ package controllers;
 
 import models.Therapist;
 import models.TherapistType;
+import msg.Msg;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import views.html.index;
 import views.html.login;
 import views.html.signUp;
 
@@ -16,13 +18,15 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
 
+    private static Therapist currentTherapist;
+
     public static class Login {
         public String dni;
         public String password;
 
         public String validate() {
             if (!Therapist.authenticate(dni, password))
-                return "Invalid user or password";
+                return Msg.INVALID;
             return null;
         }
     }
@@ -49,7 +53,7 @@ public class Application extends Controller {
 
     public static Result signUp(Form<PartialSignUp> partialSignUpForm) {
         Form<Therapist> therapistForm = form(Therapist.class);
-        return ok(signUp.render("Sign Up Form", therapistForm, partialSignUpForm));
+        return ok(signUp.render(therapistForm, partialSignUpForm));
     }
 
     public static Result registerAdmin() {
@@ -58,7 +62,7 @@ public class Application extends Controller {
 
     public static Result index() {
         //return ok(therapists.render(Therapist.findByInstitutionId()));
-        return TODO;
+        return ok(index.render());
     }
 
     public static Result login(){
@@ -72,8 +76,10 @@ public class Application extends Controller {
             return badRequest(login.render(form(Login.class), form(PartialSignUp.class), form(RecoverPassword.class)));
         } else {
             session().clear();
-            session("dni", loginForm.get().dni);
-            return TherapistController.therapistList();
+            String dni = loginForm.get().dni;
+            session(Msg.DNI, dni);
+            currentTherapist = Therapist.findTherapistByDNI(dni);
+            return TherapistController.profile();
         }
     }
 
@@ -81,7 +87,8 @@ public class Application extends Controller {
 
     public static Result logout() {
         session().clear();
-        flash("success", "You've been logged out");
+        currentTherapist = null;
+        flash(Msg.SUCCESS, Msg.LOGOUT);
         return redirect(
                 routes.Application.login()
         );
@@ -91,11 +98,20 @@ public class Application extends Controller {
         RecoverPassword recoverPassword = form(RecoverPassword.class).bindFromRequest().get();
 
         if(MailService.recoverPassword(recoverPassword.dni, recoverPassword.mail)){
-            flash("success", "Se te envio un mail con los nuevos datos");
+            flash(Msg.SUCCESS, Msg.MAIL_SENT);
         }else{
-            flash("success", "La informacion proporcionada no es valida");
+            flash(Msg.SUCCESS, Msg.INVALID_INFO);
         }
         return login();
+    }
+
+    public static Therapist getCurrentTherapist() {
+        return currentTherapist;
+    }
+
+    public static Result other(){
+        return ok(index.render());
+
     }
 
 }

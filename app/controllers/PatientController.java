@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import models.*;
+import msg.Msg;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -29,7 +30,8 @@ public class PatientController
 
     public static Result patientList() {
         return ok(
-                views.html.patient.patients.render(Patient.findPatientByInstitution(Therapist.findTherapistByDNI(session().get("dni")).institution))
+                views.html.patient.patients.render(Patient.findPatientByInstitution(
+                        Therapist.findTherapistByDNI(session().get(Msg.DNI)).institution))
         );
     }
 
@@ -45,7 +47,7 @@ public class PatientController
         // Check if the dni is valid
         if(!patientForm.hasErrors()) {
             if(Patient.findPatientByDNI(patientForm.get().dni) != null) {
-                patientForm.reject("dni", "Ya se ha ingresado este dni");
+                patientForm.reject(Msg.DNI, Msg.CHECK_DNI);
             }
         }
 
@@ -53,11 +55,12 @@ public class PatientController
         Patient patientFromForm = patientForm.get();
 
 
-        Gender gender = (patientForm.data().get("genero").equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
+        Gender gender = (patientForm.data().get(Msg.GENERO).equals(Gender.FEMALE.toString()) ? Gender.FEMALE :
+                Gender.MALE);
 
-        String pathFile = UserController.getPathName(patientFromForm,gender);
+        String pathFile = ImageController.getUserImagePathName(patientFromForm, gender);
 
-        Institution institution = InstitutionController.getInsitutionById(Therapist.findTherapistByDNI(session().get("dni")).institution.id);
+        Institution institution = InstitutionController.getInsitutionById(Application.getCurrentTherapist().id);
 
         Address address = new Address(patientFromForm.address.street, patientFromForm.address.number,
                 patientFromForm.address.floor, patientFromForm.address.depto, patientFromForm.address.cp,
@@ -65,13 +68,13 @@ public class PatientController
 
         Patient patient = new Patient(patientFromForm.name, patientFromForm.surname, patientFromForm.telephone,
                 patientFromForm.cellphone,address, patientFromForm.dni, patientFromForm.gender, patientFromForm.mail,
-                patientFromForm.birthday, patientFromForm.medicalCoverage,patientFromForm.nMedicalCoverage,patientFromForm.disease,
+                patientFromForm.birthday, patientFromForm.medicalCoverage,patientFromForm.nMedicalCoverage,
+                patientFromForm.disease,
                 patientFromForm.gradeDisease,pathFile, institution);
 
         Ebean.save(address);
         Ebean.save(patient);
-        flash("success", "El paciente " + patientForm.get().name +" " + patientForm.get().surname + " ya ha sido " +
-                "dada de alta");
+        flash(Msg.SUCCESS, Msg.ADDED(Msg.PATIENT, patient.name, patient.surname));
 
 
 
@@ -82,7 +85,7 @@ public class PatientController
 
     public static Result removePatient(int id) {
         if(Patient.delete(id)){
-            flash("success", "El terapeuta ha sido eliminado");
+            flash(Msg.SUCCESS, Msg.REMOVE(Msg.PATIENT));
         }else{
             //Do Error Message
         }
@@ -100,7 +103,7 @@ public class PatientController
         // Check if the dni is valid
         if(!patientForm.hasErrors()) {
             if(Patient.findPatientByDNI(patientForm.get().dni) != null) {
-                patientForm.reject("dni", "Ya se ha ingresado este dni");
+                patientForm.reject(Msg.DNI, Msg.CHECK_DNI);
             }
         }
 
@@ -117,7 +120,7 @@ public class PatientController
         patientFromForm.address = address;
         Ebean.update(address);
         Ebean.update(patientFromForm);
-        flash("success", "Sus cambios han sido guardados");
+        flash(Msg.SUCCESS, Msg.CHANGES_SAVED);
 
 
 

@@ -5,14 +5,14 @@
         Terapeutas
     }
 
-@main(title , nav = "therapists") {
+@main2(title , nav = "therapists", null) {
 
 
     <div class="container-fluid">
         <div class="row-fluid">
         @if(flash.containsKey("success")) {
-            <div class="alert-message warning">
-                <strong>Done!</strong> @flash.get("success")
+            <div class="alert alert-success">
+                <strong>Listo!</strong> @flash.get("success")
             </div>
         }
         </div>
@@ -47,11 +47,33 @@
                     <div class="therapistInfo">
                         <a href="@routes.TherapistController.therapistProfile(therapist.id)"><p class="inline">@therapist.name @therapist.surname</p></a>
                         @if(Secured.isAdmin){
-                            <a class="pull-right"><img src="@routes.Assets.at("images/delete.png")" alt="Remove" height="10" width="10"></a>
+                            <a class="pull-right" data-toggle="modal" href="#@therapist.id"><img src="@routes.Assets.at("images/delete.png")" alt="Eliminar" height="10" width="10"></a>
                         }
                     </div>
                     </div>
                 </div>
+
+
+                <div class="modal fade" id="@therapist.id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Eliminar Terapeuta</h4>
+                            </div>
+                            <div class="modal-body">
+                                Estas seguro que queres eliminar a este terapeuta?
+                                @therapist.dni
+                            </div>
+                            <div class="modal-footer">
+                                @form(routes.TherapistController.removeTherapist(therapist.id)) {
+                                    <input type="submit" value="Eliminar" class="btn btn-danger disabled">
+                                }
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 
 
 
@@ -61,3 +83,7 @@
         </div>
     </div>
 }
+
+
+
+

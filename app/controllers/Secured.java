@@ -2,6 +2,7 @@ package controllers;
 
 
 import models.Therapist;
+import msg.Msg;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -11,13 +12,13 @@ import play.mvc.Security;
  * User: Juani
  * Date: 9/6/13
  * Time: 1:41 AM
- * To change this template use File | Settings | File Templates.
  */
+
 public class Secured extends Security.Authenticator {
 
     @Override
     public String getUsername(Context ctx) {
-        return ctx.session().get("dni");
+        return ctx.session().get(Msg.DNI);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ResultController extends Controller {
     private static int selectedPatient = 0;
 
     public static Result showResult() {
-        return ok(resultShower.render(TestResult.all(),""));
+        return ok(resultShower.render(TestResult.all()));
     }
 
     public static Result jsonPerPatient(){

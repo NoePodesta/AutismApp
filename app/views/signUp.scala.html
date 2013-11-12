@@ -1,12 +1,12 @@
-@(title: String, therapistForm : Form[Therapist], partialSignUpForm : Form[Application.PartialSignUp])
+@(therapistForm : Form[Therapist], partialSignUpForm : Form[Application.PartialSignUp])
 
     @import helper._
 
     @title = {
-        Sign Up
+        Registración
     }
 
-    @main(title, nav=" "){
+    @main2(title, nav=" ", null){
         <div id=therapistForm>
             @if(therapistForm.hasErrors) {
                 <div class="alert-message error">

@@ -1,0 +1,703 @@
+@orange: #FF9933;
+@white: white;
+
+.Border-radius(@radius:5px) {
+  -webkit-border-radius:@radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.ButtonOrange{
+    .BackgroundOrange;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFAD5c', endColorstr='#FF9933', GradientType=0);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border-color: #FFAD5c #FFAD5c #FF9933;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.BackgroundOrange{
+  background-color: @orange;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#FFAD5c), to(#FF9933));
+  background-image: -moz-linear-gradient(top, #FFAD5c, #FF9933);
+  background-image: -ms-linear-gradient(top, #FFAD5c, #FF9933);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FF9933), color-stop(100%, #FF9933));
+  background-image: -webkit-linear-gradient(top, #FFAD5c, #FF9933);
+  background-image: -o-linear-gradient(top, #FFAD5c, #FF9933);
+  background-image: linear-gradient(top, #FFAD5c, #FF9933);
+}
+
+.underline{
+  text-decoration: underline;
+}
+
+.inline{
+  display: inline;
+}
+
+@font-face
+{
+  font-family: chalk;
+  src: url("/assets/fonts/CAIPIRINHA.ttf")
+}
+
+@font-face
+{
+  font-family: love;
+  src: url("/assets/fonts/love.ttf")
+}
+
+@font-face
+{
+  font-family: chalk1;
+  src: url("/assets/fonts/CFMarieEve.ttf")
+}
+
+@font-face
+{
+  font-family: RoyalDelightShad;
+  src: url("/assets/fonts/RoyalDelightShad.ttf")
+}
+
+@font-face
+{
+  font-family: game;
+  src: url("/assets/fonts/KBREINDEERGAMES.ttf")
+}
+@font-face
+{
+  font-family: RoyalDelight;
+  src: url("/assets/fonts/RoyalDelight.ttf")
+}
+
+@font-face
+{
+  font-family: chalk2;
+  src: url("/assets/fonts/LEVIBRUSH.ttf")
+}
+
+@font-face
+{
+  font-family: alwayss;
+  src: url("/assets/fonts/always.ttf")
+}
+
+@font-face
+{
+  font-family: cartoon;
+  src: url("/assets/fonts/Cartoon.ttf")
+}
+
+@font-face
+{
+  font-family: coolvetica;
+  src: url("/assets/fonts/coolvetica.ttf")
+}
+
+@font-face
+{
+  font-family: littleSwag;
+  src: url("/assets/fonts/KGALittleSwag.ttf")
+}
+
+@font-face
+{
+  font-family: song;
+  src: url("/assets/fonts/song.ttf")
+}
+
+@font-face
+{
+  font-family: vintage;
+  src: url("/assets/fonts/Vintage_fair.ttf")
+}
+
+
+html, body{
+  background: #eee;
+  color: #bababa;
+  text-align: left;
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body{
+  padding-top: 40px;
+}
+
+.footer{
+  text-align: center;
+  color: @orange;
+  text-align: center;
+  padding: 30px 0;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+  height:20px;
+  bottom: 0;
+  width: 100%;
+
+}
+
+.header{
+  text-align: center;
+  padding: 15px;
+  background-color:gray;
+  box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+}
+
+.wraparound {
+  position: relative;
+  margin: 0 -11px;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.3);
+  &:before , &:after {
+    content: " ";
+    border-top: 10px solid gray;
+    position: absolute;
+    bottom: -11px;
+  }
+  &:before {
+    border-left: 10px solid transparent;
+    left: 0;
+  }
+  &:after {
+    border-right: 10px solid transparent;
+    right: 0;
+  }
+}
+
+.container .bodyPage{
+  background-color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+  box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+  padding-top: 10px;
+
+
+}
+//
+//.bodyPage{
+//  height: 100%;
+//}
+
+//.imageContainer {
+//    background-image: url("/assets/images/stripeBackground.png");
+//    background-repeat: repeat;
+//}
+
+h1{
+  font-family: love;
+}
+
+h2{
+  font-family: alwayss;
+}
+
+
+/* --------------------------------------------- TOPBAR --------------------------------------------- */
+
+
+body > .navbar {
+  font-size: 13px;
+}
+
+.navbar.navbar-inverse.navbar-fixed-top {
+  margin-right: auto;
+  margin-left: auto;
+  width: 1064px;
+}
+
+/* Change the docs' brand */
+body > .navbar .brand {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  margin-left: 20px !important;
+  float: right !important;
+  font-weight: bold !important;
+  color: #000 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125) !important;
+  -webkit-transition: all .2s linear !important;
+  -moz-transition: all .2s linear !important;
+  transition: all .2s linear !important;
+}
+body > .navbar .brand:hover {
+  text-decoration: none !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4) !important;
+}
+
+input:focus{
+  outline-color: @orange;
+}
+
+
+
+/* --------------------------------------------- GENERAL PAGE --------------------------------------------- */
+
+.container {
+  width: 1040px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+  margin-bottom: -20px;
+}
+
+.content {
+  background-color: #fff;
+  padding: 20px;
+  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  min-height: 10px;
+}
+
+.navbar-inverse .navbar-inner{
+  background-image: -moz-linear-gradient(top, #222222, #333333) !important;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#333333)) !important;
+  background-image: -webkit-linear-gradient(top, #222222, #333333) !important;
+  background-image: -o-linear-gradient(top, #222222, #333333) !important;
+  background-image: linear-gradient(to bottom, #222222, #333333) !important;
+  background-repeat: repeat-x !important;
+  border-color: #252525 !important;
+}
+
+.page-header {
+  background-color: #f5f5f5;
+  padding: 20px 20px 10px;
+  margin: -20px -20px 20px;
+}
+
+/* --------------------------------------------- FORM --------------------------------------------- */
+
+fieldset{
+  input{
+    height: 30px;
+  }
+  input:focus{
+    outline-color: @orange;
+    border-color: @orange;
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px @orange;
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px @orange;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px @orange;
+  }
+}
+
+/* --------------------------------------------- THERAPIST FORM --------------------------------------------- */
+
+#therapistForm{
+
+  fieldset{
+
+    border-top: solid lightgray;
+    //font-family: song;
+    font-size: 18px;
+    color: #000000;
+
+    legend{
+      padding-left: 0;
+      padding-right: 10px;
+      color: @orange;
+      font-family: alwayss;
+      font-size: 40px;
+    }
+
+    .span10 input{
+      display: inline;
+      float: left;
+      width: 80px;
+      margin-right: 20px;
+
+    }
+    .span10 label{
+      display: inline;
+      float: left;
+      padding-right: 10px;
+    }
+
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+  }
+
+
+  #address_number_field, #address_floor_field, #address_depto_field {
+    display: inline-block;
+  }
+
+  form #address_floor_field{
+    .input{
+      margin-left: 70px ;
+    }
+    label{
+      width: 50px;
+    }
+
+  }
+
+  form  #address_depto_field{
+    .input{
+      margin-left: 130px ;
+    }
+    label{
+      width: 118px;
+    }
+
+  }
+
+
+}
+
+/* ---------------------------------------- THERAPIST PROFILE ---------------------------------------- */
+
+
+.image-btn.btn.btn-info.disabled{
+  z-index: 1;
+  position: absolute;
+}
+
+.img-profile{
+  position: absolute;
+}
+
+.teamInfo{
+
+  color: black;
+  margin-top: 80px;
+
+  h2{
+    border-bottom: solid gray;
+    color: #000000;
+    font-size: 40px;
+  }
+
+}
+
+.profileInfo{
+
+  color: black;
+
+  h2{
+    border-bottom: solid gray;
+    color: #000000;
+    font-size: 40px;
+  }
+  .information{
+    font-family: song;
+    font-size: 20px;
+    padding-top: 5px;
+  }
+
+  .btn.btn-info{
+    float: right;
+    background-color:#2f96b4;
+  }
+
+  .icon-user{
+    padding-right: 10px;
+  }
+
+  .icon-home{
+    padding-right: 10px;
+  }
+
+  .icon-envelope{
+    padding-right: 10px;
+  }
+
+  .icon-telephone{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    padding-right: 10px;
+    background-image: url("/assets/img/phone.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+
+  }
+
+  .icon-cellphone{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    padding-right: 10px;
+    background-image: url("/assets/img/cellphone.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+
+  }
+}
+
+#profileImage{
+
+  .modal-content {
+    width: 600px;
+    height: 700px;
+  }
+  .modal-dialog {
+    width: 600px;
+    height: 700px;
+  }
+  .modal-header {
+    padding: 0;
+    border: none;
+  }
+  .modal-body {
+    width: 515px;
+    height: 650px;
+    max-height: none;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+  .close {
+    background-image: url("/assets/images/close.png");
+    position: absolute;
+    border: none;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    left: -20px;
+    top: -20px;
+    opacity: 1;
+  }
+}
+
+
+/* --------------------------------------------- TEAMS --------------------------------------------- */
+
+
+.team{
+  text-align: center;
+  .Border-radius(10px);
+  box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+
+  img{
+    border: solid;
+    box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+  }
+
+  label{
+    display: block;
+    float: none;
+    width: 300px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .name{
+    text-transform: uppercase;
+    color: @orange;
+    font-weight: bold;
+
+  }
+  .dni{
+    font-style: italic;
+  }
+
+}
+
+
+
+/* --------------------------------------------- PATIENTS --------------------------------------------- */
+
+
+.patient{
+  text-align: center;
+  .Border-radius(10px);
+  box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+
+  img{
+    border: solid;
+    box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+  }
+
+  label{
+    display: block;
+    float: none;
+    width: 300px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .name{
+    text-transform: uppercase;
+    color: @orange;
+    font-weight: bold;
+
+  }
+  .dni{
+    font-style: italic;
+  }
+
+}
+
+
+/* --------------------------------------------- THERAPISTS --------------------------------------------- */
+.therapistList{
+
+  .well{
+    border-radius: 10px;
+    box-shadow: 0 0 25px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .span4{
+    width: 289px;
+    height: 100px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+  }
+
+}
+
+.therapistInfo {
+  display: inline;
+  margin-left: 10px;
+}
+
+
+/* --------------------------------------------- SPAN --------------------------------------------- */
+
+.patient.span5{
+  margin: 30px;
+  height: 150px;
+}
+
+.team.span5{
+  margin: 30px;
+  height: 200px;
+}
+
+.span5{
+  width: 450px;
+}
+
+.span1{
+  float:left;
+  width: 110px;
+}
+
+.container-fluid{
+  padding: 20px;
+}
+
+.row-fluid .span3{
+  margin-left: 0;
+}
+
+.btn-margin{
+  margin-bottom: 30px;
+}
+
+/* --------------------------------------------- MAIN PAGE --------------------------------------------- */
+.mainpage{
+
+  background: url("/assets/images/stripeBackground.png") repeat;
+  position: absolute;
+  width:100%;
+  height: 100%;
+
+  .row.subtitle{
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 0;
+
+    span{
+      color: gray;
+      font-family: love;
+      font-size: 20px;
+    }
+  }
+
+  .row.boxes{
+    margin-top: 10%;
+
+  }
+
+  .btn.success, .alert-message.success {
+    .ButtonOrange;
+  }
+
+  h1{
+    color: gray;
+    //text-shadow: 3px 0px black;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    font-family: RoyalDelightShad;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 0;
+  }
+
+  .form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+
+    margin: 20px auto auto 20px;
+    background: rgba(245, 122, 122, 0.7);
+    .Border-radius(500px);
+    -webkit-box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
+    border: solid rgba(255, 204, 112, 0.5);
+    text-align: center;
+  }
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+    color: #f5f5f5;
+    font-family: love;
+  }
+  .form-signin input[type="text"],
+  .form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+  }
+
+}
+
+.btn.btn-login {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: rgba(245, 122, 122, 0.7);
+  *background-color: #f46868;
+  background-image: -moz-linear-gradient(top, #f57a7a, #f46868);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f57a7a), to(#f46868));
+  background-image: -webkit-linear-gradient(top, #f57a7a, #f46868);
+  background-image: -o-linear-gradient(top, #f57a7a, #f46868);
+  background-image: linear-gradient(to bottom, #f57a7a, #f46868);
+  background-repeat: repeat-x;
+  border-color: #f57a7a #f57a7a #f46868;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn.btn-login:hover,
+.btn.btn-login:focus,
+.btn.btn-login:active,
+.btn.btn-login.active,
+.btn.btn-login.disabled,
+.btn.btn-login[disabled] {
+  color: #ffffff;
+  background-color: #f57a7a;
+  *background-color: #f46868;
+}
+
+.help-inline {
+  color: lightcoral;
+  font-size: 12px;
+  font-style: oblique;
+}
+
+
+

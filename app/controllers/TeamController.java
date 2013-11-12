@@ -3,6 +3,7 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import models.*;
 
+import msg.Msg;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -24,10 +25,10 @@ public class TeamController extends Controller {
 
     public static Result createTeam() {
 //        if (Secured.isAdmin()) {
-            Form<Team> teamForm = form(Team.class);
-            return ok(
-                    views.html.team.createTeamForm.render(teamForm)
-            );
+        Form<Team> teamForm = form(Team.class);
+        return ok(
+                views.html.team.createTeamForm.render(teamForm)
+        );
 //        }else{
 //            return forbidden();
 //        }
@@ -47,7 +48,7 @@ public class TeamController extends Controller {
 
 
         //Patient
-        String patientDni = teamForm.data().get("paciente");
+        String patientDni = teamForm.data().get(Msg.PATIENT);
         String[] patientArray = patientDni.split("-");
         Patient patient = Patient.findPatientByDNI(patientArray[1].trim());
         team.patient = patient;
@@ -60,7 +61,7 @@ public class TeamController extends Controller {
 
 
         //Supervisor
-        String supervisorDni = teamForm.data().get("supervisor");
+        String supervisorDni = teamForm.data().get(Msg.SUPERVISOR);
         String[] supervisorArray = supervisorDni.split("-");
         Therapist supervisor = Therapist.findTherapistByDNI(supervisorArray[1].trim());
         if(supervisor.getAssignedTeams()!=null){
@@ -75,11 +76,11 @@ public class TeamController extends Controller {
         supervisorRole.team = team;
         Ebean.save(supervisorRole);
         team.getTeamRoles().add(supervisorRole);
-        MailService.sendNewTeamMail("Supervisor", supervisor.mail, patientName);
+        MailService.sendNewTeamMail(Msg.SUPERVISOR, supervisor.mail, patientName);
         Ebean.update(supervisor);
 
         //Coordinator
-        String coordinatorDni = teamForm.data().get("coordinator");
+        String coordinatorDni = teamForm.data().get(Msg.COORDINATOR);
         String[] coordinatorArray = coordinatorDni.split("-");
         Therapist coordinator = Therapist.findTherapistByDNI(coordinatorArray[1].trim());
         if(coordinator.getAssignedTeams()!=null){
@@ -88,19 +89,19 @@ public class TeamController extends Controller {
             coordinator.setAssignedTeams(new ArrayList<Team>());
             coordinator.getAssignedTeams().add(team);
         }
-       // team.getAssignedTherapists().add(1, coordinator);
+        // team.getAssignedTherapists().add(1, coordinator);
         TeamRoles coordinatorRole = new TeamRoles();
         coordinatorRole.role = TherapistRole.COORDINATOR.toString();
         coordinatorRole.therapist = coordinator;
         coordinatorRole.team = team;
         Ebean.save(coordinatorRole);
         team.getTeamRoles().add(coordinatorRole);
-        MailService.sendNewTeamMail("Coordinador", coordinator.mail, patientName);
+        MailService.sendNewTeamMail(Msg.COORDINADOR, coordinator.mail, patientName);
         Ebean.update(coordinator);
 
 
         //Integrator
-        String integratorDni = teamForm.data().get("integrator");
+        String integratorDni = teamForm.data().get(Msg.INTEGRATOR);
         String[] integratorArray = integratorDni.split("-");
         Therapist integrator = Therapist.findTherapistByDNI(integratorArray[1].trim());
         if(integrator.getAssignedTeams()!=null){
@@ -115,12 +116,12 @@ public class TeamController extends Controller {
         integratorRole.team = team;
         Ebean.save(integratorRole);
         team.getTeamRoles().add(integratorRole);
-        MailService.sendNewTeamMail("Integrador", integrator.mail, patientName);
+        MailService.sendNewTeamMail(Msg.INTEGRADOR, integrator.mail, patientName);
 
         Ebean.update(integrator);
 
         //Therapist
-        String therapistDni = teamForm.data().get("therapist");
+        String therapistDni = teamForm.data().get(Msg.THERAPISTE);
         String[] therapistArray = therapistDni.split("-");
         Therapist therapist = Therapist.findTherapistByDNI(therapistArray[1].trim());
         if(therapist.getAssignedTeams()!=null){
@@ -135,20 +136,12 @@ public class TeamController extends Controller {
         therapistRole.team = team;
         Ebean.save(therapistRole);
         team.getTeamRoles().add(therapistRole);
-        MailService.sendNewTeamMail("Terapeuta", therapist.mail, patientName);
+        MailService.sendNewTeamMail(Msg.THERAPIST, therapist.mail, patientName);
         Ebean.update(therapist);
 
         Ebean.update(team);
         Ebean.update(patient);
-
-
-
-
-
-
-
-
-        flash("success", "El equipo de trabajo ha sido creado");
+        flash(Msg.SUCCESS, Msg.TEAM_CREATED);
 
         return teamList();
     }
@@ -168,7 +161,7 @@ public class TeamController extends Controller {
 
     public static Result removeTeam(int id){
         if(Team.deleteTeam(id)){
-            flash("success", "El equipo ha sido eliminado");
+            flash(Msg.SUCCESS, Msg.REMOVE(Msg.TEAM));
         }else{
             //Do Error Message
         }

@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import models.*;
+import msg.Msg;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -59,9 +60,7 @@ public class TherapistController extends Controller {
         ArrayList<Therapist> therapistsToShow = new ArrayList<Therapist>();
         Therapist current = Therapist.findTherapistByDNI(session().get("dni"));
         for(Therapist therapist : Therapist.findByInstitution(current.institution)){
-            if(therapist.id != current.id){
                 therapistsToShow.add(therapist);
-            }
         }
         return ok(views.html.therapist.therapists.render(therapistsToShow));
     }
@@ -72,8 +71,8 @@ public class TherapistController extends Controller {
 
     public static Result updateTherapistImage(){
 
-        Therapist therapist = Therapist.findTherapistByDNI(session().get("dni"));
-        String pathFile = UserController.getPathName(therapist, therapist.gender);
+        Therapist therapist = Therapist.findTherapistByDNI(session().get(Msg.DNI));
+        String pathFile = ImageController.getUserImagePathName(therapist, therapist.gender);
         therapist.image = pathFile;
         Ebean.save(therapist);
 
@@ -91,7 +90,7 @@ public class TherapistController extends Controller {
         // Check if the dni is valid
         if(!therapistForm.hasErrors()) {
             if(Therapist.findTherapistByDNI(therapistForm.get().dni) != null) {
-                therapistForm.reject("dni", "Ya se ha ingresado este dni");
+                therapistForm.reject(Msg.DNI, Msg.CHECK_DNI);
             }
         }
 
@@ -128,8 +127,8 @@ public class TherapistController extends Controller {
         }
 
 
-        Gender gender = (therapistForm.data().get("genero").equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
-        String pathFile = UserController.getPathName(therapistFromForm, gender);
+        Gender gender = (therapistForm.data().get(Msg.GENERO).equals(Gender.FEMALE.toString()) ? Gender.FEMALE : Gender.MALE);
+        String pathFile = ImageController.getUserImagePathName(therapistFromForm, gender);
 
         Address address = new Address(therapistFromForm.address.street, therapistFromForm.address.number,
                 therapistFromForm.address.floor, therapistFromForm.address.depto, therapistFromForm.address.cp,
@@ -141,12 +140,11 @@ public class TherapistController extends Controller {
 
         Ebean.save(address);
         Ebean.save(therapist);
-        flash("success", "La terapeuta " + therapistForm.get().name +" " + therapistForm.get().surname + " ya ha sido " +
-                "dada de alta");
+        flash(Msg.SUCCESS, Msg.ADDED(Msg.THERAPIST,therapistForm.get().name,therapistForm.get().surname));
 
         if(autoLogin){
             session().clear();
-            session("dni", therapist.dni);
+            session(Msg.DNI, therapist.dni);
 
         }
 
@@ -160,7 +158,7 @@ public class TherapistController extends Controller {
     public static Result editTherapist(int id) {
         Therapist therapistToFill = Therapist.findTherapistById(id);
         Form<Therapist> therapistForm = form(Therapist.class).fill(therapistToFill);
-        if(therapistToFill.dni.equals(session().get("dni"))){
+        if(therapistToFill.dni.equals(session().get(Msg.DNI))){
             return ok(views.html.therapist.editTherapistForm.render(id, therapistForm, true));
         }else{
             return ok(views.html.therapist.editTherapistForm.render(id, therapistForm, false));
@@ -178,9 +176,9 @@ public class TherapistController extends Controller {
         Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
         //Declarado asi por un bug de play
         if(therapistForm.hasErrors()) {
-            String id = therapistForm.data().get("id");
+            String id = therapistForm.data().get(Msg.ID);
             Therapist therapist = Therapist.findTherapistById(Integer.parseInt(id));
-            if(therapist.dni.equals(session().get("dni"))){
+            if(therapist.dni.equals(session().get(Msg.DNI))){
                 return badRequest(views.html.therapist.editTherapistForm.render(therapist.id, therapistForm, true));
             }else{
                 return badRequest(views.html.therapist.editTherapistForm.render(therapist.id, therapistForm, false));
@@ -208,13 +206,13 @@ public class TherapistController extends Controller {
         Ebean.update(therapist);
 
 
-        flash("success", "Sus cambios han sido guardados");
+        flash(Msg.SUCCESS, Msg.CHANGES_SAVED);
         return therapistList();
     }
 
     public static Result removeTherapist(int id) {
         if(Therapist.delete(id)){
-            flash("success", "El terapeuta ha sido eliminado");
+            flash(Msg.SUCCESS, Msg.REMOVE(Msg.THERAPIST));
         }else{
             //Do Error Message
         }
@@ -240,8 +238,7 @@ public class TherapistController extends Controller {
     }
 
     public static Result profile() {
-        Therapist therapist = Therapist.findTherapistByDNI(session().get("dni"));
-        return ok(views.html.therapist.profile.render(therapist));
+        return ok(views.html.therapist.profile.render(Application.getCurrentTherapist()));
     }
 
     public static Result therapistProfile(int id){

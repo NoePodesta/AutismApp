@@ -33,7 +33,7 @@ public class User extends Model {
     @Pattern(regexp = "^([a-zA-Z].+)$", message = "Ingrese un apellido válido. Utilice solamente letras")
     @Constraints.Required
     public String surname;
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne
     @Valid
     public Address address;
     @Pattern(regexp = "^(\\d*)$", message = "Ingrese un número de celular válido")

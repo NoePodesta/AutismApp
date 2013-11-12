@@ -82,6 +82,8 @@ GET         /institution                           controllers.InstitutionContro
 #Edit Institution
 GET         /institution/:id                       controllers.InstitutionController.editInstitution(id:Integer)
 POST        /editInstitution                       controllers.InstitutionController.updateInstitution()
+POST        /updateInstitutionImage                controllers.InstitutionController.updateInstitutionImage()
+
 
 
 #View Results
@@ -89,6 +91,8 @@ GET         /viewResults                            controllers.ResultController
 GET        /events.json                             controllers.ResultController.json()
 GET        /events.json.test                        controllers.ResultController.jsonPerPatient()
 GET        /viewPatientResults/:id                  controllers.ResultController.viewPatientResults(id:Integer)
+
+
 
 
 #Mobile Application
@@ -99,3 +103,7 @@ POST        /saveResults                           controllers.MobileApplication
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                          controllers.Assets.at(path="/public", file)
+
+
+GET        /otro                           controllers.Application.other()
+

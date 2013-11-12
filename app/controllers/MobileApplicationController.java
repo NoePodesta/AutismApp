@@ -4,13 +4,14 @@ import com.avaje.ebean.Ebean;
 import models.*;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
+
+import models.Therapist;
+import msg.Msg;
 import org.codehaus.jackson.node.ObjectNode;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.libs.Json;
-
-import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.Map;
 
 /**
@@ -35,6 +36,7 @@ public class MobileApplicationController extends Controller {
         ArrayNode patients = new ArrayNode(factory);
         ArrayNode patientsId = new ArrayNode(factory);
         ArrayNode packages = new ArrayNode(factory);
+
         if(Therapist.authenticate(username,password)){
             Therapist therapist = Therapist.findTherapistByDNI(username);
 
@@ -62,13 +64,14 @@ public class MobileApplicationController extends Controller {
             result.put("patients",patients);
             result.put("patientsId",patientsId);
             result.put("packages", packages);
+
             return ok(result);
        }else{
            result.put("loggedComplete", false);
            return ok(result);
+
        }
     }
-
     public static Result saveResults(){
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         String gameType = values.get("gameType")[0];

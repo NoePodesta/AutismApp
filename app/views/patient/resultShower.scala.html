@@ -1,20 +1,21 @@
-@(resultsList: List[models.TestResult], nav: String = "patients")
+@(resultsList: List[models.TestResult])
 
+@title = {
+    Profile
+}
+
+@main2(title,nav = "Perfil", "fullcalendar/fullcalendar.min.js") {
 <html>
 <head>
-    <link rel='stylesheet' href="@routes.Assets.at("javascripts/fullcalendar/fullcalendar.css")"  />
-    <link rel='stylesheet' media='print' href="@routes.Assets.at("javascripts/fullcalendar/fullcalendar.print.css")"  />
-    <script src="@routes.Assets.at("javascripts/lib/jquery.min.js")"></script>
-    <script src="@routes.Assets.at("javascripts/lib/jquery-ui.custom.min.js")"></script>
-    <script src="@routes.Assets.at("javascripts/fullcalendar/fullcalendar.min.js")"></script>
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
-    <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
     <script>
 
         $(document).ready(function() {
             $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                    },
                 editable: false,
                 events: {
                         url:"/events.json.test",
@@ -41,64 +42,7 @@
 
     </style>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="@routes.Application.index()"> Get Together</a>
-                <div class="nav">
-                    <ul class="nav">
-                        <li class="@("active".when(nav == "perfil"))">
-                            <a href="@routes.TherapistController.profile()"> Mi Perfil</a>
-                        </li>
-                        <li class="@("active".when(nav == "institution"))">
-                            <a href="@routes.InstitutionController.profile()"> Institución</a>
-                        </li>
-                        <li class="@("active".when(nav == "therapists"))">
-                            <a href="@routes.TherapistController.therapistList()"> Terapeutas</a>
-                        </li>
-                        <li class="@("active".when(nav == "patients"))">
-                            <a href="@routes.PatientController.patientList()"> Pacientes</a>
-                        </li>
-                        <li class="@("active".when(nav == "teams"))">
-                            <a href="@routes.TeamController.teamList()"> Equipos de Trabajo</a>
-                        </li>
-                        <li>
-                            <a href="@routes.Application.logout()">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <header>
-        <div class="imageContainer">
-            <div class="container">
-                <div class="wraparound">
-                    <div class="header">
-                        <h1>Resultados</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <div class="imageContainer">
-        <div class="container">
-            <div class="bodyPage">
+
 
              <div id='calendar'></div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p>J&N Studios®</p>
-        </div>
-    </footer>
-
-</body>
-</html>
-
+}
