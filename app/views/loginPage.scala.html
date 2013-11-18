@@ -1,0 +1,121 @@
+@(loginForm: Form[Application.Login], signUpForm: Form[Application.PartialSignUp], recoverPassword : Form[Application.RecoverPassword])
+
+<html>
+
+    <head>
+
+        <title>Get Together - Login</title>
+
+        <meta name="J&N" content="">
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+
+    </head>
+
+    <body id="loginPage">
+        <div class="row">
+            <hgroup>
+                <h1>GET TOGETHER</h1>
+                <h5>
+                    <span>Una nueva forma de trabajar junto a tus chicos</span>
+                </h5>
+            </hgroup>
+        </div>
+        <div class="row">
+            <div class="span5">
+                <div class="container">
+                    <hgroup class="title">
+                    <h1 class="login-title-image">Login</h1>
+                    <h5>&copy; J&N Studios</h5>
+                    </hgroup>
+                    @if(loginForm.hasErrors) {
+                        <p class="message red-gradient">
+                            Ha ingresado mal los datos
+                        </p>
+                        <span class="block-arrow bottom">
+                            <span></span>
+                        </span>
+                    }
+                    @helper.form(routes.Application.authenticate, 'class -> "form-signin") {
+                        <form id="form-login">
+
+                            <div class="black-box">
+
+                                    <!-- The autocomplete="off" attributes is the only way to prevent webkit browsers from filling the inputs with yellow -->
+                                <label><span class="icon-white icon-user margin-right"></span>
+                                    <input type="text" id="dni" name="dni" placeholder="Dni" autocomplete="off" value="@loginForm("dni").value">
+                                </label>
+                                <label><span class=" icon-white icon-lock margin-right"></span>
+                                    <input type="password" id="pass" name="password" placeholder="Password" autocomplete="off">
+                                </label>
+                                <div class="text-center">
+                                <a class="inline" data-toggle="modal" href="@routes.Application.signUpInstitution()">
+                                    Sign Up</a>
+                                <p class="inline"> - </p>
+                                <a  data-toggle="modal" href="#myModal">¿Olvido Contraseña?</a>
+                                </div>
+                            </div>
+
+                            <input type="submit" value="Login" class="button glossy full-width huge"/>
+
+                        </form>
+                    }
+                </div>
+            </div>
+            @*<div class="span5">*@
+                @*<div class="container">*@
+                    @*<hgroup class="title">*@
+                        @*<h1 class="login-title-image">Sign Up</h1>*@
+                        @*<h5>&copy; J&N Studios</h5>*@
+                    @*</hgroup>*@
+                    @*@helper.form(routes.Application.signUpPartial(), 'class -> "form-signin") {*@
+                        @*<form>*@
+                            @*<div class="black-box">*@
+                                    @*<!-- The autocomplete="off" attributes is the only way to prevent webkit browsers from filling the inputs with yellow -->*@
+                                @*<label><span class="icon-white icon-envelope margin-right"></span>*@
+                                    @*<input type="text" name="mail" placeholder="Mail" autocomplete="off">*@
+                                @*</label>*@
+                                @*<label><span class="icon-white icon-user margin-right"></span>*@
+                                    @*<input type="text" name="dni" placeholder="Dni" autocomplete="off" value="@signUpForm("dni").value">*@
+                                @*</label>*@
+                                @*<label><span class="icon-white icon-lock margin-right"></span>*@
+                                    @*<input type="password" name="password" placeholder="Password" autocomplete="off">*@
+                                @*</label>*@
+                            @*</div>*@
+
+                            @*<input type="submit" value="Sign Up" class="button glossy full-width huge"/>*@
+
+                        @*</form>*@
+                    @*}*@
+                @*</div>*@
+            @*</div>*@
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss=" modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Recuperar contraseña</h4>
+                    </div>
+                    <div class="modal-body">
+                        Para recuperar su contraseña, ingrese su numero de DNI y su email
+                        @helper.form(routes.Application.recoverPassword()) {
+                            <input name="dni" class="input-block-level" type="text" placeholder="DNI">
+                            <input name="mail"  class="input-block-level" placeholder="Email">
+                        </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Recuperar" class="btn btn-success">
+                        }
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+    </body>
+</html>

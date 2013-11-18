@@ -19,9 +19,14 @@ GET         /index                                 controllers.Application.index
 POST        /recoverPassword                       controllers.Application.recoverPassword()
 
 #Sign Up
-POST        /signup                                controllers.Application.signUpPartial()
-POST        /registerAdmin                         controllers.Application.registerAdmin()
-GET         /signUp                                controllers.Application.signUp()
+POST        /signUp                                controllers.Application.signUpInstitution()
+POST        /signUpInstitution                     controllers.InstitutionController.signUpInstitution()
+#POST        /signUpInstitution/:partialSignUp               controllers.InstitutionController.signUpInstitution()
+POST        /registerAdmin/:institutionId          controllers.TherapistController.registerAdmin(institutionId: Integer)
+#POST        /signUp                                          controllers.Application.signUp()
+#GET         /signUp                                         controllers.Application.signUp()
+GET        /signUp                                controllers.Application.signUpInstitution()
+
 
 
 # List Pacient
@@ -121,6 +126,4 @@ POST        /saveSoundQA                            controllers.GamePackageContr
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                          controllers.Assets.at(path="/public", file)
 
-
-GET         /otro                                  controllers.Application.other()
 

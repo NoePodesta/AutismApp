@@ -8,6 +8,10 @@ import msg.Msg;
 import play.data.Form;
 import play.mvc.Result;
 import play.mvc.Controller;
+import views.html.signUpAdmin;
+import views.html.signUpInstitution;
+
+import java.util.Map;
 
 import static play.data.Form.form;
 
@@ -19,6 +23,8 @@ import static play.data.Form.form;
  * To change this template use File | Settings | File Templates.
  */
 public class InstitutionController extends Controller {
+
+
 
     public static Institution getInsitutionById(int id){
         return Institution.getById(id);
@@ -36,6 +42,35 @@ public class InstitutionController extends Controller {
         Institution institution = current.institution;
         Form<Institution> institutionForm = form(Institution.class).fill(institution);
         return ok(views.html.institution.institutionProfile.render(institutionForm));
+
+    }
+
+    public static Result signUpInstitution() {
+
+        Form<Institution> institutionForm = form(Institution.class).bindFromRequest();
+
+        if(institutionForm.hasErrors()) {
+            return badRequest(signUpInstitution.render(institutionForm));
+        }
+
+        Institution institutionFromForm = institutionForm.get();
+
+        String pathFile = ImageController.getInstImagePathName(institutionFromForm);
+
+        Address address = new Address(institutionFromForm.address.street, institutionFromForm.address.number,
+                institutionFromForm.address.floor, institutionFromForm.address.depto, institutionFromForm.address.cp,
+                institutionFromForm.address.locality, institutionFromForm.address.province);
+        Institution institution = new Institution(institutionFromForm.name, address, institutionFromForm.telephone,
+                pathFile,institutionFromForm.mail);
+
+        Ebean.save(address);
+        Ebean.save(institution);
+
+        Form<Therapist> therapistForm = form(Therapist.class);
+
+
+        return ok(signUpAdmin.render(therapistForm, institution.id));
+
 
     }
 
@@ -78,4 +113,6 @@ public class InstitutionController extends Controller {
         return profile();
 
     }
+
+
 }

@@ -1,0 +1,31 @@
+@(title: String)(content: Html)
+
+
+<html>
+    <head>
+        <title>Get Together - @title</title>
+
+        <meta name="J&N" content="">
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+
+    </head>
+
+    <body id=signUp>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="@routes.Application.index()"> Get Together</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container margin-top">
+
+    @content
+    </div>
+    </body>
+</html>

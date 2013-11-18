@@ -1,6 +1,7 @@
 package controllers;
 
 
+import models.Institution;
 import models.Therapist;
 import models.TherapistType;
 import msg.Msg;
@@ -8,9 +9,8 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import views.html.index;
-import views.html.login;
-import views.html.signUp;
+import views.html.loginPage;
+import views.html.signUpInstitution;
 
 
 import static play.data.Form.form;
@@ -19,6 +19,12 @@ public class Application extends Controller {
 
 
     private static Therapist currentTherapist;
+    private static Form<PartialSignUp> partialSignUpForm;
+    private static Form<PartialSignUp> signUpForm;
+
+    public static Form<PartialSignUp> getPartialSignUpForm() {
+        return partialSignUpForm;
+    }
 
     public static class Login {
         public String dni;
@@ -42,38 +48,40 @@ public class Application extends Controller {
         public String mail;
     }
 
-    public static Result signUpPartial(){
-        Form<PartialSignUp> partialSignUpForm = form(PartialSignUp.class).bindFromRequest();
-        return signUp(partialSignUpForm);
+//    public static Result signUpPartial(){
+//        partialSignUpForm = form(PartialSignUp.class).bindFromRequest();
+//        return signUpInstitution();
+//    }
+
+//    public static Result signUp(){
+//        return signUp(form(PartialSignUp.class));
+//    }
+
+    public static Result signUpInstitution(){
+        Form<Institution> institutionForm = form(Institution.class);
+        return ok(signUpInstitution.render(institutionForm));
     }
 
-    public static Result signUp(){
-        return signUp(form(PartialSignUp.class));
-    }
+//    public static Result signUp(Form<PartialSignUp> partialSignUpForm) {
+//        Form<Institution> institutionForm = form(Institution.class);
+//        return ok(signUpInstitution.render(institutionForm, partialSignUpForm));
+//    }
 
-    public static Result signUp(Form<PartialSignUp> partialSignUpForm) {
-        Form<Therapist> therapistForm = form(Therapist.class);
-        return ok(signUp.render(therapistForm, partialSignUpForm));
-    }
-
-    public static Result registerAdmin() {
-        return TherapistController.saveTherapist(TherapistType.ADMIN, form(Therapist.class).bindFromRequest(), true);
-    }
 
     public static Result index() {
         //return ok(therapists.render(Therapist.findByInstitutionId()));
-        return ok(index.render());
+        return login();
     }
 
     public static Result login(){
-        return ok(login.render(form(Login.class), form(PartialSignUp.class), form(RecoverPassword.class)));
+        return ok(loginPage.render(form(Login.class), form(PartialSignUp.class), form(RecoverPassword.class)));
     }
 
 
     public static Result authenticate() {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
         if (loginForm.hasErrors()) {
-            return badRequest(login.render(form(Login.class), form(PartialSignUp.class), form(RecoverPassword.class)));
+            return badRequest(loginPage.render(loginForm, form(PartialSignUp.class), form(RecoverPassword.class)));
         } else {
             session().clear();
             String dni = loginForm.get().dni;
@@ -107,11 +115,6 @@ public class Application extends Controller {
 
     public static Therapist getCurrentTherapist() {
         return Therapist.findTherapistByDNI(session().get("dni"));
-    }
-
-    public static Result other(){
-        return ok(index.render());
-
     }
 
 }
