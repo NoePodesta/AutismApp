@@ -23,7 +23,7 @@ public class DatabasePopulator extends Controller {
     }
 
     private static void populateResultsDatabase() {
-        GamePackage gamePackage = new GamePackage("aaaa","bbbbb", Game.QA, "cccc", null);
+        GamePackage gamePackage = new GamePackage("aaaa", Game.QA, "cccc", null);
         Ebean.save(gamePackage);
         TestResult testResult1 = new TestResult(Game.QA,Patient.findPatientById(1),Therapist.findTherapistById(1),
                                                  3,2,new Date(),gamePackage);
@@ -87,7 +87,7 @@ public class DatabasePopulator extends Controller {
         Therapist therapist = new Therapist("Juan","Molteni","47911306","123",therapistAddress,"33850398",
                 "juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"asd",BCrypt.hashpw("123456", BCrypt.gensalt()),
                 "uploads/JuanMolteni/JuaniMolteni.jpg", TherapistType.ADMIN,institution);
-        GamePackage gamePackage = new GamePackage("Emociones First Online","bbbbb", Game.QA, "JSONs/EmotionFaceQA.txt", therapist);
+        GamePackage gamePackage = new GamePackage("Emociones First Online", Game.QA, "JSONs/EmotionFaceQA.txt", therapist);
         Ebean.save(therapistAddress);
         Ebean.save(therapist);
         Ebean.save(gamePackage);

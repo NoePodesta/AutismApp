@@ -1,0 +1,189 @@
+@import helper._
+
+@title = {
+    Dar de alta pregunta
+}
+
+@main2(title,nav = " ", "sentenceSheepIt.js"){
+    @form(routes.GamePackageController.saveSentencePackage(), 'enctype -> "multipart/form-data") {
+    <!-- Main sheepIt Form -->
+    <label>Cargar paquete de Oracion</label>
+    
+    
+    <div id="sentence_package">
+
+        <div class="field">
+            <label for="packageName">Nombre del Paquete</label>
+            <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
+        </div>
+    
+        <!-- Form template-->
+        <div id="sentence_package_template">
+            <label for="sentence_package_#index#_imageURL">Imagen</label>
+            <input type="file" id="picture" name="#index#_imageURL" accept="image/*" >
+            <!--
+            <input id="sentence_package_#index#_imageURL" name="#index#_imageURL" type="text" size="50" maxlength="100" />
+            -->
+            <a id="sentence_package_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+            
+            <!-- Embeded sheepIt Form -->
+            <div style="margin-left:50px; overflow:hidden;">
+                <label>Articulos</label>
+                
+                <div id="sentence_package_#index#_articles">
+                
+                    <!-- Nested form template-->
+                    <div id="sentence_package_#index#_articles_template">
+                        <label for="sentence_package_#index#_articles_#index_articles#">Articulo</label>
+                        <input id="sentence_package_#index#_articles_#index_articles#" name="#index#_articles_#index_articles#" type="text" size="15" maxlength="10" />
+                        <input type="hidden" name="#index#_articles_#index_articles#_correctAnswer" value="off">
+                        <input type="checkbox" name="#index#_articles_#index_articles#_correctAnswer"/>
+                        <a id="sentence_package_#index#_articles_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                    </div>
+                    <!-- /Nested form template-->
+                    
+                    <!-- No forms template -->
+                    <div id="sentence_package_#index#_articles_noforms_template">No articles</div>
+                    <!-- /No forms template-->
+                    
+                    <!-- Controls -->
+                    <div id="sentence_package_#index#_articles_controls" class="controls">
+                        <div id="sentence_package_#index#_articles_add"><a><span>Añadir articulo</span></a></div>
+                        <div id="sentence_package_#index#_articles_remove_last"><a><span>Borrar ultima</span></a></div>
+                        <div id="sentence_package_#index#_articles_remove_all"><a><span>Borrar todas</span></a></div>
+                    </div>
+                    <!-- /Controls -->
+                    
+                </div>
+                
+            </div>
+            <!-- /Embeded sheepIt Form -->
+
+            <!-- Embeded sheepIt Form -->
+            <div style="margin-left:50px; overflow:hidden;">
+                <label>Sustantivos</label>
+
+                <div id="sentence_package_#index#_sustantivs">
+
+                        <!-- Nested form template-->
+                    <div id="sentence_package_#index#_sustantivs_template">
+                        <label for="sentence_package_#index#_sustantivs_#index_sustantivs#">Sustantivo</label>
+                        <input id="sentence_package_#index#_sustantivs_#index_sustantivs#" name="#index#_sustantivs_#index_sustantivs#" type="text" size="15" maxlength="10" />
+                        <input type="hidden" name="#index#_sustantivs_#index_sustantivs#_correctAnswer" value="off">
+                        <input type="checkbox" name="#index#_sustantivs_#index_sustantivs#_correctAnswer"/>
+                        <a id="sentence_package_#index#_sustantivs_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                    </div>
+                        <!-- /Nested form template-->
+
+                        <!-- No forms template -->
+                    <div id="sentence_package_#index#_sustantivs_noforms_template">No hay sustantivos</div>
+                        <!-- /No forms template-->
+
+                        <!-- Controls -->
+                    <div id="sentence_package_#index#_sustantivs_controls" class="controls">
+                        <div id="sentence_package_#index#_sustantivs_add"><a><span>Añadir sustantivo</span></a></div>
+                        <div id="sentence_package_#index#_sustantivs_remove_last"><a><span>Borrar ultima</span></a></div>
+                        <div id="sentence_package_#index#_sustantivs_remove_all"><a><span>Borrar todas</span></a></div>
+                    </div>
+                        <!-- /Controls -->
+
+                </div>
+
+            </div>
+            <!-- /Embeded sheepIt Form -->
+
+            <!-- Embeded sheepIt Form -->
+            <div style="margin-left:50px; overflow:hidden;">
+                <label>Verbos</label>
+
+                <div id="sentence_package_#index#_verbs">
+
+                        <!-- Nested form template-->
+                    <div id="sentence_package_#index#_verbs_template">
+                        <label for="sentence_package_#index#_verbs_#index_verbs#">Verbo</label>
+                        <input id="sentence_package_#index#_verbs_#index_verbs#" name="#index#_verbs_#index_verbs#" type="text" size="15" maxlength="10" />
+                        <input type="hidden" name="#index#_verbs_#index_verbs#_correctAnswer" value="off">
+                        <input type="checkbox" name="#index#_verbs_#index_verbs#_correctAnswer"/>
+                        <a id="sentence_package_#index#_verbs_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                    </div>
+                        <!-- /Nested form template-->
+
+                        <!-- No forms template -->
+                    <div id="sentence_package_#index#_verbs_noforms_template">No verbs</div>
+                        <!-- /No forms template-->
+
+                        <!-- Controls -->
+                    <div id="sentence_package_#index#_verbs_controls" class="controls">
+                        <div id="sentence_package_#index#_verbs_add"><a><span>Añadir verbo</span></a></div>
+                        <div id="sentence_package_#index#_verbs_remove_last"><a><span>Borrar ultima</span></a></div>
+                        <div id="sentence_package_#index#_verbs_remove_all"><a><span>Borrar todas</span></a></div>
+                    </div>
+                        <!-- /Controls -->
+
+                </div>
+
+            </div>
+            <!-- /Embeded sheepIt Form -->
+
+                <!-- Embeded sheepIt Form -->
+            <div style="margin-left:50px; overflow:hidden;">
+                <label>Adjetivos</label>
+
+                <div id="sentence_package_#index#_adjectives">
+
+                        <!-- Nested form template-->
+                    <div id="sentence_package_#index#_adjectives_template">
+                        <label for="sentence_package_#index#_adjectives_#index_adjectives#">Adjetivo</label>
+                        <input id="sentence_package_#index#_adjectives_#index_adjectives#" name="#index#_adjectives_#index_adjectives#" type="text" size="15" maxlength="10" />
+                        <input type="hidden" name="#index#_adjectives_#index_adjectives#_correctAnswer" value="off">
+                        <input type="checkbox" name="#index#_adjectives_#index_adjectives#_correctAnswer"/>
+                        <a id="sentence_package_#index#_adjectives_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                    </div>
+                        <!-- /Nested form template-->
+
+                        <!-- No forms template -->
+                    <div id="sentence_package_#index#_adjectives_noforms_template">No adjectives</div>
+                        <!-- /No forms template-->
+
+                        <!-- Controls -->
+                    <div id="sentence_package_#index#_adjectives_controls" class="controls">
+                        <div id="sentence_package_#index#_adjectives_add"><a><span>Añadir adjetivo</span></a></div>
+                        <div id="sentence_package_#index#_adjectives_remove_last"><a><span>Borrar ultima</span></a></div>
+                        <div id="sentence_package_#index#_adjectives_remove_all"><a><span>Borrar todas</span></a></div>
+                    </div>
+                        <!-- /Controls -->
+
+                </div>
+
+            </div>
+                <!-- /Embeded sheepIt Form -->
+
+
+
+        </div>
+        <!-- /Form template -->
+
+
+        
+        <!-- No forms template -->
+        <div id="sentence_package_noforms_template">No hay oraciones</div>
+        <!-- /No forms template -->
+        
+        <!-- Controls -->
+        <div id="sentence_package_controls" class="controls">
+            <div id="sentence_package_add"><a><span>Añadir pregunta</span></a></div>
+            <div id="sentence_package_remove_last"><a><span>Borrar ultima</span></a></div>
+            <div id="sentence_package_remove_all"><a><span>Borrar todas</span></a></div>
+        </div>
+        <!-- /Controls -->
+        
+    </div>
+    <!-- /Main sheepIt Form -->
+
+    <div class="actions">
+        <input type="submit" value="Guardar Paquete" class="btn primary">
+    </div>
+
+
+    }
+}

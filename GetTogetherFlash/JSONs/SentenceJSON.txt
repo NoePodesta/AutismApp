@@ -1,0 +1,1 @@
+{"stages":[{"answer":"ElementsImages/hammer.png","adjectives":[{"data":0,"label":"Verde"},{"data":955,"label":"Marron"}],"sustantivs":[{"data":0,"label":"Martillo"},{"data":779,"label":"Willis Tow"}],"articles":[{"data":0,"label":"El"},{"data":872,"label":"La"}],"verbs":[{"data":0,"label":"Es"},{"data":513,"label":"Estara"}]}],"totalStages":1}

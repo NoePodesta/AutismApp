@@ -27,6 +27,12 @@ public enum Game{
     @EnumValue("CONVERSATION")
     CONVERSATION,
 
+    @EnumValue("CARDS")
+    CARDS,
+
+    @EnumValue("SOUND")
+    SOUND
+
 
 
 

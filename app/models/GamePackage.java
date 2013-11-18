@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
@@ -23,16 +24,14 @@ public class GamePackage extends Model {
     private int id;
     private Game gameType;
     private String packageName;
-    private String jsonContent;
     private String packageUrl;
     @ManyToOne
     private Therapist therapist;
 
     public static Model.Finder<Integer,GamePackage> find = new Model.Finder(Integer.class, GamePackage.class);
 
-    public GamePackage(String packageName, String jsonContent, Game gameType, String packageUrl, Therapist therapist) {
+    public GamePackage(String packageName, Game gameType, String packageUrl, Therapist therapist) {
         this.packageName = packageName;
-        this.jsonContent = jsonContent;
         this.gameType = gameType;
         this.packageUrl = packageUrl;
         this.therapist = therapist;
@@ -55,11 +54,27 @@ public class GamePackage extends Model {
         return packageName;
     }
 
-    public String getJsonContent() {
-        return jsonContent;
-    }
-
     public String getPackageUrl() {
         return packageUrl;
+    }
+
+    public void setGameType(Game gameType) {
+        this.gameType = gameType;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public void setPackageUrl(String packageUrl) {
+        this.packageUrl = packageUrl;
+    }
+
+    public void setTherapist(Therapist therapist) {
+        this.therapist = therapist;
+    }
+
+    public static void save(GamePackage gamePackage) {
+        Ebean.save(gamePackage);
     }
 }

@@ -86,7 +86,7 @@
 		
 		public function loadCards():void{
 			for(var i : int=0;i<totalCards; i++){
-				cardsArray[i] = new CardView(this,cardsContent.cards[i].imageUrl,cardsContent.cards[i].imageName);
+				cardsArray[i] = new CardView(this,cardsContent.cards[i].imageURL,cardsContent.cards[i].imageName);
 			}
 			
 		}

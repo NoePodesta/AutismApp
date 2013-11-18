@@ -78,7 +78,7 @@ public class Application extends Controller {
             session().clear();
             String dni = loginForm.get().dni;
             session(Msg.DNI, dni);
-            currentTherapist = Therapist.findTherapistByDNI(dni);
+            //currentTherapist = Therapist.findTherapistByDNI(dni);
             return TherapistController.profile();
         }
     }
@@ -106,7 +106,7 @@ public class Application extends Controller {
     }
 
     public static Therapist getCurrentTherapist() {
-        return currentTherapist;
+        return Therapist.findTherapistByDNI(session().get("dni"));
     }
 
     public static Result other(){

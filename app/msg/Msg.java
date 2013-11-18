@@ -49,6 +49,7 @@ public class Msg {
     public static final String TEAM = "equipo de trabajo";
     public static final String SURNAME = "surname";
     public static final String NAME = "name";
+    public static final String PACKAGES = "packages";
 
 
     public static String REMOVE(String user) {

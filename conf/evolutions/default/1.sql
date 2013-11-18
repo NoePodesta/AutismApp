@@ -19,10 +19,9 @@ create table Packages (
   id                        integer auto_increment not null,
   game_type                 varchar(14),
   package_name              varchar(255),
-  json_content              varchar(255),
   package_url               varchar(255),
   therapist_id              integer,
-  constraint ck_Packages_game_type check (game_type in ('QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION')),
+  constraint ck_Packages_game_type check (game_type in ('SOUND','QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION','CARDS')),
   constraint pk_Packages primary key (id))
 ;
 
@@ -84,7 +83,7 @@ create table TestResult (
   date_made                 datetime,
   a_game_package_id         integer,
   team_id                   integer,
-  constraint ck_TestResult_game check (game in ('QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION')),
+  constraint ck_TestResult_game check (game in ('SOUND','QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION','CARDS')),
   constraint pk_TestResult primary key (id))
 ;
 

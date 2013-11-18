@@ -35,11 +35,10 @@
 					endGame();
 				}else{
 					(gameView as SentenceGameView).removeImage(currentStage - 1);
-					buildNextStage();				}
-				
-				
+					buildNextStage();				
+				}				
 			}else{
-				SoundManager.playCorrectSound();
+				SoundManager.playWrongSound();
 				resultColector.addWrongAnswer();
 				trace("Incorrecto");
 			}

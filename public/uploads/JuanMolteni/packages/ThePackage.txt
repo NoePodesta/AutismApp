@@ -1,0 +1,1 @@
+{"stages":[{"answer":"http://localhost:9000/assets/uploads/JuanMolteni/packages/Happy.png","adjectives":[{"data":0,"label":"Feliz"}],"sustantivs":[{"data":0,"label":"Pibe"}],"articles":[{"data":0,"label":"El"}],"verbs":[{"data":0,"label":"Esta"}]}],"totalStages":1}

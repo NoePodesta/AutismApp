@@ -84,4 +84,35 @@ public class ImageController extends Controller {
     }
 
 
+    public static String getPackageImage(String s) {
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart picture = body.getFile(s);
+
+
+        String pathFile;
+
+        if(picture != null){
+
+            String fileName = picture.getFilename();
+            File file = picture.getFile();
+
+            File destinationFile = new File(play.Play.application().path().toString() + Msg.PUBLIC_UPLOADS +
+                    Application.getCurrentTherapist().name + Application.getCurrentTherapist().surname +
+                    Msg.DOBLE_BARRA + Msg.PACKAGES + Msg.DOBLE_BARRA + fileName);
+
+            try {
+                FileUtils.copyFile(file, destinationFile);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            pathFile = "http://localhost:9000/assets/" + Msg.UPLOADS +
+                    Application.getCurrentTherapist().name + Application.getCurrentTherapist().surname + "/" +
+                    Msg.PACKAGES + "/" + fileName;
+        }else{
+            pathFile = Msg.HOME_IMAGE;
+        }
+        return pathFile;
+    }
 }
