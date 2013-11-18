@@ -1,0 +1,122 @@
+@(institutionForm : Form[Institution])
+
+
+    @import helper._
+    @import helper.twitterBootstrap._
+
+
+
+@mainSignUp("Institution Sign Up"){
+                <div class="alert alert-info"><p> Gracias por querer formar parte de la comunidad de GET TOGETHER, a continuación se lo guiará para que
+                    pueda darse de alta. El primer paso consiste en la creación de la institución y por ultimo se creará el
+                    usuario administrador. </p>
+                </div>
+
+                <div id="therapistForm">
+
+                @form(routes.InstitutionController.signUpInstitution(), 'enctype -> "multipart/form-data") {
+
+                    <h1>1. Institución</h1>
+                    <fieldset>
+                        <legend>Información General</legend>
+
+                        <div class="span5">
+                            @inputText(
+                                institutionForm("name"),
+                                '_showConstraints -> false,
+                                'placeholder -> "Nombre",
+                                '_label -> "Nombre *"
+                            )
+
+                            @inputText(
+                                institutionForm("telephone"),
+                                '_showConstraints -> false,
+                                'placeholder -> "44444444",
+                                '_label -> "Teléfono *"
+                            )
+
+                            @inputText(
+                                institutionForm("mail"),
+                                '_showConstraints -> false,
+                                'placeholder -> "signup@gettogether.com",
+                                '_label -> "Correo electrónico"
+
+                            )
+
+                            @inputText(
+                                institutionForm("address.street"),
+                                '_showConstraints -> false,
+                                'placeholder -> "Av. Get Together",
+                                '_label -> "Calle *"
+                            )
+                        </div>
+
+                        <div class="span5 offset1">
+
+
+                            @inputText(
+                                institutionForm("address.cp"),
+                                '_showConstraints -> false,
+                                'placeholder -> "2341",
+                                '_label -> "Codigo Postal *"
+                            )
+
+
+                            @inputText(
+                                institutionForm("address.locality"),
+                                '_showConstraints -> false,
+                                'placeholder -> "Capital Federal",
+                                '_label -> "Localidad *"
+                            )
+
+                            @select(
+                                institutionForm("address.province"),
+                                options = options(Province.list),
+                                '_default -> "--- Eliga una provincia ---",
+                                '_showConstraints -> false,
+                                '_label -> "Provincia",
+                                '_error -> institutionForm("institution.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
+                            )
+                            <div class="clearfix  " id="picture_field">
+                                <label for="picture">Imagen de Perfil</label>
+                                <div class="input">
+
+                                    <input type="file" id="picture" name="picture" accept="image/*" >
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="span10" >
+                            <label for="address_number">Número *:</label>
+                            <div class="input">
+                                <input type="text" id="address_number" name="address.number" >
+                                <span class="help-inline"></span>
+                            </div>
+                            <label for="address_floor">Piso:</label>
+                            <div class="input">
+                                <input type="text" id="address_floor" name="address.floor">
+                                <span class="help-inline"></span>
+                            </div>
+                            <label for="address_depto">Depto.:</label>
+                            <div class="input">
+                                <input type="text" id="address_depto" name="institution.depto">
+                                <span class="help-inline"></span>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </fieldset>
+
+
+
+                    <div class="actions right">
+                        <input type="submit" value="Siguiente" class="btn btn-success">
+                    </div>
+
+                }
+</div>
+}

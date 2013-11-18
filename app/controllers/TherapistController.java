@@ -7,6 +7,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import views.html.signUpAdmin;
 
 
 import java.util.ArrayList;
@@ -66,7 +67,8 @@ public class TherapistController extends Controller {
     }
 
     public static Result saveTherapist(){
-        return saveTherapist(TherapistType.NO_PRIVILEGES, form(Therapist.class).bindFromRequest(), false);
+        return saveTherapist(TherapistType.NO_PRIVILEGES, form(Therapist.class).bindFromRequest(), false,
+                Application.getCurrentTherapist().institution);
     }
 
     public static Result updateTherapistImage(){
@@ -80,29 +82,22 @@ public class TherapistController extends Controller {
 
     }
 
-    public static Result saveTherapist(TherapistType type, Form<Therapist> form, boolean autoLogin) {
-
-
-        Form<Therapist> therapistForm = form;
-
-
-
-        // Check if the dni is valid
-        if(!therapistForm.hasErrors()) {
-            if(Therapist.findTherapistByDNI(therapistForm.get().dni) != null) {
-                therapistForm.reject(Msg.DNI, Msg.CHECK_DNI);
-            }
-        }
-
-        if(therapistForm.hasErrors()) {
-            return badRequest(views.html.therapist.createTherapistForm.render(therapistForm));
-        }
+    public static Result saveTherapist(TherapistType type, Form<Therapist> therapistForm, boolean autoLogin,
+                                       Institution institution) {
 
         Therapist therapistFromForm = therapistForm.get();
 
         String hashed = "";
-        Institution institution = null;
         if(type == TherapistType.NO_PRIVILEGES){
+
+            if(therapistForm.hasErrors()) {
+                return badRequest(views.html.therapist.createTherapistForm.render(therapistForm));
+            }
+            if(!therapistForm.hasErrors()) {
+                if(Therapist.findTherapistByDNI(therapistForm.get().dni) != null) {
+                    therapistForm.reject(Msg.DNI, Msg.CHECK_DNI);
+                }
+            }
             String newPassword = "";
             try {
                 newPassword = RandomStringGenerator.generateRandomString(6, RandomStringGenerator.Mode.ALPHANUMERIC);
@@ -111,8 +106,8 @@ public class TherapistController extends Controller {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
             hashed =  BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
-            institution = InstitutionController.getInsitutionById(Therapist.findTherapistByDNI(session().get("dni")).institution.id);
         }else{
+
              // Check repeated password
              if(!therapistForm.field("password").valueOr("").isEmpty()) {
                  if(!therapistForm.field("password").valueOr("").equals(therapistForm.field("repeatPassword").value())) {
@@ -120,10 +115,7 @@ public class TherapistController extends Controller {
                  }
              }
              hashed = BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
-             Address institutionAddress = therapistFromForm.institution.address;
-             institution = therapistFromForm.institution;
-             Ebean.save(institutionAddress);
-             Ebean.save(institution);
+
         }
 
 
@@ -163,6 +155,27 @@ public class TherapistController extends Controller {
         }else{
             return ok(views.html.therapist.editTherapistForm.render(id, therapistForm, false));
         }
+    }
+
+    public static Result registerAdmin(Integer institutionId) {
+
+        Form<Therapist> form = form(Therapist.class).bindFromRequest();
+
+
+        // Check if the dni is valid
+        if(!form.hasErrors()) {
+            if(Therapist.findTherapistByDNI(form.get().dni) != null) {
+                form.reject(Msg.DNI, Msg.CHECK_DNI);
+            }
+        }
+        if(form.hasErrors()) {
+            return badRequest(signUpAdmin.render(form, institutionId));
+        }
+
+        Institution institution = Institution.getById(institutionId);
+
+        return TherapistController.saveTherapist(TherapistType.ADMIN, form(Therapist.class).bindFromRequest(),
+                true, institution);
     }
 
 

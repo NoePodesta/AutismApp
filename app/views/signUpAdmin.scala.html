@@ -1,0 +1,208 @@
+@(therapistForm : Form[Therapist], institutionId : Integer)
+
+
+
+@import helper._
+@import helper.twitterBootstrap._
+
+    @mainSignUp("Admin Sign Up"){
+
+<div class="container margin-top">
+
+    <div class="alert alert-info"><p> Gracias por querer formar parte de la comunidad de GET TOGETHER, a continuación se lo guiará para que
+        pueda darse de alta. El primer paso consiste en la creación de la institución y por ultimo se creará el
+        usuario administrador. </p>
+    </div>
+
+    <div id="therapistForm">
+
+    @form(routes.TherapistController.registerAdmin(institutionId), 'enctype -> "multipart/form-data") {
+
+        <h1>2. Administrador</h1>
+        <fieldset>
+            <legend>Informacion General</legend>
+
+            <div class="span5">
+                @inputText(
+                    therapistForm("surname"),
+                    '_label -> "Nombre *",
+                    'placeholder -> "Nombre",
+                    '_showConstraints -> false
+                )
+                @inputText(
+                    therapistForm("surname"),
+                    '_showConstraints -> false,
+                    'placeholder -> "Apellido",
+                    '_label -> "Apellido *"
+                )
+
+                @inputText(
+                    therapistForm("dni"),
+                    '_label -> "DNI *",
+                    'placeholder -> "23436894",
+                    '_showConstraints -> false,
+                    '_error -> therapistForm.globalError
+
+                )
+
+                @select(
+                    therapistForm("genero"),
+                    options = options(Gender.all()),
+                    '_default -> "--- Eliga el sexo ---",
+                    '_label -> "Sexo",
+                    '_showConstraints -> false,
+                    '_error -> therapistForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo"))
+                )
+
+
+
+            </div>
+            <div class="span5 offset1">
+
+                @helper.inputDate(
+                    therapistForm("birthday"),
+                    '_label -> "Fecha de Nacimiento",
+                    '_showConstraints -> false,
+                    'format -> "dd/MM/yyyy"
+                )
+
+                @inputText(
+                    therapistForm("mail"),
+                    '_showConstraints -> false,
+                    'placeholder -> "signup@gettogether.com",
+                    '_label -> "Correo electrónico"
+
+                )
+
+                @inputText(
+                    therapistForm("nm"),
+                    '_showConstraints -> false,
+                    'placeholder -> "3124",
+                    '_label -> "Matricula Nacional"
+                )
+                <div class="clearfix  " id="picture_field">
+                    <label for="picture">Imagen de Perfil</label>
+                    <div class="input">
+
+                        <input type="file" id="picture" name="picture" accept="image/*" >
+                        <span class="help-inline"></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Dirección</legend>
+
+            <div class="span5">
+                @inputText(
+                    therapistForm("address.cp"),
+                    '_showConstraints -> false,
+                    'placeholder -> "3124",
+                    '_label -> "Codigo Postal *"
+                )
+
+                @inputText(
+                    therapistForm("address.street"),
+                    '_showConstraints -> false,
+                    'placeholder -> "Av Monroe",
+                    '_label -> "Calle *"
+                )
+
+            </div>
+            <div class="span5 offset1">
+                @inputText(
+                    therapistForm("address.locality"),
+                    '_showConstraints -> false,
+                    'placeholder -> "Capital Federal",
+                    '_label -> "Localidad *"
+                )
+
+                @select(
+                    therapistForm("address.province"),
+                    options = options(Province.list),
+                    '_default -> "--- Eliga una provincia ---",
+                    '_label -> "Provincia",
+                    '_showConstraints -> false,
+                    '_error -> therapistForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
+                )
+            </div>
+
+            <div class="span10" >
+                <label for="address_number">Número *:</label>
+                <div class="input">
+                    <input type="text" id="address_number" name="address.number">
+                    <span class="help-inline"></span>
+                </div>
+                <label for="address_floor">Piso:</label>
+                <div class="input">
+                    <input type="text" id="address_floor" name="address.floor">
+                    <span class="help-inline"></span>
+                </div>
+                <label for="address_depto">Depto.:</label>
+                <div class="input">
+                    <input type="text" id="address_depto" name="address.depto">
+                    <span class="help-inline"></span>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Teléfonos</legend>
+
+            <div class="span5">
+            @inputText(
+                therapistForm("telephone *"),
+                '_showConstraints -> false,
+                'placeholder -> 44444444,
+                '_label -> "Teléfono"
+            )
+            </div>
+            <div class="span5 offset1">
+            @inputText(
+                therapistForm( "cellphone"),
+                '_showConstraints -> false,
+                'placeholder -> 1144444444,
+                '_label -> "Celular"
+            )
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Contraseña</legend>
+            <div class="span5">
+            @inputPassword(
+                therapistForm("password"),
+                '_showConstraints -> false,
+                '_autocomplete -> false,
+                '_label -> "Contraseña *"
+            )
+            </div>
+            <div class="span5 offset1">
+            @inputPassword(
+                therapistForm("repeatPassword"),
+                '_label -> "Confirmar contraseña",
+                '_error -> therapistForm.error("password")
+            )
+            </div>
+
+        </fieldset>
+
+
+        <div class="actions right">
+            <input type="submit" value="Registrar" class="btn btn-success">
+        </div>
+
+    }
+    </div>
+
+</div>
+    }

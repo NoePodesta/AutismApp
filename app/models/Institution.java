@@ -5,6 +5,8 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +25,16 @@ public class Institution extends Model {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
-
     @Constraints.Required
     public String name;
+    @Valid
     @OneToOne(cascade = CascadeType.REMOVE)
     public Address address;
-
+    @Pattern(regexp = "^(\\d*)$", message = "Ingrese un número de teléfono válido")
+    @Constraints.Required
     public String telephone;
-
     @Constraints.Email
     public String mail;
-
     public String image;
 
 
