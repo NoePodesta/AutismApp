@@ -15,8 +15,11 @@ import play.mvc.Http;
 import play.mvc.Result;
 import views.html.gamePackages.*;
 import views.html.gamePackages.loadCards;
+import views.html.gamePackages.loadClassification;
+import views.html.gamePackages.loadConversation;
 import views.html.gamePackages.loadImageQA;
 import views.html.gamePackages.loadSentence;
+import views.html.gamePackages.loadSoCoCo;
 import views.html.gamePackages.loadSound;
 import views.html.gamePackages.loadTextQA;
 
@@ -58,6 +61,150 @@ public class GamePackageController extends Controller {
     public static Result getSoundQAPackageLoader() {
         return ok(loadSound.render());
     }
+
+    public static Result getClassificationLoader() {
+        return ok(loadClassification.render());
+    }
+
+    public static Result getConversationLoader() {
+        return ok(loadConversation.render());
+    }
+
+    public static Result getSoCoCoLoader() {
+        return ok(loadSoCoCo.render());
+    }
+
+    public static Result saveSoCoCoPackage() {
+        final Map<String, String[]> values = request().body().asMultipartFormData().asFormUrlEncoded();
+        ArrayNode graphicOptions = new ArrayNode(factory);
+        ArrayNode answerAreas = new ArrayNode(factory);
+        ArrayNode textOptions = new ArrayNode(factory);
+        int classificationGroup = 0;
+        for(String key : values.keySet()){
+            String[] parsedKey = key.split("_");
+            if(parsedKey[1].equals("answer")){
+                    ObjectNode option = new ObjectNode(factory);
+                    option.put("quantity", Integer.parseInt(values.get(parsedKey[0] + "_options_amount")[0]));
+                    option.put("graphicOption", ImageController.getPackageImage(parsedKey[0] + "_options_imageURL"));
+                    option.put("classificationGroup", classificationGroup);
+                    graphicOptions.add(option);
+
+                    ObjectNode textOption = new ObjectNode(factory);
+                    textOption.put("textOption", values.get(parsedKey[0] + "_options_label")[0]);
+                    textOption.put("classificationGroup", classificationGroup);
+                    textOptions.add(textOption);
+
+                    ObjectNode answerArea = new ObjectNode(factory);
+                    answerArea.put("classificationGroup",classificationGroup);
+                    answerArea.put("textOption","");
+                    answerAreas.add(answerArea);
+                    classificationGroup++;
+                }
+        }
+
+
+        ObjectNode soCoCoJSON = new ObjectNode(factory);
+        soCoCoJSON.put("graphicOptions",graphicOptions);
+        soCoCoJSON.put("answerAreas", answerAreas);
+        soCoCoJSON.put("textOption", textOptions);
+
+        createGamePackage(values.get("0_packageName")[0], soCoCoJSON, Game.SOCOCO);
+
+
+        return TherapistController.profile();
+    }
+
+
+
+    //TODO TERMINAR
+    public static Result saveConversationPackage(){
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        ArrayNode conversationFlow = new ArrayNode(factory);
+        ObjectNode conversationJSON = new ObjectNode(factory);
+        ArrayNode stages = new ArrayNode(factory);
+        int totalQuestions = 0;
+        for(String key : values.keySet()){
+            String[] parsedKey = key.split("_");
+            if(parsedKey[1].equals("answer")){
+                int optionsLength = 0;
+                totalQuestions++;
+                ArrayNode stageOptions = new ArrayNode(factory);
+                while(values.get(parsedKey[0] + "_options_" + optionsLength) != null){
+                      ObjectNode option = new ObjectNode(factory);
+                      option.put("label", values.get(parsedKey[0] + "_options_" + optionsLength)[0]);
+                      if(values.get(parsedKey[0] + "_options_" + optionsLength + "_correctAnswer").length > 1){
+                         option.put("data", true);
+                          conversationFlow.add(values.get(parsedKey[0] + "_options_" + optionsLength)[0]);
+                      }else{
+                          option.put("data", false);
+                      }
+                      optionsLength++;
+                stageOptions.add(option);
+                }
+                stages.add(stageOptions);
+            }
+
+
+        }
+        conversationJSON.put("conversationStage", stages);
+        conversationJSON.put("conversationFlow", conversationFlow);
+        conversationJSON.put("totalQuestions", totalQuestions);
+        createGamePackage(values.get("0_packageName")[0], conversationJSON, Game.CONVERSATION);
+
+        return TherapistController.profile();
+    }
+
+
+    public static Result saveClassificationPackage() {
+        final Map<String, String[]> values = request().body().asMultipartFormData().asFormUrlEncoded();
+        ArrayNode stages = new ArrayNode(factory);
+        int totalStages = 0;
+
+        for(String key : values.keySet()){
+            String[] parsedKey = key.split("_");
+            if(parsedKey[1].equals("answer")){
+                totalStages++;
+                ObjectNode stage = new ObjectNode(factory);
+                ArrayNode options = new ArrayNode(factory);
+                int optionsLength = 0;
+                stage.put("optionsType", "Image");
+                int totalAnswers = 0;
+                int classificationGroup = 0;
+                while(values.get(parsedKey[0] + "_options_" + optionsLength + "_amount") != null){
+
+                    for(int i=0;i<Integer.parseInt(values.get(parsedKey[0] + "_options_" + optionsLength + "_amount")[0]);i++){
+                        ObjectNode option = new ObjectNode(factory);
+                        option.put("label", ImageController.getPackageImage(parsedKey[0] + "_options_" + optionsLength));
+                        option.put("classificationGroup", classificationGroup);
+                        options.add(option);
+                        totalAnswers++;
+                    }
+                    optionsLength++;
+                    classificationGroup++;
+                }
+                stage.put("options", options);
+                stage.put("totalAnswerAreas", optionsLength);
+                stage.put("optionsLength", totalAnswers);
+                ArrayNode answerLabel = new ArrayNode(factory);
+                for(int i=0;i<2;i++){
+                    answerLabel.add("");
+                }
+                stage.put("answerLabel", answerLabel);
+                stages.add(stage);
+            }
+        }
+
+
+        ObjectNode qaJSON = new ObjectNode(factory);
+        qaJSON.put("totalStages",totalStages);
+        qaJSON.put("stages", stages);
+
+        createGamePackage(values.get("0_packageName")[0], qaJSON, Game.CLASSIFICATION);
+
+
+        return TherapistController.profile();
+    }
+
 
     public static Result saveImageQAPackage(){
         List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
@@ -392,6 +539,9 @@ public class GamePackageController extends Controller {
                 Msg.PACKAGES + "/" + packageName + ".txt";
         createNewPackage(cardJSON.toString(), game,packageName, packageUrl);
     }
+
+
+
 
 
 }

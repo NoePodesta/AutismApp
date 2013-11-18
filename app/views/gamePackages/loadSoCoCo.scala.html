@@ -1,0 +1,58 @@
+@import helper._
+
+@title = {
+    Dar de alta pregunta
+}
+
+@main2(title,nav = " ", "sococoSheepIt.js"){
+    @form(routes.GamePackageController.saveSoCoCoPackage(), 'enctype -> "multipart/form-data") {
+        <!-- Main sheepIt Form -->
+        <label>Cargar paquete de Clasificacion</label>
+
+
+
+
+        <div class="field">
+            <label for="packageName">Nombre del Paquete</label>
+            <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" value="">
+        </div>
+
+        <!-- /Form template -->
+            <div id="sococo_package">
+
+
+                <div id="sococo_package_template">
+                    <input type="hidden" name="#index#_answer" >
+                    <label for="sococo_package_#index#_options_#index_options#">Opciones</label>
+                    <input id="sococo_package_#index#_options_#index_options#" type="file" id="picture" name="#index#_options_imageURL" accept="image/*" >
+                    <input id="sococo_package_#index#_options_#index_options#" name="#index#_options_label" type="text" size="15" maxlength="10" />
+                    <input id="sococo_package_#index#_options_#index_options#" name="#index#_options_amount" type="text" size="15" maxlength="10" />
+                    <a id="sococo_package_#index#_options_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                </div>
+
+            <!-- No forms template -->
+                 <div id="sococo_package_noforms_template">No hay preguntas</div>
+             <!-- /No forms template -->
+
+        <!-- Controls -->
+                <div id="sococo_package_controls" class="controls">
+                    <div id="sococo_package_add"><a><span>Añadir tarjeta</span></a></div>
+                    <div id="sococo_package_remove_last"><a><span>Borrar ultima</span></a></div>
+                    <div id="sococo_package_remove_all"><a><span>Borrar todas</span></a></div>
+                </div>
+                    <!-- /Controls -->
+
+            </div>
+                <!-- /Main sheepIt Form -->
+
+
+
+
+
+        <div class="actions">
+            <input type="submit" value="Guardar Paquete" class="btn primary">
+        </div>
+
+
+    }
+}

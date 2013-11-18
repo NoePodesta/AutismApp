@@ -1,0 +1,1 @@
+{"conversationStage":[[{"label":"Hola","correctAnswer":true},{"label":"B","correctAnswer":false}],[{"label":"SUPERHERM","correctAnswer":true},{"label":"C","correctAnswer":false}],[{"label":"ASD","correctAnswer":true},{"label":"qWE","correctAnswer":false}]],"conversationFlow":["Hola","SUPERHERM","ASD"]}

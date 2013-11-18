@@ -4,39 +4,72 @@
     Dar de alta pregunta
 }
 
-@main2(title,nav = " ", "cardsSheepIt.js"){
-    @form(routes.GamePackageController.saveCardPackage(), 'enctype -> "multipart/form-data") {
+@main2(title,nav = " ", "classSheepIt.js"){
+    @form(routes.GamePackageController.saveClassificationPackage(), 'enctype -> "multipart/form-data") {
         <!-- Main sheepIt Form -->
-        <label>Cargar paquete de Tarjetas</label>
+        <label>Cargar paquete de Clasificacion</label>
 
 
+        <div id="class_package">
 
-
-        <div class="field">
-            <label for="packageName">Nombre del Paquete</label>
-            <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
-        </div>
-
-        <div id="cards">
-
-            <div id="cards_template">
-                <label for="cards_#index#">Texto </label>
-                <input id="cards_#index#" name="cardLabel_#index#" type="text" size="15" maxlength="10" />
-                <label for="cards_#index#_imageURL">Imagen</label>
-                <input type="file" id="picture" name="imageURL_#index#" accept="image/*" >
+            <div class="field">
+                <label for="packageName">Nombre del Paquete</label>
+                <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
             </div>
+
+                <!-- Form template-->
+            <div id="class_package_template">
+
+                <input type="hidden" name="#index#_answer" >
+
+
+                    <!-- Embeded sheepIt Form -->
+                <div style="margin-left:50px; overflow:hidden;">
+                    <label>Opcion</label>
+
+                    <div id="class_package_#index#_options">
+
+                            <!-- Nested form template-->
+                        <div id="class_package_#index#_options_template">
+                            <label for="class_package_#index#_options_#index_options#">Opciones</label>
+                            <input id="class_package_#index#_options_#index_options#" type="file" id="picture" name="#index#_options_#index_options#" accept="image/*" >
+                            <input id="class_package_#index#_options_#index_options#" name="#index#_options_#index_options#_amount" type="text" size="15" maxlength="10" />
+                            <a id="class_package_#index#_options_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                        </div>
+                            <!-- /Nested form template-->
+
+                            <!-- No forms template -->
+                        <div id="class_package_#index#_options_noforms_template">No hay opciones</div>
+                            <!-- /No forms template-->
+
+                            <!-- Controls -->
+                        <div id="class_package_#index#_options_controls" class="controls">
+                            <div id="class_package_#index#_options_add"><a><span>Añadir opcion</span></a></div>
+                            <div id="class_package_#index#_options_remove_last"><a><span>Borrar ultima</span></a></div>
+                            <div id="class_package_#index#_options_remove_all"><a><span>Borrar todas</span></a></div>
+                        </div>
+                            <!-- /Controls -->
+
+                    </div>
+
+                </div>
+                    <!-- /Embeded sheepIt Form -->
+
+
+            </div>
+                <!-- /Form template -->
 
 
 
                 <!-- No forms template -->
-            <div id="cards_noforms_template">No hay tarjetas</div>
+            <div id="class_package_noforms_template">No hay preguntas</div>
                 <!-- /No forms template -->
 
                 <!-- Controls -->
-            <div id="cards_controls" class="controls">
-                <div id="cards_add"><a><span>Añadir tarjeta</span></a></div>
-                <div id="cards_remove_last"><a><span>Borrar ultima</span></a></div>
-                <div id="cards_remove_all"><a><span>Borrar todas</span></a></div>
+            <div id="class_package_controls" class="controls">
+                <div id="class_package_add"><a><span>Añadir pregunta</span></a></div>
+                <div id="class_package_remove_last"><a><span>Borrar ultima</span></a></div>
+                <div id="class_package_remove_all"><a><span>Borrar todas</span></a></div>
             </div>
                 <!-- /Controls -->
 

@@ -112,11 +112,20 @@ POST        /saveCards                             controllers.GamePackageContro
 GET         /loadTextQA                            controllers.GamePackageController.getTextQAPackageLoader()
 POST        /saveTextQA                            controllers.GamePackageController.saveTextQAPackage()
 
-GET         /loadImageQA                            controllers.GamePackageController.getImageQAPackageLoader()
-POST        /saveImageQA                            controllers.GamePackageController.saveImageQAPackage()
+GET         /loadImageQA                           controllers.GamePackageController.getImageQAPackageLoader()
+POST        /saveImageQA                           controllers.GamePackageController.saveImageQAPackage()
 
-GET         /loadSoundQA                            controllers.GamePackageController.getSoundQAPackageLoader()
-POST        /saveSoundQA                            controllers.GamePackageController.saveSoundQAPackage()
+GET         /loadSoundQA                           controllers.GamePackageController.getSoundQAPackageLoader()
+POST        /saveSoundQA                           controllers.GamePackageController.saveSoundQAPackage()
+
+GET         /loadClassification                    controllers.GamePackageController.getClassificationLoader()
+POST        /saveClassification                    controllers.GamePackageController.saveClassificationPackage()
+
+GET         /loadConversation                      controllers.GamePackageController.getConversationLoader
+POST        /saveConversation                      controllers.GamePackageController.saveConversationPackage()
+
+GET         /loadSoCoCo                            controllers.GamePackageController.getSoCoCoLoader()
+POST        /saveSoCoCo                           controllers.GamePackageController.saveSoCoCoPackage()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                          controllers.Assets.at(path="/public", file)
