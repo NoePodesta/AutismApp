@@ -55,7 +55,7 @@
 			//Initialize Views	
 			topBar = new TopBarView(this, httpManager);
 			mainScreen = new mainScreen_mc();
-			gameTypeSelectionScreen = new gameSelectionScreen_mc;
+			gameTypeSelectionScreen = new gameSelectionScreenW_mc;
 			packageSelectionScreen = new PackageSelectionScreen(this);
 			loadingScreen = new loadingScreen_mc;
 			
