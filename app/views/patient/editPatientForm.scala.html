@@ -4,10 +4,19 @@
         Editar Paciente
     }
 
+    @navigator = {
+
+        <a href="@routes.PatientController.patientList()">Pacientes</a><div class="breadcrumb_divider">
+            <a href="#"> @patientForm.get().name @patientForm.get().surname</a>
+            <div class="breadcrumb_divider">
+            <a class="current"> Editar</a>
+            }
+
 @import helper._
 @import helper.twitterBootstrap._
 
-@main2(title ,nav = " ", null){
+@main2(title ,navigator, null){
+    <div class="container-fluid">
     <div id=therapistForm>
         @if(patientForm.hasErrors) {
             <div class="alert-message error">
@@ -164,5 +173,6 @@
             </div>
 
         }
+    </div>
     </div>
 }

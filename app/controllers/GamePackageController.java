@@ -375,7 +375,7 @@ public class GamePackageController extends Controller {
     public static Result saveSentencePackage(){
         final Map<String, String[]> values = request().body().asMultipartFormData().asFormUrlEncoded();
 
-        ArrayList<SentenceStageData> jsonToForm = new ArrayList<>();
+        ArrayList<SentenceStageData> jsonToForm = new ArrayList<SentenceStageData>();
         buildStageArray(values, jsonToForm);
         addImagesToArray(jsonToForm);
 
@@ -384,31 +384,30 @@ public class GamePackageController extends Controller {
         for(String key : values.keySet()){
             String[] parsedKey = key.split("_");
             if(parsedKey.length < 4){
-                switch(parsedKey[1]){
-                    case "verbs":
-                        SentenceElement sentenceElement = new SentenceElement();
-                        sentenceElement.label = values.get(key)[0];
-                        sentenceElement.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
-                        jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).verbs.add(sentenceElement);
-                        break;
-                    case "sustantivs":
-                        SentenceElement sentenceElement2 = new SentenceElement();
-                        sentenceElement2.label = values.get(key)[0];
-                        sentenceElement2.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
-                        jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).sustantivs.add(sentenceElement2);
-                        break;
-                    case "articles":
-                        SentenceElement sentenceElement3 = new SentenceElement();
-                        sentenceElement3.label = values.get(key)[0];
-                        sentenceElement3.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
-                        jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).articles.add(sentenceElement3);
-                        break;
-                    case "adjectives":
-                        SentenceElement sentenceElement4 = new SentenceElement();
-                        sentenceElement4.label = values.get(key)[0];
-                        sentenceElement4.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
-                        jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).adjectives.add(sentenceElement4);
-                        break;
+                if (parsedKey[1].equals("verbs")) {
+                    SentenceElement sentenceElement = new SentenceElement();
+                    sentenceElement.label = values.get(key)[0];
+                    sentenceElement.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
+                    jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).verbs.add(sentenceElement);
+
+                } else if (parsedKey[1].equals("sustantivs")) {
+                    SentenceElement sentenceElement2 = new SentenceElement();
+                    sentenceElement2.label = values.get(key)[0];
+                    sentenceElement2.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
+                    jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).sustantivs.add(sentenceElement2);
+
+                } else if (parsedKey[1].equals("articles")) {
+                    SentenceElement sentenceElement3 = new SentenceElement();
+                    sentenceElement3.label = values.get(key)[0];
+                    sentenceElement3.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
+                    jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).articles.add(sentenceElement3);
+
+                } else if (parsedKey[1].equals("adjectives")) {
+                    SentenceElement sentenceElement4 = new SentenceElement();
+                    sentenceElement4.label = values.get(key)[0];
+                    sentenceElement4.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
+                    jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).adjectives.add(sentenceElement4);
+
                 }
             }
          }

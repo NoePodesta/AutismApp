@@ -1,13 +1,18 @@
 @(institutionForm: Form[Institution])
 
 @title = {
-Modificar Institution
+    Editar Institution
+}
+
+@navigator = {
+    <a href="">Institución</a><div class="breadcrumb_divider"></div><a class="current"> Editar </a>
+
 }
 
 @import helper._
 @import helper.twitterBootstrap._
 
-@main2(title , nav = " ", null){
+@main2(title, navigator, null){
     <div id=institutionForm>
         @if(institutionForm.hasErrors) {
             <div class="alert-message error">

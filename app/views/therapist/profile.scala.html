@@ -4,7 +4,14 @@
     Profile
 }
 
-@main2(title, nav = "Perfil", null) {
+    @navigator = {
+
+        <a href="@routes.TherapistController.therapistList()">Terapeutas</a><div class="breadcrumb_divider"></div>
+        <a class="current">@currentTherapist.name
+            @currentTherapist.surname</a>
+    }
+
+@main2(title, navigator, null) {
 
 
     <div class="container-fluid">
@@ -17,9 +24,6 @@
             </div>
             <div class="span9">
                 <div class="profileInfo">
-                        <td class = "edit">
-                            <a class="btn btn-info" href="@routes.TherapistController.editTherapist(currentTherapist.id)">Editar</a>
-                        </td>
                     <h2>Informacion Personal</h2>
                     <div class="information"><i class="icon-user"></i>@currentTherapist.name @currentTherapist.surname</div>
                     <div class="information"><i class="icon-home"></i>@currentTherapist.address.street @currentTherapist.address.number @currentTherapist.address.floor

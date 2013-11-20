@@ -5,12 +5,21 @@
 
 
     @title = {
-    Dar de alta Equipo de Trabajo
-}
+        Dar de alta Equipo de Trabajo
+    }
 
-@main2(title,nav = " ", null){
+    @navigator = {
+
+        <a href="@routes.TeamController.teamList()">Equipo de Trabajo</a><div class="breadcrumb_divider"></div>
+            <a class="current"> Nuevo Equipo de trabajo</a>
+
+    }
 
 
+
+@main2(title,navigator, null){
+
+    <div class="container-fluid">
     @form(routes.TeamController.saveTeam()) {
 
         <fieldset>
@@ -75,4 +84,5 @@
         </div>
         
     }
+    </div>
 }

@@ -21,11 +21,8 @@ POST        /recoverPassword                       controllers.Application.recov
 #Sign Up
 POST        /signUp                                controllers.Application.signUpInstitution()
 POST        /signUpInstitution                     controllers.InstitutionController.signUpInstitution()
-#POST        /signUpInstitution/:partialSignUp               controllers.InstitutionController.signUpInstitution()
-POST        /registerAdmin/:institutionId          controllers.TherapistController.registerAdmin(institutionId: Integer)
-#POST        /signUp                                          controllers.Application.signUp()
-#GET         /signUp                                         controllers.Application.signUp()
-GET        /signUp                                controllers.Application.signUpInstitution()
+POST        /signUpAdmin                           controllers.Application.signUpAdmin()
+GET         /signUp                                controllers.Application.signUpInstitution()
 
 
 

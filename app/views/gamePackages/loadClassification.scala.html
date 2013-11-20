@@ -4,7 +4,14 @@
     Dar de alta pregunta
 }
 
-@main2(title,nav = " ", "classSheepIt.js"){
+@navigator = {
+
+    <a href="">Cards</a>
+
+}
+
+
+@main2(title,navigator,  "classSheepIt.js"){
     @form(routes.GamePackageController.saveClassificationPackage(), 'enctype -> "multipart/form-data") {
         <!-- Main sheepIt Form -->
         <label>Cargar paquete de Clasificacion</label>

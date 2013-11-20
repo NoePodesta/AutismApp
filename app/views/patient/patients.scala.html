@@ -4,7 +4,14 @@
     @title = {
         Pacientes
     }
-@main2(title, nav="patients", null) {
+
+    @navigator = {
+
+        <a class="current">Pacientes</a>
+    }
+
+
+@main2(title, navigator, null) {
 
     <div class="container-fluid">
         <div class="row-fluid">
@@ -43,10 +50,11 @@
                         @if(Secured.isAdmin){
                             <a class="pull-right" data-toggle="modal" href="#@patient.id"><img src="@routes.Assets.at("images/delete.png")" alt="Eliminar" height="10" width="10"></a>
                         }
+
+                        <a class="pull-right" href="@routes.ResultController.viewPatientResults(patient.id)">Ver Resultados</a>
+
                     </div>
-                    <label class = "remove">
-                        <a class="btn btn-info disabled" href="@routes.ResultController.viewPatientResults(patient.id)">Ver Resultados</a>
-                    </label>
+
                     </div>
                 </div>
 

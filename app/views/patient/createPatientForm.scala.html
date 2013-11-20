@@ -1,13 +1,21 @@
 @(patientForm: Form[Patient])
 
     @title = {
-        Dar de alta a paciente
+        Nuevo paciente
     }
+
+    @navigator = {
+
+        <a href="@routes.PatientController.patientList()">Pacientes</a><div class="breadcrumb_divider"></div><a
+        class="current"> Nuevo paciente</a>
+    }
+
 
     @import helper._
     @import helper.twitterBootstrap._
 
-    @main2(title , nav = " ", null){
+    @main2(title , navigator, null){
+        <div class="container-fluid">
         <div id=therapistForm>
             @if(patientForm.hasErrors) {
                 <div class="alert alert-danger">
@@ -216,5 +224,6 @@
                 </div>
 
             }
+        </div>
         </div>
     }

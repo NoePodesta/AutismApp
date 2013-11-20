@@ -7,7 +7,11 @@
 
     @mainSignUp("Admin Sign Up"){
 
-<div class="container margin-top">
+    @if(flash.containsKey("errors")) {
+        <div class="alert alert-error">
+            <strong>Ups!,</strong> @flash.get("success")
+        </div>
+    }
 
     <div class="alert alert-info"><p> Gracias por querer formar parte de la comunidad de GET TOGETHER, a continuación se lo guiará para que
         pueda darse de alta. El primer paso consiste en la creación de la institución y por ultimo se creará el
@@ -16,15 +20,18 @@
 
     <div id="therapistForm">
 
-    @form(routes.TherapistController.registerAdmin(institutionId), 'enctype -> "multipart/form-data") {
+    @form(routes.Application.signUpAdmin(), 'enctype -> "multipart/form-data") {
 
         <h1>2. Administrador</h1>
         <fieldset>
             <legend>Informacion General</legend>
 
+            <input type="hidden" name="institutionId" value=@institutionId>
+
+
             <div class="span5">
                 @inputText(
-                    therapistForm("surname"),
+                    therapistForm("name"),
                     '_label -> "Nombre *",
                     'placeholder -> "Nombre",
                     '_showConstraints -> false
@@ -112,6 +119,29 @@
                     '_label -> "Calle *"
                 )
 
+                @inputText(
+                    therapistForm("address.number"),
+                    '_showConstraints -> false,
+                    'placeholder -> "4444",
+                    'class -> "mini inline",
+                    '_label -> "Número: *"
+                )
+
+                @inputText(
+                    therapistForm("address.floor"),
+                    '_showConstraints -> false,
+                    'placeholder -> "3",
+                    'class -> "mini inline",
+                    '_label -> "Piso: "
+                )
+                @inputText(
+                    therapistForm("address.depto"),
+                    '_showConstraints -> false,
+                    'placeholder -> "AB",
+                    'class -> "mini inline",
+                    '_label -> "Depto.:"
+                )
+
             </div>
             <div class="span5 offset1">
                 @inputText(
@@ -131,25 +161,6 @@
                 )
             </div>
 
-            <div class="span10" >
-                <label for="address_number">Número *:</label>
-                <div class="input">
-                    <input type="text" id="address_number" name="address.number">
-                    <span class="help-inline"></span>
-                </div>
-                <label for="address_floor">Piso:</label>
-                <div class="input">
-                    <input type="text" id="address_floor" name="address.floor">
-                    <span class="help-inline"></span>
-                </div>
-                <label for="address_depto">Depto.:</label>
-                <div class="input">
-                    <input type="text" id="address_depto" name="address.depto">
-                    <span class="help-inline"></span>
-                </div>
-
-            </div>
-
         </fieldset>
 
         <fieldset>
@@ -158,10 +169,10 @@
 
             <div class="span5">
             @inputText(
-                therapistForm("telephone *"),
+                therapistForm("telephone"),
                 '_showConstraints -> false,
                 'placeholder -> 44444444,
-                '_label -> "Teléfono"
+                '_label -> "Teléfono *"
             )
             </div>
             <div class="span5 offset1">
@@ -204,5 +215,5 @@
     }
     </div>
 
-</div>
+
     }

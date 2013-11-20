@@ -4,8 +4,15 @@
 @title = {
     Equipos de Trabajo
 }
-    @main2(title, nav = "teams", null) {
 
+    @navigator = {
+
+        <a class="current">Equipos de Trabajo</a>
+
+    }
+    @main2(title,navigator, null) {
+
+        <div class="container-fluid">
         @if(flash.containsKey("success")) {
         <div class="alert-message warning">
             <strong>Done!</strong> @flash.get("success")
@@ -106,6 +113,6 @@
         </fieldset>
 
 
-
+ </div>
 
 }

@@ -107,15 +107,7 @@ public class TherapistController extends Controller {
             }
             hashed =  BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
         }else{
-
-             // Check repeated password
-             if(!therapistForm.field("password").valueOr("").isEmpty()) {
-                 if(!therapistForm.field("password").valueOr("").equals(therapistForm.field("repeatPassword").value())) {
-                     therapistForm.reject("repeatPassword", "La contraseña no coincide");
-                 }
-             }
              hashed = BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
-
         }
 
 
@@ -156,28 +148,6 @@ public class TherapistController extends Controller {
             return ok(views.html.therapist.editTherapistForm.render(id, therapistForm, false));
         }
     }
-
-    public static Result registerAdmin(Integer institutionId) {
-
-        Form<Therapist> form = form(Therapist.class).bindFromRequest();
-
-
-        // Check if the dni is valid
-        if(!form.hasErrors()) {
-            if(Therapist.findTherapistByDNI(form.get().dni) != null) {
-                form.reject(Msg.DNI, Msg.CHECK_DNI);
-            }
-        }
-        if(form.hasErrors()) {
-            return badRequest(signUpAdmin.render(form, institutionId));
-        }
-
-        Institution institution = Institution.getById(institutionId);
-
-        return TherapistController.saveTherapist(TherapistType.ADMIN, form(Therapist.class).bindFromRequest(),
-                true, institution);
-    }
-
 
 
     /**

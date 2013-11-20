@@ -7,167 +7,176 @@
 @title = {
     Dar de alta terapeuta
 }
+    @navigator = {
 
-@main2(title,nav = " ", null){
-<div id=therapistForm>
-    @if(therapistForm.hasErrors) {
-    <div class="alert-message error">
-        <p><strong>Oops!</strong> Hay algunos errores</p>
-    </div>
+        <a href="@routes.TherapistController.therapistList()">Terapeutas</a><div class="breadcrumb_divider"></div>
+        <a class="current"> Nuevo Terapeuta</a>
+
     }
 
+    @main2(title, navigator, null){
+        <div class="container-fluid">
 
-    @form(routes.TherapistController.saveTherapist(), 'enctype -> "multipart/form-data") {
-
-
-        <fieldset>
-            <legend>Informacion General</legend>
-
-            <div class="span5">
-            @inputText(therapistForm("name"),
-                '_label -> "Nombre",
-                '_showConstraints -> false
-
-            )
-            @inputText(
-                therapistForm("surname"),
-                '_label -> "Apellido",
-                '_showConstraints -> false
-
-            )
-
-            @inputText(
-                therapistForm("dni"),
-                '_label -> "DNI",
-                '_showConstraints -> false,
-            '_error -> therapistForm.globalError
-            )
-
-            @select(
-                therapistForm("genero"),
-                options = options(Gender.all()),
-                '_default -> "--- Eliga el sexo ---",
-                '_label -> "Sexo",
-                '_error -> therapistForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo")),
-                '_showConstraints -> false
-            )
-                </div>
-                <div class="span5">
-
-            @helper.inputDate(
-                therapistForm("birthday"),
-                '_label -> "Fecha de Nacimiento",
-                'format -> "dd/MM/yyyy",
-                '_showConstraints -> false
-
-            )
-
-            @inputText(
-                therapistForm("mail"),
-                '_label -> "Correo electrónico",
-                '_showConstraints -> false
-                )
-
-            @inputText(
-                therapistForm("nm"),
-                '_label -> "Matricula Nacional"
-            )
-            <div class="clearfix  " id="picture_field">
-                <label for="picture">Imagen de Perfil</label>
-                <div class="input">
-
-                    <input type="file" id="picture" name="picture" accept="image/*" >
-                    <span class="help-inline"></span>
-                </div>
-            </div>
-            </div>
-
-        </fieldset>
-
-        <fieldset>
-
-            <legend>Direccion</legend>
-
-            <div class="span5">
-            @inputText(
-                therapistForm("address.cp"),
-                '_label -> "Codigo Postal" ,
-                '_showConstraints -> false
-
-            )
-
-            @inputText(
-                therapistForm("address.street"),
-                '_label -> "Calle",
-                '_showConstraints -> false
-
-            )
-                </div>
-            <div class="span5">
+            <div id=therapistForm>
+                @if(therapistForm.hasErrors) {
+                    <div class="alert-message error">
+                        <p><strong>Oops!</strong> Hay algunos errores</p>
+                    </div>
+                }
 
 
-            @inputText(
-                therapistForm("address.locality"),
-                '_label -> "Localidad",
-                '_showConstraints -> false
+                @form(routes.TherapistController.saveTherapist(), 'enctype -> "multipart/form-data") {
 
-            )
 
-            @select(
-                therapistForm("address.province"),
-                options = options(Province.list),
-                '_default -> "--- Eliga una provincia ---",
-                '_label -> "Provincia",
-                '_error -> therapistForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia")),
-                '_showConstraints -> false
-            )
-            </div>
-            <div class="span10" >
-                <label for="address_number">Número</label>
-                <div class="input">
-                    <input type="text" id="address_number" name="address.number">
-                    <span class="help-inline"></span>
-                </div>
-                <label for="address_floor">Piso</label>
-                <div class="input">
-                    <input type="text" id="address_floor" name="address.floor">
-                    <span class="help-inline"></span>
-                </div>
-                <label for="address_depto">Departamento</label>
-                <div class="input">
-                    <input type="text" id="address_depto" name="address.depto">
-                    <span class="help-inline"></span>
-                </div>
+                    <fieldset>
+                        <legend>Informacion General</legend>
 
-            </div>
+                        <div class="span5">
+                            @inputText(therapistForm("name"),
+                                '_label -> "Nombre",
+                                '_showConstraints -> false
 
-        </fieldset>
+                            )
+                            @inputText(
+                                therapistForm("surname"),
+                                '_label -> "Apellido",
+                                '_showConstraints -> false
 
-        <fieldset>
+                            )
 
-            <legend>Telefonos</legend>
+                            @inputText(
+                                therapistForm("dni"),
+                                '_label -> "DNI",
+                                '_showConstraints -> false,
+                                '_error -> therapistForm.globalError
+                            )
 
-            <div class="span5">
-            @inputText(
-                therapistForm("telephone"),
-                '_label -> "Teléfono",
-                '_showConstraints -> false
+                            @select(
+                                therapistForm("genero"),
+                                options = options(Gender.all()),
+                                '_default -> "--- Eliga el sexo ---",
+                                '_label -> "Sexo",
+                                '_error -> therapistForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo")),
+                                '_showConstraints -> false
+                            )
+                        </div>
+                        <div class="span5">
 
-            )
-            @inputText(
-                therapistForm( "cellphone"),
-                '_label -> "Celular",
-                '_showConstraints -> false
+                            @helper.inputDate(
+                                therapistForm("birthday"),
+                                '_label -> "Fecha de Nacimiento",
+                                'format -> "dd/MM/yyyy",
+                                '_showConstraints -> false
 
-            )
-            </div>
+                            )
 
-        </fieldset>
+                            @inputText(
+                                therapistForm("mail"),
+                                '_label -> "Correo electrónico",
+                                '_showConstraints -> false
+                            )
 
-        <div class="actions">
-            <input type="submit" value="Agregar Terapeuta" class="btn btn-success">
-        </div>
+                            @inputText(
+                                therapistForm("nm"),
+                                '_label -> "Matricula Nacional"
+                            )
+                            <div class="clearfix  " id="picture_field">
+                                <label for="picture">Imagen de Perfil</label>
+                                <div class="input">
+
+                                    <input type="file" id="picture" name="picture" accept="image/*" >
+                                    <span class="help-inline"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <legend>Direccion</legend>
+
+                        <div class="span5">
+                            @inputText(
+                                therapistForm("address.cp"),
+                                '_label -> "Codigo Postal" ,
+                                '_showConstraints -> false
+
+                            )
+
+                            @inputText(
+                                therapistForm("address.street"),
+                                '_label -> "Calle",
+                                '_showConstraints -> false
+
+                            )
+                        </div>
+                        <div class="span5">
+
+
+                            @inputText(
+                                therapistForm("address.locality"),
+                                '_label -> "Localidad",
+                                '_showConstraints -> false
+
+                            )
+
+                            @select(
+                                therapistForm("address.province"),
+                                options = options(Province.list),
+                                '_default -> "--- Eliga una provincia ---",
+                                '_label -> "Provincia",
+                                '_error -> therapistForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia")),
+                                '_showConstraints -> false
+                            )
+                        </div>
+                        <div class="span10" >
+                            <label for="address_number">Número</label>
+                            <div class="input">
+                                <input type="text" id="address_number" name="address.number">
+                                <span class="help-inline"></span>
+                            </div>
+                            <label for="address_floor">Piso</label>
+                            <div class="input">
+                                <input type="text" id="address_floor" name="address.floor">
+                                <span class="help-inline"></span>
+                            </div>
+                            <label for="address_depto">Departamento</label>
+                            <div class="input">
+                                <input type="text" id="address_depto" name="address.depto">
+                                <span class="help-inline"></span>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <legend>Telefonos</legend>
+
+                        <div class="span5">
+                            @inputText(
+                                therapistForm("telephone"),
+                                '_label -> "Teléfono",
+                                '_showConstraints -> false
+
+                            )
+                            @inputText(
+                                therapistForm( "cellphone"),
+                                '_label -> "Celular",
+                                '_showConstraints -> false
+
+                            )
+                        </div>
+
+                    </fieldset>
+
+                    <div class="actions">
+                        <input type="submit" value="Agregar Terapeuta" class="btn btn-success">
+                    </div>
         
+                }
+            </div>
+        </div>
     }
-</div>
-}

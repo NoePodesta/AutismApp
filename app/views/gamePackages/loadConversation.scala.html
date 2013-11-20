@@ -4,7 +4,14 @@
     Dar de alta pregunta
 }
 
-@main2(title,nav = " ", "conversationSheepIt.js"){
+@navigator = {
+
+    <a href="">Cards</a>
+
+}
+
+
+@main2(title,navigator, "conversationSheepIt.js"){
     @form(routes.GamePackageController.saveConversationPackage()) {
         <!-- Main sheepIt Form -->
         <label>Cargar paquete de Conversacion</label>

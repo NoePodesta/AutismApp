@@ -1,4 +1,4 @@
-@(title: Html, nav: String = "", js: String)(content: Html)
+@(title: Html, navigator: Html, js: String)(content: Html)
 
 
 <html>
@@ -40,8 +40,8 @@
                 <p>@Application.getCurrentTherapist.name @Application.getCurrentTherapist.surname <p>
             </div>
             <div class="breadcrumbs_container">
-                <article class="breadcrumbs"><a href="">Get Together</a> <div class="breadcrumb_divider"></div>
-                    <a class="current">@nav</a></article>
+                <article class="breadcrumbs"><a href="">Get Together</a><div class="breadcrumb_divider"></div>
+                    @navigator</article>
             </div>
         </section><!-- end of secondary bar -->
 
@@ -54,8 +54,11 @@
             <h3>Institución</h3>
             <ul class="toggle">
                 <li class="icn_view_users"><a  href="@routes.InstitutionController.profile()">Información</a></li>
-                <li class="icn_edit_article"><a  href="@routes.InstitutionController.editInstitution(
+                @if(Secured.isAdmin){
+
+                    <li class="icn_edit_article"><a  href="@routes.InstitutionController.editInstitution(
                     Application.getCurrentTherapist().institution.id)">Editar</a></li>
+                }
             </ul>
             <h3>Pacientes</h3>
             <ul class="toggle">
@@ -68,18 +71,23 @@
             <h3>Terapeutas</h3>
             <ul class="toggle">
                 <li class="icn_view_users"><a href="@routes.TherapistController.therapistList()">Terapeutas</a></li>
-                <li class="icn_add_user"><a href="#">Nuevo terapeuta</a></li>
+                @if(Secured.isAdmin){
+                    <li class="icn_add_user"><a href="@routes.TherapistController.createTherapist()">Nuevo terapeuta</a></li>
+                }
+
             </ul>
             <h3>Equipos de Trabajo</h3>
             <ul class="toggle">
                 <li class="icn_folder"><a href="@routes.TeamController.teamList()">Equipos</a></li>
                 <li class="icn_photo"><a href="#">Mis Equipos</a></li>
-                <li class="icn_new_article"><a href="#">Nuevo Equipo</a></li>
+                @if(Secured.isAdmin){
+                    <li class="icn_new_article"><a href="#">Nuevo Equipo</a></li>
+                }
             </ul>
             <h3>Administrar</h3>
             <ul class="toggle">
                 <li class="icn_profile"><a href="@routes.TherapistController.profile()">Mi Perfil</a></li>
-                <li class="icn_edit_article"><a href="#">Editar Perfil</a></li>
+                <li class="icn_edit_article"><a href="@routes.TherapistController.editTherapist(Application.getCurrentTherapist.id)">Editar Perfil</a></li>
                 <li class="icn_security"><a href="#">Seguridad</a></li>
                 <li class="icn_jump_back"><a href="@routes.Application.logout()">Logout</a></li>
             </ul>

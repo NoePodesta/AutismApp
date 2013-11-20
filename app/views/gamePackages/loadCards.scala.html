@@ -4,7 +4,13 @@
     Dar de alta pregunta
 }
 
-@main2(title,nav = " ", "cardsSheepIt.js"){
+@navigator = {
+
+    <a href="">Cards</a>
+
+}
+
+@main2(title, navigator, "cardsSheepIt.js"){
     @form(routes.GamePackageController.saveCardPackage(), 'enctype -> "multipart/form-data") {
         <!-- Main sheepIt Form -->
         <label>Cargar paquete de Tarjetas</label>

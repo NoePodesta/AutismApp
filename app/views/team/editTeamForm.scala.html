@@ -8,9 +8,16 @@
         Modificar Equipo de Trabajo
     }
 
-@main2(title, nav = " ", null){
+    @navigator = {
 
+        <a href="@routes.TeamController.teamList()">Equipo de Trabajo</a><div class="breadcrumb_divider"></div>
+        <a class="current"> Editar Equipo de trabajo</a>
 
+    }
+
+@main2(title,navigator, null){
+
+    <div class="container-fluid">
     @form(routes.TeamController.updateTeam()) {
         <input type="hidden" value="@teamForm("id").value" name="id" />
         <fieldset>
@@ -70,4 +77,5 @@
         </div>
 
     }
+    </div>
 }

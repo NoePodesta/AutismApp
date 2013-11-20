@@ -4,7 +4,14 @@
 Dar de alta pregunta
 }
 
-@main2(title,nav = " ", "qaSheepIt.js"){
+@navigator = {
+
+    <a href="">Cards</a>
+
+}
+
+@main2(title,navigator, "qaSheepIt.js"){
+
 @form(routes.GamePackageController.saveImageQAPackage(), 'enctype -> "multipart/form-data") {
 <!-- Main sheepIt Form -->
 <label>Cargar paquete de Oracion</label>

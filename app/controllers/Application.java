@@ -10,6 +10,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import views.html.loginPage;
+import views.html.signUpAdmin;
 import views.html.signUpInstitution;
 
 
@@ -60,6 +61,43 @@ public class Application extends Controller {
     public static Result signUpInstitution(){
         Form<Institution> institutionForm = form(Institution.class);
         return ok(signUpInstitution.render(institutionForm));
+    }
+
+    public static Result signUpAdmin(){
+        Form<Therapist> form = form(Therapist.class).bindFromRequest();
+
+        Integer institutionId = Integer.valueOf(form().bindFromRequest().get("institutionId"));
+
+        System.out.print(institutionId);
+        if(form.hasErrors()) {
+            flash(Msg.ERRORS, Msg.ERROR);
+            return badRequest(signUpAdmin.render(form, institutionId));
+        }
+
+        // Check if the dni is valid
+        if(!form.hasErrors()) {
+            if(Therapist.findTherapistByDNI(form.get().dni) != null) {
+                form.reject(Msg.DNI, Msg.CHECK_DNI);
+                flash(Msg.ERRORS, Msg.ERROR);
+                return  badRequest(signUpAdmin.render(form,institutionId));
+            }
+        }
+
+        // Check repeated password
+        if(!form.field("password").valueOr("").isEmpty()) {
+            if(!form.field("password").valueOr("").equals(form.field("repeatPassword").value())) {
+                form.reject("repeatPassword", "La contraseña no coincide");
+                flash(Msg.ERRORS, Msg.ERROR);
+                return  badRequest(signUpAdmin.render(form,institutionId));
+            }
+        }
+
+
+
+        Institution institution = Institution.getById(institutionId);
+
+        return TherapistController.saveTherapist(TherapistType.ADMIN, form(Therapist.class).bindFromRequest(),
+                true, institution);
     }
 
 //    public static Result signUp(Form<PartialSignUp> partialSignUpForm) {

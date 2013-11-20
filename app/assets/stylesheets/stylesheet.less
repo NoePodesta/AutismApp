@@ -7,25 +7,7 @@
   border-radius: @radius;
 }
 
-.ButtonOrange{
-    .BackgroundOrange;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFAD5c', endColorstr='#FF9933', GradientType=0);
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    border-color: #FFAD5c #FFAD5c #FF9933;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-}
 
-.BackgroundOrange{
-  background-color: @orange;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#FFAD5c), to(#FF9933));
-  background-image: -moz-linear-gradient(top, #FFAD5c, #FF9933);
-  background-image: -ms-linear-gradient(top, #FFAD5c, #FF9933);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FF9933), color-stop(100%, #FF9933));
-  background-image: -webkit-linear-gradient(top, #FFAD5c, #FF9933);
-  background-image: -o-linear-gradient(top, #FFAD5c, #FF9933);
-  background-image: linear-gradient(top, #FFAD5c, #FF9933);
-}
 .underline{
   text-decoration: underline;
 }
@@ -67,12 +49,6 @@
 {
   font-family: RoyalDelight;
   src: url("/assets/fonts/RoyalDelight.ttf")
-}
-
-@font-face
-{
-  font-family: chalk2;
-  src: url("/assets/fonts/LEVIBRUSH.ttf")
 }
 
 @font-face
@@ -120,6 +96,47 @@
   float: left;
 }
 
+.modal-footer form{
+  display: inline;
+}
+
+/* --------------------------------------------- SIDEBAR --------------------------------------------- */
+
+aside#sidebar{
+  background: url("/assets/images/backgrounds/fabric.png"), -webkit-linear-gradient(top, #5d656e, #a7b2be) repeat-x, #a7b2be;
+}
+
+#sidebar{
+  p{
+    padding-top: 6%;
+    color: darkgray;
+    text-shadow: none;
+    text-align: center;
+  }
+
+  h3{
+    color: #333333;
+    font-weight: bolder;
+    font-family: love;
+    text-shadow: none;
+  }
+  li a{
+    text-shadow: none;
+    color:#c8cfd5 ;
+  }
+  a{
+    color: #77BACE
+  }
+}
+
+
+/* --------------------------------------------- HEADER --------------------------------------------- */
+
+header#header{
+  background: #222222 url("/assets/images/backgrounds/fabric.png"), repeat-x;
+
+
+}
 
 
 .header{
@@ -127,6 +144,14 @@
   padding: 15px;
   background-color:gray;
   box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+}
+
+fieldset input{
+  -webkit-box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;
+  -moz-box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;
+  box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;
+  width: 96%;
+  height: 28px;
 }
 
 .wraparound {
@@ -328,8 +353,9 @@ fieldset{
     legend{
       padding-left: 0;
       padding-right: 10px;
-      color: @orange;
+      color: #77BACE;
       font-family: love;
+      text-shadow: 0px 2px 0 #e5e5e5;
     }
 
     .span10 input{
@@ -345,6 +371,11 @@ fieldset{
       padding-right: 10px;
     }
 
+    .address{
+      input{
+        width: 50px;
+      }
+    }
     margin-bottom: 20px;
     margin-top: 10px;
 
@@ -524,7 +555,7 @@ fieldset{
 
   .name{
     text-transform: uppercase;
-    color: @orange;
+    color: #77BACE;
     font-weight: bold;
 
   }
@@ -559,7 +590,7 @@ fieldset{
 
   .name{
     text-transform: uppercase;
-    color: @orange;
+    color: #77BACE;
     font-weight: bold;
 
   }
@@ -669,7 +700,7 @@ fieldset{
 
 /* --------------------------------------------- SIGNUP PAGE --------------------------------------------- */
 #signUp{
-  background: url("/assets/images/backgrounds/fabric.png"), -webkit-linear-gradient(top, #5d656e, #a7b2be) repeat-x, #a7b2be;
+  background: url("/assets/images/backgrounds/fabric.png"), -webkit-linear-gradient(top, #5d656e, #5d656e) repeat-x, #5d656e;
 
   input[type="text"], input[type="password"], input[type="date"], select{
     -webkit-box-shadow: inset 0 0 0 1px rgba(51, 153, 255, 0), inset 0 2px 5px rgba(0, 0, 0, 0.75), 0 1px 1px rgba(255, 255, 255, 0.5), 0 0 0 rgba(51, 153, 255, 0);
@@ -689,7 +720,6 @@ fieldset{
     color: white;
     border-color: #777777;
     border-radius: 13px;
-    margin-bottom: 25px;
     padding: 20px;
     width: 100%;
   }
@@ -799,9 +829,11 @@ fieldset{
 
 }
 .help-inline {
-  color: lightcoral;
-  font-size: 12px;
   font-style: oblique;
+  font-weight: bolder;
+  font-size: 12px;
+  margin-bottom: 15px;
+  color: #77BACE;
 }
 
 

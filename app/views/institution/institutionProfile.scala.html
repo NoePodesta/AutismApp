@@ -3,9 +3,14 @@
         Institución
     }
 
+    @navigator = {
+        <a href="">Institución</a><div class="breadcrumb_divider"></div><a class="current"> Información </a>
+
+    }
+
     @import helper._
     @import helper.twitterBootstrap._
-    @main2(title, nav="Información Institucional", null) {
+    @main2(title, navigator, null) {
         <div id=institution>
             <div class="container-fluid">
                 <div class="row-fluid">
