@@ -27,7 +27,7 @@ public class Team extends Model {
     public Patient patient;
     @OneToOne
     public Institution institution;
-    @OneToMany
+
     private List<TeamRoles> teamRoles;
 
 

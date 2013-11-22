@@ -8,6 +8,7 @@ import msg.Msg;
 import play.data.Form;
 import play.mvc.Result;
 import play.mvc.Controller;
+import views.html.institution.editInstitution;
 import views.html.signUpAdmin;
 import views.html.signUpInstitution;
 
@@ -31,7 +32,7 @@ public class InstitutionController extends Controller {
     }
 
     public static Result editInstitution(int id){
-        Institution insitutionToFill = getInsitutionById(TherapistController.getTherapistById(id).institution.id);
+        Institution insitutionToFill = getInsitutionById(Application.getCurrentTherapist().institution.id);
         Form<Institution> institutionForm = form(Institution.class).fill(insitutionToFill);
         return ok(views.html.institution.editInstitution.render(institutionForm));
 
@@ -77,12 +78,12 @@ public class InstitutionController extends Controller {
     public static Result updateInstitution(){
 
         Form<Institution> institutionForm = form(Institution.class).bindFromRequest();
-        Institution institutionFromForm = institutionForm.get();
+
 
         if(institutionForm.hasErrors()) {
-            return badRequest(views.html.institution.institutionProfile.render(institutionForm));
+            return badRequest(editInstitution.render(institutionForm));
         }
-
+        Institution institutionFromForm = institutionForm.get();
         Address address = Address.findById(getInsitutionById(institutionFromForm.id).address.id);
 
         Address addressForm = institutionFromForm.address;

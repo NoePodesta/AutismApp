@@ -339,6 +339,10 @@ fieldset{
 
 }
 
+.profileInfo{
+  padding-left:25px;
+}
+
 /* --------------------------------------------- THERAPIST FORM --------------------------------------------- */
 
 #therapistForm{
@@ -381,8 +385,16 @@ fieldset{
 
   }
 
+  #adress_floor{
+    width:80px;
+  }
 
-  #address_number_field, #address_floor_field, #address_depto_field {
+  #address_number_field, #address_street_field{
+    display: inline-block;
+
+  }
+
+  #address_floor_field, #address_depto_field {
     display: inline-block;
   }
 
@@ -405,6 +417,10 @@ fieldset{
     }
 
   }
+
+
+
+
 
 
 }
@@ -702,7 +718,7 @@ fieldset{
 #signUp{
   background: url("/assets/images/backgrounds/fabric.png"), -webkit-linear-gradient(top, #5d656e, #5d656e) repeat-x, #5d656e;
 
-  input[type="text"], input[type="password"], input[type="date"], select{
+  input[type="text"], input[type="password"], input[type="date"]{
     -webkit-box-shadow: inset 0 0 0 1px rgba(51, 153, 255, 0), inset 0 2px 5px rgba(0, 0, 0, 0.75), 0 1px 1px rgba(255, 255, 255, 0.5), 0 0 0 rgba(51, 153, 255, 0);
     -moz-box-shadow: inset 0 0 0 1px rgba(51, 153, 255, 0), inset 0 2px 5px rgba(0, 0, 0, 0.75), 0 1px 1px rgba(255, 255, 255, 0.5), 0 0 0 rgba(51, 153, 255, 0);
     box-shadow: inset 0 0 0 1px rgba(51, 153, 255, 0), inset 0 2px 5px rgba(0, 0, 0, 0.75), 0 1px 1px rgba(255, 255, 255, 0.5), 0 0 0 rgba(51, 153, 255, 0);
@@ -721,6 +737,10 @@ fieldset{
     border-color: #777777;
     border-radius: 13px;
     padding: 20px;
+    width: 100%;
+  }
+
+  select{
     width: 100%;
   }
 

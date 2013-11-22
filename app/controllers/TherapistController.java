@@ -61,7 +61,9 @@ public class TherapistController extends Controller {
         ArrayList<Therapist> therapistsToShow = new ArrayList<Therapist>();
         Therapist current = Therapist.findTherapistByDNI(session().get("dni"));
         for(Therapist therapist : Therapist.findByInstitution(current.institution)){
+            if(therapist.id != current.id){
                 therapistsToShow.add(therapist);
+            }
         }
         return ok(views.html.therapist.therapists.render(therapistsToShow));
     }
@@ -85,19 +87,18 @@ public class TherapistController extends Controller {
     public static Result saveTherapist(TherapistType type, Form<Therapist> therapistForm, boolean autoLogin,
                                        Institution institution) {
 
-        Therapist therapistFromForm = therapistForm.get();
 
+        Therapist therapistFromForm = null;
         String hashed = "";
         if(type == TherapistType.NO_PRIVILEGES){
-
             if(therapistForm.hasErrors()) {
                 return badRequest(views.html.therapist.createTherapistForm.render(therapistForm));
-            }
-            if(!therapistForm.hasErrors()) {
+            }else{
                 if(Therapist.findTherapistByDNI(therapistForm.get().dni) != null) {
                     therapistForm.reject(Msg.DNI, Msg.CHECK_DNI);
                 }
             }
+            therapistFromForm = therapistForm.get();
             String newPassword = "";
             try {
                 newPassword = RandomStringGenerator.generateRandomString(6, RandomStringGenerator.Mode.ALPHANUMERIC);
@@ -105,8 +106,9 @@ public class TherapistController extends Controller {
             } catch (Exception e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-            hashed =  BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
+            hashed =  BCrypt.hashpw(newPassword, BCrypt.gensalt());
         }else{
+             therapistFromForm = therapistForm.get();
              hashed = BCrypt.hashpw(therapistFromForm.password, BCrypt.gensalt());
         }
 

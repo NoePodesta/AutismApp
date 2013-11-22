@@ -8,6 +8,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static play.data.Form.form;
 
 
@@ -61,7 +64,7 @@ public class PatientController
 
         String pathFile = ImageController.getUserImagePathName(patientFromForm, gender);
 
-        Institution institution = InstitutionController.getInsitutionById(Application.getCurrentTherapist().id);
+        Institution institution = InstitutionController.getInsitutionById(Application.getCurrentTherapist().institution.id);
 
         Address address = new Address(patientFromForm.address.street, patientFromForm.address.number,
                 patientFromForm.address.floor, patientFromForm.address.depto, patientFromForm.address.cp,
@@ -140,5 +143,14 @@ public class PatientController
 
     public static Patient getPatientById(int id) {
         return Patient.findPatientById(id);
+    }
+
+    public static List<String> allPatientsByNameAndDni(String dni) {
+        List<String> patients = new ArrayList<String>();
+        for(Patient patient : Patient.findPatientByInstitution(Application.getCurrentTherapist().institution)){
+            patients.add(patient.name + " " + patient.surname + " - " + patient.dni);
+        }
+
+        return patients;
     }
 }

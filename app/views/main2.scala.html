@@ -47,15 +47,16 @@
 
         <aside id="sidebar" class="column">
             <div class="menu">
+                <!--
             <form class="quick_search">
                 <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
             </form>
             <hr/>
+            -->
             <h3>Institución</h3>
             <ul class="toggle">
                 <li class="icn_view_users"><a  href="@routes.InstitutionController.profile()">Información</a></li>
                 @if(Secured.isAdmin){
-
                     <li class="icn_edit_article"><a  href="@routes.InstitutionController.editInstitution(
                     Application.getCurrentTherapist().institution.id)">Editar</a></li>
                 }

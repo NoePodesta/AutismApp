@@ -26,7 +26,7 @@
             <legend>Paciente</legend>
             @select(
                 teamForm("paciente"),
-                options = options(Patient.allPatientsByNameAndDni()),
+                options = options(PatientController.allPatientsByNameAndDni(session.get("dni"))),
                 '_default -> "--- Eliga un paciente ---",
                 '_label -> "Paciente",
                 '_error -> teamForm("paciente").error.map(_.withMessage("Por favor seleccione un paciente"))

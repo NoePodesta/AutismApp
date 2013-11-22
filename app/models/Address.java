@@ -16,13 +16,15 @@ public class Address extends Model {
 
     @Id
     public int id;
-    @Constraints.Required
+    @Constraints.Required(message = "Este campo es obligatorio")
     @Pattern(regexp = "^([a-zA-Z].+)$", message = "Ingrese un calle válida. Utilice solamente letras.")
     public String street;
     @Constraints.Required
-    @Pattern(regexp = "^([1-9]{1}[0-9]+)$", message = "Ingrese un número válido.")
+    @Pattern(regexp = "^([1-9]{1}[0-9]*)$", message = "Ingrese un número válido.")
     public String number;
+    /*
     @Pattern(regexp = "^([0-9]*)$", message = "Ingrese un número válido.")
+    */
     public String floor;
     public String depto;
     @Constraints.Required

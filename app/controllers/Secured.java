@@ -27,7 +27,6 @@ public class Secured extends Security.Authenticator {
     }
 
     public static boolean isAdmin() {
-
-        return Therapist.isAdmin(Context.current().request().username());
+        return Therapist.isAdmin(Application.getCurrentTherapist().dni);
     }
 }
