@@ -118,11 +118,11 @@
 					}
 					
 					trace("Correcto");
-					//right.play();
+					SoundManager.playCorrectSound();
 				}else{
 					resultColector.addWrongAnswer();
 					answer.resetPosition();
-					//wrong.play();
+					SoundManager.playWrongSound();
 				}
 				
 			}
@@ -172,12 +172,16 @@
 				for(var i : int = 0;i<3;i++){
 					answerAreas[i].askMayor();				
 				}	
+			}else{
+				SoundManager.playWrongSound();
 			}
 		}
 		
 		public function checkIfMayor(intValue : int):void{
 			if(intValue >= totalA && intValue >=totalB && intValue>=totalC){
 				endGame();
+			}else{
+				SoundManager.playWrongSound();
 			}
 		}
 		

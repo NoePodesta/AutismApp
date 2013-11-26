@@ -29,11 +29,12 @@
 		public function checkSentence(articleData : int, sustantivoData : int,verbData : int,adjetiveData : int):void{
 			if(articleData == sustantivoData == verbData == adjetiveData){
 				currentStage++;
-				SoundManager.playCorrectSound();
+				
 				resultColector.addCorrectAnswer();
 				if(currentStage == totalStages){
 					endGame();
 				}else{
+					SoundManager.playCorrectSound();
 					(gameView as SentenceGameView).removeImage(currentStage - 1);
 					buildNextStage();				
 				}				

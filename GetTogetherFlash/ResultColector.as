@@ -8,10 +8,7 @@
 		var patient : int;
 		var therapist : int;
 		var packageUsed : int;
-		
-
-		var json : String;
-		
+				
 
 		public function ResultColector(gameType : String, packageUsed : int,patient : int, therapist : int) {
 			correctAnswers = 0;
@@ -20,11 +17,8 @@
 			this.patient = patient;
 			this.therapist = therapist;
 			this.packageUsed = packageUsed;
-			
 		}
-		
-	
-		
+				
 		public function addCorrectAnswer():void{
 			correctAnswers++;
 		}

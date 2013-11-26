@@ -33,8 +33,10 @@
 			winGameScreen.y = 68;
 			winGameScreen.x = 1024/2 - 465.95/2;
 			winGameScreen.winScreenGoBack_mc.addEventListener(TouchEvent.TOUCH_TAP, destroyGame);
-			if(mainManager.therapist != null){
+			if((mainManager.therapist != null && mainManager.selectedPatient != -1) || mainManager.offlineMode){
 				winGameScreen.sendResults_mc.addEventListener(TouchEvent.TOUCH_TAP, sendResults);
+			}else{
+				winGameScreen.sendResults_mc.alpha = 0.5;
 			}
 			
 		}
@@ -42,6 +44,7 @@
 	
 		
 		public function endGame(){
+			SoundManager.playVictorySound();
 			addChild(winGameScreen);			
 		}
 		
@@ -94,6 +97,10 @@
 		
 		protected function playCorrectSound():void{
 			SoundManager.playCorrectSound();
+		}
+		
+		protected function playVictorySound():void{
+			SoundManager.playVictorySound();
 		}
 		
 		protected function playWrongSound():void{

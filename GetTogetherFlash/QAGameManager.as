@@ -118,12 +118,13 @@
 		override public function checkClassificationAnswer(answer : ClassificationOption, dropped : ClassificationAnswerArea) : void{
 			if(dropped != null){
 				if(dropped.classificationGroup == answer.classificationGroup){
-					SoundManager.playCorrectSound();
+					
 					currentStage++;
 					resultColector.addCorrectAnswer();
 					if(currentStage == totalStages){
 						endGame();
 					}else{
+						SoundManager.playCorrectSound();
 						(gameView as QAGameView).removeStage(currentStage-1);
 						(gameView as QAGameView).showStage(currentStage);
 					}

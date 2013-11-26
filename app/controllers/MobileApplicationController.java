@@ -58,6 +58,7 @@ public class MobileApplicationController extends Controller {
 
 
             result.put("id", therapist.id);
+            result.put("dni", therapist.dni);
             result.put("loggedComplete", true);
             result.put("name",therapist.name);
             result.put("surname", therapist.surname);

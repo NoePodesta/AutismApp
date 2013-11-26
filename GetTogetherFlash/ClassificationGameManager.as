@@ -97,12 +97,13 @@
 				if(dropped.classificationGroup == answer.classificationGroup){
 					totalCorrectAnswers++;
 					resultColector.addCorrectAnswer();
-					SoundManager.playCorrectSound();
+					
 					if(totalCorrectAnswers == gameContent.stages[currentStage].optionsLength){
 						currentStage++;
 						if(currentStage == totalStages){
 							endGame();
 						}else{
+							SoundManager.playCorrectSound();
 							(gameView as ClassificationGameView).removeStage(currentStage-1);
 							(gameView as ClassificationGameView).showStage(currentStage);
 							totalCorrectAnswers = 0;

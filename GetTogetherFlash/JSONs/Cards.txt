@@ -1,1 +1,1 @@
-{"totalCards":4,"cards":[{"imageName":"Martillo","imageUrl":"ElementsImages/hammer.png"},{"imageName":"Reptiloide","imageUrl":"ShapesImages/reptiloide.png"},{"imageName":"Bueno","imageUrl":"SignsImages/thumbsUp.png"},{"imageName":"Contento","imageUrl":"EmotionsGifs/happy.png"}]}
+{"totalCards":4,"cards":[{"imageName":"Martillo","imageURL":"ElementsImages/hammer.png"},{"imageName":"Reptiloide","imageURL":"ShapesImages/reptiloide.png"},{"imageName":"Bueno","imageURL":"SignsImages/thumbsUp.png"},{"imageName":"Contento","imageURL":"EmotionsGifs/happy.png"}]}

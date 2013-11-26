@@ -35,13 +35,18 @@
 		
 		var therapist : Therapist;
 		
-		var selectedPatient : int;
+		public var selectedPatient : int;
 		
 		var patientsComboBox : ComboBox;
 		
 		var packageSelectionScreen : PackageSelectionScreen;
 		
 		var bitacoraManager : BitacoraManager;
+		
+		var offlineMode : Boolean;
+		
+		var saveManager : SaveManager;
+		var offlineRecordScreen : OfflineRecordScreenManager;
 
 		
 		public function Main() {
@@ -50,7 +55,7 @@
 			//Initialize Managers		
 			jLoader = new JSONLoader(this);	
 			httpManager = new HTTPManager(this, jLoader);
-			
+			saveManager = new SaveManager(this);
 			
 			//Initialize Views	
 			topBar = new TopBarView(this, httpManager);
@@ -273,26 +278,42 @@
 		}
 		
 		public function createTherapist(therapistJSON : Object){
-			therapist = new Therapist(therapistJSON.id, therapistJSON.name, therapistJSON.surname, therapistJSON.patients,therapistJSON.patientsId, therapistJSON.packages);
+			therapist = new Therapist(therapistJSON.id, therapistJSON.name, therapistJSON.surname, therapistJSON.patients,therapistJSON.patientsId, therapistJSON.packages, therapistJSON.dni);
 			if(therapistJSON.patientsId.length != 0){
 				selectedPatient = therapistJSON.patientsId[0];
 			}else{
 				selectedPatient = -1;
 			}
 			topBar.loggedIn(therapist.therapistName + " " + therapist.surname);
-			topBar.setPatients(therapistJSON.patients);
+			topBar.setPatients(therapistJSON.patients);	
+			var offlineRecords : Array = saveManager.getOfflineResults(therapistJSON.dni);
+			if(offlineRecords.length != 0){
+				offlineRecordScreen = new OfflineRecordScreenManager(offlineRecords, this);			
+				addChild(offlineRecordScreen);	
+				//stage.focus = offlineRecordScreen;
+			}
+			offlineMode = false;
 		}
 		
 		public function changeSelectedPatient(selectedIndex : int):void{
 			selectedPatient = therapist.patientsId[selectedIndex];
 		}
 		
+		public function sendOfflineRecords():void{
+			saveManager.removeOfflineRecords(therapist.dni);
+			removeChild(offlineRecordScreen);
+		}
+		
 		public function sendResults(gameType : String, resultColector : ResultColector){
-			if(selectedPatient != -1){
-				httpManager.sendResults(gameType, resultColector, therapist.id, selectedPatient);
+			if(offlineMode){
+				saveManager.addLocalResult(gameType, resultColector, topBar.getOfflineDNI(), topBar.getOfflinePatient());
 			}else{
-				trace("No has elegido a ningun paciente");
-			}			
+				if(selectedPatient != -1){
+					httpManager.sendResults(gameType, resultColector, therapist.id, selectedPatient);
+				}else{
+					trace("No has elegido a ningun paciente");
+				}		
+			}				
 		}
 		
 		public function logoutTherapist():void{
@@ -315,9 +336,12 @@
 			trace(bitacora);
 			goBackToMainScreen();
 		}
-			
 		
-
+		public function startOfflineMode():void{
+			offlineMode = true;
+		}
+		
+	
 
 	
 	}

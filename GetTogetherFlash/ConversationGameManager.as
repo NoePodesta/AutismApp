@@ -31,10 +31,11 @@
 		public function checkSentence(result : Boolean):void{
 			if(result){
 				totalAnswered++;
-				resultColector.addCorrectAnswer();
+				
 				if(totalAnswered == totalQuestions){
 					endGame();
 				}else{
+					resultColector.addCorrectAnswer();
 					(gameView as ConversationGameView).proceedToNextQuestion();
 				}
 			}else{

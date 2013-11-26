@@ -38,12 +38,10 @@
 		
 		public function onLoginComplete (event:Event):void {
 			var loginData : Object = jsonLoader.parseJSON(event.target.data);
-			if(loginData.loggedComplete){
-				
+			if(loginData.loggedComplete){				
 				main.createTherapist(loginData);
 			}else{
-				//TODO Login Fail
-				trace("Login failed");
+				topBar.loginFailed();
 			}
 			
 		}

@@ -5,6 +5,8 @@
 	import fl.controls.ComboBox;
 	import fl.data.DataProvider;
 	import flash.events.Event;
+	import fl.transitions.Tween;
+	import fl.transitions.easing.Strong;
 	
 	public class TopBarView extends MovieClip{
 
@@ -12,13 +14,17 @@
 		var httpManager : HTTPManager;
 		var patientsComboBox:ComboBox;
 		var main : Main;
+		var offlineDNI : String;
+		var offlinePatient : String;
 		
 		public function TopBarView(main : Main,httpManager : HTTPManager) {
 			this.httpManager = httpManager;
 			this.main = main;
 			httpManager.setTopBar(this);
 			topBar = new topBar_mc;
+			topBar.password_txt.displayAsPassword = true;
 			topBar.loginButton_mc.addEventListener(TouchEvent.TOUCH_TAP,testLogin);
+			topBar.offlineLoginButton_mc.addEventListener(TouchEvent.TOUCH_TAP, startOfflineMode);
 			addChild(topBar);
 		}
 		
@@ -55,12 +61,40 @@
 			topBar.loginButton_mc.addEventListener(TouchEvent.TOUCH_TAP,testLogin);
 		}
 		
+		public function logoutOfflineMode(e : Event):void{					
+			topBar.gotoAndStop(1);
+			
+			topBar.loginButton_mc.addEventListener(TouchEvent.TOUCH_TAP,testLogin);
+			topBar.offlineLoginButton_mc.addEventListener(TouchEvent.TOUCH_TAP, startOfflineMode);
+		}
+		
 		public function startBitacoraScreen(e : Event):void{
 			main.startBitacoraScreen();
 		}
 		
 		public function changeSelectedPatient(e : Event):void{
 			main.changeSelectedPatient(patientsComboBox.selectedIndex);
+		}
+		
+		public function startOfflineMode(e : Event):void{
+			main.startOfflineMode();
+			offlineDNI = topBar.username_offline_txt.text;
+			topBar.gotoAndStop(3);
+			topBar.loggedOfflineUser_txt.text = "";
+			topBar.loggedOfflineUser_txt.text = offlineDNI;
+			topBar.logout_mc.addEventListener(TouchEvent.TOUCH_TAP, logoutOfflineMode);
+		}
+		
+		public function getOfflineDNI():String{
+			return offlineDNI;
+		}
+		
+		public function getOfflinePatient():String{
+			return topBar.offline_patient_txt.text;
+		}
+		
+		public function loginFailed():void{
+			new Tween(topBar.loginFailed_mc, "alpha", Strong.easeOut, 1, 0, 2, true);
 		}
 
 	}
