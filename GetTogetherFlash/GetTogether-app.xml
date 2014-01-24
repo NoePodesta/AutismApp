@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!-- 
 	Usage:
 
@@ -20,9 +20,9 @@
     <id>com.juanmolteni.gettogether</id>
     <versionNumber>1.0</versionNumber>
     <filename>GetTogether</filename>
-    <description/>
+    <description></description>
     <name>GetTogether</name>
-    <copyright/>
+    <copyright></copyright>
     <initialWindow>
         <content>GetTogether.swf</content>
         <systemChrome>standard</systemChrome>
@@ -33,7 +33,7 @@
         <renderMode>auto</renderMode>
         <autoOrients>false</autoOrients>
     </initialWindow>
-    <icon/>
+    <icon></icon>
     <customUpdateUI>false</customUpdateUI>
     <allowBrowserInvocation>false</allowBrowserInvocation>
     <iPhone>

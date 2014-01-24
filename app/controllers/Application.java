@@ -9,6 +9,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import views.html.comercialHtml;
 import views.html.loginPage;
 import views.html.signUpAdmin;
 import views.html.signUpInstitution;
@@ -108,7 +109,7 @@ public class Application extends Controller {
 
     public static Result index() {
         //return ok(therapists.render(Therapist.findByInstitutionId()));
-        return login();
+        return ok(comercialHtml.render());
     }
 
     public static Result login(){

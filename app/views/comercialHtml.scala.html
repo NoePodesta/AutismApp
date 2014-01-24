@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/camera.css">
+    <link rel="stylesheet" href="css/form.css">
+
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comercialPage/style.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comercialPage/camera.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comercialPage/form.css")">
+
+    <script src="@routes.Assets.at("javascripts/comercialPage/jquery.js")"></script>
+    <script src="@routes.Assets.at("javascripts/comercialPage/jquery-migrate-1.1.1.js")"></script>
+    <script src="@routes.Assets.at("javascripts/comercialPage/superfish.js")"></script>
+    <script src="@routes.Assets.at("javascripts/comercialPage/forms.js")"></script>
+    <script src="@routes.Assets.at("javascripts/comercialPage/jquery.ui.totop.js")"></script>
+    <script src="@routes.Assets.at("javascripts/comercialPage/jquery.easing.1.3.js")"></script>
+    <script src="@routes.Assets.at("javascripts/comercialPage/jquery.equalheights.js.js")"></script>
+    <script src="@routes.Assets.at("javascripts/comercialPage/tms-0.4.1.js")"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.slider_wrapper')._TMS({
+                show:0,
+                pauseOnHover:false,
+                prevBu:'.prev',
+                nextBu:'.next',
+                playBu:false,
+                duration:800,
+                preset:'fade',
+                pagination:true,//'.pagination',true,'<ul></ul>'
+                pagNums:false,
+                slideshow:8000,
+                numStatus:false,
+                banners: 'fade',
+                waitBannerAnimation:false,
+                progressBar:false
+            });
+        });
+        $(document).ready(function(){
+            !function(){
+                var map=[]
+                        ,names=[]
+                        ,win=$(window)
+                        ,header=$('header')
+                        ,currClass
+                $('.content').each(function(n){
+                    map[n]=this.offsetTop
+                    names[n]=$(this).attr('id')
+                })
+                win
+                        .on('scroll',function(){
+                            var i=0
+                            while(map[i++]<=win.scrollTop());
+                            if(currClass!==names[i-2])
+                                currClass=names[i-2]
+                            header.removeAttr("class").addClass(names[i-2])
+                        })
+            }(); });
+        function goToByScroll(id){
+            $('html,body').animate({scrollTop: $("#"+id).offset().top},'slow');
+        }
+        $(document).ready(function(){
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+    </script>
+
+</head>
+<body class="">
+<!--==============================header=================================-->
+<header class="page1">
+    <div class="container_12">
+        <div class="grid_12">
+            <h1><a href="#" onClick="goToByScroll('page1')"><img src="images/logo.png" alt="Gerald Harris attorney at law"></a></h1>
+            <div class="menu_block">
+                <nav class="">
+                    <ul class="sf-menu">
+                        <li class="current men"><a onClick="goToByScroll('page1')" href="#">Home </a> <strong class="hover"></strong></li>
+                        <li class="men1"><a onClick="goToByScroll('page2')" href="#">Quienes Somos</a><strong class="hover"></strong></li>
+                        <li class=" men2"><a onClick="goToByScroll('page3')" href="#">Get Together</a> <strong class="hover"></strong></li>
+                        <li class=" men3"><a onClick="goToByScroll('page4')" href="#">Registrate</a> <strong class="hover"></strong></li>
+                        <li class=" men4"><a onClick="goToByScroll('page5');" href="#">Contactanos</a> <strong class="hover"></strong></li>
+                    </ul>
+                </nav>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+<!--=======content================================-->
+<div id="page1" class="content">
+    <div class="container_12">
+        <div class="grid_12">
+            <div class="slider_wrapper">
+                <ul class="items">
+                    <li>
+                        <img src="@routes.Assets.at("images/comercialPage/spacer.gif")"alt="">
+                        <div class="caption banner">
+                            <h2>Aprender jugando</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="@routes.Assets.at("images/comercialPage/spacer.gif")"alt="">
+                        <div class="caption banner">
+                            <h2>Aprender, Emocionarse</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="@routes.Assets.at("images/comercialPage/spacer.gif")"alt="">
+                        <div class="caption banner">
+                            <h2>GET TOGETHER </h2>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="@routes.Assets.at("images/comercialPage/spacer.gif")"alt="">
+                        <div class="caption banner">
+                            <h2>Una manera de ayudar a tus chicos,</h2>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="socials">
+                <a href="#"></a>
+                <a href="#"></a>
+                <a href="#"></a>
+                <a href="#"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="page2" class="content">
+    <div class="container_12">
+        <div class="grid_12">
+            <div class="slogan">
+                <h3>Nuestros profesionales de  <a onClick="goToByScroll('page3')" href="#"> GET TOGETHER </a></h3>
+                <div class="text1">
+                    Nos dedicamos a brindar un sistema para mejorar la salud de sus chicos.
+                </div>
+            </div>
+        </div>
+        <div class="containerCP">
+            <div class="grid_5">
+                <div class="box maxheight">
+                    <img src="@routes.Assets.at("images/comercialPage/noe.JPG")" alt="María Noel Podestá">
+                    <div class="text1"><a href="#">María Noel Podestá</a></div>CEO
+                    <div class="socials1">
+                        <a href="https://www.facebook.com/noe.podesta"></a>
+                        <a href="https://twitter.com/noepodesta"></a>
+                        <a href="https://plus.google.com/u/0/101115235787749097443/about/p/pub"></a>
+                        <a href="http://www.linkedin.com/pub/mar%C3%ADa-noel-podest%C3%A1/2b/60/496"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="grid_5">
+                <div class="box maxheight">
+                    <img src="@routes.Assets.at("images/comercialPage/JuaniMolteni.jpg")" weight= 200px height= 100px alt="Juan Ignacio Molteni">
+                    <div class="text1"><a href="#">Juan Ignacio Molteni</a></div> CEO
+                    <div class="socials1">
+                        <a href="https://plus.google.com/u/0/102651047920407977951/about"></a>
+                        <a href="#"></a>
+                        <a href="https://www.facebook.com/juan.i.molteni"></a>
+                        <a href="http://www.linkedin.com/pub/juan-ignacio-molteni/37/923/5b3"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="page3" class="content">
+        <div class="container_12">
+            <div class="grid_12">
+                <div class="slogan">
+                <h3>Get Together</h3>
+                <div class="text1">
+                    Get Together es una aplicación bla bla .....
+                </div>
+            </div>
+        </div>
+        @*<div class="grid_3">*@
+            @*<div class="box maxheight1">*@
+                @*<img src="images/box1_img1.png" alt="">*@
+                @*<div class="text1"><a href="#">Strategy</a></div>Vivamus at magna non nunc tristique rhoncus. Aliquam nibh ante, egestas id dictum a, commodo luctus libero.*@
+            @*</div>*@
+        @*</div>*@
+        @*<div class="grid_3">*@
+            @*<div class="box maxheight1">*@
+                @*<img src="images/box1_img2.png" alt="">*@
+                @*<div class="text1"><a href="#">Research</a></div>Ite auctor non pellentesque vel, aliquet sit amet erat. Nullam eget dignissim nisi, aliquam feugiat nibhh sagittis ut.*@
+            @*</div>*@
+        @*</div>*@
+        @*<div class="grid_3">*@
+            @*<div class="box maxheight1">*@
+                @*<img src="images/box1_img3.png" alt="">*@
+                @*<div class="text1"><a href="#">Development</a></div>Praesent faucibusamus ater asmagna non nunc tristique rhoncus. Aliquam nib ante, tas id dictum aluctus libero.*@
+            @*</div>*@
+        @*</div>*@
+        @*<div class="grid_3">*@
+            @*<div class="box maxheight1">*@
+                @*<img src="images/box1_img4.png" alt="">*@
+                @*<div class="text1"><a href="#">Consulting</a></div>Etiam dui eros na non nunc tristique rhoncus. Aliquam nibh ante, egestas id dictum a commodo luctus libero.*@
+            @*</div>*@
+        @*</div>*@
+    </div>
+</div>
+<div id="page4" class="content">
+    <div class="container_12">
+        <div class="grid_12">
+            <h3>Registrate</h3>
+        </div>
+        @*<div class="companies">*@
+            @*<div class="grid_3">*@
+                @*<img src="images/logo1.jpg" alt="">*@
+                @*<div class="text1">Company Name</div>Aliquam nibh ante, egestas id dictum  wrecommodo luctus liberoaesent.*@
+                @*<br>*@
+                @*<a href="#">Go to Site</a>*@
+            @*</div>*@
+            @*<div class="grid_3">*@
+                @*<img src="images/logo2.jpg" alt="">*@
+                @*<div class="text1">Company Name</div>Fusce adipiscing quam id risus gittis, non consequat lacus interdumoin.*@
+                @*<br>*@
+                @*<a href="#">Go to Site</a>*@
+            @*</div>*@
+            @*<div class="grid_3">*@
+                @*<img src="images/logo3.jpg" alt="">*@
+                @*<div class="text1">Company Name</div>Quisque viverra nulla nunc, eu ultrices wertlibero ultricies egetasellus um.*@
+                @*<br>*@
+                @*<a href="#">Go to Site</a>*@
+            @*</div>*@
+            @*<div class="grid_3">*@
+                @*<img src="images/logo4.jpg" alt="">*@
+                @*<div class="text1">Company Name</div>Courrewerwe abitur vel lorem sit amet ulla ullamcorper fermentumn vitae.*@
+                @*<br>*@
+                @*<a href="#">Go to Site</a>*@
+            @*</div>*@
+            @*<div class="clear"></div>*@
+            @*<div class="grid_3">*@
+                @*<img src="images/logo5.jpg" alt="">*@
+                @*<div class="text1">Company Name</div>Oiliquam nibh ante, egestas id dictum  wrecommodo luctus liberoaesente.*@
+                @*<br>*@
+                @*<a href="#">Go to Site</a>*@
+            @*</div>*@
+            @*<div class="grid_3">*@
+                @*<img src="images/logo6.jpg" alt="">*@
+                @*<div class="text1">Company Name</div>Gusce adipiscing quam id risus gittis, non consequat lacus interdumoiju.*@
+                @*<br>*@
+                @*<a href="#">Go to Site</a>*@
+            @*</div>*@
+            @*<div class="grid_3">*@
+                @*<img src="images/logo7.jpg" alt="">*@
+                @*<div class="text1">Company Name</div>Niuisque viverra nulla nunc, eu ultrices wertlibero ultricies egetasellus ol.*@
+                @*<br>*@
+                @*<a href="#">Go to Site</a>*@
+            @*</div>*@
+            @*<div class="grid_3">*@
+                @*<img src="images/logo8.jpg" alt="">*@
+                @*<div class="text1">Company Name</div>Fouerourrewerwe abitur vel lorem sit amet ulla ullamcorper fermentum.*@
+                @*<br>*@
+                @*<a href="#">Go to Site</a>*@
+            @*</div>*@
+        @*</div>*@
+    </div>
+</div>
+<div id="page5" class="content">
+    <div class="container_12">
+        <div class="grid_12">
+            <div class="slogan">
+                <h3>Contactanos</h3>
+                <div class="text1">
+                    Gyrto ivamus at magna non nunc tristique rhoncusu. Lliquam nibh ante, egestas id dictum a, commodo luctus mibero. Praesent faucibus malesuada faucibu. Monec laoreet metus id laoreet malesuadw.
+                </div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+        <div class="grid_5">
+            <div class="text1">Dejanos tu Mensaje:</div>
+            <form id="form">
+                <div class="success_wrapper">
+                    <div class="success">Contact form submitted!<br>
+                        <strong>Nos comunicaremos con usted a la brevedad.</strong> </div></div>
+                <fieldset>
+                    <input type="text" placeholder="Nombre">
+                    <span class="error error-empty">*This is not a valid name.</span><span class="empty error-empty">*This field is required.</span> </label>
+
+                    <input type="text" placeholder="Mail">
+                    <span class="error error-empty">*This is not a valid email address.</span><span class="empty error-empty">*This field is required.</span> </label>
+                    <textarea placeholder="Mensaje"></textarea>
+                    <br class="clear">
+                    <span class="error">*The message is too short.</span> <span class="empty">*This field is required.</span> </label>
+                    <div class="clear"></div>
+
+                    <div class="btns"><a data-type="submit" class="link1">Send</a>
+                        <div class="clear"></div>
+                    </div></fieldset></form>
+        </div>
+
+        <div class="grid_5 prefix_1 commercialInfo">
+            <label><img src="@routes.Assets.at("images/icons/usual/icon-email.png")" width="15" height="15"></label>
+            <label>contact@@gettogether.com</label>
+            <label><img src="@routes.Assets.at("images/icons/usual/icon-phone.png")" width="20" height="20"></label>
+            <label>Skype: GetTogether</label>
+            <label><img src="@routes.Assets.at("images/icons/usual/icon-home.png")"  width="20" height="20"></label>
+            <label>Buenos Aires, Argentina</label>
+
+        </div>
+
+
+        <div class="clear"></div>
+    </div>
+</div>
+        <!--==============================footer=================================-->
+<footer>
+    <div class="container_12">
+        <div class="grid_12">
+            <div class="copy">
+                <a onClick="goToByScroll('page1')" href="#"><img src="images/footer_logo.png" alt=""></a>  &copy; 2013 | <a href="#">Privacy Policy</a> <br> Website designed by <a href="http://www.templatemonster.com/" rel="nofollow">TemplateMonster.com</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</footer>
+</body>
+</html>
