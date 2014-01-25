@@ -20,6 +20,7 @@ POST        /recoverPassword                       controllers.Application.recov
 
 #Sign Up
 POST        /signUp                                controllers.Application.signUpInstitution()
+POST        /partialSignUp                         controllers.Application.partialSignUp()
 POST        /signUpInstitution                     controllers.InstitutionController.signUpInstitution()
 POST        /signUpAdmin                           controllers.Application.signUpAdmin()
 GET         /signUp                                controllers.Application.signUpInstitution()
@@ -127,7 +128,7 @@ GET         /loadConversation                      controllers.GamePackageContro
 POST        /saveConversation                      controllers.GamePackageController.saveConversationPackage()
 
 GET         /loadSoCoCo                            controllers.GamePackageController.getSoCoCoLoader()
-POST        /saveSoCoCo                           controllers.GamePackageController.saveSoCoCoPackage()
+POST        /saveSoCoCo                            controllers.GamePackageController.saveSoCoCoPackage()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                          controllers.Assets.at(path="/public", file)

@@ -1,4 +1,4 @@
-@(loginForm: Form[Application.Login], signUpForm: Form[Application.PartialSignUp], recoverPassword : Form[Application.RecoverPassword])
+@(loginForm: Form[Application.Login], recoverPassword : Form[Application.RecoverPassword])
 
 <html>
 
@@ -62,33 +62,7 @@
                     }
                 </div>
             </div>
-            @*<div class="span5">*@
-                @*<div class="container">*@
-                    @*<hgroup class="title">*@
-                        @*<h1 class="login-title-image">Sign Up</h1>*@
-                        @*<h5>&copy; J&N Studios</h5>*@
-                    @*</hgroup>*@
-                    @*@helper.form(routes.Application.signUpPartial(), 'class -> "form-signin") {*@
-                        @*<form>*@
-                            @*<div class="black-box">*@
-                                    @*<!-- The autocomplete="off" attributes is the only way to prevent webkit browsers from filling the inputs with yellow -->*@
-                                @*<label><span class="icon-white icon-envelope margin-right"></span>*@
-                                    @*<input type="text" name="mail" placeholder="Mail" autocomplete="off">*@
-                                @*</label>*@
-                                @*<label><span class="icon-white icon-user margin-right"></span>*@
-                                    @*<input type="text" name="dni" placeholder="Dni" autocomplete="off" value="@signUpForm("dni").value">*@
-                                @*</label>*@
-                                @*<label><span class="icon-white icon-lock margin-right"></span>*@
-                                    @*<input type="password" name="password" placeholder="Password" autocomplete="off">*@
-                                @*</label>*@
-                            @*</div>*@
 
-                            @*<input type="submit" value="Sign Up" class="button glossy full-width huge"/>*@
-
-                        @*</form>*@
-                    @*}*@
-                @*</div>*@
-            @*</div>*@
         </div>
 
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

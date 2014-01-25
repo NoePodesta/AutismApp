@@ -21,12 +21,7 @@ public class Application extends Controller {
 
 
     private static Therapist currentTherapist;
-    private static Form<PartialSignUp> partialSignUpForm;
-    private static Form<PartialSignUp> signUpForm;
 
-    public static Form<PartialSignUp> getPartialSignUpForm() {
-        return partialSignUpForm;
-    }
 
     public static class Login {
         public String dni;
@@ -37,12 +32,6 @@ public class Application extends Controller {
                 return Msg.INVALID;
             return null;
         }
-    }
-
-    public static class PartialSignUp {
-        public String dni;
-        public String password;
-        public String mail;
     }
 
     public static class RecoverPassword {
@@ -60,11 +49,12 @@ public class Application extends Controller {
 //    }
 
     public static Result signUpInstitution(){
-        Form<Institution> institutionForm = form(Institution.class);
+        Form<Institution> institutionForm = form(Institution.class).bindFromRequest();
         return ok(signUpInstitution.render(institutionForm));
     }
 
     public static Result signUpAdmin(){
+
         Form<Therapist> form = form(Therapist.class).bindFromRequest();
 
         Integer institutionId = Integer.valueOf(form().bindFromRequest().get("institutionId"));
@@ -108,24 +98,26 @@ public class Application extends Controller {
 
 
     public static Result index() {
-        //return ok(therapists.render(Therapist.findByInstitutionId()));
-        return ok(comercialHtml.render());
+        return ok(comercialHtml.render(form(Institution.class)));
     }
 
     public static Result login(){
-        return ok(loginPage.render(form(Login.class), form(PartialSignUp.class), form(RecoverPassword.class)));
+        return ok(loginPage.render(form(Login.class), form(RecoverPassword.class)));
+    }
+
+    public static Result partialSignUp(){
+        return Application.signUpInstitution();
     }
 
 
     public static Result authenticate() {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
         if (loginForm.hasErrors()) {
-            return badRequest(loginPage.render(loginForm, form(PartialSignUp.class), form(RecoverPassword.class)));
+            return badRequest(loginPage.render(loginForm, form(RecoverPassword.class)));
         } else {
             session().clear();
             String dni = loginForm.get().dni;
             session(Msg.DNI, dni);
-            //currentTherapist = Therapist.findTherapistByDNI(dni);
             return TherapistController.profile();
         }
     }
