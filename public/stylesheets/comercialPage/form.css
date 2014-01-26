@@ -4,9 +4,17 @@
 padding-top: 6px;
 }
 
+#page5 #form input {
+    color:#39596e;
+    border: 1px solid #3c7f9f;
+}
+
+#page4 #form input {
+    color:#7f4c76;
+    border: 1px solid #7f4c76;
+}
+
 #form input {
-	color:#39596e;
-	border: 1px solid #3c7f9f;
     padding: 20px 20px 20px 20px;
     background-color: snow;
 	width: 100%;
@@ -23,6 +31,23 @@ padding-top: 6px;
     box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
 }
 
+#page4 #form input[type=submit]{
+
+    color:#7f4c76;
+    border: 1px solid #7f4c76;
+    background-color:  #b288ab;
+    float:left;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 19px;
+    line-height: 18px;
+    min-width: 107px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
+    padding-bottom: 29px;
+}
+
 #form textarea {
 	color:#39596e;
     margin-top: 10px;
@@ -35,16 +60,12 @@ padding-top: 6px;
 	position: relative;
 	resize:none;
 	box-sizing: border-box;
-	-moz-box-sizing: border-box; /*Firefox 1-3*/
-	-webkit-box-sizing: border-box; /* Safari */
 	float:left;
 	font: 13px/18px  Arial, Helvetica, sans-serif;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
 
    box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
-	
+
 }
 #form label {
 	position:relative;
@@ -94,19 +115,16 @@ padding-top: 6px;
 }
 
 
-.btns a {
+.btns a{
 	display: inline-block;
 	font-size: 19px;
 	line-height: 18px;
 	background-color: #334960;
 	border: 1px solid #3c7f9f;
 	min-width: 107px;
-	padding: 5px 10px 6px;
 	color: #fff;
 	cursor: pointer;
     width: 95%;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 0 25px 4px rgba(0,0,0,0.3);
@@ -116,6 +134,12 @@ padding-top: 6px;
 	background-color: #c2e8f4;
 	border-color: #3c7f9f;
 	color: #39596e;
+}
+
+#page4 .btns input[type="submit"]:hover {
+    background-color: blue;
+    border-color: #7f4c76;
+    color: #39596e;
 }
 
 #form .message {

@@ -185,117 +185,107 @@
                 </div>
             </div>
         </div>
-        @*<div class="grid_3">*@
-            @*<div class="box maxheight1">*@
-                @*<img src="images/box1_img1.png" alt="">*@
-                @*<div class="text1"><a href="#">Strategy</a></div>Vivamus at magna non nunc tristique rhoncus. Aliquam nibh ante, egestas id dictum a, commodo luctus libero.*@
-            @*</div>*@
-        @*</div>*@
-        @*<div class="grid_3">*@
-            @*<div class="box maxheight1">*@
-                @*<img src="images/box1_img2.png" alt="">*@
-                @*<div class="text1"><a href="#">Research</a></div>Ite auctor non pellentesque vel, aliquet sit amet erat. Nullam eget dignissim nisi, aliquam feugiat nibhh sagittis ut.*@
-            @*</div>*@
-        @*</div>*@
-        @*<div class="grid_3">*@
-            @*<div class="box maxheight1">*@
-                @*<img src="images/box1_img3.png" alt="">*@
-                @*<div class="text1"><a href="#">Development</a></div>Praesent faucibusamus ater asmagna non nunc tristique rhoncus. Aliquam nib ante, tas id dictum aluctus libero.*@
-            @*</div>*@
-        @*</div>*@
-        @*<div class="grid_3">*@
-            @*<div class="box maxheight1">*@
-                @*<img src="images/box1_img4.png" alt="">*@
-                @*<div class="text1"><a href="#">Consulting</a></div>Etiam dui eros na non nunc tristique rhoncus. Aliquam nibh ante, egestas id dictum a commodo luctus libero.*@
-            @*</div>*@
-        @*</div>*@
-    </div>
-</div>
-<div id="page4" class="content">
-    <div class="container_12">
-        <div class="grid_12">
-            <h3>Registrate</h3>
         </div>
-        <div class="span5">
-            <div class="container">
-                @helper.form(routes.Application.partialSignUp()) {
+    </div>
+    <div id="page4" class="content">
+        <div class="container_12">
+            <div class="grid_12">
+                <div class="slogan">
+                    <h3>Registrate</h3>
+                    <div class="text1">
+                        Que esperas para empezar hacer parte de <span> GET TOGETHER </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+            <div class="grid_5">
+                <div class="text1">Registra tu Institución</div>
+
                 <form id="form">
+                @helper.form(routes.Application.partialSignUp()) {
 
-                    <fieldset>
-                        <input type="text" placeholder="Nombre de la institución" name="name">
-                        <input type="text" placeholder="Mail" name="mail">
 
-                        <div class="btns"><input type="submit" value="Registrar" class="button glossy full-width huge"/>
-                        </div>
-                    </fieldset>
-                </form>
+                        <fieldset>
+                            <input type="text" placeholder="Nombre de la institución" name="name">
+                            <input type="text" placeholder="Mail" name="mail">
+                            <input type="text" placeholder="Telefono" name="telephone">
+                            <input type="text" placeholder="Dirección" name="address.street">
+                            <input type="text" placeholder="Número" name="address.number">
+                            <input type="text" placeholder="Codigo Postal" name="address.cp">
+
+                            <div class="btns"><input type="submit" value="Registrar">
+                            </div>
+                        </fieldset>
+
 
 
                 }
+                </form>
             </div>
         </div>
     </div>
-</div>
-<div id="page5" class="content">
-    <div class="container_12">
-        <div class="grid_12">
-            <div class="slogan">
-                <h3>Contactanos</h3>
-                <div class="text1">
-                    Gyrto ivamus at magna non nunc tristique rhoncusu. Lliquam nibh ante, egestas id dictum a, commodo luctus mibero. Praesent faucibus malesuada faucibu. Monec laoreet metus id laoreet malesuadw.
+    <div id="page5" class="content">
+        <div class="container_12">
+            <div class="grid_12">
+                <div class="slogan">
+                    <h3>Contactanos</h3>
+                    <div class="text1">
+                        Gyrto ivamus at magna non nunc tristique rhoncusu. Lliquam nibh ante, egestas id dictum a, commodo luctus mibero. Praesent faucibus malesuada faucibu. Monec laoreet metus id laoreet malesuadw.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="clear"></div>
-        <div class="grid_5">
-            <div class="text1">Dejanos tu Mensaje:</div>
-            <form id="form">
-                <div class="success_wrapper">
-                    <div class="success">Contact form submitted!<br>
-                        <strong>Nos comunicaremos con usted a la brevedad.</strong> </div></div>
-                <fieldset>
-                    <input type="text" placeholder="Nombre">
-                    <span class="error error-empty">*This is not a valid name.</span><span class="empty error-empty">*This field is required.</span> </label>
-
-                    <input type="text" placeholder="Mail">
-                    <span class="error error-empty">*This is not a valid email address.</span><span class="empty error-empty">*This field is required.</span> </label>
-                    <textarea placeholder="Mensaje"></textarea>
-                    <br class="clear">
-                    <span class="error">*The message is too short.</span> <span class="empty">*This field is required.</span>
-                    <div class="clear"></div>
-
-                    <div class="btns"><a data-type="submit" class="link1">Send</a>
-                        <div class="clear"></div>
+            <div class="clear"></div>
+            <div class="grid_5">
+                <div class="text1">Dejanos tu Mensaje:</div>
+                <form id="form">
+                    <div class="success_wrapper">
+                        <div class="success">Contact form submitted!<br>
+                            <strong>Nos comunicaremos con usted a la brevedad.</strong> </div>
                     </div>
-                </fieldset>
-            </form>
-        </div>
+                    <fieldset>
+                        <input type="text" placeholder="Nombre">
+                        <span class="error error-empty">*This is not a valid name.</span><span class="empty error-empty">*This field is required.</span> </label>
 
-        <div class="grid_5 prefix_1 commercialInfo">
-            <label><img src="@routes.Assets.at("images/icons/usual/icon-email.png")" width="15" height="15"></label>
-            <label>contact@@gettogether.com</label>
-            <label><img src="@routes.Assets.at("images/icons/usual/icon-phone.png")" width="20" height="20"></label>
-            <label>Skype: GetTogether</label>
-            <label><img src="@routes.Assets.at("images/icons/usual/icon-home.png")"  width="20" height="20"></label>
-            <label>Buenos Aires, Argentina</label>
+                        <input type="text" placeholder="Mail">
+                        <span class="error error-empty">*This is not a valid email address.</span><span class="empty error-empty">*This field is required.</span> </label>
+                        <textarea placeholder="Mensaje"></textarea>
+                        <br class="clear">
+                        <span class="error">*The message is too short.</span> <span class="empty">*This field is required.</span>
+                        <div class="clear"></div>
 
-        </div>
-
-
-        <div class="clear"></div>
-    </div>
-</div>
-        <!--==============================footer=================================-->
-<footer>
-    <div class="container_12">
-        <div class="grid_12">
-            <div class="copy">
-                <a onClick="goToByScroll('page1')" href="#"><img src="images/footer_logo.png" alt=""></a>  &copy; 2013 | <a href="#">Privacy Policy</a> <br> Website designed by <a href="http://www.templatemonster.com/" rel="nofollow">TemplateMonster.com</a>
+                        <div class="btns"><a data-type="submit" class="link1">Send</a>
+                            <div class="clear"></div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
+
+            <div class="grid_5 prefix_1 commercialInfo">
+                <label><img src="@routes.Assets.at("images/icons/usual/icon-email.png")" width="15" height="15"></label>
+                <label>contact@@gettogether.com</label>
+                <label><img src="@routes.Assets.at("images/icons/usual/icon-phone.png")" width="20" height="20"></label>
+                <label>Skype: GetTogether</label>
+                <label><img src="@routes.Assets.at("images/icons/usual/icon-home.png")"  width="20" height="20"></label>
+                <label>Buenos Aires, Argentina</label>
+
+            </div>
+
+
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
     </div>
-</footer>
+        <!--==============================footer=================================-->
+    <footer>
+        <div class="container_12">
+            <div class="grid_12">
+                <div class="copy">
+                    <a onClick="goToByScroll('page1')" href="#"><img src="images/footer_logo.png" alt=""></a>  &copy; 2013 | <a href="#">Privacy Policy</a> <br> Website designed by <a href="http://www.templatemonster.com/" rel="nofollow">TemplateMonster.com</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </footer>
 </body>
 </html>
