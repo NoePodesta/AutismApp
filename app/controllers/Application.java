@@ -39,6 +39,12 @@ public class Application extends Controller {
         public String mail;
     }
 
+    public static class ContactMessage{
+        public String name;
+        public String email;
+        public String message;
+    }
+
 //    public static Result signUpPartial(){
 //        partialSignUpForm = form(PartialSignUp.class).bindFromRequest();
 //        return signUpInstitution();
@@ -98,7 +104,7 @@ public class Application extends Controller {
 
 
     public static Result index() {
-        return ok(comercialHtml.render(form(Institution.class)));
+        return ok(comercialHtml.render(form(Institution.class), form(Application.ContactMessage.class)));
     }
 
     public static Result login(){
@@ -131,6 +137,15 @@ public class Application extends Controller {
         return redirect(
                 routes.Application.login()
         );
+    }
+
+    public static Result sendContactMessage(){
+        ContactMessage contactMessage = form(ContactMessage.class).bindFromRequest().get();
+
+        MailService.sendContactEmail(contactMessage.name, contactMessage.email, contactMessage.message);
+
+        return index();
+
     }
 
     public static Result recoverPassword(){

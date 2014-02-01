@@ -44,9 +44,8 @@
                         }
 
                     <div class="therapistInfo">
-                        @*<a href="@routes.PatientController.therapistProfile(patient.id)"><p class="inline">@therapist.name @therapist.surname</p></a>*@
-                    <p class="inline">@patient.name @patient.surname</p>
-                    <p class="inline">@patient.dni</p>
+                        <a href="@routes.PatientController.patientProfile(patient.id)"><p class="inline">@patient.name @patient.surname</p></a>
+
                         @if(Secured.isAdmin){
                             <a class="pull-right" data-toggle="modal" href="#@patient.id"><img src="@routes.Assets.at("images/delete.png")" alt="Eliminar" height="10" width="10"></a>
                         }

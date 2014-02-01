@@ -64,7 +64,7 @@
             <h3>Pacientes</h3>
             <ul class="toggle">
                 <li class="icn_view_users"><a href="@routes.PatientController.patientList()">Pacientes</a></li>
-                <li class="icn_view_users"><a href="#">Mis Pacientes</a></li>
+                <li class="icn_view_users"><a href="@routes.PatientController.myPatients()">Mis Pacientes</a></li>
                 @if(Secured.isAdmin){
                     <li class="icn_add_user"><a href="@routes.PatientController.createPatient()">Nuevo Paciente</a></li>
                 }
@@ -77,14 +77,29 @@
                 }
 
             </ul>
-            <h3>Equipos de Trabajo</h3>
+            <h3>Paquetes</h3>
             <ul class="toggle">
-                <li class="icn_folder"><a href="@routes.TeamController.teamList()">Equipos</a></li>
-                <li class="icn_photo"><a href="#">Mis Equipos</a></li>
-                @if(Secured.isAdmin){
-                    <li class="icn_new_article"><a href="#">Nuevo Equipo</a></li>
-                }
+                <li class="icn_view_users"><a href="">Mis Paquetes</a></li>
+                <li class="icn_view_users"><a href="@routes.GamePackageController.getCardsPackageLoader()">Crear paquete de cartas</a></li>
+                <li class="icn_view_users"><a href="@routes.GamePackageController.getClassificationLoader()">Crear Paquete de clasificación</a></li>
+                <li class="icn_view_users"><a href="@routes.GamePackageController.getSoCoCoLoader()">Crear Paquete de sococo</a></li>
+                <li class="icn_view_users"><a href="@routes.GamePackageController.getImageQAPackageLoader()">Crear Paquete de Q&A imagenes</a></li>
+                <li class="icn_view_users"><a href="@routes.GamePackageController.getSoundQAPackageLoader()">Crear Paquete de Q&A sonido</a></li>
+                <li class="icn_view_users"><a href="@routes.GamePackageController.getTextQAPackageLoader()">Crear Paquete de Q&A de texto</a></li>
+                <li class="icn_view_users"><a href="@routes.GamePackageController.getSentencePackageLoader()">Crear Paquete de oraciones</a></li>
+                <li class="icn_view_users"><a href="@routes.GamePackageController.getConversationLoader()">Crear Paquete de conversación</a></li>
+
+
             </ul>
+            @*<h3>Equipos de Trabajo</h3>*@
+            @*<ul class="toggle">*@
+                @*<li class="icn_folder"><a href="@routes.TeamController.teamList()">Equipos</a></li>*@
+                @*<li class="icn_photo"><a href="#">Mis Equipos</a></li>*@
+                @*@if(Secured.isAdmin){*@
+                    @*<li class="icn_new_article"><a href="#">Nuevo Equipo</a></li>*@
+                @*}*@
+            @*</ul>*@
+
             <h3>Administrar</h3>
             <ul class="toggle">
                 <li class="icn_profile"><a href="@routes.TherapistController.profile()">Mi Perfil</a></li>
@@ -104,8 +119,6 @@
 
 
         <section id="main" class="column">
-
-
 
             @content
         </section>

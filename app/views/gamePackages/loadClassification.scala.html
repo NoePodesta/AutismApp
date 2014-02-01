@@ -12,18 +12,27 @@
 
 
 @main2(title,navigator,  "classSheepIt.js"){
+    <div class="container-fluid">
+        <div id=therapistForm>
     @form(routes.GamePackageController.saveClassificationPackage(), 'enctype -> "multipart/form-data") {
         <!-- Main sheepIt Form -->
-        <label>Cargar paquete de Clasificacion</label>
+
+
 
 
         <div id="class_package">
+            <fieldset>
+                <legend>Información del paquete</legend>
 
             <div class="field">
                 <label for="packageName">Nombre del Paquete</label>
                 <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
             </div>
 
+                </fieldset>
+
+            <fieldset>
+                <legend>Pregunta de clasificación</legend>
                 <!-- Form template-->
             <div id="class_package_template">
 
@@ -64,6 +73,7 @@
 
 
             </div>
+            </fieldset>
                 <!-- /Form template -->
 
 
@@ -74,9 +84,11 @@
 
                 <!-- Controls -->
             <div id="class_package_controls" class="controls">
-                <div id="class_package_add"><a><span>Añadir pregunta</span></a></div>
-                <div id="class_package_remove_last"><a><span>Borrar ultima</span></a></div>
-                <div id="class_package_remove_all"><a><span>Borrar todas</span></a></div>
+                <div id="class_package_add" class="inline"><a class="infoControl">Añadir pregunta</a></div>
+                <div class="inline"> - </div>
+                <div id="class_package_remove_last" class="inline"><a class="infoControl">Borrar ultima</a></div>
+                <div class="inline"> - </div>
+                <div id="class_package_remove_all" class="inline"><a class="infoControl">Borrar todas</a></div>
             </div>
                 <!-- /Controls -->
 
@@ -84,9 +96,13 @@
         <!-- /Main sheepIt Form -->
 
         <div class="actions">
-            <input type="submit" value="Guardar Paquete" class="btn primary">
+            <input type="submit" value="Guardar Paquete" class="btn btn-info">
         </div>
 
 
+
+
     }
+        </div>
+    </div>
 }

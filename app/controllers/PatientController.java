@@ -7,6 +7,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import views.html.patient.patientProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +34,20 @@ public class PatientController
     }
 
     public static Result patientList() {
-        return ok(
-                views.html.patient.patients.render(Patient.findPatientByInstitution(
+        return ok(views.html.patient.patients.render(Patient.findPatientByInstitution(
                         Therapist.findTherapistByDNI(session().get(Msg.DNI)).institution))
         );
+    }
+
+    public static Result myPatients() {
+        Therapist therapist = Therapist.findTherapistByDNI(session().get(Msg.DNI));
+        List<Team> assignedTeams = therapist.getAssignedTeams();
+        List<Patient> patients = new ArrayList<Patient>();
+        for(Team team : assignedTeams){
+            patients.add(team.getPatient());
+        }
+
+        return ok(views.html.patient.patients.render(patients));
     }
 
     public static Result savePatient() {
@@ -153,4 +164,8 @@ public class PatientController
 
         return patients;
     }
+
+    public static Result patientProfile(int id){
+        Patient patient = Patient.findPatientById(id);
+        return ok(views.html.patient.patientProfile.render(patient));    }
 }

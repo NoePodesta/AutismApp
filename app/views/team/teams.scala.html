@@ -1,116 +1,116 @@
-@(teamList: List[models.Team])
-@import helper._
+@*@(teamList: List[models.Team])*@
+@*@import helper._*@
 
-@title = {
-    Equipos de Trabajo
-}
+@*@title = {*@
+    @*Equipos de Trabajo*@
+@*}*@
 
-    @navigator = {
+    @*@navigator = {*@
 
-        <a class="current">Equipos de Trabajo</a>
+        @*<a class="current">Equipos de Trabajo</a>*@
 
-    }
-    @main2(title,navigator, null) {
+    @*}*@
+    @*@main2(title,navigator, null) {*@
 
-        <div class="container-fluid">
-        @if(flash.containsKey("success")) {
-        <div class="alert-message warning">
-            <strong>Done!</strong> @flash.get("success")
-        </div>
-        }
+        @*<div class="container-fluid">*@
+        @*@if(flash.containsKey("success")) {*@
+        @*<div class="alert-message warning">*@
+            @*<strong>Done!</strong> @flash.get("success")*@
+        @*</div>*@
+        @*}*@
 
-        @if(teamList.isEmpty()) {
+        @*@if(teamList.isEmpty()) {*@
 
-        <div class="well">
-            <em>No se han ingresado equipos de trabajo</em>
-        </div>
+        @*<div class="well">*@
+            @*<em>No se han ingresado equipos de trabajo</em>*@
+        @*</div>*@
 
-        } else {
+        @*} else {*@
 
-            <div class="row">
-            @for(team <- teamList) {
+            @*<div class="row">*@
+            @*@for(team <- teamList) {*@
 
 
-                <div class="team span5">
-                    <div class="container-fluid">
-                        <div class="row-fluid">
-                            <div class="span1"></div>
+                @*<div class="team span5">*@
+                    @*<div class="container-fluid">*@
+                        @*<div class="row-fluid">*@
+                            @*<div class="span1"></div>*@
                             @*<div class="span1">*@
                             @*<img src="@routes.Assets.at(team.getPatient.image)" alt="@team.getPatient.name" height="100" width="100">*@
                             @*</div>*@
-                            <div class="span4">
-                                @if(Secured.isAdmin){
-                                    <a class="pull-right" data-toggle="modal" href="#@team.id"><img src="@routes.Assets.at("images/delete.png")" alt="Eliminar" height="10" width="10"></a>
-                                }
-                                @if(team.getPatient != null){
-                                    <label class="name"> @team.getPatient.name  @team.getPatient.surname</label>
-                                }else{
-                                    <label class="name">No se ha Asignado ningún paciente</label>
-                                }
+                            @*<div class="span4">*@
+                                @*@if(Secured.isAdmin){*@
+                                    @*<a class="pull-right" data-toggle="modal" href="#@team.id"><img src="@routes.Assets.at("images/delete.png")" alt="Eliminar" height="10" width="10"></a>*@
+                                @*}*@
+                                @*@if(team.getPatient != null){*@
+                                    @*<label class="name"> @team.getPatient.name  @team.getPatient.surname</label>*@
+                                @*}else{*@
+                                    @*<label class="name">No se ha Asignado ningún paciente</label>*@
+                                @*}*@
 
-                                @if(team.getSupervisor != null){
-                                    <label>Supervisor: @team.getSupervisor.name @team.getSupervisor.surname </label>
-                                }else{
-                                    <label>Supervisor: No se ha asignado ningún supervisor</label>
-                                }
+                                @*@if(team.getSupervisor != null){*@
+                                    @*<label>Supervisor: @team.getSupervisor.name @team.getSupervisor.surname </label>*@
+                                @*}else{*@
+                                    @*<label>Supervisor: No se ha asignado ningún supervisor</label>*@
+                                @*}*@
 
-                                @if(team.getCoordinator() != null){
-                                    <label>Coordinador: @team.getCoordinator.name @team.getCoordinator.surname</label>
-                                }else{
-                            <label>Coordinador: No se ha asignado ningún coordinador</label>
-                                }
+                                @*@if(team.getCoordinator() != null){*@
+                                    @*<label>Coordinador: @team.getCoordinator.name @team.getCoordinator.surname</label>*@
+                                @*}else{*@
+                            @*<label>Coordinador: No se ha asignado ningún coordinador</label>*@
+                                @*}*@
 
-                                @if(team.getIntegrator() != null){
-                                    <label>Integrador: @team.getIntegrator.name @team.getIntegrator.surname</label>
-                                }else{
-                            <label>Coordinador: No se ha asignado ningún coordinador</label>
-                                }
-                                @if(team.getTherapists() != null){
-                                    <label>Terapeutas: @team.getTherapists().name @team.getTherapists().surname</label>
-                                }else{
-                                    <label>Terapeutas: No se han asignado terapeutas</label>
-                                }
+                                @*@if(team.getIntegrator() != null){*@
+                                    @*<label>Integrador: @team.getIntegrator.name @team.getIntegrator.surname</label>*@
+                                @*}else{*@
+                            @*<label>Coordinador: No se ha asignado ningún coordinador</label>*@
+                                @*}*@
+                                @*@if(team.getTherapists() != null){*@
+                                    @*<label>Terapeutas: @team.getTherapists().name @team.getTherapists().surname</label>*@
+                                @*}else{*@
+                                    @*<label>Terapeutas: No se han asignado terapeutas</label>*@
+                                @*}*@
 
-                                <label class = "edit">
-                                    <a class="btn btn-info disabled" href="@routes.TeamController.editTeam(team.id)">Editar</a>
-                                </label>
+                                @*<label class = "edit">*@
+                                    @*<a class="btn btn-info disabled" href="@routes.TeamController.editTeam(team.id)">Editar</a>*@
+                                @*</label>*@
 
-                            <div class="modal fade" id="@team.id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title">Eliminar Equipo</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                        Estas seguro que queres eliminar a este equipo?
-                                        </div>
-                                        <div class="modal-footer">
-                                            @form(routes.TeamController.removeTeam(team.id)) {
-                                                <input type="submit" value="Eliminar" class="btn btn-danger inline">
-                                            }
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                        </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                            </div><!-- /.modal -->
+                            @*<div class="modal fade" id="@team.id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">*@
+                                @*<div class="modal-dialog">*@
+                                    @*<div class="modal-content">*@
+                                        @*<div class="modal-header">*@
+                                            @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                                            @*<h4 class="modal-title">Eliminar Equipo</h4>*@
+                                        @*</div>*@
+                                        @*<div class="modal-body">*@
+                                        @*Estas seguro que queres eliminar a este equipo?*@
+                                        @*</div>*@
+                                        @*<div class="modal-footer">*@
+                                            @*@form(routes.TeamController.removeTeam(team.id)) {*@
+                                                @*<input type="submit" value="Eliminar" class="btn btn-danger inline">*@
+                                            @*}*@
+                                        @*<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>*@
+                                        @*</div>*@
+                                    @*</div><!-- /.modal-content -->*@
+                                @*</div><!-- /.modal-dialog -->*@
+                            @*</div><!-- /.modal -->*@
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            }
-            </div>
-
-        }
-
-        <fieldset class="actionst">
-            <a class="btn btn-success" id="add" href="@routes.TeamController.createTeam()"> Agregar Equipo de Trabajo</a>
-        </fieldset>
+                            @*</div>*@
+                        @*</div>*@
+                    @*</div>*@
+                @*</div>*@
 
 
- </div>
+            @*}*@
+            @*</div>*@
 
-}
+        @*}*@
+
+        @*<fieldset class="actionst">*@
+            @*<a class="btn btn-success" id="add" href="@routes.TeamController.createTeam()"> Agregar Equipo de Trabajo</a>*@
+        @*</fieldset>*@
+
+
+ @*</div>*@
+
+@*}*@

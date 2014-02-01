@@ -114,6 +114,12 @@ public class Patient
                 .findUnique();
     }
 
+    public static Patient findPatientById(String id){
+        return find.where()
+                .eq("id",id)
+                .findUnique();
+    }
+
     public static boolean delete(int id) {
         Patient patientToDelete = findPatientById(id);
         if(patientToDelete != null){

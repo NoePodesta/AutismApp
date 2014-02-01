@@ -17,7 +17,9 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
-                <a class="image-btn btn btn-info disabled" data-toggle="modal" href="#changeImage">Modificar</a>
+                @if(Application.getCurrentTherapist.equals(currentTherapist)){
+                  <a class="image-btn btn btn-info disabled" data-toggle="modal" href="#changeImage">Modificar</a>
+                }
                 <a href="#profileImage" data-toggle="modal"><img class="img-polaroid img-profile" src="@routes.Assets.at(currentTherapist.image)" alt="@currentTherapist.name"
                 height="200" width="200"></a>
 
@@ -43,7 +45,7 @@
             <div class="teamInfo">
 
                 <h2>Equipos de trabajo <span class="badge">
-                @if(currentTherapist.getAssignedTeams()!=null){currentTherapist.team.size()}
+                @if(currentTherapist.getAssignedTeams()!=null){ @currentTherapist.getAssignedTeams.size()}
                 </span></h2>
                 @if(currentTherapist.getAssignedTeams() != null){
 

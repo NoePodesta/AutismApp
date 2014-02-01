@@ -6,173 +6,206 @@
 
     @navigator = {
 
-        <a href="@routes.PatientController.patientList()">Pacientes</a><div class="breadcrumb_divider">
-            <a href="#"> @patientForm.get().name @patientForm.get().surname</a>
-            <div class="breadcrumb_divider">
-            <a class="current"> Editar</a>
-            }
+        <a href="@routes.PatientController.patientList()">Pacientes</a>
+        <div class="breadcrumb_divider"></div>
+        <a href="#"> @patientForm.get().name @patientForm.get().surname</a>
+        <div class="breadcrumb_divider"></div>
+        <a class="current"> Editar</a>
+    }
 
-@import helper._
-@import helper.twitterBootstrap._
+    @import helper._
+    @import helper.twitterBootstrap._
 
-@main2(title ,navigator, null){
-    <div class="container-fluid">
-    <div id=therapistForm>
-        @if(patientForm.hasErrors) {
-            <div class="alert-message error">
-                <p><strong>Oops!</strong> Hay algunos errores</p>
-            </div>
-        }
-
-
-        @helper.form(routes.PatientController.updatePatient(), 'enctype -> "multipart/form-data") {
-            <input type="hidden" value="@patientForm("id").value" name="id" />
-
-            <fieldset>
-                <legend>Información General</legend>
-
-
-                @inputText(patientForm("name"),
-                    '_label -> "Nombre"
-                )
-                @inputText(
-                    patientForm("surname"),
-                    '_label -> "Apellido"
-                )
-
-                @inputText(
-                    patientForm("dni"),
-                    '_label -> "DNI",
-                    '_error -> patientForm.globalError
-                )
-
-                @select(
-                    patientForm("genero"),
-                    options = options(Gender.all()),
-                    '_default -> "--- Eliga el sexo ---",
-                    '_label -> "Sexo",
-                    '_error -> patientForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo"))
-                )
-
-                @helper.inputDate(
-                    patientForm("birthday"),
-                    '_label -> "Fecha de Nacimiento",
-                    '_help -> "Formato dd/MM/yyyy" ,
-                    'format -> "dd/MM/yyyy"
-                )
-
-                @inputText(
-                    patientForm("mail"),
-                    '_label -> "Correo electrónico"
-                )
-
-                <div class="clearfix  " id="picture_field">
-                    <label for="picture">Imagen de Perfil</label>
-                    <div class="input">
-
-                        <input type="file" id="picture" name="picture" accept="image/*" >
-                        <span class="help-inline"></span>
-                        <span class="help-block">Ingrese una imagen de perfil.</span>
+    @main2(title ,navigator, null){
+        <div class="container-fluid">
+            <div id=therapistForm>
+                @if(patientForm.hasErrors) {
+                    <div class="alert-message error">
+                        <p><strong>Oops!</strong> Hay algunos errores</p>
                     </div>
-                </div>
-
-            </fieldset>
-
-            <fieldset>
-
-                <legend>Dirección</legend>
-
-                @inputText(
-                    patientForm("address.cp"),
-                    '_label -> "Codigo Postal"
-                )
-
-                @inputText(
-                    patientForm("address.street"),
-                    '_label -> "Calle"
-                )
-
-                @inputText(
-                    patientForm("address.number"),
-                    '_label -> "Número",'class -> "mini",
-                    '_showConstraints -> false
-                )
-
-                @inputText(
-                    patientForm("address.floor"),
-                    '_label -> "Piso", 'class -> "mini"
-                )
-
-                @inputText(
-                    patientForm("address.depto"),
-                    '_label -> "Departamento", 'class -> "mini"
-                )
-
-                @inputText(
-                    patientForm("address.locality"),
-                    '_label -> "Localidad"
-                )
-
-                @select(
-                    patientForm("address.province"),
-                    options = options(Province.list),
-                    '_default -> "--- Eliga una provincia ---",
-                    '_label -> "Provincia",
-                    '_error -> patientForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
-                )
-
-            </fieldset>
-
-            <fieldset>
-
-                <legend>Teléfonos</legend>
-
-                @inputText(
-                    patientForm("telephone"),
-                    '_label -> "Teléfono"
-                )
-                @inputText(
-                    patientForm( "cellphone"),
-                    '_label -> "Celular"
-                )
-            </fieldset>
+                }
 
 
-            <fieldset>
+                @helper.form(routes.PatientController.updatePatient(), 'enctype -> "multipart/form-data") {
+                    <input type="hidden" value="@patientForm("id").value" name="id" />
 
-                <legend>Enfermedad</legend>
-
-                @inputText(
-                    patientForm("disease"),
-                    '_label -> "Enfermedad"
-                )
-                @inputText(
-                    patientForm("gradeDisease"),
-                    '_label -> "Grado de Enfermedad"
-                )
-            </fieldset>
-
-            <fieldset>
-
-                <legend>Cobertura Médica</legend>
-
-                @inputText(
-                    patientForm("medicalCoverage"),
-                    '_label -> "Cobertura Médica"
-                )
-                @inputText(
-                    patientForm("nMedicalCoverage"),
-                    '_label -> "Número"
-                )
-            </fieldset>
+                    <fieldset>
+                        <legend>Información General</legend>
 
 
+                        @inputText(patientForm("name"),
+                            '_label -> "Nombre",
+                            '_showConstraints -> false
 
-            <div class="actions">
-                <input type="submit" value="Actualizar" class="btn primary">
+                        )
+                        @inputText(
+                            patientForm("surname"),
+                            '_label -> "Apellido",
+                            '_showConstraints -> false
+
+                        )
+
+                        @inputText(
+                            patientForm("dni"),
+                            '_label -> "DNI",
+                            '_error -> patientForm.globalError ,
+                            '_showConstraints -> false
+
+                        )
+
+                        @select(
+                            patientForm("genero"),
+                            options = options(Gender.all()),
+                            '_default -> "--- Eliga el sexo ---",
+                            '_label -> "Sexo",
+                            '_error -> patientForm("genero").error.map(_.withMessage("Por Favor seleccione un sexo"))
+                        )
+
+                        @helper.inputDate(
+                            patientForm("birthday"),
+                            '_label -> "Fecha de Nacimiento",
+                            'format -> "dd/MM/yyyy",
+                            '_showConstraints -> false
+
+                        )
+
+                        @inputText(
+                            patientForm("mail"),
+                            '_label -> "Correo electrónico",
+                            '_showConstraints -> false
+
+                        )
+
+                        <div class="clearfix  " id="picture_field">
+                            <label for="picture">Imagen de Perfil</label>
+                            <div class="input">
+
+                                <input type="file" id="picture" name="picture" accept="image/*" >
+                                <span class="help-inline"></span>
+                                <span class="help-block">Ingrese una imagen de perfil.</span>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <legend>Dirección</legend>
+
+                        @inputText(
+                            patientForm("address.cp"),
+                            '_label -> "Codigo Postal",
+                            '_showConstraints -> false
+
+                        )
+
+                        @inputText(
+                            patientForm("address.street"),
+                            '_label -> "Calle" ,
+                            '_showConstraints -> false
+
+                        )
+
+                        @inputText(
+                            patientForm("address.number"),
+                            '_label -> "Número",'class -> "mini",
+                            '_showConstraints -> false
+                        )
+
+                        @inputText(
+                            patientForm("address.floor"),
+                            '_label -> "Piso", 'class -> "mini",
+                            '_showConstraints -> false
+
+                        )
+
+                        @inputText(
+                            patientForm("address.depto"),
+                            '_label -> "Departamento", 'class -> "mini",
+                            '_showConstraints -> false
+
+                        )
+
+                        @inputText(
+                            patientForm("address.locality"),
+                            '_label -> "Localidad",
+                            '_showConstraints -> false
+
+                        )
+
+                        @select(
+                            patientForm("address.province"),
+                            options = options(Province.list),
+                            '_default -> "--- Eliga una provincia ---",
+                            '_label -> "Provincia",
+                            '_error -> patientForm("address.province").error.map(_.withMessage("Por Favor seleccione una provincia"))
+                        )
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <legend>Teléfonos</legend>
+
+                        @inputText(
+                            patientForm("telephone"),
+                            '_label -> "Teléfono",
+                            '_showConstraints -> false
+
+                        )
+                        @inputText(
+                            patientForm( "cellphone"),
+                            '_label -> "Celular",
+                            '_showConstraints -> false
+
+                        )
+                    </fieldset>
+
+
+                    <fieldset>
+
+                        <legend>Enfermedad</legend>
+
+                        @inputText(
+                            patientForm("disease"),
+                            '_label -> "Enfermedad",
+                            '_showConstraints -> false
+
+                        )
+                        @inputText(
+                            patientForm("gradeDisease"),
+                            '_label -> "Grado de Enfermedad",
+                            '_showConstraints -> false
+
+                        )
+                    </fieldset>
+
+                    <fieldset>
+
+                        <legend>Cobertura Médica</legend>
+
+                        @inputText(
+                            patientForm("medicalCoverage"),
+                            '_label -> "Cobertura Médica",
+                            '_showConstraints -> false
+
+                        )
+                        @inputText(
+                            patientForm("nMedicalCoverage"),
+                            '_label -> "Número",
+                            '_showConstraints -> false
+
+                        )
+                    </fieldset>
+
+
+
+                    <div class="actions">
+                        <input type="submit" value="Actualizar" class="btn btn-info">
+                    </div>
+
+                }
             </div>
+        </div>
 
-        }
-    </div>
-    </div>
-}
+    }

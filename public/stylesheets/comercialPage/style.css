@@ -643,3 +643,12 @@ footer a:hover {
 .containerCP{
     margin-left: 125px;
 }
+
+#form input .inline.small{
+    display: inline;
+    width: 50%;
+}
+
+.small{
+
+}

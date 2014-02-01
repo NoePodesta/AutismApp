@@ -9,10 +9,10 @@ import java.util.List;
 public enum Gender {
 
     @EnumValue("Female")
-    FEMALE("Female"),
+    FEMALE("Femenino"),
 
     @EnumValue("Male")
-    MALE("Male");
+    MALE("Masculino");
 
     String value;
 

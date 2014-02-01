@@ -17,6 +17,7 @@ public class MailService extends Controller {
 
     private static MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
 
+
     public static void sendNewUserEmail(String email, String password) {
 
         mail.setSubject("Te han creado una cuenta en Get Together!");
@@ -31,6 +32,19 @@ public class MailService extends Controller {
                 "y que verifiques que tus datos sean correctos. " +
                 "\n\nSaludos," +
                 "\nEquipo GetTogether" );
+        //sends both text and html
+        //mail.send( "text", "<html>html</html>");
+    }
+
+    public static void sendContactEmail(String name, String email, String message) {
+
+        mail.setSubject("Nuevo Mesaje de Contacto de: " + name);
+        mail.addFrom(email);
+        mail.addRecipient("gettogethertest@gmail.com");
+        //sends html
+        //mail.sendHtml("<html>html</html>" );
+        //sends text/text
+        mail.send(message);
         //sends both text and html
         //mail.send( "text", "<html>html</html>");
     }

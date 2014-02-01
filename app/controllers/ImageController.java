@@ -35,7 +35,7 @@ public class ImageController extends Controller {
             File file = picture.getFile();
 
             File destinationFile = new File(play.Play.application().path().toString() + Msg.PUBLIC_UPLOADS
-                    + Utils.removeSpaces(user.name) + Utils.removeSpaces(user.surname) + Msg.DOBLE_BARRA + fileName);
+                    + user.dni + Msg.DOBLE_BARRA + fileName);
 
             try {
                 FileUtils.copyFile(file, destinationFile);
@@ -44,7 +44,7 @@ public class ImageController extends Controller {
                 e.printStackTrace();
             }
 
-            pathFile = Msg.UPLOADS + Utils.removeSpaces(user.name) + Utils.removeSpaces(user.surname) + "/" + fileName;
+            pathFile = Msg.UPLOADS + user.dni + "/" + fileName;
         }else{
             pathFile = gender.isFemale() ? Msg.FEMALE_IMAGE : Msg.MALE_IMAGE;
 

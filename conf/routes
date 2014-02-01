@@ -23,12 +23,18 @@ POST        /signUp                                controllers.Application.signU
 POST        /partialSignUp                         controllers.Application.partialSignUp()
 POST        /signUpInstitution                     controllers.InstitutionController.signUpInstitution()
 POST        /signUpAdmin                           controllers.Application.signUpAdmin()
+POST        /contactMessage                        controllers.Application.sendContactMessage()
 GET         /signUp                                controllers.Application.signUpInstitution()
 
 
 
 # List Pacient
 GET         /patients                              controllers.PatientController.patientList()
+GET         /myPatients                            controllers.PatientController.myPatients()
+
+# Patient Profile
+GET         /patientProfile/:id                    controllers.PatientController.patientProfile(id: Integer)
+
 
 # Add Patient
 GET         /patients/new                          controllers.PatientController.createPatient()
@@ -64,10 +70,10 @@ POST        /modifyTherapistImage                  controllers.TherapistControll
 
 
 # List Team
-GET         /teams                                 controllers.TeamController.teamList()
+#GET         /teams                                 controllers.TeamController.teamList()
 
 # Add Team
-GET         /teams/new                             controllers.TeamController.createTeam()
+GET         /teams/new/:id                         controllers.TeamController.createTeam(id:Integer)
 POST        /teams                                 controllers.TeamController.saveTeam()
 
 #Edit Team

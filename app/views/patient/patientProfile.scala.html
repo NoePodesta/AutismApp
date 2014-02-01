@@ -1,0 +1,178 @@
+@(patient: Patient)
+
+    @title = {
+        Profile
+    }
+
+    @navigator = {
+
+        <a href="@routes.PatientController.patientList()">Pacientes</a><div class="breadcrumb_divider"></div>
+        <a class="current">@patient.name @patient.surname</a>
+    }
+
+@main2(title, navigator, null) {
+
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <a class="image-btn btn btn-info disabled" data-toggle="modal" href="#changeImage">Modificar</a>
+                <a href="#profileImage" data-toggle="modal"><img class="img-polaroid img-profile" src="@routes.Assets.at(patient.image)" alt="@patient.name"
+                height="200" width="200"></a>
+
+            </div>
+            <div class="span9">
+                <div class="profileInfo">
+                    <h2>Informacion Personal
+                        @if(Secured.isAdmin){
+                            <a href="@routes.PatientController.editPatient(patient.id)" type="button" class="btn btn-info right">Editar</a>
+                        }
+                    </h2>
+                    <div class="information"><i class="icon-user"></i>@patient.name @patient.surname</div>
+                    <div class="information"><i class="icon-home"></i>@patient.address.street @patient.address.number @patient.address.floor
+                        @patient.address.depto, @patient.address.cp,
+                        @patient.address.locality, @patient.address.province</div>
+                    <div class="information"><i class="icon-telephone"></i>@patient.telephone</div>
+                    <div class="information"><i class="icon-cellphone"></i>@patient.cellphone</div>
+                    <div class="information"><i class="icon-envelope"></i>@patient.mail</div>
+                    <div class="information"><p class="inline underline">DNI:</p>
+                        <p class="inline">@patient.dni</p></div>
+                    <div class="information"><p class="inline underline">Obra Social:</p>
+                        <p class="inline">@patient.medicalCoverage</p></div>
+                    <div class="information"><p class="inline underline">Número de obra social:</p>
+                        <p class="inline">@patient.nMedicalCoverage</p></div>
+                    <div class="information"><p class="inline underline">Enfermedad:</p>
+                        <p class="inline">@patient.disease</p></div>
+                    <div class="information"><p class="inline underline">Nivel de Enfermedad:</p>
+                        <p class="inline">@patient.gradeDisease</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="teamInfo">
+
+                <h2>Equipo de trabajo
+                    @if(Secured.isAdmin && patient.team != null){
+                        <button type="button" class="btn btn-info right">Editar</button>
+                    }
+
+                </h2>
+                @if(patient.team != null){
+                    <div class="span4">
+                        <div class="well">
+                            @if(patient.team.getCoordinator.image != null){
+                                <img class="img-polaroid" src="@routes.Assets.at(patient.team.getCoordinator.image)" alt="@patient.team.getCoordinator.name" height="42" width="42">
+                            }
+
+                            <div class="therapistInfo">
+                                <a href="@routes.TherapistController.therapistProfile(patient.team.getCoordinator.id)"><p class="inline">@patient.team.getCoordinator.name @patient.team.getCoordinator.surname</p></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div class="well">
+                            @if(patient.team.getIntegrator.image != null){
+                                <img class="img-polaroid" src="@routes.Assets.at(patient.team.getIntegrator.image)" alt="@patient.team.getIntegrator.name" height="42" width="42">
+                            }
+
+                            <div class="therapistInfo">
+                                <a href="@routes.TherapistController.therapistProfile(patient.team.getIntegrator.id)"><p class="inline">@patient.team.getIntegrator.name @patient.team.getIntegrator.surname</p></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span4">
+                        <div class="well">
+                            @if(patient.team.getSupervisor.image != null){
+                                <img class="img-polaroid" src="@routes.Assets.at(patient.team.getSupervisor.image)" alt="@patient.team.getSupervisor.name" height="42" width="42">
+                            }
+
+                            <div class="therapistInfo">
+                                <a href="@routes.TherapistController.therapistProfile(patient.team.getSupervisor.id)"><p class="inline">@patient.team.getSupervisor.name @patient.team.getSupervisor.surname</p></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if(patient.team.getTherapists != null){
+
+
+                        @*@for(therapist <- patient.team.getTherapists())*@
+                        @*{*@
+                        @*<div class="span4">*@
+                            @*<div class="well">*@
+
+                                @*@if(therapist.image != null){*@
+                                    @*<img class="img-polaroid" src="@routes.Assets.at(therapist.image)" alt="@therapist.name" height="42" width="42">*@
+                                @*}*@
+
+                                @*<div class="therapistInfo">*@
+                                    @*<a href="@routes.TherapistController.therapistProfile(therapist.id)"><p class="inline">@therapist.name @therapist.surname</p></a>*@
+                                @*</div>*@
+                            @*</div>*@
+                        @*</div>*@
+                        @*}*@
+                    }
+
+
+                }else{
+                    <div class="well">
+
+                        <a data-toggle="modal" href="@routes.TeamController.createTeam(patient.id)">Asignar Equipo de trabajo</a>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="changeImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*Button to close the modal*@
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Modificar Imagen</h4>
+                </div>
+                @helper.form(routes.TherapistController.updateTherapistImage(), 'enctype -> "multipart/form-data") {
+                    <div class="modal-body">
+                        <div class="clearfix  " id="picture_field">
+                            <label for="picture">Imagen de Perfil</label>
+                            <div class="input">
+
+                                <input type="file" id="picture" name="picture" accept="image/*" >
+                                <span class="help-inline"></span>
+                                <span class="help-block">Ingrese una imagen de perfil.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="actions">
+                            <input type="submit" value="Actualizar" class="btn btn-success">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                        </div>
+
+                    </div>
+                }
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="profileImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-profile" src="@routes.Assets.at(patient.image)" alt="@patient.name"
+                    height="100%" width="100%">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+}

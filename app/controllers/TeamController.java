@@ -6,11 +6,13 @@ import models.*;
 import msg.Msg;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
 
 import java.util.ArrayList;
+
 
 import static play.data.Form.form;
 /**
@@ -23,22 +25,26 @@ import static play.data.Form.form;
 @Security.Authenticated(Secured.class)
 public class TeamController extends Controller {
 
-    public static Result createTeam() {
-//        if (Secured.isAdmin()) {
-        Form<Team> teamForm = form(Team.class);
-        return ok(
-                views.html.team.createTeamForm.render(teamForm)
-        );
-//        }else{
-//            return forbidden();
-//        }
+    public static Result createTeam(int patientId) {
+        if (Secured.isAdmin()) {
+            Form<Team> teamForm = form(Team.class);
+
+            return ok(
+                    views.html.team.createTeamForm.render(teamForm, Patient.findPatientById(patientId)));
+        }else{
+            return forbidden();
+        }
     }
 
     public static Result saveTeam() {
         Form<Team> teamForm = form(Team.class).bindFromRequest();
 
+        String patientId = teamForm.data().get(Msg.PATIENT);
+        Patient patient = Patient.findPatientById(patientId);
+
+
         if(teamForm.hasErrors()) {
-            return badRequest( views.html.team.createTeamForm.render(teamForm));
+            return badRequest( views.html.team.createTeamForm.render(teamForm, patient));
         }
 
         Team team = new Team();
@@ -46,11 +52,7 @@ public class TeamController extends Controller {
         Ebean.save(team);
 
 
-
         //Patient
-        String patientDni = teamForm.data().get(Msg.PATIENT);
-        String[] patientArray = patientDni.split("-");
-        Patient patient = Patient.findPatientByDNI(patientArray[1].trim());
         team.patient = patient;
         patient.team = team;
 
@@ -143,15 +145,15 @@ public class TeamController extends Controller {
         Ebean.update(patient);
         flash(Msg.SUCCESS, Msg.TEAM_CREATED);
 
-        return teamList();
+        return PatientController.patientProfile(patient.id);
     }
 
-    public static Result teamList() {
-        return ok(
-                views.html.team.teams.render(Team.findByInstitution(TherapistController.getTherapistByDNI(session().get("dni")).institution))
-        );
-
-    }
+//    public static Result teamList() {
+//        return ok(
+//                views.html.team.teams.render(Team.findByInstitution(TherapistController.getTherapistByDNI(session().get("dni")).institution))
+//        );
+//
+//    }
 
     public static Result editTeam(int id) {
         Team teamToFill = Team.findTeamById(id);
@@ -160,12 +162,13 @@ public class TeamController extends Controller {
     }
 
     public static Result removeTeam(int id){
+        Patient patient = Team.findTeamById(id).patient;
         if(Team.deleteTeam(id)){
             flash(Msg.SUCCESS, Msg.REMOVE(Msg.TEAM));
         }else{
             //Do Error Message
         }
-        return teamList();
+        return PatientController.patientProfile(patient.id);
     }
 
     public static Result updateTeam(){

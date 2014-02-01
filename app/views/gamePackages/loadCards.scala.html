@@ -1,58 +1,69 @@
 @import helper._
 
-@title = {
+    @title = {
     Dar de alta pregunta
 }
 
-@navigator = {
+    @navigator = {
 
     <a href="">Cards</a>
 
 }
 
 @main2(title, navigator, "cardsSheepIt.js"){
-    @form(routes.GamePackageController.saveCardPackage(), 'enctype -> "multipart/form-data") {
-        <!-- Main sheepIt Form -->
-        <label>Cargar paquete de Tarjetas</label>
+    <div class="container-fluid">
+        <div id=therapistForm>
+        @form(routes.GamePackageController.saveCardPackage(), 'enctype -> "multipart/form-data") {
+                <!-- Main sheepIt Form -->
+
+            <fieldset>
+                <legend>Información del paquete</legend>
 
 
-
-
-        <div class="field">
-            <label for="packageName">Nombre del Paquete</label>
-            <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
-        </div>
-
-        <div id="cards">
-
-            <div id="cards_template">
-                <label for="cards_#index#">Texto </label>
-                <input id="cards_#index#" name="cardLabel_#index#" type="text" size="15" maxlength="10" />
-                <label for="cards_#index#_imageURL">Imagen</label>
-                <input type="file" id="picture" name="imageURL_#index#" accept="image/*" >
+            <div class="field">
+                <label for="packageName">Nombre del Paquete</label>
+                <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
             </div>
+            </fieldset>
+            <fieldset>
+
+                <legend>Tarjetas</legend>
+
+            <div id="cards">
+
+                <div id="cards_template">
+                    <label for="cards_#index#">Texto </label>
+                    <input id="cards_#index#" name="cardLabel_#index#" type="text" size="15" maxlength="10" />
+                    <label for="cards_#index#_imageURL">Imagen</label>
+                    <input type="file" id="picture" name="imageURL_#index#" accept="image/*" >
+                </div>
 
 
 
-                <!-- No forms template -->
-            <div id="cards_noforms_template">No hay tarjetas</div>
-                <!-- /No forms template -->
+                    <!-- No forms template -->
+                <div id="cards_noforms_template">No hay tarjetas</div>
+                    <!-- /No forms template -->
 
-                <!-- Controls -->
-            <div id="cards_controls" class="controls">
-                <div id="cards_add"><a><span>Añadir tarjeta</span></a></div>
-                <div id="cards_remove_last"><a><span>Borrar ultima</span></a></div>
-                <div id="cards_remove_all"><a><span>Borrar todas</span></a></div>
+                    <!-- Controls -->
+                <div id="cards_controls" class="controls">
+                    <div id="cards_add" class="inline"><a class="infoControl">Añadir tarjeta</a></div>
+                    <div class="inline"> - </div>
+                    <div id="cards_remove_last" class="inline"><a class="infoControl">Borrar ultima</a></div>
+                    <div class="inline"> - </div>
+                    <div id="cards_remove_all" class="inline"><a class="infoControl">Borrar todas</a></div>
+                </div>
+                    <!-- /Controls -->
+
             </div>
-                <!-- /Controls -->
+                <!-- /Main sheepIt Form -->
 
+            <div class="actions">
+                <input type="submit" value="Guardar Paquete"  class="btn btn-info">
+            </div>
+                </fieldset>
+
+
+        }
         </div>
-        <!-- /Main sheepIt Form -->
-
-        <div class="actions">
-            <input type="submit" value="Guardar Paquete" class="btn primary">
-        </div>
-
-
-    }
+    </div>
 }

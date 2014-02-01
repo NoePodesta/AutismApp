@@ -124,4 +124,7 @@ public class Team extends Model {
     }
 
 
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 }
