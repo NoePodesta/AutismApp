@@ -10,12 +10,10 @@
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	
-	public class DragableTextOption extends ClassificationOption {
-
-
+	public class DragableTextOption extends ClassificationOption {		
+	
 		
-		var textArea : TextField;
-		var textFormat : TextFormat;
+		var dragableTextIcon : DragableTextIcon;
 		
 		
 		public function DragableTextOption(gameManager : GameManager,content : String, positionX : int, positionY : int, group : int) {
@@ -23,31 +21,11 @@
 			addEventListener(TouchEvent.TOUCH_BEGIN, onTouchBegin);
 			addEventListener(TouchEvent.TOUCH_END, onTouchEnd);
 			
-			
-			
-		
-			textArea = new TextField();
-			textArea.width = 220;
-			textArea.height = 35;
-			textArea.border = true;
-			textArea.wordWrap = true;
-			textArea.background = true;
-			textArea.backgroundColor = 0xFFFFFF;				
-			
-			textFormat = new TextFormat;
-			textFormat.size = 25;
-			textFormat.align = TextFormatAlign.CENTER;
-			textFormat.font = "Charlemagne Std";
-			textFormat.bold = true;
-			
-			textArea.defaultTextFormat = textFormat;
-			textArea.text = content;				
-			
-			addChild(textArea);
-			onCompleteTextLoad();
-			
-			
-			
+			dragableTextIcon = new DragableTextIcon();
+			dragableTextIcon.content_txt.text = content;	
+						
+			addChild(dragableTextIcon);
+			onCompleteTextLoad();	
 			
 		}
 

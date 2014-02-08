@@ -34,21 +34,21 @@
 		
 		
 		function createMadComponents() : void{
-			var attributes : Attributes = new Attributes(0,0,300,20);
-			
-			
+			var attributes : Attributes = new Attributes(0,0,300,20);			
 
 			mainConversationList = new UIList(this, <list alignV="scroll"></list>,attributes);
 			mainConversationList.data = new Array(conversationFlow[0]);
 			mainConversationList.scrollEnabled = true;
 			trace(mainConversationList.attributes.noScroll);
-			//mainConversationList.x = 1024/2 - mainConversationList.width/2;
-			//mainConversationList.y = 50;
+			
 			removeChild(mainConversationList);
 	
 			var rectangle : MovieClip = new emotionGraphicAnswerMask_mc;
 			rectangle.x = 1024/2 - rectangle.width/2;
-			rectangle.y = 50;
+			rectangle.y = 62;
+			
+			//mainConversationList.x = 1024/2 - rectangle.width/2;
+			//mainConversationList.y = 62;
 			
 			rectangle.addChild(mainConversationList);
 			addChild(rectangle);		
@@ -66,20 +66,20 @@
 					var button : ConversationGameButton;
 				if(i==0){
 					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].data);
-					button.y = 500;
-					button.x = 1024/2 - 100;	
+					button.y = 600;
+					button.x = 1024/2 - button.width;	
 				}else if(i==1){
 					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].data);
-					button.y = 500;
-					button.x = 1024/2 + 100;
+					button.y = 600;
+					button.x = 1024/2 + button.width/4;
 				}else if(i==2){
 					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].data);
 					button.y = 400;
-					button.x = 1024/2 - 100;
+					button.x = 1024/2 - button.width;
 				}else{
 					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].data);
 					button.y = 400;
-					button.x = 1024/2 + 100;
+					button.x = 1024/2 + button.width/4;
 				}
 				addChild(button);
 				button.addEventListener(TouchEvent.TOUCH_TAP, checkAnswer);

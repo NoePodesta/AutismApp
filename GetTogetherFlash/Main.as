@@ -74,7 +74,7 @@
 			gameTypeSelectionScreen.soCoCoButton_mc.addEventListener(TouchEvent.TOUCH_TAP, soCoCoSelected);
 			gameTypeSelectionScreen.sentenceButton_mc.addEventListener(TouchEvent.TOUCH_TAP, sentenceSelected);
 			gameTypeSelectionScreen.soundButton_mc.addEventListener(TouchEvent.TOUCH_TAP, soundSelected);
-		
+			gameTypeSelectionScreen.goBackButton_mc.addEventListener(TouchEvent.TOUCH_TAP, goBackToMainScreen);
 
 
 				
@@ -86,6 +86,8 @@
 			
 			
 		}
+		
+		
 		
 		public function getTherapistPackages(packages : Array):void{
 			if(therapist != null){
@@ -326,7 +328,7 @@
 			addChildAt(bitacoraManager, 0);
 		}
 		
-		public function goBackToMainScreen():void{
+		public function goBackToMainScreen(e : Event):void{
 			removeChildAt(0);
 			addChildAt(mainScreen,0);
 		}
@@ -334,7 +336,7 @@
 		public function sendBitacora(bitacora : String):void{
 			//TODO
 			trace(bitacora);
-			goBackToMainScreen();
+			goBackToMainScreen(null);
 		}
 		
 		public function startOfflineMode():void{

@@ -141,7 +141,7 @@
 			for(var i : int = 0;i<3;i++){
 				addChild(textClassificationOptions[i]);
 				textClassificationOptions[i].x = 100 + 250 * i;
-				textClassificationOptions[i].y = 500;
+				textClassificationOptions[i].y = 600;
 			}
 			currentStage++;
 		}

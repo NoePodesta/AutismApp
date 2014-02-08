@@ -13,13 +13,13 @@
 	public class ClassificationImageAnswerArea extends ClassificationAnswerArea{
 
 		
-		
+		var content : String;
 		var answerImage : Bitmap;		
 		var imageLoader:Loader; 
 		
 		public function ClassificationImageAnswerArea(gameManager:GameManager, classificationGroup : int, optionName: String, content : String, positionY : int){
 			super(gameManager, optionName, classificationGroup, positionY);				
-			
+			this.content = optionName;
 			imageLoader = new Loader();
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteImageLoad);
 			imageLoader.load(new URLRequest(content));				
@@ -27,18 +27,20 @@
 		
 		function onCompleteImageLoad(event : Event){
 			answerImage = imageLoader.content as Bitmap;
-			answerImage.width = 250;
-			answerImage.height = 350;
-			
-		
-			answerImage.x = display.width / 2 - answerImage.width / 2;
-			answerImage.y = 25;
-			addChild(answerImage);
-			x = 1024/2 - width/2;
 			gameManager.onOptionLoadComplete();
 			
 			
 		}
+		
+		public function getQuestion() : String{
+			return content;					
+		}		
+		
+		
+		public function getImage() : Bitmap{
+			return answerImage;
+		}
+		
 		
 		
 		

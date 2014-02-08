@@ -37,8 +37,10 @@
 		}
 		
 		public function getCountArea():MovieClip{
-			countArea.x = x;
-			countArea.y = y;
+			countArea.x = x + 25;
+			countArea.y = y + 50;
+			countArea.width = width;
+			countArea.height = height;
 			countArea.alpha = 0.5;
 			return countArea;
 		}

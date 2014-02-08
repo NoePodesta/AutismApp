@@ -49,9 +49,9 @@
 		private function buildTextOptions(currentStage : int):void{
 			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){
 				if(gameContent.stages[currentStage].options[i].correctAnswer){
-					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 1);
+					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,50 + 250 * i, 650, 1);
 				}else{
-					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 0);
+					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,50 + 250 * i, 650, 0);
 				}				
 			}
 			stagesOptions[currentStage] = options;
@@ -103,10 +103,9 @@
 				}
 			
 				if(gameContent.stages[i].answerType == "Text"){
-					answerArea = new ClassificationTextAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,50);
-					answerArea.onLoadComplete();
+					answerArea = new ClassificationTextAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,411);
 				}else if(gameContent.stages[i].answerType == "Image"){
-					answerArea = new ClassificationImageAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,50);
+					answerArea = new ClassificationImageAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,411);
 				}else if(gameContent.stages[i].answerType == "GIF"){
 					answerArea = new ClassificationGIFAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,50);
 				}	

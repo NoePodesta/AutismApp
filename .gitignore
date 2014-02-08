@@ -13,3 +13,6 @@ dist
 /.project
 /RUNNING_PID
 /.settings
+GetTogetherFlash/GetTogether.swf
+GetTogetherFlash/GetTogether-app.xml
+GetTogetherFlash/temp_xml_plist_file.xml

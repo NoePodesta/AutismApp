@@ -1,49 +1,43 @@
 ﻿package{
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.display.BitmapData;
+	import flash.display.Bitmap;
+	import flash.display.Loader;
+	import flash.net.URLRequest;
+	import flash.display.LoaderInfo;
 	
-	import flash.text.TextField;
-	import flash.text.TextFormat;
-	import flash.text.TextFormatAlign;
 	
 	public class ClassificationTextAnswerArea extends ClassificationAnswerArea{
 
-		
-		
-		var textArea : TextField;
-		var textFormat : TextFormat;
+
+		private var content : String;
+		private var answerImage : Bitmap;
+		private var imageLoader : Loader;
 		
 		public function ClassificationTextAnswerArea(gameManager:GameManager, classificationGroup : int, optionName: String, content : String, positionY : int){
 			super(gameManager, optionName, classificationGroup, positionY);			
-						
-			
-			
-			textArea = new TextField; 
-			textArea.width = 500;
-			textArea.height = 300;
-			
-			textArea.border = true;
-			textArea.wordWrap = true;
-			textArea.background = true;
-			textArea.backgroundColor = 0xFFFFFF;
-			
-			textFormat = new TextFormat;
-			textFormat.size = 50;
-			textFormat.align = TextFormatAlign.CENTER;
-			textFormat.font = "Charlemagne Std";
-			textFormat.bold = true;
-			
-			textArea.defaultTextFormat = textFormat;
-			textArea.text = content;
-			
-			display.x = textArea.width / 2 - display.width/2;
-			
-			addChild(textArea);
-					
-			
-			
-			x = 1024/2 - width/2;
-			
+			this.content = content;		
+			imageLoader= new Loader();
+			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteImageLoad);
+			imageLoader.load(new URLRequest("SignsImages/QuestionMark.png"));
+		}
+		
+	
+		
+		function onCompleteImageLoad(event : Event){
+			answerImage = imageLoader.content as Bitmap;
+			onLoadComplete();	
+		}
+		
+		public function getQuestion() : String{
+			return content;					
+		}		
+		
+		
+		public function getImage() : Bitmap{
+			return answerImage;
 		}
 		
 		

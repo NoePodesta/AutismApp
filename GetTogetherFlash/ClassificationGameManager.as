@@ -84,7 +84,7 @@
 				
 				for(var  j : int = 0; j<gameContent.stages[i].totalAnswerAreas;j++){
 					var answerArea : ClassificationAnswerArea = new ClassificationAnswerArea(this, gameContent.stages[i].answerLabel[j], j, 60);
-					answerArea.x = 150 + 500 * j;
+	
 					stagesAnswers[i][j] = answerArea;
 				}
 				

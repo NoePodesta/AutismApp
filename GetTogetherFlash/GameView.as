@@ -9,20 +9,25 @@
 	
 		var background : MovieClip;
 		var manager : GameManager;
-		var playingMusic : Boolean;
-		
+		var playingMusic : Boolean;		
 		
 		
 		public function GameView(manager : GameManager, gameType : String){
 			this.manager = manager;
 			playingMusic = true;
 			
-			if(gameType == GameType.QA || gameType == GameType.CONVERSATION){
-				background = new cognitionGameView_mc();
-			}else if(gameType == GameType.SENTENCE || gameType == GameType.SOCOCO){
-				background = new emotionGameView_mc();
-			}else if(gameType == GameType.CLASSIFICATION || gameType == GameType.SOUND){
-				background = new communicationsGameView_mc();
+			if(gameType == GameType.CLASSIFICATION) {
+				background = new ClassificationView;
+			}else if(gameType == GameType.CONVERSATION){
+				background = new ConversationView;			
+			}else if(gameType == GameType.SOCOCO){
+				background = new SoCoCoView;
+			}else if( gameType == GameType.SOUND){
+				background = new SoundsView;
+			}else if(gameType == GameType.QA){
+				background = new QAView;
+			}else if(gameType == GameType.SENTENCE){
+				background = new SentenceView;
 			}
 			addChild(background);
 			setEventListeners();

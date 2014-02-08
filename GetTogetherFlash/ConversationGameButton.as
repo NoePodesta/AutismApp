@@ -9,10 +9,10 @@
 		var correctAnswer : Boolean;
 		
 		public function ConversationGameButton(label : String, correctAnswer : Boolean) {
-			var button:UIButton = new UIButton(this, 100, 50, label, 0xCCFFCC, new <uint>[]);
+			var button:ConversationButton = new ConversationButton;
+			button.textContent_txt.text = label;
+			addChild(button);
 			this.correctAnswer = correctAnswer;
-	
-
 		}
 
 	}

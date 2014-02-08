@@ -29,7 +29,7 @@
 		}
 		
 		public function goBackToMainScreen(e : Event):void{
-			main.goBackToMainScreen();
+			main.goBackToMainScreen(null);
 		}
 		
 		public function sendBitacora(e : Event):void{

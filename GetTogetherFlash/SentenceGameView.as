@@ -81,8 +81,8 @@
 		}
 		
 		public function showNextImage(stageImage : int):void{
-			answerImage[stageImage].y = 768 / 2;
-			answerImage[stageImage].x = 1024 / 2 - 100;
+			answerImage[stageImage].y = 306+100/2;
+			answerImage[stageImage].x = 1024/2-200/2;
 			answerImage[stageImage].width = 200;
 			answerImage[stageImage].height = 100;			
 			addChild(answerImage[stageImage]);
@@ -95,26 +95,26 @@
 		function createMadComponents(){
 			pickerArticulos = new UIPicker(this, <picker/>, new Attributes(100,150,150,200), false, false);
 			
-			pickerArticulos.x =212;
-			pickerArticulos.y = 100;
+			pickerArticulos.x =93+32;
+			pickerArticulos.y = 92;
 			
 			
 			pickerSustantivos = new UIPicker(this, <picker/>, new Attributes(250,150,150,200), false, false);
 			
-			pickerSustantivos.x =362;
-			pickerSustantivos.y = 100;
+			pickerSustantivos.x =300+32;
+			pickerSustantivos.y = 92;
 			
 			pickerVerbos = new UIPicker(this, <picker/>, new Attributes(400,150,150,200), false, false);
 			
-			pickerVerbos.x =512;
-			pickerVerbos.y = 100;
+			pickerVerbos.x =505+32;
+			pickerVerbos.y = 92;
 			
 			
 			
 			pickerAdjetivos = new UIPicker(this, <picker/>, new Attributes(550,150,150,200), false, false);	
 			
-			pickerAdjetivos.x =662;
-			pickerAdjetivos.y = 100;
+			pickerAdjetivos.x =708+32;
+			pickerAdjetivos.y = 92;
 			
 			
 			
@@ -134,11 +134,11 @@
 			removeChild(pickerAdjetivos);			
             addChild(pickerAdjetivos);
 			
-			var button:UIButton = new UIButton(this, 20, 50, "Chequear", 0xCCFFCC, new <uint>[]);
-			button.y = 300;
-			button.x = 1024 / 2 - button.width /2;
+			var button:checkSentence_mc = new checkSentence_mc();
+			button.y = 600;
+			button.x = 387;
 			button.addEventListener(TouchEvent.TOUCH_TAP, checkAnswer);
-			
+			addChild(button);
 			
 		}
 		
