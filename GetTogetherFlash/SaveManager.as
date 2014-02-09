@@ -19,6 +19,7 @@
 			offlineRecord.correctAnswers = resultColector.correctAnswers;
 			offlineRecord.wrongAnswers = resultColector.wrongAnswers;
 			offlineRecord.packageUsed = resultColector.packageUsed;
+			offlineRecord.currentDate = resultColector.currentDate;
 			
 			// Get the shared object.
 			var so:SharedObject = SharedObject.getLocal("getTogether");

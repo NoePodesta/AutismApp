@@ -8,6 +8,7 @@
 		var patient : int;
 		var therapist : int;
 		var packageUsed : int;
+		var currentDate : Date;
 				
 
 		public function ResultColector(gameType : String, packageUsed : int,patient : int, therapist : int) {
@@ -17,6 +18,7 @@
 			this.patient = patient;
 			this.therapist = therapist;
 			this.packageUsed = packageUsed;
+			currentDate = new Date()
 		}
 				
 		public function addCorrectAnswer():void{

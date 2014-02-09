@@ -79,6 +79,7 @@
 			variables.patientId = patientId;
 			variables.correctAnswers = resultColector.correctAnswers;
 			variables.wrongAnswers = resultColector.wrongAnswers;
+			variables.currentDate = resultColector.currentDate.toLocaleString();
 			
 			request.data = variables;
 			
@@ -88,7 +89,33 @@
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
 			loader.load(request);
 		}
+		
+		public function sendBitacora(bitacoraText : String, therapistId : int, patientId : int){
+			var url:String = "http://localhost:9000/saveResults";
+			var request:URLRequest = new URLRequest(url);
+			request.method = URLRequestMethod.POST;
 
+			var variables:URLVariables = new URLVariables();
+			
+			var variables:URLVariables = new URLVariables();
+			variables.gameType = GameType.BITACORA;
+			variables.bitacoraText = bitacoraText;
+			variables.therapistId = therapistId;
+			variables.patientId = patientId;			
+			
+			request.data = variables;
+			
+			var loader:URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, onComplete);
+			loader.dataFormat = URLLoaderDataFormat.TEXT;
+			loader.load(request);
+			
+				
+			
+		}
+	
+		
 	}
 	
+			
 }

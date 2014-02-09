@@ -78,13 +78,24 @@ public class MobileApplicationController extends Controller {
         String gameType = values.get("gameType")[0];
         String therapistId = values.get("therapistId")[0];
         String patientId = values.get("patientId")[0];
-        String correctAnswers = values.get("correctAnswers")[0];
-        String wrongAnswers =  values.get("wrongAnswers")[0];
+        Date date = new Date(values.get("currentDate")[0]);
+        TestResult testResult;
+        if(!gameType.equals(Game.BITACORA)){
+            String correctAnswers = values.get("correctAnswers")[0];
+            String wrongAnswers =  values.get("wrongAnswers")[0];
 
-        TestResult testResult = new TestResult(Game.valueOf(gameType),Patient.findPatientById(Integer.parseInt(patientId)),
-                                                     Therapist.findTherapistById(Integer.parseInt(therapistId)),Integer.parseInt(correctAnswers),
-                                                    Integer.parseInt(wrongAnswers), new Date(), GamePackage.findPackageById(1));
-        Ebean.save(testResult);
+
+            testResult = new TestResult(Game.valueOf(gameType),Patient.findPatientById(Integer.parseInt(patientId)),
+                                                         Therapist.findTherapistById(Integer.parseInt(therapistId)),Integer.parseInt(correctAnswers),
+                                                        Integer.parseInt(wrongAnswers), date, GamePackage.findPackageById(1),"");
+            Ebean.save(testResult);
+        }else{
+            String bitacoraText = values.get("bitacoraText")[0];
+            testResult =   new TestResult(Game.valueOf(gameType),Patient.findPatientById(Integer.parseInt(patientId)),
+                    Therapist.findTherapistById(Integer.parseInt(therapistId)),-1,
+                   -1, date, GamePackage.findPackageById(1),bitacoraText);
+
+         }
 
         return ok("save complete");
     }

@@ -31,7 +31,10 @@ public enum Game{
     CARDS,
 
     @EnumValue("SOUND")
-    SOUND
+    SOUND,
+
+    @EnumValue("BITACORA")
+    BITACORA
 
 
 

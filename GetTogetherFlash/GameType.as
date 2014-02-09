@@ -10,6 +10,7 @@
 		public static const CONVERSATION:String = "CONVERSATION";
 		public static const SOUND:String = "SOUND";
 		public static const CARDS:String = "CARDS";
+		public static const BITACORA:String = "BITACORA";
 	
 	}
 

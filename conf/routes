@@ -70,7 +70,7 @@ POST        /modifyTherapistImage                  controllers.TherapistControll
 
 
 # List Team
-#GET         /teams                                 controllers.TeamController.teamList()
+GET         /teams                                 controllers.TeamController.teamList()
 
 # Add Team
 GET         /teams/new/:id                         controllers.TeamController.createTeam(id:Integer)

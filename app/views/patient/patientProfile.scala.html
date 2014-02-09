@@ -59,6 +59,7 @@
                 </h2>
                 @if(patient.team != null){
                     <div class="span4">
+                        Cordinador
                         <div class="well">
                             @if(patient.team.getCoordinator.image != null){
                                 <img class="img-polaroid" src="@routes.Assets.at(patient.team.getCoordinator.image)" alt="@patient.team.getCoordinator.name" height="42" width="42">
@@ -70,6 +71,7 @@
                         </div>
                     </div>
                     <div class="span4">
+                        Integrador
                         <div class="well">
                             @if(patient.team.getIntegrator.image != null){
                                 <img class="img-polaroid" src="@routes.Assets.at(patient.team.getIntegrator.image)" alt="@patient.team.getIntegrator.name" height="42" width="42">
@@ -82,6 +84,7 @@
                     </div>
 
                     <div class="span4">
+                        Supervisor
                         <div class="well">
                             @if(patient.team.getSupervisor.image != null){
                                 <img class="img-polaroid" src="@routes.Assets.at(patient.team.getSupervisor.image)" alt="@patient.team.getSupervisor.name" height="42" width="42">
@@ -96,23 +99,23 @@
                     @if(patient.team.getTherapists != null){
 
 
-                        @*@for(therapist <- patient.team.getTherapists())*@
-                        @*{*@
-                        @*<div class="span4">*@
-                            @*<div class="well">*@
+                        <!--for(therapistLoop <- patient.team.getTherapists)-->
+                        <!--{-->
+                        <div class="span4">
+                            Terapeuta
+                            <div class="well">
 
-                                @*@if(therapist.image != null){*@
-                                    @*<img class="img-polaroid" src="@routes.Assets.at(therapist.image)" alt="@therapist.name" height="42" width="42">*@
-                                @*}*@
+                                @if(patient.team.getTherapists.image != null){
+                                    <img class="img-polaroid" src="@routes.Assets.at(patient.team.getTherapists.image)" alt="@patient.team.getTherapists.name" height="42" width="42">
+                                }
 
-                                @*<div class="therapistInfo">*@
-                                    @*<a href="@routes.TherapistController.therapistProfile(therapist.id)"><p class="inline">@therapist.name @therapist.surname</p></a>*@
-                                @*</div>*@
-                            @*</div>*@
-                        @*</div>*@
-                        @*}*@
+                                <div class="therapistInfo">
+                                    <a href="@routes.TherapistController.therapistProfile(patient.team.getTherapists.id)"><p class="inline">@patient.team.getTherapists.name @patient.team.getTherapists.surname</p></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--}-->
                     }
-
 
                 }else{
                     <div class="well">

@@ -21,7 +21,7 @@ public class MailService extends Controller {
     public static void sendNewUserEmail(String email, String password) {
 
         mail.setSubject("Te han creado una cuenta en Get Together!");
-        mail.addRecipient("Team GetTogether <noreply@GetTogether.com>", email);
+        mail.addRecipient(email);
         mail.addFrom("Team GetTogether <noreply@GetTogether.com>");
         //sends html
         //mail.sendHtml("<html>html</html>" );

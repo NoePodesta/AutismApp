@@ -167,5 +167,6 @@ public class PatientController
 
     public static Result patientProfile(int id){
         Patient patient = Patient.findPatientById(id);
+        //HOTFIX
         return ok(views.html.patient.patientProfile.render(patient));    }
 }

@@ -34,11 +34,12 @@ public class TestResult extends Model {
     private GamePackage aGamePackage;
     @ManyToOne
     private Team team;
+    private String bitacoraText;
 
 
     public static Model.Finder<Integer,TestResult> find = new Model.Finder(Integer.class, TestResult.class);
 
-    public TestResult(Game game, Patient patient, Therapist therapist, int correctAnswers, int wrongAnswers, Date dateMade, GamePackage aGamePackage) {
+    public TestResult(Game game, Patient patient, Therapist therapist, int correctAnswers, int wrongAnswers, Date dateMade, GamePackage aGamePackage, String bitacoraText) {
         this.game = game;
         this.patient = patient;
         this.therapist = therapist;
@@ -46,6 +47,7 @@ public class TestResult extends Model {
         this.wrongAnswers = wrongAnswers;
         this.dateMade = dateMade;
         this.aGamePackage = aGamePackage;
+        this.bitacoraText = bitacoraText;
     }
 
     public static List<TestResult> all() {

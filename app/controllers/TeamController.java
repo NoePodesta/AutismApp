@@ -28,7 +28,6 @@ public class TeamController extends Controller {
     public static Result createTeam(int patientId) {
         if (Secured.isAdmin()) {
             Form<Team> teamForm = form(Team.class);
-
             return ok(
                     views.html.team.createTeamForm.render(teamForm, Patient.findPatientById(patientId)));
         }else{
@@ -49,8 +48,6 @@ public class TeamController extends Controller {
 
         Team team = new Team();
 
-        Ebean.save(team);
-
 
         //Patient
         team.patient = patient;
@@ -60,7 +57,7 @@ public class TeamController extends Controller {
 
         //Institution
         team.institution = patient.institution;
-
+        Ebean.save(team);
 
         //Supervisor
         String supervisorDni = teamForm.data().get(Msg.SUPERVISOR);
@@ -148,12 +145,12 @@ public class TeamController extends Controller {
         return PatientController.patientProfile(patient.id);
     }
 
-//    public static Result teamList() {
-//        return ok(
-//                views.html.team.teams.render(Team.findByInstitution(TherapistController.getTherapistByDNI(session().get("dni")).institution))
-//        );
-//
-//    }
+    public static Result teamList() {
+        return TODO;
+              // views.html.team.teams.render(Team.findByInstitution(TherapistController.getTherapistByDNI(session().get("dni")).institution))
+        //);
+
+    }
 
     public static Result editTeam(int id) {
         Team teamToFill = Team.findTeamById(id);

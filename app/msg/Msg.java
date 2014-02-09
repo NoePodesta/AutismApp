@@ -59,7 +59,7 @@ public class Msg {
     }
 
     public static String ADDED(String user, String name, String surname) {
-        return "El " + user + name  + surname + " ha sido dado de alta";
+        return "El " + user + " " + name + " "  + surname + " ha sido dado de alta";
     }
 
 }

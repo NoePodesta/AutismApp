@@ -41,7 +41,6 @@ public class ResultController extends Controller {
             eventRemapped.put("title", testResult.game);
             eventRemapped.put("start", df.format(testResult.dateMade));
             eventRemapped.put("end", df.format(testResult.dateMade));
-
             allEvents.add(eventRemapped);
         }
         return ok(play.libs.Json.toJson(allEvents));
