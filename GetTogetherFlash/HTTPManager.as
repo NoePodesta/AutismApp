@@ -100,6 +100,7 @@
 			var variables:URLVariables = new URLVariables();
 			variables.gameType = GameType.BITACORA;
 			variables.bitacoraText = bitacoraText;
+			variables.currentDate = new Date().toLocaleString();
 			variables.therapistId = therapistId;
 			variables.patientId = patientId;			
 			

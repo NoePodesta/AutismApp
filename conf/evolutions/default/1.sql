@@ -21,7 +21,7 @@ create table Packages (
   package_name              varchar(255),
   package_url               varchar(255),
   therapist_id              integer,
-  constraint ck_Packages_game_type check (game_type in ('SOUND','QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION','CARDS')),
+  constraint ck_Packages_game_type check (game_type in ('SOUND','QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION','BITACORA','CARDS')),
   constraint pk_Packages primary key (id))
 ;
 
@@ -83,7 +83,8 @@ create table TestResult (
   date_made                 datetime,
   a_game_package_id         integer,
   team_id                   integer,
-  constraint ck_TestResult_game check (game in ('SOUND','QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION','CARDS')),
+  bitacora_text             varchar(255),
+  constraint ck_TestResult_game check (game in ('SOUND','QA','CONVERSATION','SOCOCO','SENTENCE','CLASSIFICATION','BITACORA','CARDS')),
   constraint pk_TestResult primary key (id))
 ;
 

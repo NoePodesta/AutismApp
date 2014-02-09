@@ -18,7 +18,7 @@
 			this.patient = patient;
 			this.therapist = therapist;
 			this.packageUsed = packageUsed;
-			currentDate = new Date()
+			currentDate = new Date();
 		}
 				
 		public function addCorrectAnswer():void{

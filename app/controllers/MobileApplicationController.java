@@ -80,7 +80,7 @@ public class MobileApplicationController extends Controller {
         String patientId = values.get("patientId")[0];
         Date date = new Date(values.get("currentDate")[0]);
         TestResult testResult;
-        if(!gameType.equals(Game.BITACORA)){
+        if(!gameType.equals(Game.BITACORA.toString())){
             String correctAnswers = values.get("correctAnswers")[0];
             String wrongAnswers =  values.get("wrongAnswers")[0];
 

@@ -334,8 +334,7 @@
 		}
 		
 		public function sendBitacora(bitacora : String):void{
-			//TODO
-			trace(bitacora);
+			httpManager.sendBitacora(bitacora,therapist.id, selectedPatient);
 			goBackToMainScreen(null);
 		}
 		
