@@ -1,1 +1,0 @@
-{"cards":[{"imageURL":"http://localhost:9000/assets/uploads/JuanMolteni/packages/Happy.png","imageName":"QUELOCA"},{"imageURL":"http://localhost:9000/assets/uploads/JuanMolteni/packages/Penguins.jpg","imageName":"MASLOCA"},{"imageURL":"http://localhost:9000/assets/uploads/JuanMolteni/packages/Hydrangeas.jpg","imageName":"HIPERLOCA"}],"totalCards":3}

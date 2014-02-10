@@ -9,6 +9,7 @@
 		var countArea : MovieClip;
 		var totalAnswers : int;
 		var currentCount : int;
+		var optionLabel : String;
 
 		
 		public function SoCoCoAnswerArea(gameManager : SoCoCoGameManager,classificationGroup : int, optionName: String, totalAnswers : int){
@@ -16,6 +17,8 @@
 			this.totalAnswers = totalAnswers;
 			currentCount = 0;
 			this.gameManager = gameManager;
+			this.optionLabel = optionLabel;
+			display.descriptionText_txt.text = optionLabel;
 		}
 		
 		public function addCountArea():void{

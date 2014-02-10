@@ -55,7 +55,7 @@
 			//Initialize Managers		
 			jLoader = new JSONLoader(this);	
 			httpManager = new HTTPManager(this, jLoader);
-			saveManager = new SaveManager(this);
+			saveManager = new SaveManager(this, httpManager);
 			
 			//Initialize Views	
 			topBar = new TopBarView(this, httpManager);

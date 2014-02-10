@@ -26,8 +26,12 @@
     
         <!-- Form template-->
         <div id="sentence_package_template">
-            <label for="sentence_package_#index#_imageURL">Imagen</label>
-            <input type="file" id="picture" name="#index#_imageURL" accept="image/*" >
+            <label for="sentence_package_#index#_imageQuestion">Imagen</label>
+            <input id="sentence_package_#index#_imageQuestion" name="#index#_imageQuestion" type="file" id="picture" accept="image/*"  />
+
+            <label for="sentence_package_#index#_textQuestion">Pregunta</label>
+            <input id="sentence_package_#index#_textQuestion" name="#index#_textQuestion" type="text" size="15" maxlength="10" />
+
             <!--
             <input id="sentence_package_#index#_imageURL" name="#index#_imageURL" type="text" size="50" maxlength="100" />
             -->
@@ -42,7 +46,7 @@
                     <!-- Nested form template-->
                     <div id="sentence_package_#index#_articles_template">
                         <label for="sentence_package_#index#_articles_#index_articles#">Articulo</label>
-                        <input id="sentence_package_#index#_articles_#index_articles#" name="#index#_articles_#index_articles#" type="text" size="15" maxlength="10" />
+                        <input id="sentence_package_#index#_articles_#index_articles#_label" name="#index#_articles_#index_articles#_label" type="text" size="15" maxlength="10" />
                         <input type="hidden" name="#index#_articles_#index_articles#_correctAnswer" value="off">
                         <input type="checkbox" name="#index#_articles_#index_articles#_correctAnswer"/>
                         <a id="sentence_package_#index#_articles_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
@@ -75,7 +79,7 @@
                         <!-- Nested form template-->
                     <div id="sentence_package_#index#_sustantivs_template">
                         <label for="sentence_package_#index#_sustantivs_#index_sustantivs#">Sustantivo</label>
-                        <input id="sentence_package_#index#_sustantivs_#index_sustantivs#" name="#index#_sustantivs_#index_sustantivs#" type="text" size="15" maxlength="10" />
+                        <input id="sentence_package_#index#_sustantivs_#index_sustantivs#_label" name="#index#_sustantivs_#index_sustantivs#_label" type="text" size="15" maxlength="10" />
                         <input type="hidden" name="#index#_sustantivs_#index_sustantivs#_correctAnswer" value="off">
                         <input type="checkbox" name="#index#_sustantivs_#index_sustantivs#_correctAnswer"/>
                         <a id="sentence_package_#index#_sustantivs_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
@@ -108,7 +112,7 @@
                         <!-- Nested form template-->
                     <div id="sentence_package_#index#_verbs_template">
                         <label for="sentence_package_#index#_verbs_#index_verbs#">Verbo</label>
-                        <input id="sentence_package_#index#_verbs_#index_verbs#" name="#index#_verbs_#index_verbs#" type="text" size="15" maxlength="10" />
+                        <input id="sentence_package_#index#_verbs_#index_verbs#_label" name="#index#_verbs_#index_verbs#_label" type="text" size="15" maxlength="10" />
                         <input type="hidden" name="#index#_verbs_#index_verbs#_correctAnswer" value="off">
                         <input type="checkbox" name="#index#_verbs_#index_verbs#_correctAnswer"/>
                         <a id="sentence_package_#index#_verbs_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
@@ -141,7 +145,7 @@
                         <!-- Nested form template-->
                     <div id="sentence_package_#index#_adjectives_template">
                         <label for="sentence_package_#index#_adjectives_#index_adjectives#">Adjetivo</label>
-                        <input id="sentence_package_#index#_adjectives_#index_adjectives#" name="#index#_adjectives_#index_adjectives#" type="text" size="15" maxlength="10" />
+                        <input id="sentence_package_#index#_adjectives_#index_adjectives#_label" name="#index#_adjectives_#index_adjectives#_label" type="text" size="15" maxlength="10" />
                         <input type="hidden" name="#index#_adjectives_#index_adjectives#_correctAnswer" value="off">
                         <input type="checkbox" name="#index#_adjectives_#index_adjectives#_correctAnswer"/>
                         <a id="sentence_package_#index#_adjectives_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>

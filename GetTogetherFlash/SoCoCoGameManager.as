@@ -16,17 +16,12 @@
 		var optionsQuantity : int;
 		var correctClassificationAnswers : int;
 		
-		var totalA : int;
-		var totalB : int;
-		var totalC : int;
+		
 		
 		public function SoCoCoGameManager(mainManager : Main, gameContent : Object,gameType : String) {
 			super(mainManager,gameType,gameContent);
-			totalA = gameContent.graphicOptions[0].quantity;
-			totalB = gameContent.graphicOptions[1].quantity;
-			totalC = gameContent.graphicOptions[2].quantity;
-			this.optionsQuantity = totalA + totalB + totalC;
-			
+
+			optionsQuantity = gameContent.totalImages;
 			this.currentStage = 0;
 			this.totalLoaded = 0;
 			this.correctClassificationAnswers = 0;

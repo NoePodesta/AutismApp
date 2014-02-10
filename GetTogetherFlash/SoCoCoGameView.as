@@ -3,9 +3,7 @@
 	public class SoCoCoGameView extends GameView {
 
 		public function SoCoCoGameView(manager: GameManager, totalAnswers: Array, totalAnswerAreas : Array,gameType : String){
-			super(manager,gameType);
-			
-					
+			super(manager,gameType);			
 			
 			
 			var answerAreaSpace  : int =  1024 / totalAnswerAreas.length;

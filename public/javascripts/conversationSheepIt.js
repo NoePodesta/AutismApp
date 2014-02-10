@@ -17,9 +17,9 @@ $(document).ready(function() {
         continuousIndex: true,
         nestedForms: [
             {
-                id: 'conversation_package_#index#_options',
+                id: 'conversation_package_#index#_answers',
                 options: {
-                    indexFormat: '#index_options#',
+                    indexFormat: '#index_answers#',
                     maxFormsCount: 4
                 }
             }

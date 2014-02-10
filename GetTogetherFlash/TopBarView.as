@@ -22,10 +22,15 @@
 			this.main = main;
 			httpManager.setTopBar(this);
 			topBar = new topBar_mc;
+			setInitialBarView();
+			
+			addChild(topBar);
+		}
+		
+		private function setInitialBarView():void{
 			topBar.password_txt.displayAsPassword = true;
 			topBar.loginButton_mc.addEventListener(TouchEvent.TOUCH_TAP,testLogin);
 			topBar.offlineLoginButton_mc.addEventListener(TouchEvent.TOUCH_TAP, startOfflineMode);
-			addChild(topBar);
 		}
 		
 		public function testLogin(e : TouchEvent):void{
@@ -56,16 +61,13 @@
 		public function logout(e : Event):void{
 			main.logoutTherapist();
 			removeChild(patientsComboBox);
-			topBar.gotoAndStop(1);
-			
-			topBar.loginButton_mc.addEventListener(TouchEvent.TOUCH_TAP,testLogin);
+			topBar.gotoAndStop(1);			
+			setInitialBarView();
 		}
 		
 		public function logoutOfflineMode(e : Event):void{					
-			topBar.gotoAndStop(1);
-			
-			topBar.loginButton_mc.addEventListener(TouchEvent.TOUCH_TAP,testLogin);
-			topBar.offlineLoginButton_mc.addEventListener(TouchEvent.TOUCH_TAP, startOfflineMode);
+			topBar.gotoAndStop(1);			
+			setInitialBarView();
 		}
 		
 		public function startBitacoraScreen(e : Event):void{

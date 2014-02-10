@@ -105,10 +105,10 @@ GET         /viewPatientResults/:id                controllers.ResultController.
 
 
 #Mobile Application
-
 GET         /testConnection                        controllers.MobileApplicationController.testConnection()
 POST        /loginMobile                           controllers.MobileApplicationController.loginMobile()
 POST        /saveResults                           controllers.MobileApplicationController.saveResults()
+POST        /saveOfflineRecord                     controllers.MobileApplicationController.saveOfflineRecord()
 
 #Sentence Package Loader
 

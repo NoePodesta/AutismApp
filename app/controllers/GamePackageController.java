@@ -1,8 +1,6 @@
 package controllers;
 
 
-import controllers.GamePackageData.SentenceElement;
-import controllers.GamePackageData.SentenceStageData;
 import models.Game;
 import models.GamePackage;
 import models.Therapist;
@@ -13,7 +11,6 @@ import org.codehaus.jackson.node.ObjectNode;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.gamePackages.*;
 import views.html.gamePackages.loadCards;
 import views.html.gamePackages.loadClassification;
 import views.html.gamePackages.loadConversation;
@@ -78,35 +75,40 @@ public class GamePackageController extends Controller {
         final Map<String, String[]> values = request().body().asMultipartFormData().asFormUrlEncoded();
         ArrayNode graphicOptions = new ArrayNode(factory);
         ArrayNode answerAreas = new ArrayNode(factory);
+        ArrayNode questions = new ArrayNode(factory);
         ArrayNode textOptions = new ArrayNode(factory);
-        int classificationGroup = 0;
-        for(String key : values.keySet()){
-            String[] parsedKey = key.split("_");
-            if(parsedKey[1].equals("answer")){
-                    ObjectNode option = new ObjectNode(factory);
-                    option.put("quantity", Integer.parseInt(values.get(parsedKey[0] + "_options_amount")[0]));
-                    option.put("graphicOption", ImageController.getPackageImage(parsedKey[0] + "_options_imageURL"));
-                    option.put("classificationGroup", classificationGroup);
-                    graphicOptions.add(option);
 
-                    ObjectNode textOption = new ObjectNode(factory);
-                    textOption.put("textOption", values.get(parsedKey[0] + "_options_label")[0]);
-                    textOption.put("classificationGroup", classificationGroup);
-                    textOptions.add(textOption);
+        for(int i = 0;i<3;i++){
+            ObjectNode answerArea = new ObjectNode(factory);
+            answerArea.put("label", values.get(0 + "_labels_" + i + "_label")[0]);
+            answerArea.put("classificationGroup",i);
+            answerAreas.add(answerArea);
 
-                    ObjectNode answerArea = new ObjectNode(factory);
-                    answerArea.put("classificationGroup",classificationGroup);
-                    answerArea.put("textOption","");
-                    answerAreas.add(answerArea);
-                    classificationGroup++;
-                }
+            ObjectNode question = new ObjectNode(factory);
+            question.put("question",  values.get(0 + "_questions_" + i + "_label")[0]);
+            questions.add(question);
+
+            ObjectNode secondClassification = new ObjectNode(factory);
+            secondClassification.put("label", values.get(0 + "_secondClassification_" + i + "_label")[0]);
+            secondClassification.put("classificationGroup",i);
+            textOptions.add(secondClassification);
         }
+        int optionsLength = 0;
+        while(values.get(0 + "_images_" + optionsLength + "_group") != null){
+            ObjectNode option = new ObjectNode(factory);
+            option.put("graphicOption", ImageController.getPackageImage(0 + "_images_" + optionsLength + "_image"));
+            option.put("classificationGroup", values.get(0 + "_images_" + optionsLength + "_group")[0]);
+            graphicOptions.add(option);
+            optionsLength++;
+         }
 
 
         ObjectNode soCoCoJSON = new ObjectNode(factory);
         soCoCoJSON.put("graphicOptions",graphicOptions);
         soCoCoJSON.put("answerAreas", answerAreas);
         soCoCoJSON.put("textOption", textOptions);
+        soCoCoJSON.put("questions",questions);
+        soCoCoJSON.put("totalImages", optionsLength);
 
         createGamePackage(values.get("0_packageName")[0], soCoCoJSON, Game.SOCOCO);
 
@@ -116,7 +118,6 @@ public class GamePackageController extends Controller {
 
 
 
-    //TODO TERMINAR
     public static Result saveConversationPackage(){
         final Map<String, String[]> values = request().body().asFormUrlEncoded();
         ArrayNode conversationFlow = new ArrayNode(factory);
@@ -125,30 +126,30 @@ public class GamePackageController extends Controller {
         int totalQuestions = 0;
         for(String key : values.keySet()){
             String[] parsedKey = key.split("_");
-            if(parsedKey[1].equals("answer")){
-                int optionsLength = 0;
+            if(parsedKey[1].equals("question")){
                 totalQuestions++;
+                int optionsLength = 0;
                 ArrayNode stageOptions = new ArrayNode(factory);
-                while(values.get(parsedKey[0] + "_options_" + optionsLength) != null){
+                while(values.get(parsedKey[0] + "_answers_" + optionsLength + "_label") != null){
                       ObjectNode option = new ObjectNode(factory);
-                      option.put("label", values.get(parsedKey[0] + "_options_" + optionsLength)[0]);
-                      if(values.get(parsedKey[0] + "_options_" + optionsLength + "_correctAnswer").length > 1){
-                         option.put("data", true);
-                          conversationFlow.add(values.get(parsedKey[0] + "_options_" + optionsLength)[0]);
+                      option.put("label", values.get(parsedKey[0] + "_answers_" + optionsLength + "_label")[0]);
+                      if(values.get(parsedKey[0] + "_answers_" + optionsLength + "_correctAnswer").length > 1){
+                          conversationFlow.add(values.get(key)[0]);
+                          conversationFlow.add(values.get(parsedKey[0] + "_answers_" + optionsLength + "_label")[0]);
+                          option.put("correctAnswer", true);
                       }else{
-                          option.put("data", false);
+                          option.put("correctAnswer", false);
                       }
                       optionsLength++;
-                stageOptions.add(option);
+                    stageOptions.add(option);
                 }
                 stages.add(stageOptions);
             }
-
-
         }
         conversationJSON.put("conversationStage", stages);
         conversationJSON.put("conversationFlow", conversationFlow);
         conversationJSON.put("totalQuestions", totalQuestions);
+        conversationJSON.put("question",values.get("0_textOrientation")[0]);
         createGamePackage(values.get("0_packageName")[0], conversationJSON, Game.CONVERSATION);
 
         return TherapistController.profile();
@@ -162,34 +163,30 @@ public class GamePackageController extends Controller {
 
         for(String key : values.keySet()){
             String[] parsedKey = key.split("_");
-            if(parsedKey[1].equals("answer")){
+            if(parsedKey[1].equals("stageQuestion")){
                 totalStages++;
                 ObjectNode stage = new ObjectNode(factory);
                 ArrayNode options = new ArrayNode(factory);
                 int optionsLength = 0;
                 stage.put("optionsType", "Image");
                 int totalAnswers = 0;
-                int classificationGroup = 0;
-                while(values.get(parsedKey[0] + "_options_" + optionsLength + "_amount") != null){
-
-                    for(int i=0;i<Integer.parseInt(values.get(parsedKey[0] + "_options_" + optionsLength + "_amount")[0]);i++){
-                        ObjectNode option = new ObjectNode(factory);
-                        option.put("label", ImageController.getPackageImage(parsedKey[0] + "_options_" + optionsLength));
-                        option.put("classificationGroup", classificationGroup);
-                        options.add(option);
-                        totalAnswers++;
-                    }
+                ArrayNode answerLabel = new ArrayNode(factory);
+                for(int i = 0; i < 2; i++){
+                    answerLabel.add(values.get(parsedKey[0] + "_labels_" + i + "_label")[0]);
+                }
+                while(values.get(parsedKey[0] + "_images_" + optionsLength + "_group") != null){
+                    ObjectNode option = new ObjectNode(factory);
+                    option.put("label", ImageController.getPackageImage(parsedKey[0] + "_images_" + optionsLength + "_image"));
+                    option.put("classificationGroup", values.get(parsedKey[0] + "_images_" + optionsLength + "_group")[0]);
+                    options.add(option);
+                    totalAnswers++;
                     optionsLength++;
-                    classificationGroup++;
                 }
                 stage.put("options", options);
-                stage.put("totalAnswerAreas", optionsLength);
+                stage.put("totalAnswerAreas", 2);
                 stage.put("optionsLength", totalAnswers);
-                ArrayNode answerLabel = new ArrayNode(factory);
-                for(int i=0;i<2;i++){
-                    answerLabel.add("");
-                }
                 stage.put("answerLabel", answerLabel);
+                stage.put("stageQuestion", values.get(parsedKey[0] + "_stageQuestion")[0]);
                 stages.add(stage);
             }
         }
@@ -207,8 +204,9 @@ public class GamePackageController extends Controller {
 
 
     public static Result saveImageQAPackage(){
-        List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
         final Map<String, String[]> values = request().body().asMultipartFormData().asFormUrlEncoded();
+        List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
+
         ArrayNode stages = new ArrayNode(factory);
         int totalStages = 0;
 
@@ -217,16 +215,20 @@ public class GamePackageController extends Controller {
             keySet.add(files.get(i).getKey());
         }
 
-        for(String key : keySet){
+        for(String key : values.keySet()){
             String[] parsedKey = key.split("_");
-            if(parsedKey[1].equals("answer")){
+            if(parsedKey[1].equals("textQuestion")){
                 totalStages++;
                 ObjectNode stage = new ObjectNode(factory);
                 ArrayNode options = new ArrayNode(factory);
                 int optionsLength = 0;
-                stage.put("answerType", "Image");
                 stage.put("optionsType", "Image");
-                stage.put("answer", ImageController.getPackageImage(key));
+                stage.put("textQuestion", values.get(key)[0]);
+                if(request().body().asMultipartFormData().getFile(parsedKey[0] + "_imageQuestion") != null){
+                    stage.put("imageQuestion", ImageController.getPackageImage(parsedKey[0] + "_imageQuestion"));
+                }else{
+                    stage.put("imageQuestion","-1");
+                }
                 while(keySet.contains(parsedKey[0] + "_options_" + optionsLength)){
                     ObjectNode option = new ObjectNode(factory);
                     option.put("label", ImageController.getPackageImage(parsedKey[0] + "_options_" + optionsLength));
@@ -257,24 +259,23 @@ public class GamePackageController extends Controller {
 
     public static Result saveSoundQAPackage(){
         Map<String, String[]> values = request().body().asMultipartFormData().asFormUrlEncoded();
-        List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
-
-
-
         ArrayNode stages = new ArrayNode(factory);
         int totalStages = 0;
         for(String key : values.keySet()){
             String[] parsedKey = key.split("_");
-            if(parsedKey.length < 4){
-                if(parsedKey[1].equals("answer")){
+                if(parsedKey[1].equals("textQuestion")){
                     totalStages++;
                     ObjectNode stage = new ObjectNode(factory);
                     ArrayNode options = new ArrayNode(factory);
                     int optionsLength = 0;
-                    stage.put("answerType", "Text");
                     stage.put("optionsType", "Text");
-                    stage.put("answer", values.get(key)[0]);
-                    stage.put("sound", ImageController.getPackageImage(key + "_sound"));
+                    stage.put("textQuestion", values.get(key)[0]);
+                    if(request().body().asMultipartFormData().getFile(parsedKey[0] + "_imageQuestion") != null){
+                        stage.put("imageQuestion", ImageController.getPackageImage(parsedKey[0] + "_imageQuestion"));
+                    }else{
+                        stage.put("imageQuestion","-1");
+                    }
+                    stage.put("sound", ImageController.getPackageImage(parsedKey[0] + "_soundQuestion"));
                     while(values.get(parsedKey[0] + "_options_" + optionsLength) != null){
                         ObjectNode option = new ObjectNode(factory);
                         option.put("label", values.get(parsedKey[0] + "_options_" + optionsLength)[0]);
@@ -290,7 +291,6 @@ public class GamePackageController extends Controller {
                     stage.put("optionsLength", optionsLength);
                     stages.add(stage);
                 }
-            }
         }
 
         ObjectNode qaJSON = new ObjectNode(factory);
@@ -304,20 +304,24 @@ public class GamePackageController extends Controller {
     }
 
     public static Result saveTextQAPackage(){
-        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        final Map<String, String[]> values = request().body().asMultipartFormData().asFormUrlEncoded();
         ArrayNode stages = new ArrayNode(factory);
         int totalStages = 0;
         for(String key : values.keySet()){
             String[] parsedKey = key.split("_");
             if(parsedKey.length < 4){
-                if(parsedKey[1].equals("answer")){
+                if(parsedKey[1].equals("textQuestion")){
                     totalStages++;
                     ObjectNode stage = new ObjectNode(factory);
                     ArrayNode options = new ArrayNode(factory);
                     int optionsLength = 0;
-                    stage.put("answerType", "Text");
                     stage.put("optionsType", "Text");
-                    stage.put("answer", values.get(key)[0]);
+                    stage.put("textQuestion", values.get(key)[0]);
+                    if(request().body().asMultipartFormData().getFile(parsedKey[0] + "_imageQuestion") != null){
+                        stage.put("imageQuestion", ImageController.getPackageImage(parsedKey[0] + "_imageQuestion"));
+                    }else{
+                        stage.put("imageQuestion","-1");
+                    }
                     while(values.get(parsedKey[0] + "_options_" + optionsLength) != null){
                         ObjectNode option = new ObjectNode(factory);
                         option.put("label", values.get(parsedKey[0] + "_options_" + optionsLength)[0]);
@@ -341,7 +345,6 @@ public class GamePackageController extends Controller {
         qaJSON.put("stages", stages);
 
         createGamePackage(values.get("0_packageName")[0], qaJSON, Game.QA);
-
 
         return TherapistController.profile();
     }
@@ -372,52 +375,92 @@ public class GamePackageController extends Controller {
 
 
     //QUE METODO MAS FEO; POSTA ESTUDIASTE 5 AÑOS DE INFORMATICA PARA ESTO?
+    //VAMOS A MEJORARLO
     public static Result saveSentencePackage(){
         final Map<String, String[]> values = request().body().asMultipartFormData().asFormUrlEncoded();
-
-        ArrayList<SentenceStageData> jsonToForm = new ArrayList<SentenceStageData>();
-        buildStageArray(values, jsonToForm);
-        addImagesToArray(jsonToForm);
-
-
+        ArrayNode stages = new ArrayNode(factory);
+        int totalStages = 0;
 
         for(String key : values.keySet()){
             String[] parsedKey = key.split("_");
-            if(parsedKey.length < 4){
-                if (parsedKey[1].equals("verbs")) {
-                    SentenceElement sentenceElement = new SentenceElement();
-                    sentenceElement.label = values.get(key)[0];
-                    sentenceElement.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
-                    jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).verbs.add(sentenceElement);
-
-                } else if (parsedKey[1].equals("sustantivs")) {
-                    SentenceElement sentenceElement2 = new SentenceElement();
-                    sentenceElement2.label = values.get(key)[0];
-                    sentenceElement2.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
-                    jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).sustantivs.add(sentenceElement2);
-
-                } else if (parsedKey[1].equals("articles")) {
-                    SentenceElement sentenceElement3 = new SentenceElement();
-                    sentenceElement3.label = values.get(key)[0];
-                    sentenceElement3.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
-                    jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).articles.add(sentenceElement3);
-
-                } else if (parsedKey[1].equals("adjectives")) {
-                    SentenceElement sentenceElement4 = new SentenceElement();
-                    sentenceElement4.label = values.get(key)[0];
-                    sentenceElement4.correctAnswer = values.get(key.concat("_correctAnswer")).length == 2;
-                    jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).adjectives.add(sentenceElement4);
-
+            if(parsedKey[1].equals("textQuestion")){
+                totalStages++;
+                ObjectNode stage = new ObjectNode(factory);
+                ArrayNode options = new ArrayNode(factory);
+                int articlesLength = 0;
+                int sustantivsLength = 0;
+                int verbsLength = 0;
+                int adjectivesLength = 0;
+                ArrayNode articles = new ArrayNode(factory);
+                ArrayNode sustantivs =  new ArrayNode(factory);
+                ArrayNode verbs =  new ArrayNode(factory);
+                ArrayNode adjectives =  new ArrayNode(factory);
+                stage.put("textQuestion", values.get(key)[0]);
+                if(request().body().asMultipartFormData().getFile(parsedKey[0] + "_imageQuestion") != null){
+                    stage.put("imageQuestion", ImageController.getPackageImage(parsedKey[0] + "_imageQuestion"));
+                }else{
+                    stage.put("imageQuestion","-1");
                 }
+                while(values.get(parsedKey[0] + "_articles_" + articlesLength + "_label") != null){
+                    ObjectNode article = new ObjectNode(factory);
+                    article.put("label",  values.get(parsedKey[0] + "_articles_" + articlesLength + "_label")[0]);
+                    if(values.get(parsedKey[0] + "_articles_" + articlesLength + "_correctAnswer").length > 1){
+                        article.put("correctAnswer", true);
+                    }else{
+                        article.put("correctAnswer", false);
+                    }
+                    articlesLength++;
+                    articles.add(article);
+                }
+                stage.put("articles",articles);
+                while(values.get(parsedKey[0] + "_sustantivs_" + sustantivsLength + "_label") != null){
+                    ObjectNode sustantiv = new ObjectNode(factory);
+                    sustantiv.put("label",  values.get(parsedKey[0] + "_sustantivs_" + sustantivsLength + "_label")[0]);
+                    if(values.get(parsedKey[0] + "_sustantivs_" + sustantivsLength + "_correctAnswer").length > 1){
+                        sustantiv.put("correctAnswer", true);
+                    }else{
+                        sustantiv.put("correctAnswer", false);
+                    }
+                    sustantivsLength++;
+                    sustantivs.add(sustantiv);
+                }
+                stage.put("sustantivs",sustantivs);
+                while(values.get(parsedKey[0] + "_verbs_" + verbsLength + "_label") != null){
+                    ObjectNode verb = new ObjectNode(factory);
+                    verb.put("label",  values.get(parsedKey[0] + "_verbs_" + verbsLength + "_label")[0]);
+                    if(values.get(parsedKey[0] + "_verbs_" + verbsLength + "_correctAnswer").length > 1){
+                        verb.put("correctAnswer", true);
+                    }else{
+                        verb.put("correctAnswer", false);
+                    }
+                    verbsLength++;
+                    verbs.add(verb);
+                }
+                stage.put("verbs",verbs);
+                while(values.get(parsedKey[0] + "_adjectives_" + adjectivesLength + "_label") != null){
+                    ObjectNode adjective = new ObjectNode(factory);
+                    adjective.put("label",  values.get(parsedKey[0] + "_adjectives_" + adjectivesLength + "_label")[0]);
+                    if(values.get(parsedKey[0] + "_adjectives_" + adjectivesLength + "_correctAnswer").length > 1){
+                        adjective.put("correctAnswer", true);
+                    }else{
+                        adjective.put("correctAnswer", false);
+                    }
+                    adjectivesLength++;
+                    adjectives.add(adjective);
+                }
+                stage.put("adjectives",adjectives);
+                stages.add(stage);
             }
-         }
+        }
+        ObjectNode qaJSON = new ObjectNode(factory);
+        qaJSON.put("totalStages",totalStages);
+        qaJSON.put("stages", stages);
 
-        ObjectNode newSentenceJson = buildSentenceJson(jsonToForm);
-
-        createGamePackage(values.get("0_packageName")[0], newSentenceJson, Game.SENTENCE);
+        createGamePackage(values.get("0_packageName")[0], qaJSON, Game.SENTENCE);
 
 
         return TherapistController.profile();
+
     }
 
     private static void createNewPackage(String newSentenceJson, Game game, String packageName, String packageUrl) {
@@ -443,90 +486,6 @@ public class GamePackageController extends Controller {
         }
     }
 
-    private static void addImagesToArray(ArrayList<SentenceStageData> jsonToForm) {
-        List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
-        for(int i = 0;i<files.size();i++){
-            String[] parsedKey = files.get(i).getKey().split("_");
-            jsonToForm.get(Integer.parseInt(parsedKey[0].toString())).imageURL = ImageController.getPackageImage(files.get(i).getKey());
-        }
-    }
-
-    private static ObjectNode buildSentenceJson(ArrayList<SentenceStageData> jsonToForm) {
-        ObjectNode newSentenceJson = new ObjectNode(factory);
-        ArrayNode stages = new ArrayNode(factory);
-        Random generator = new Random();
-        for(int i = 0;i<jsonToForm.size();i++){
-            ObjectNode stage = new ObjectNode(factory);
-            stage.put("answer",jsonToForm.get(i).imageURL);
-            ArrayNode adjectives = new ArrayNode(factory);
-            for(int j = 0;j<jsonToForm.get(i).adjectives.size();j++){
-                ObjectNode adjective = new ObjectNode(factory);
-                if(jsonToForm.get(i).adjectives.get(j).correctAnswer){
-                    adjective.put("data", j);
-                }else{
-                    adjective.put("data", generator.nextInt(500));
-                }
-                adjective.put("label",jsonToForm.get(i).adjectives.get(j).label);
-                adjectives.add(adjective);
-            }
-            stage.put("adjectives", adjectives);
-            ArrayNode sustantivs = new ArrayNode(factory);
-            for(int j = 0;j<jsonToForm.get(i).sustantivs.size();j++){
-                ObjectNode sustantiv = new ObjectNode(factory);
-                if(jsonToForm.get(i).sustantivs.get(j).correctAnswer){
-                    sustantiv.put("data", j);
-                }else{
-                    sustantiv.put("data", generator.nextInt(500));
-                }
-                sustantiv.put("label",jsonToForm.get(i).sustantivs.get(j).label);
-                sustantivs.add(sustantiv);
-            }
-            stage.put("sustantivs", sustantivs);
-            ArrayNode articles = new ArrayNode(factory);
-            for(int j = 0;j<jsonToForm.get(i).articles.size();j++){
-                ObjectNode article = new ObjectNode(factory);
-                if(jsonToForm.get(i).articles.get(j).correctAnswer){
-                    article.put("data", j);
-                }else{
-                    article.put("data", generator.nextInt(500));
-                }
-                article.put("label",jsonToForm.get(i).articles.get(j).label);
-                articles.add(article);
-            }
-            stage.put("articles", articles);
-            ArrayNode verbs = new ArrayNode(factory);
-            for(int j = 0;j<jsonToForm.get(i).verbs.size();j++){
-                ObjectNode verb = new ObjectNode(factory);
-                if(jsonToForm.get(i).articles.get(j).correctAnswer){
-                    verb.put("data", j);
-                }else{
-                    verb.put("data", generator.nextInt(500));
-                }
-                verb.put("label",jsonToForm.get(i).verbs.get(j).label);
-                verbs.add(verb);
-            }
-            stage.put("verbs",verbs);
-            stages.add(stage);
-        }
-        newSentenceJson.put("stages", stages);
-        newSentenceJson.put("totalStages", jsonToForm.size());
-
-
-        return newSentenceJson;
-    }
-
-    private static void buildStageArray(Map<String, String[]> values, ArrayList<SentenceStageData> jsonToForm) {
-        int biggerIndex = 0;
-        for(String key : values.keySet()){
-            String[] parsedKey = key.split("_");
-            if(Integer.parseInt(parsedKey[0].toString()) > biggerIndex){
-                biggerIndex = Integer.parseInt(parsedKey[0].toString());
-            }
-        }
-        for(int i = 0;i<biggerIndex + 1;i++){
-            jsonToForm.add(i, new SentenceStageData());
-        }
-    }
 
     private static void createGamePackage(String s, ObjectNode cardJSON, Game game) {
         String packageName = s;

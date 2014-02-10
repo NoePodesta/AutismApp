@@ -1,1 +1,0 @@
-{"conversationStage":[[{"label":"Hola","data":true},{"label":"B","data":false},{"label":"C","data":false},{"label":"D","data":false}],[{"label":"Hola","data":true},{"label":"E","data":false},{"label":"F","data":false}]],"conversationFlow":["Hola","Hola"],"totalQuestions":2}

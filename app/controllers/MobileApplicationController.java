@@ -88,7 +88,7 @@ public class MobileApplicationController extends Controller {
             testResult = new TestResult(Game.valueOf(gameType),Patient.findPatientById(Integer.parseInt(patientId)),
                                                          Therapist.findTherapistById(Integer.parseInt(therapistId)),Integer.parseInt(correctAnswers),
                                                         Integer.parseInt(wrongAnswers), date, GamePackage.findPackageById(1),"");
-            Ebean.save(testResult);
+
         }else{
             String bitacoraText = values.get("bitacoraText")[0];
             testResult =   new TestResult(Game.valueOf(gameType),Patient.findPatientById(Integer.parseInt(patientId)),
@@ -96,7 +96,36 @@ public class MobileApplicationController extends Controller {
                    -1, date, GamePackage.findPackageById(1),bitacoraText);
 
          }
-
+        Ebean.save(testResult);
         return ok("save complete");
     }
+
+    public static Result saveOfflineRecord(){
+        final Map<String, String[]> values = request().body().asFormUrlEncoded();
+        String gameType = values.get("gameType")[0];
+        Therapist therapist =  TherapistController.getTherapistByDNI(values.get("therapistId")[0]);
+        Patient patient = PatientController.getPatientByDNI(values.get("patientId")[0]);
+        if(patient != null && therapist != null){
+            Date date = new Date(values.get("currentDate")[0]);
+            TestResult testResult;
+            if(!gameType.equals(Game.BITACORA.toString())){
+                String correctAnswers = values.get("correctAnswers")[0];
+                String wrongAnswers =  values.get("wrongAnswers")[0];
+                testResult = new TestResult(Game.valueOf(gameType),patient,therapist
+                        ,Integer.parseInt(correctAnswers),
+                        Integer.parseInt(wrongAnswers), date, GamePackage.findPackageById(1),"");
+            }else{
+                String bitacoraText = values.get("bitacoraText")[0];
+                testResult = new TestResult(Game.valueOf(gameType),patient,
+                        therapist,-1,
+                        -1, date, GamePackage.findPackageById(1),bitacoraText);
+
+            }
+            Ebean.save(testResult);
+
+            return ok("save complete");
+        }
+        return ok("Hubo un error con tu solicitud");
+    }
+
 }

@@ -156,6 +156,11 @@ public class PatientController
         return Patient.findPatientById(id);
     }
 
+    public static Patient getPatientByDNI(String dni) {
+        return Patient.findPatientByDNI(dni);
+    }
+
+
     public static List<String> allPatientsByNameAndDni(String dni) {
         List<String> patients = new ArrayList<String>();
         for(Patient patient : Patient.findPatientByInstitution(Application.getCurrentTherapist().institution)){
@@ -167,6 +172,6 @@ public class PatientController
 
     public static Result patientProfile(int id){
         Patient patient = Patient.findPatientById(id);
-        //HOTFIX
-        return ok(views.html.patient.patientProfile.render(patient));    }
+        return ok(views.html.patient.patientProfile.render(patient));
+    }
 }

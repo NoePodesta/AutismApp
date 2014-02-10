@@ -17,12 +17,12 @@
 		var answerImage : Bitmap;		
 		var imageLoader:Loader; 
 		
-		public function ClassificationImageAnswerArea(gameManager:GameManager, classificationGroup : int, optionName: String, content : String, positionY : int){
+		public function ClassificationImageAnswerArea(gameManager:GameManager, classificationGroup : int, imageURL: String, questionLabel : String, positionY : int){
 			super(gameManager, optionName, classificationGroup, positionY);				
-			this.content = optionName;
+			this.content = questionLabel;
 			imageLoader = new Loader();
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteImageLoad);
-			imageLoader.load(new URLRequest(content));				
+			imageLoader.load(new URLRequest(imageURL));				
 		}
 		
 		function onCompleteImageLoad(event : Event){

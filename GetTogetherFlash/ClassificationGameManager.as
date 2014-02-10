@@ -9,6 +9,7 @@
 		
 		
 		var stagesOptions : Array;
+		var stagesQuestions : Array;
 		var stagesAnswers : Array;
 		
 		public function ClassificationGameManager(manager : Main,gameContent : Object, totalAnswerAreas : int, gameType : String) {
@@ -24,8 +25,10 @@
 				
 			stagesOptions = new Array(totalStages);
 			stagesAnswers = new Array(totalStages);
+			stagesQuestions = new Array(totalStages);
 			for(var i : int = 0;i<gameContent.totalStages;i++){
 				stagesAnswers[i] = new Array(gameContent.stages[i].totalAnswerAreas);
+				stagesQuestions[i] = new Array(gameContent.stages[i].stageQuestion);
 			}
 			
 			
@@ -64,7 +67,7 @@
 		override public function onOptionLoadComplete():void{
 			totalLoaded++;
 			if(totalLoaded == totalOptions){
-				gameView = new ClassificationGameView(this, stagesOptions, stagesAnswers, gameType);
+				gameView = new ClassificationGameView(this, stagesOptions, stagesAnswers, gameType,stagesQuestions);
 				(gameView as ClassificationGameView).showStage(currentStage);
 				onLoadComplete();				
 			}			
@@ -83,7 +86,7 @@
 				}
 				
 				for(var  j : int = 0; j<gameContent.stages[i].totalAnswerAreas;j++){
-					var answerArea : ClassificationAnswerArea = new ClassificationAnswerArea(this, gameContent.stages[i].answerLabel[j], j, 60);
+					var answerArea : ClassificationAnswerArea = new ClassificationAnswerArea(this, gameContent.stages[i].answerLabel[j], j, 100);
 	
 					stagesAnswers[i][j] = answerArea;
 				}
@@ -102,7 +105,7 @@
 						currentStage++;
 						if(currentStage == totalStages){
 							endGame();
-						}else{
+						}else{							
 							SoundManager.playCorrectSound();
 							(gameView as ClassificationGameView).removeStage(currentStage-1);
 							(gameView as ClassificationGameView).showStage(currentStage);

@@ -11,6 +11,7 @@
 		public function ConversationGameButton(label : String, correctAnswer : Boolean) {
 			var button:ConversationButton = new ConversationButton;
 			button.textContent_txt.text = label;
+			button.textContent_txt.wordWrap = true;
 			addChild(button);
 			this.correctAnswer = correctAnswer;
 		}

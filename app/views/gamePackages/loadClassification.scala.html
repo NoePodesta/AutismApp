@@ -36,33 +36,64 @@
                 <!-- Form template-->
             <div id="class_package_template">
 
-                <input type="hidden" name="#index#_answer" >
-
+                <label>Pregunta</label>
+                <input name="#index#_stageQuestion" />
 
                     <!-- Embeded sheepIt Form -->
                 <div style="margin-left:50px; overflow:hidden;">
-                    <label>Opcion</label>
-
-                    <div id="class_package_#index#_options">
+                    <label>Etiquetas</label>
+                    <div id="class_package_#index#_labels">
 
                             <!-- Nested form template-->
-                        <div id="class_package_#index#_options_template">
-                            <label for="class_package_#index#_options_#index_options#">Opciones</label>
-                            <input id="class_package_#index#_options_#index_options#" type="file" id="picture" name="#index#_options_#index_options#" accept="image/*" >
-                            <input id="class_package_#index#_options_#index_options#" name="#index#_options_#index_options#_amount" type="text" size="15" maxlength="10" />
-                            <a id="class_package_#index#_options_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                        <div id="class_package_#index#_labels_template">
+                            <label for="class_package_#index#_labels_#index_labels#">Etiqueta</label>
+                            <input id="class_package_#index#_labels_#index_labels#" name="#index#_labels_#index_labels#_label">
+                            <!--<input id="class_package_#index#_labels_#index_labels#" name="#index#_labels_#index_labels#_group" type="text" size="15" maxlength="10" />-->
+                            <a id="class_package_#index#_labels_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
                         </div>
                             <!-- /Nested form template-->
 
                             <!-- No forms template -->
-                        <div id="class_package_#index#_options_noforms_template">No hay opciones</div>
+                        <div id="class_package_#index#_labels_noforms_template">No hay etiquetas</div>
                             <!-- /No forms template-->
 
                             <!-- Controls -->
-                        <div id="class_package_#index#_options_controls" class="controls">
-                            <div id="class_package_#index#_options_add"><a><span>Añadir opcion</span></a></div>
-                            <div id="class_package_#index#_options_remove_last"><a><span>Borrar ultima</span></a></div>
-                            <div id="class_package_#index#_options_remove_all"><a><span>Borrar todas</span></a></div>
+                        <div id="class_package_#index#_labels_controls" class="controls">
+                            <div id="class_package_#index#_labels_add"><a><span>Añadir opcion</span></a></div>
+                            <div id="class_package_#index#_labels_remove_last"><a><span>Borrar ultima</span></a></div>
+                            <div id="class_package_#index#_labels_remove_all"><a><span>Borrar todas</span></a></div>
+                        </div>
+                            <!-- /Controls -->
+
+                    </div>
+
+                    <label>Imagenes</label>
+
+                    <div id="class_package_#index#_images">
+
+                            <!-- Nested form template-->
+                        <div id="class_package_#index#_images_template">
+                            <label for="class_package_#index#_images_#index_images#">Imagen</label>
+                            <input id="class_package_#index#_images_#index_images#" name="#index#_images_#index_images#_image" type="file" id="picture" accept="image/*" />
+                            <select name="#index#_images_#index_images#_group">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                            </select>
+                            <!--<input id="class_package_#index#_images_#index_images#" name="#index#_images_#index_images#_group" type="text" size="15" maxlength="10" />-->
+
+                            <a id="class_package_#index#_images_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                        </div>
+                            <!-- /Nested form template-->
+
+                            <!-- No forms template -->
+                        <div id="class_package_#index#_images_noforms_template">No hay imagenes</div>
+                            <!-- /No forms template-->
+
+                            <!-- Controls -->
+                        <div id="class_package_#index#_images_controls" class="controls">
+                            <div id="class_package_#index#_images_add"><a><span>Añadir opcion</span></a></div>
+                            <div id="class_package_#index#_images_remove_last"><a><span>Borrar ultima</span></a></div>
+                            <div id="class_package_#index#_images_remove_all"><a><span>Borrar todas</span></a></div>
                         </div>
                             <!-- /Controls -->
 
@@ -79,7 +110,7 @@
 
 
                 <!-- No forms template -->
-            <div id="class_package_noforms_template">No hay preguntas</div>
+            <div id="class_package_noforms_template">No hay clasificaciones</div>
                 <!-- /No forms template -->
 
                 <!-- Controls -->

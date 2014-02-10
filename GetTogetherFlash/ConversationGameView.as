@@ -18,14 +18,14 @@
 
 		
 		
-		public function ConversationGameView(gameManager : GameManager, conversationFlow : Array, conversationOptions : Array, gameType : String) {
+		public function ConversationGameView(gameManager : GameManager, conversationFlow : Array, conversationOptions : Array, gameType : String, question:String) {
 			super(gameManager,gameType);
 			
 			currentStage = 0;
 			
 			this.conversationFlow = conversationFlow;
 			this.conversationOptions = conversationOptions;
-			
+			background.question_txt.text = question;
 			createMadComponents();
 		
 		}
@@ -45,7 +45,7 @@
 	
 			var rectangle : MovieClip = new emotionGraphicAnswerMask_mc;
 			rectangle.x = 1024/2 - rectangle.width/2;
-			rectangle.y = 62;
+			rectangle.y = 96;
 			
 			//mainConversationList.x = 1024/2 - rectangle.width/2;
 			//mainConversationList.y = 62;
@@ -62,24 +62,24 @@
 			var leftX : int = 1024/2 - 100;
 			var rightX : int = 1024/2 + 100;
 			buttons = new Array(4);
-			for(var i:int = 0;i<4;i++){
-					var button : ConversationGameButton;
+			for(var i:int = 0;i<conversationOptions[level].length;i++){
+				var button : ConversationGameButton;
 				if(i==0){
-					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].data);
-					button.y = 600;
-					button.x = 1024/2 - button.width;	
+					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].correctAnswer);
+					button.y = 410;
+					button.x = 1024/4 - button.width/2;	
 				}else if(i==1){
-					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].data);
-					button.y = 600;
-					button.x = 1024/2 + button.width/4;
+					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].correctAnswer);
+					button.y = 410;
+					button.x = 1024/4 * 3 - button.width/2;
 				}else if(i==2){
-					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].data);
-					button.y = 400;
-					button.x = 1024/2 - button.width;
+					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].correctAnswer);
+					button.y = 560;
+					button.x = 1024/4 - button.width/2;
 				}else{
-					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].data);
-					button.y = 400;
-					button.x = 1024/2 + button.width/4;
+					button = new ConversationGameButton(conversationOptions[level][i].label, conversationOptions[level][i].correctAnswer);
+					button.y = 560;
+					button.x = 1024/4 * 3 - button.width/2;
 				}
 				addChild(button);
 				button.addEventListener(TouchEvent.TOUCH_TAP, checkAnswer);

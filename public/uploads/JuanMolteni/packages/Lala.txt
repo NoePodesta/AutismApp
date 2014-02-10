@@ -1,1 +1,0 @@
-{"conversationStage":[[{"label":"HOLA","data":true},{"label":"asd","data":true}],[{"label":"Como ANdas","data":true},{"label":"qwe","data":false}]],"conversationFlow":["HOLA","asd","Como ANdas"]}

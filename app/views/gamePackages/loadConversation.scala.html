@@ -24,37 +24,43 @@
                 <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" conversation="">
             </div>
 
+            <label for="0_textOrientation">Orientacion</label>
+            <input id="0_textOrientation" name="0_textOrientation" type="text" size="15" maxlength="10" />
+
                 <!-- Form template-->
             <div id="conversation_package_template">
 
-                <input type="hidden" name="#index#_answer" >
+
 
 
                     <!-- Embeded sheepIt Form -->
                 <div style="margin-left:50px; overflow:hidden;">
                     <label>Opcion</label>
 
-                    <div id="conversation_package_#index#_options">
+                    <div id="conversation_package_#index#_answers">
+
+                        <label for="conversation_package_#index#_question">Pregunta</label>
+                        <input id="conversation_package_#index#_question" name="#index#_question" type="text" size="15" maxlength="10" />
 
                             <!-- Nested form template-->
-                        <div id="conversation_package_#index#_options_template">
-                            <label for="conversation_package_#index#_options_#index_options#">Opciones</label>
-                            <input id="conversation_package_#index#_options_#index_options#" name="#index#_options_#index_options#" type="text" size="15" maxlength="10" />
-                            <input type="hidden" name="#index#_options_#index_options#_correctAnswer" value="off">
-                            <input type="checkbox" name="#index#_options_#index_options#_correctAnswer"/>
-                            <a id="conversation_package_#index#_options_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                        <div id="conversation_package_#index#_answers_template">
+                            <label for="conversation_package_#index#_answers_#index_answers#">Posible Respuesta</label>
+                            <input id="conversation_package_#index#_answers_#index_answers#_label" name="#index#_answers_#index_answers#_label" type="text" size="15" maxlength="10" />
+                            <input type="hidden" name="#index#_answers_#index_answers#_correctAnswer" value="off">
+                            <input type="checkbox" name="#index#_answers_#index_answers#_correctAnswer"/>
+                            <a id="conversation_package_#index#_answers_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
                         </div>
                             <!-- /Nested form template-->
 
                             <!-- No forms template -->
-                        <div id="conversation_package_#index#_options_noforms_template">No hay opciones</div>
+                        <div id="conversation_package_#index#_answers_noforms_template">No hay opciones</div>
                             <!-- /No forms template-->
 
                             <!-- Controls -->
-                        <div id="conversation_package_#index#_options_controls" conversation="controls">
-                            <div id="conversation_package_#index#_options_add"><a><span>Añadir opcion</span></a></div>
-                            <div id="conversation_package_#index#_options_remove_last"><a><span>Borrar ultima</span></a></div>
-                            <div id="conversation_package_#index#_options_remove_all"><a><span>Borrar todas</span></a></div>
+                        <div id="conversation_package_#index#_answers_controls" conversation="controls">
+                            <div id="conversation_package_#index#_answers_add"><a><span>Añadir opcion</span></a></div>
+                            <div id="conversation_package_#index#_answers_remove_last"><a><span>Borrar ultima</span></a></div>
+                            <div id="conversation_package_#index#_answers_remove_all"><a><span>Borrar todas</span></a></div>
                         </div>
                             <!-- /Controls -->
 

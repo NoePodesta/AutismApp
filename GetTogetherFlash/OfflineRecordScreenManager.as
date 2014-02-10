@@ -14,7 +14,7 @@
 			offlineRecordScreen.offlineRecords_text.multiline = true;
 			var stringToDisplay : String = "";
 			for(var i : int = 0;i<offlineRecords.length;i++){
-				stringToDisplay += offlineRecords[i].offlinePatient + " - ";
+				stringToDisplay += offlineRecords[i].patientId + " - ";
 				stringToDisplay += offlineRecords[i].gameType + "";
 				stringToDisplay += "\n";
 			}

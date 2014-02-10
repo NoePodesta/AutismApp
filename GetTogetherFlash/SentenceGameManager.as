@@ -4,6 +4,7 @@
 		
 		var wordsContainer : Array;
 		var totalImages : Array;
+		var totalTextQuestions : Array;
 		
 		var totalImagesLoaded : int;
 		var currentStage : int;
@@ -16,18 +17,20 @@
 			currentStage = 0;
 			wordsContainer = new Array(totalStages);
 			totalImages = new Array(totalStages);
+			totalTextQuestions = new Array(totalStages);
 			
 			for(var i : int = 0;i<totalStages;i++){
 				wordsContainer[i] = new Array(gameContent.stages[i].articles,gameContent.stages[i].sustantivs,gameContent.stages[i].verbs,gameContent.stages[i].adjectives);
-				totalImages[i] = gameContent.stages[i].answer;
+				totalImages[i] = gameContent.stages[i].imageQuestion;
+				totalTextQuestions[i] = gameContent.stages[i].textQuestion;
 			}			
 			
-			gameView = new SentenceGameView(this, gameType, totalImages);
+			gameView = new SentenceGameView(this, gameType, totalImages, totalTextQuestions);
 			
 		}
 		
-		public function checkSentence(articleData : int, sustantivoData : int,verbData : int,adjetiveData : int):void{
-			if(articleData == sustantivoData == verbData == adjetiveData){
+		public function checkSentence(articleData : Boolean, sustantivoData : Boolean,verbData : Boolean,adjetiveData : Boolean):void{
+			if(articleData && sustantivoData && verbData && adjetiveData ){
 				currentStage++;
 				
 				resultColector.addCorrectAnswer();
@@ -56,7 +59,7 @@
 		
 		private function buildNextStage():void{
 			(gameView as SentenceGameView).setOptions(wordsContainer[currentStage]);
-			(gameView as SentenceGameView).showNextImage(currentStage);
+			(gameView as SentenceGameView).showNextStage(currentStage);
 		}
 		
 

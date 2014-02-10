@@ -23,7 +23,7 @@
 			
 			
 			
-			gameView = new ConversationGameView(this, conversationFlow, conversationOptions, gameType);
+			gameView = new ConversationGameView(this, conversationFlow, conversationOptions, gameType, gameContent.question);
 			
 			onLoadComplete();
 		}

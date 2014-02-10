@@ -26,9 +26,11 @@ Dar de alta pregunta
 
     <!-- Form template-->
     <div id="qa_package_template">
-        <label for="qa_package_#index#_answer">Imagen</label>
-        <input type="file" id="picture" name="#index#_answer" accept="image/*" >
-        <a id="qa_package_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+        <label for="qa_package_#index#_imageQuestion">Imagen</label>
+        <input id="qa_package_#index#_imageQuestion" name="#index#_imageQuestion" type="file" id="picture" accept="image/*"  />
+
+        <label for="qa_package_#index#_textQuestion">Pregunta</label>
+        <input id="qa_package_#index#_textQuestion" name="#index#_textQuestion" type="text" size="15" maxlength="10" />
 
         <!-- Embeded sheepIt Form -->
         <div style="margin-left:50px; overflow:hidden;">

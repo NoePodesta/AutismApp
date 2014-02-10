@@ -17,10 +17,17 @@ $(document).ready(function() {
         continuousIndex: true,
         nestedForms: [
             {
-                id: 'class_package_#index#_options',
+                id: 'class_package_#index#_labels',
                 options: {
-                    indexFormat: '#index_options#',
+                    indexFormat: '#index_labels#',
                     maxFormsCount: 2
+                }
+            },
+            {
+                id: 'class_package_#index#_images',
+                options: {
+                    indexFormat: '#index_images#',
+                    maxFormsCount: 8
                 }
             }
         ]

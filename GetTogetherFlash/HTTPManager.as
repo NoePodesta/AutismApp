@@ -79,7 +79,7 @@
 			variables.patientId = patientId;
 			variables.correctAnswers = resultColector.correctAnswers;
 			variables.wrongAnswers = resultColector.wrongAnswers;
-			variables.currentDate = resultColector.currentDate.toLocaleString();
+			variables.currentDate = resultColector.currentDate;
 			
 			request.data = variables;
 			
@@ -109,9 +109,30 @@
 			var loader:URLLoader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE, onComplete);
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
-			loader.load(request);
+			loader.load(request);			
+		}
+		
+		public function sendOfflineRecord(offlineRecord : Object){
+			var url:String = "http://localhost:9000/saveOfflineRecord";
+			var request:URLRequest = new URLRequest(url);
+			request.method = URLRequestMethod.POST;
+
+			var offlineRecordVariables:URLVariables = new URLVariables();			
 			
-				
+			offlineRecordVariables.gameType = offlineRecord.gameType;
+			offlineRecordVariables.therapistId = offlineRecord.therapistId;
+			offlineRecordVariables.patientId = offlineRecord.patientId;
+			offlineRecordVariables.correctAnswers = offlineRecord.correctAnswers;
+			offlineRecordVariables.wrongAnswers = offlineRecord.wrongAnswers;
+			offlineRecordVariables.packageUsed = offlineRecord.packageUsed;
+			offlineRecordVariables.currentDate = offlineRecord.currentDate;			
+		
+			request.data = offlineRecordVariables;
+			
+			var loader:URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, onComplete);
+			loader.dataFormat = URLLoaderDataFormat.TEXT;
+			loader.load(request);			
 			
 		}
 	

@@ -16,12 +16,12 @@
 		private var answerImage : Bitmap;
 		private var imageLoader : Loader;
 		
-		public function ClassificationTextAnswerArea(gameManager:GameManager, classificationGroup : int, optionName: String, content : String, positionY : int){
+		public function ClassificationTextAnswerArea(gameManager:GameManager, classificationGroup : int, imageURL: String, questionLabel : String, positionY : int){
 			super(gameManager, optionName, classificationGroup, positionY);			
-			this.content = content;		
+			this.content = questionLabel;		
 			imageLoader= new Loader();
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteImageLoad);
-			imageLoader.load(new URLRequest("SignsImages/QuestionMark.png"));
+			imageLoader.load(new URLRequest(imageURL));
 		}
 		
 	

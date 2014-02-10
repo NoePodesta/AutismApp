@@ -102,13 +102,19 @@
 					buildGIFOptions(i);
 				}
 			
-				if(gameContent.stages[i].answerType == "Text"){
-					answerArea = new ClassificationTextAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,411);
+				if(gameContent.stages[i].imageQuestion == "-1"){
+					answerArea = new ClassificationTextAnswerArea(this,1,"SignsImages/QuestionMark.png",gameContent.stages[i].textQuestion,411);
+				}else{
+					answerArea = new ClassificationTextAnswerArea(this,1,gameContent.stages[i].imageQuestion,gameContent.stages[i].textQuestion,411);
+				}
+				/*	
 				}else if(gameContent.stages[i].answerType == "Image"){
 					answerArea = new ClassificationImageAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,411);
-				}else if(gameContent.stages[i].answerType == "GIF"){
+				}				
+				else if(gameContent.stages[i].answerType == "GIF"){
 					answerArea = new ClassificationGIFAnswerArea(this,1,gameContent.stages[i].answerLabel,gameContent.stages[i].answer,50);
 				}	
+				*/
 				stagesAnswers[i] = answerArea;
 			}
 			

@@ -24,6 +24,7 @@
 		
 	
 		var answerImage : Array;
+		var textQuestions : Array;
 		
 		var imageLoader:Loader; 
 		
@@ -40,11 +41,11 @@
 		var pickerAdjetivos:UIPicker;
 		
 	
-		public function SentenceGameView(gameManager: GameManager,gameType : String, totalImages : Array){
+		public function SentenceGameView(gameManager: GameManager,gameType : String, totalImages : Array, allTextQuestions : Array){
 			super(gameManager,gameType);
 			
 			answerImage = new Array(totalImages.length);
-			
+			textQuestions = allTextQuestions;
 
 			for(var i : int = 0;i<totalImages.length;i++){
 				imageLoader = new Loader();
@@ -68,7 +69,8 @@
 			if(pickerAdjetivos.index == -1){
 				pickerAdjetivos.index = 0;
 			}
-			(manager as SentenceGameManager).checkSentence(pickerArticulos.row.data, pickerSustantivos.row.data,pickerVerbos.row.data,pickerAdjetivos.row.data);
+			
+			(manager as SentenceGameManager).checkSentence(pickerArticulos.row.correctAnswer, pickerSustantivos.row.correctAnswer,pickerVerbos.row.correctAnswer,pickerAdjetivos.row.correctAnswer);
 
 			
 		}
@@ -80,12 +82,13 @@
 			
 		}
 		
-		public function showNextImage(stageImage : int):void{
+		public function showNextStage(stageImage : int):void{
 			answerImage[stageImage].y = 306+100/2;
 			answerImage[stageImage].x = 1024/2-200/2;
 			answerImage[stageImage].width = 200;
 			answerImage[stageImage].height = 100;			
 			addChild(answerImage[stageImage]);
+			background.question_txt.text = textQuestions[stageImage];
 		}
 		
 		public function removeImage(stageImage : int):void{
@@ -144,9 +147,10 @@
 		
 		public function setOptions(words : Array):void{
 			pickerArticulos.data = words[0];
+			pickerSustantivos.data = words[1];
 			pickerVerbos.data = words[2];
 			pickerAdjetivos.data = words[3];
-			pickerSustantivos.data = words[1];
+		
 			
 		}
 
