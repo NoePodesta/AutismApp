@@ -17,6 +17,10 @@
 				addChildAt(totalAnswers[i],1);
 			}
 		}
+		
+		public function setQuestion(question : String){
+			background.question_txt.text = question;
+		}
 
 	}
 	

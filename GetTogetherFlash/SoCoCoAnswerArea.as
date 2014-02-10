@@ -12,8 +12,8 @@
 		var optionLabel : String;
 
 		
-		public function SoCoCoAnswerArea(gameManager : SoCoCoGameManager,classificationGroup : int, optionName: String, totalAnswers : int){
-			super(gameManager,"",classificationGroup,50);
+		public function SoCoCoAnswerArea(gameManager : SoCoCoGameManager,classificationGroup : int, optionLabel: String, totalAnswers : int){
+			super(gameManager,"",classificationGroup,100);
 			this.totalAnswers = totalAnswers;
 			currentCount = 0;
 			this.gameManager = gameManager;
@@ -41,7 +41,7 @@
 		
 		public function getCountArea():MovieClip{
 			countArea.x = x + 25;
-			countArea.y = y + 50;
+			countArea.y = y + 100;
 			countArea.width = width;
 			countArea.height = height;
 			countArea.alpha = 0.5;

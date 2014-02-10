@@ -77,6 +77,10 @@ public class GamePackageController extends Controller {
         ArrayNode answerAreas = new ArrayNode(factory);
         ArrayNode questions = new ArrayNode(factory);
         ArrayNode textOptions = new ArrayNode(factory);
+        int[] totalsArray = new int[3];
+        totalsArray[0] = 0;
+        totalsArray[1] = 0;
+        totalsArray[2] = 0;
 
         for(int i = 0;i<3;i++){
             ObjectNode answerArea = new ObjectNode(factory);
@@ -84,21 +88,38 @@ public class GamePackageController extends Controller {
             answerArea.put("classificationGroup",i);
             answerAreas.add(answerArea);
 
-            ObjectNode question = new ObjectNode(factory);
-            question.put("question",  values.get(0 + "_questions_" + i + "_label")[0]);
-            questions.add(question);
-
             ObjectNode secondClassification = new ObjectNode(factory);
             secondClassification.put("label", values.get(0 + "_secondClassification_" + i + "_label")[0]);
             secondClassification.put("classificationGroup",i);
             textOptions.add(secondClassification);
+
         }
+      for(int i = 0;i<2;i++){
+            //ObjectNode question = new ObjectNode(factory);
+            questions.add(values.get(0 + "_questions_" + i + "_label")[0]);
+            //questions.add(question);
+        }
+        //ObjectNode letsCount = new ObjectNode(factory);
+       // letsCount.put("question", "Contemos!");
+        questions.add("Contemos");
+
+
+       // ObjectNode minorQuestion = new ObjectNode(factory);
+       // minorQuestion.put("question", "Que grupo tiene menos objetos?");
+        questions.add("Que grupo tiene menos objetos?");
+
+      //  ObjectNode mayorQuestion = new ObjectNode(factory);
+       // mayorQuestion.put("question",  "Que grupo tiene mas objetos?");
+        questions.add("Que grupo tiene mas objetos?");
+
+
         int optionsLength = 0;
         while(values.get(0 + "_images_" + optionsLength + "_group") != null){
             ObjectNode option = new ObjectNode(factory);
             option.put("graphicOption", ImageController.getPackageImage(0 + "_images_" + optionsLength + "_image"));
             option.put("classificationGroup", values.get(0 + "_images_" + optionsLength + "_group")[0]);
             graphicOptions.add(option);
+            totalsArray[Integer.parseInt(values.get(0 + "_images_" + optionsLength + "_group")[0])]++;
             optionsLength++;
          }
 
@@ -109,6 +130,10 @@ public class GamePackageController extends Controller {
         soCoCoJSON.put("textOption", textOptions);
         soCoCoJSON.put("questions",questions);
         soCoCoJSON.put("totalImages", optionsLength);
+        soCoCoJSON.put("totalA", totalsArray[0]);
+        soCoCoJSON.put("totalB", totalsArray[1]);
+        soCoCoJSON.put("totalC", totalsArray[2]);
+
 
         createGamePackage(values.get("0_packageName")[0], soCoCoJSON, Game.SOCOCO);
 

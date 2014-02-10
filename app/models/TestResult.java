@@ -28,13 +28,17 @@ public class TestResult extends Model {
     @ManyToOne
     private Therapist therapist;
     public int correctAnswers;
-    private int wrongAnswers;
+    public int wrongAnswers;
     public Date dateMade;
     @ManyToOne
     private GamePackage aGamePackage;
     @ManyToOne
     private Team team;
-    private String bitacoraText;
+    public String bitacoraText;
+
+
+
+
 
 
     public static Model.Finder<Integer,TestResult> find = new Model.Finder(Integer.class, TestResult.class);
@@ -61,6 +65,8 @@ public class TestResult extends Model {
     public static List<TestResult> getResultByPatient(Patient patient){
         return find.where().eq("patient", patient).findList();
     }
+
+
 
 
 

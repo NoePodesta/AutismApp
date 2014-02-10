@@ -36,8 +36,8 @@ $(document).ready(function() {
                 id: 'sococo_package_#index#_questions',
                 options: {
                     indexFormat: '#index_questions#',
-                    minFormsCount: 3,
-                    iniFormsCount: 3
+                    minFormsCount: 2,
+                    iniFormsCount: 2
                 }
             },
 

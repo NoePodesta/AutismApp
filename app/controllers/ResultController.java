@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Game;
 import models.Patient;
 import models.TestResult;
 import play.mvc.Controller;
@@ -39,6 +40,16 @@ public class ResultController extends Controller {
             Map<Object, Serializable> eventRemapped = new HashMap<Object, Serializable>();
             eventRemapped.put("id", testResult.id);
             eventRemapped.put("title", testResult.game);
+            String description = "";
+            description += testResult.game.toString() + "<br>";
+            if(testResult.game.toString().equals(Game.BITACORA.toString())){
+                description =  description.concat("Bitacora: " + testResult.bitacoraText + "<br>");
+            }else{
+                description =  description.concat("Respuestas correctas " + testResult.correctAnswers + "<br>");
+                description =   description.concat("Respuestas incorrects " + testResult.wrongAnswers + "<br>");
+            }
+            eventRemapped.put("description", description);
+
             eventRemapped.put("start", df.format(testResult.dateMade));
             eventRemapped.put("end", df.format(testResult.dateMade));
             allEvents.add(eventRemapped);
