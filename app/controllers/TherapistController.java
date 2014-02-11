@@ -195,6 +195,32 @@ public class TherapistController extends Controller {
         return therapistList();
     }
 
+    public static Result updateTherapistPassword() {
+        Form<Therapist> therapistForm = form(Therapist.class).bindFromRequest();
+        //Declarado asi por un bug de play
+
+        if(therapistForm.hasErrors()) {
+            return TODO;
+
+        }
+
+        Therapist therapist = therapistForm.get();
+        String newPassword = BCrypt.hashpw(therapist.password, BCrypt.gensalt());
+        therapist.password = newPassword;
+
+
+        Ebean.update(therapist);
+
+        flash(Msg.SUCCESS, Msg.CHANGES_SAVED);
+        return therapistList();
+    }
+
+    public static Result editTherapistPassword(int id){
+        Therapist therapistToFill = Therapist.findTherapistById(id);
+        Form<Therapist> therapistForm = form(Therapist.class).fill(therapistToFill);
+        return ok(views.html.therapist.editTherapistPassword.render(id, therapistForm));
+    }
+
     public static Result removeTherapist(int id) {
         if(Therapist.delete(id)){
             flash(Msg.SUCCESS, Msg.REMOVE(Msg.THERAPIST));

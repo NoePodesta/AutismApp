@@ -60,7 +60,7 @@
 		function createButtonsForStage(level : int):void{
 			var leftX : int = 1024/2 - 100;
 			var rightX : int = 1024/2 + 100;
-			buttons = new Array(4);
+			buttons = new Array(conversationOptions[level].length);
 			for(var i:int = 0;i<conversationOptions[level].length;i++){
 				var button : ConversationGameButton;
 				if(i==0){
@@ -94,7 +94,7 @@
 		public function proceedToNextQuestion():void{
 			currentStage++;
 			
-			for(var i : int = 0;i<3;i++){
+			for(var i : int = 0;i<buttons.length;i++){
 				removeChild(buttons[i]);
 			}
 			createButtonsForStage(currentStage);

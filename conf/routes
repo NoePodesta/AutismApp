@@ -67,7 +67,8 @@ POST        /therapists/removeTherapist/:id        controllers.TherapistControll
 GET         /therapists/:id                        controllers.TherapistController.editTherapist(id:Integer)
 POST        /editTherapists                        controllers.TherapistController.updateTherapist()
 POST        /modifyTherapistImage                  controllers.TherapistController.updateTherapistImage()
-
+GET         /editPassword/:id                      controllers.TherapistController.editTherapistPassword(id:Integer)
+POST        /editTherapistPassword                 controllers.TherapistController.updateTherapistPassword()
 
 # List Team
 GET         /teams                                 controllers.TeamController.teamList()

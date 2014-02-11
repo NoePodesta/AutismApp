@@ -130,8 +130,7 @@
 		
 		public function getSentencePackages():Array{
 			var sentencePackages : Array = new Array();
-			sentencePackages.push(new PackageOption("Oracion Default", "JSONs/Sentence.txt"));
-			sentencePackages.push(new PackageOption("Oracion JSON", "JSONs/SentenceJSON.txt"));			
+			sentencePackages.push(new PackageOption("Oracion Default", "JSONs/Sentence.txt"));	
 			
 			getTherapistPackages(sentencePackages);
 			return sentencePackages;

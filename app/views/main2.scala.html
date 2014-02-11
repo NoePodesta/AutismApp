@@ -107,7 +107,7 @@
                 <ul class="toggle">
                     <li class="icn_profile"><a href="@routes.TherapistController.profile()">Mi Perfil</a></li>
                     <li class="icn_edit_article"><a href="@routes.TherapistController.editTherapist(Application.getCurrentTherapist.id)">Editar Perfil</a></li>
-                    <li class="icn_security"><a href="#">Seguridad</a></li>
+                    <li class="icn_security"><a href="@routes.TherapistController.editTherapistPassword(Application.getCurrentTherapist.id)">Seguridad</a></li>
                     <li class="icn_jump_back"><a href="@routes.Application.logout()">Logout</a></li>
                 </ul>
             </div>

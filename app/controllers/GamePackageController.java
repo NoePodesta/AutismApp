@@ -159,7 +159,7 @@ public class GamePackageController extends Controller {
                 ArrayNode stageOptions = new ArrayNode(factory);
                 while(values.get(parsedKey[0] + "_answers_" + optionsLength + "_label") != null){
                       ObjectNode option = new ObjectNode(factory);
-                      option.put("label", values.get(parsedKey[0] + "_ansers_" + optionsLength + "_label")[0]);
+                      option.put("label", values.get(parsedKey[0] + "_answers_" + optionsLength + "_label")[0]);
                       if(values.get(parsedKey[0] + "_answers_" + optionsLength + "_correctAnswer").length > 1){
                           conversationFlow.add(values.get(key)[0]);
                           conversationFlow.add(values.get(parsedKey[0] + "_answers_" + optionsLength + "_label")[0]);

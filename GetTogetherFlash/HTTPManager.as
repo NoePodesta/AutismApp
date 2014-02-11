@@ -113,8 +113,6 @@
 			loader.addEventListener(Event.COMPLETE, onComplete);
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
 			loader.load(request);
-			
-			main.destroyGame();
 		}
 		
 		public function sendOfflineRecord(offlineRecord : Object){

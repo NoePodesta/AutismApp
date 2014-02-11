@@ -33,7 +33,13 @@
         <renderMode>auto</renderMode>
         <autoOrients>false</autoOrients>
     </initialWindow>
-    <icon/>
+    <icon>
+    <image48x48>icono/pequeno.png</image48x48>
+    <image72x72>icono/pequeno72.png</image72x72>
+    <image50x50>icono/pequeno50.png</image50x50>
+    <image100x100>icono/pequeno100.png</image100x100>
+    <image144x144>icono/pequeno144.png</image144x144>
+  </icon>
     <customUpdateUI>false</customUpdateUI>
     <allowBrowserInvocation>false</allowBrowserInvocation>
     <iPhone>

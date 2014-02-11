@@ -1,1 +1,2 @@
-{"totalCards":4,"cards":[{"imageName":"Martillo","imageURL":"ElementsImages/hammer.png"},{"imageName":"Reptiloide","imageURL":"ShapesImages/reptiloide.png"},{"imageName":"Bueno","imageURL":"SignsImages/thumbsUp.png"},{"imageName":"Contento","imageURL":"EmotionsGifs/happy.png"}]}
+{"cards":[{"imageURL":"SignsImages/Penguins.jpg","imageName":"Pinguino"},{"imageURL":"SignsImages/Koala.jpg","imageName":"Koala"},{"imageURL":"SignsImages/Jellyfish.jpg","imageName":"Medusa"}],"totalCards":3}
+
