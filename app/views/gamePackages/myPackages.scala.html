@@ -1,0 +1,99 @@
+@(packagesList: List[models.GamePackage])
+@import helper._
+
+    @title = {
+        Pacientes
+    }
+
+    @navigator = {
+
+        <a class="current">Paquetes</a>
+    }
+
+
+@main2(title, navigator, null) {
+
+    <div class="container-fluid">
+
+
+        <div class="row-fluid">
+        @if(packagesList.isEmpty()) {
+
+            <div class="well">
+                <em>No se ha cargado ningún paquete</em>
+            </div>
+
+        } else {
+
+
+            <div class="therapistList">
+            @for(gamePack <- packagesList) {
+
+                <div class="span4">
+                    <div class="well">
+                        <div class="span3">
+                            @if(gamePack.getGameType.isClassification){
+                                <img class="img-polaroid" src="@routes.Assets.at("images/botones/Clasi.png")" height="42" width="42">
+                            }
+                            @if(gamePack.getGameType.isConversation){
+                                <img class="img-polaroid" src="@routes.Assets.at("images/botones/Conver.png")" height="42" width="42">
+                            }
+                            @if(gamePack.getGameType.isCard){
+                                <img class="img-polaroid" src="@routes.Assets.at("images/botones/Tarjeta.png")" height="42" width="42">
+                            }
+                            @if(gamePack.getGameType.isQA){
+                                <img class="img-polaroid" src="@routes.Assets.at("images/botones/P&R.png")" height="42" width="42">
+                            }
+                            @if(gamePack.getGameType.isSentence){
+                                <img class="img-polaroid" src="@routes.Assets.at("images/botones/Oraciones.png")" height="42" width="42">
+                            }
+                            @if(gamePack.getGameType.isSococo){
+                                <img class="img-polaroid" src="@routes.Assets.at("images/botones/Sococo.png")" height="42" width="42">
+                            }
+                            @if(gamePack.getGameType.isSound){
+                                <img class="img-polaroid" src="@routes.Assets.at("images/botones/Sonido.png")" height="42" width="42">
+                            }
+                        </div>
+
+                        @if(Secured.isAdmin){
+                            <a class="pull-right" data-toggle="modal" href="#@gamePack.getId"><img src="@routes.Assets.at("images/delete.png")" alt="Eliminar" height="10" width="10"></a>
+                        }
+                        <div class="therapistInfo">
+                            <p class="inline bold">@gamePack.getPackageName</p>
+                            <p class="italic left-padding">@gamePack.getGameType().getValue()</p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="modal fade" id="@gamePack.getId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Eliminar Paquete</h4>
+                            </div>
+                            <div class="modal-body">
+                                Esta seguro que quiere eliminar este paquete?
+                                @gamePack.getPackageName
+                            </div>
+                            <div class="modal-footer">
+                                @form(routes.GamePackageController.removePackage(gamePack.getId)) {
+                                    <input type="submit" value="Eliminar" class="btn btn-danger inline">
+                                }
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+
+            }
+            </div>
+        }
+        </div>
+    </div>
+
+}

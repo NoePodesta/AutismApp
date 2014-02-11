@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 
     var sentencePackageForm = $("#cards").sheepIt({
-        separator: '',
+        separator: '<div style="width:100%; border-top:1px solid #0088cc; margin: 10px 0px;"></div>',
         allowRemoveLast: true,
         allowRemoveCurrent: true,
         allowRemoveAll: true,

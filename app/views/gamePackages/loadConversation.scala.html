@@ -1,25 +1,29 @@
 @import helper._
 
 @title = {
-    Dar de alta pregunta
+    Cargar Paquete de Conversación
 }
 
 @navigator = {
 
-    <a href="">Cards</a>
+    <a href="">Cargar Paquete de Conversación</a>
 
 }
 
 
 @main2(title,navigator, "conversationSheepIt.js"){
+    <div class="container-fluid">
+        <div id=therapistForm>
     @form(routes.GamePackageController.saveConversationPackage()) {
         <!-- Main sheepIt Form -->
         <label>Cargar paquete de Conversacion</label>
 
 
         <div id="conversation_package">
+            <fieldset>
+                <legend>Información del paquete</legend>
 
-            <div conversation="field">
+                <div class="field">
                 <label for="packageName">Nombre del Paquete</label>
                 <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" conversation="">
             </div>
@@ -28,13 +32,15 @@
             <input id="0_textOrientation" name="0_textOrientation" type="text" size="15" maxlength="10" />
 
                 <!-- Form template-->
+                <fieldset>
+                    <legend>Pregunta de clasificación</legend>
             <div id="conversation_package_template">
 
 
 
 
                     <!-- Embeded sheepIt Form -->
-                <div style="margin-left:50px; overflow:hidden;">
+                <div style="overflow:hidden;">
                     <label>Opcion</label>
 
                     <div id="conversation_package_#index#_answers">
@@ -71,6 +77,7 @@
 
 
             </div>
+                    </fieldset>
                 <!-- /Form template -->
 
 
@@ -81,9 +88,9 @@
 
                 <!-- Controls -->
             <div id="conversation_package_controls" conversation="controls">
-                <div id="conversation_package_add"><a><span>Añadir Linea de conversacion</span></a></div>
-                <div id="conversation_package_remove_last"><a><span>Borrar ultima</span></a></div>
-                <div id="conversation_package_remove_all"><a><span>Borrar todas</span></a></div>
+                <div id="conversation_package_add"class="inline"><a class="infoControl">Añadir línea de conversacion</a></div>
+                <div id="conversation_package_remove_last"class="inline"><a class="infoControl">Borrar ultima</a></div>
+                <div id="conversation_package_remove_all"class="inline"><a class="infoControl">Borrar todas</a></div>
             </div>
                 <!-- /Controls -->
 
@@ -91,9 +98,11 @@
         <!-- /Main sheepIt Form -->
 
         <div conversation="actions">
-            <input type="submit" value="Guardar Paquete" conversation="btn primary">
+            <input type="submit" value="Guardar Paquete" class="btn btn-info">
         </div>
 
 
     }
+    </div>
+    </div>
 }

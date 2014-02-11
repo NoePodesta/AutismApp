@@ -1,139 +1,132 @@
 @import helper._
 
 @title = {
-    Dar de alta pregunta
+    Cargar Juego de Clasificación
 }
 
-@navigator = {
+    @navigator = {
 
-    <a href="">Cards</a>
+    <a class="current">Cargar Juego de Clasificación</a>
+
 
 }
 
 
-@main2(title,navigator,  "classSheepIt.js"){
+@main2(title,navigator,"classSheepIt.js"){
+
     <div class="container-fluid">
         <div id=therapistForm>
-    @form(routes.GamePackageController.saveClassificationPackage(), 'enctype -> "multipart/form-data") {
-        <!-- Main sheepIt Form -->
+        @form(routes.GamePackageController.saveClassificationPackage(), 'enctype -> "multipart/form-data") {
+                <!-- Main sheepIt Form -->
 
+            <div id="class_package">
+                <fieldset>
+                    <legend>Información del paquete</legend>
 
-
-
-        <div id="class_package">
-            <fieldset>
-                <legend>Información del paquete</legend>
-
-            <div class="field">
-                <label for="packageName">Nombre del Paquete</label>
-                <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
-            </div>
+                    <div class="field">
+                        <label for="packageName">Nombre del Paquete</label>
+                        <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
+                    </div>
 
                 </fieldset>
 
-            <fieldset>
-                <legend>Pregunta de clasificación</legend>
-                <!-- Form template-->
-            <div id="class_package_template">
 
-                <label>Pregunta</label>
-                <input name="#index#_stageQuestion" />
+                    <!-- Form template-->
+                <div id="class_package_template">
+                    <fieldset>
+                        <legend>Pregunta de clasificación</legend>
 
-                    <!-- Embeded sheepIt Form -->
-                <div style="margin-left:50px; overflow:hidden;">
-                    <label>Etiquetas</label>
-                    <div id="class_package_#index#_labels">
+                        <label>Pregunta</label>
+                        <input type= "text" name="#index#_stageQuestion" />
 
-                            <!-- Nested form template-->
-                        <div id="class_package_#index#_labels_template">
-                            <label for="class_package_#index#_labels_#index_labels#">Etiqueta</label>
-                            <input id="class_package_#index#_labels_#index_labels#" name="#index#_labels_#index_labels#_label">
-                            <!--<input id="class_package_#index#_labels_#index_labels#" name="#index#_labels_#index_labels#_group" type="text" size="15" maxlength="10" />-->
-                            <a id="class_package_#index#_labels_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                            <!-- Embeded sheepIt Form -->
+                        <div>
+                            <fieldset>
+                                <legend>Etiquetas <span>(Nombre de la clasifición)</span></legend>
+                                <div id="class_package_#index#_labels">
+
+                                        <!-- Nested form template-->
+                                    <div id="class_package_#index#_labels_template">
+                                        <label for="class_package_#index#_labels_#index_labels#">Etiqueta</label>
+                                        <input type="text" id="class_package_#index#_labels_#index_labels#" name="#index#_labels_#index_labels#_label">
+                                            <!--<input id="class_package_#index#_labels_#index_labels#" name="#index#_labels_#index_labels#_group" type="text" size="15" maxlength="10" />-->
+                                    </div>
+                                        <!-- /Nested form template-->
+
+                                        <!-- No forms template -->
+                                    <div id="class_package_#index#_labels_noforms_template">No hay etiquetas</div>
+                                        <!-- /No forms template-->
+
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                            <legend>Imagenes</legend>
+
+                            <div id="class_package_#index#_images">
+
+                                    <!-- Nested form template-->
+                                <div id="class_package_#index#_images_template">
+                                    <label for="class_package_#index#_images_#index_images#">Imagen</label>
+                                    <input style="height: 20px" id="class_package_#index#_images_#index_images#" name="#index#_images_#index_images#_image" type="file" id="picture" accept="image/*" />
+                                    <label class="inline-flex left-padding"><span style="color: #0088CC;">A que etiqueta pertenece?</span></label>
+                                    <select name="#index#_images_#index_images#_group" class="width-small inline">
+                                        <option value="0">Etiqueta 1</option>
+                                        <option value="1">Etiqueta 2</option>
+                                    </select>
+                                        <!--<input id="class_package_#index#_images_#index_images#" name="#index#_images_#index_images#_group" type="text" size="15" maxlength="10" />-->
+
+                                    <a id="class_package_#index#_images_remove_current"><img src="@routes.Assets.at("images/icons/usual/icon-trash.png")" width="16" height="16" border="0"></a>
+                                </div>
+                                    <!-- /Nested form template-->
+
+                                    <!-- No forms template -->
+                                <div id="class_package_#index#_images_noforms_template">No hay imagenes</div>
+                                    <!-- /No forms template-->
+
+                                    <!-- Controls -->
+                                <div id="class_package_#index#_images_controls" class="controls">
+                                    <div id="class_package_#index#_images_add" class="inline"><a class="infoControl">Añadir imagen</a></div>
+                                    <div class="inline"> - </div>
+                                    <div id="class_package_#index#_images_remove_last" class="inline"><a class="infoControl">Borrar ultima</a></div>
+                                    <div class="inline"> - </div>
+                                    <div id="class_package_#index#_images_remove_all" class="inline"><a class="infoControl">Borrar todas</a></div>
+                                </div>
+                                    <!-- /Controls -->
+                            </div>
+                            </fieldset>
+
                         </div>
-                            <!-- /Nested form template-->
+                            <!-- /Embeded sheepIt Form -->
 
-                            <!-- No forms template -->
-                        <div id="class_package_#index#_labels_noforms_template">No hay etiquetas</div>
-                            <!-- /No forms template-->
-
-                            <!-- Controls -->
-                        <div id="class_package_#index#_labels_controls" class="controls">
-                            <div id="class_package_#index#_labels_add"><a><span>Añadir opcion</span></a></div>
-                            <div id="class_package_#index#_labels_remove_last"><a><span>Borrar ultima</span></a></div>
-                            <div id="class_package_#index#_labels_remove_all"><a><span>Borrar todas</span></a></div>
-                        </div>
-                            <!-- /Controls -->
-
-                    </div>
-
-                    <label>Imagenes</label>
-
-                    <div id="class_package_#index#_images">
-
-                            <!-- Nested form template-->
-                        <div id="class_package_#index#_images_template">
-                            <label for="class_package_#index#_images_#index_images#">Imagen</label>
-                            <input id="class_package_#index#_images_#index_images#" name="#index#_images_#index_images#_image" type="file" id="picture" accept="image/*" />
-                            <select name="#index#_images_#index_images#_group">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                            </select>
-                            <!--<input id="class_package_#index#_images_#index_images#" name="#index#_images_#index_images#_group" type="text" size="15" maxlength="10" />-->
-
-                            <a id="class_package_#index#_images_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
-                        </div>
-                            <!-- /Nested form template-->
-
-                            <!-- No forms template -->
-                        <div id="class_package_#index#_images_noforms_template">No hay imagenes</div>
-                            <!-- /No forms template-->
-
-                            <!-- Controls -->
-                        <div id="class_package_#index#_images_controls" class="controls">
-                            <div id="class_package_#index#_images_add"><a><span>Añadir opcion</span></a></div>
-                            <div id="class_package_#index#_images_remove_last"><a><span>Borrar ultima</span></a></div>
-                            <div id="class_package_#index#_images_remove_all"><a><span>Borrar todas</span></a></div>
-                        </div>
-                            <!-- /Controls -->
-
-                    </div>
-
+                    </fieldset>
                 </div>
-                    <!-- /Embeded sheepIt Form -->
 
+                    <!-- /Form template -->
+
+
+
+                    <!-- No forms template -->
+                <div id="class_package_noforms_template">No hay clasificaciones</div>
+                    <!-- /No forms template -->
+
+                    <!-- Controls -->
+                <div id="class_package_controls" class="controls">
+                    <div id="class_package_add" class="inline"><a class="infoControl">Añadir pregunta</a></div>
+                    <div class="inline"> - </div>
+                    <div id="class_package_remove_last" class="inline"><a class="infoControl">Borrar ultima</a></div>
+                    <div class="inline"> - </div>
+                    <div id="class_package_remove_all" class="inline"><a class="infoControl">Borrar todas</a></div>
+                </div>
+                    <!-- /Controls -->
 
             </div>
-            </fieldset>
-                <!-- /Form template -->
+                <!-- /Main sheepIt Form -->
 
-
-
-                <!-- No forms template -->
-            <div id="class_package_noforms_template">No hay clasificaciones</div>
-                <!-- /No forms template -->
-
-                <!-- Controls -->
-            <div id="class_package_controls" class="controls">
-                <div id="class_package_add" class="inline"><a class="infoControl">Añadir pregunta</a></div>
-                <div class="inline"> - </div>
-                <div id="class_package_remove_last" class="inline"><a class="infoControl">Borrar ultima</a></div>
-                <div class="inline"> - </div>
-                <div id="class_package_remove_all" class="inline"><a class="infoControl">Borrar todas</a></div>
+            <div class="actions">
+                <input type="submit" value="Guardar Paquete" class="btn btn-info">
             </div>
-                <!-- /Controls -->
 
-        </div>
-        <!-- /Main sheepIt Form -->
-
-        <div class="actions">
-            <input type="submit" value="Guardar Paquete" class="btn btn-info">
-        </div>
-
-
-
-
-    }
+        }
         </div>
     </div>
 }

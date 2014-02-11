@@ -16,12 +16,12 @@ public class DatabasePopulator extends Controller {
 
     public static Result populateDatabase(){
 
-       // populateInstitution();
-       // populateTherapistDatabase();
-       // populateAdminTherapistDatabase();
-       // populatePatientDatabase();
-       // populateResultsDatabase();
-        populateTeamWork();
+           populateInstitution();
+           populateTherapistDatabase();
+           populateAdminTherapistDatabase();
+           populatePatientDatabase();
+           populateResultsDatabase();
+          // populateTeamWork();
         return Application.login();
     }
 

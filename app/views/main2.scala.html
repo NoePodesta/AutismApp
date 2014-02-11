@@ -10,7 +10,7 @@
         <link rel='stylesheet' href="@routes.Assets.at("javascripts/fullcalendar/fullcalendar.css")"  />
 
         <link rel='stylesheet' media='print' href="@routes.Assets.at("javascripts/fullcalendar/fullcalendar.print.css")"  />
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/pizarron.png")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("../../public/images/logo/icono.ico")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/hideshow.js")"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
@@ -30,7 +30,7 @@
     <body>
         <header id="header">
             <hgroup>
-                <h1 class="site_title"><a href="index.html">Get Together</a></h1>
+                <h1 class="site_title"><a href="index.html"><img src="@routes.Assets.at("images/logo/GrandeSoloNombre.png")" width="100" height="100"></a></h1>
                 <h2 class="section_title">Dashboard</h2>
             </hgroup>
         </header> <!-- end of header bar -->
@@ -47,66 +47,69 @@
 
         <aside id="sidebar" class="column">
             <div class="menu">
-                <!--
+                    <!--
             <form class="quick_search">
                 <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
             </form>
             <hr/>
             -->
-            <h3>Institución</h3>
-            <ul class="toggle">
-                <li class="icn_view_users"><a  href="@routes.InstitutionController.profile()">Información</a></li>
-                @if(Secured.isAdmin){
-                    <li class="icn_edit_article"><a  href="@routes.InstitutionController.editInstitution(
-                    Application.getCurrentTherapist().institution.id)">Editar</a></li>
-                }
-            </ul>
-            <h3>Pacientes</h3>
-            <ul class="toggle">
-                <li class="icn_view_users"><a href="@routes.PatientController.patientList()">Pacientes</a></li>
+                <h3>Institución</h3>
+                <ul class="toggle">
+                    <li class="icn_view_users"><a  href="@routes.InstitutionController.profile()">Información</a></li>
+                    @if(Secured.isAdmin){
+                        <li class="icn_edit_article"><a  href="@routes.InstitutionController.editInstitution(
+                            Application.getCurrentTherapist().institution.id)">Editar</a></li>
+                    }
+                </ul>
+                <h3>Pacientes</h3>
+                <ul class="toggle">
+                    @if(Secured.isAdmin){
+                        <li class="icn_view_users"><a href="@routes.PatientController.patientList()">Pacientes</a></li>
+                    }
+
                 <li class="icn_view_users"><a href="@routes.PatientController.myPatients()">Mis Pacientes</a></li>
-                @if(Secured.isAdmin){
-                    <li class="icn_add_user"><a href="@routes.PatientController.createPatient()">Nuevo Paciente</a></li>
-                }
-            </ul>
-            <h3>Terapeutas</h3>
-            <ul class="toggle">
-                <li class="icn_view_users"><a href="@routes.TherapistController.therapistList()">Terapeutas</a></li>
-                @if(Secured.isAdmin){
-                    <li class="icn_add_user"><a href="@routes.TherapistController.createTherapist()">Nuevo terapeuta</a></li>
-                }
+                    @if(Secured.isAdmin){
+                        <li class="icn_add_user"><a href="@routes.PatientController.createPatient()">Nuevo Paciente</a></li>
+                    }
+                </ul>
+                <h3>Terapeutas</h3>
+                <ul class="toggle">
+                    <li class="icn_view_users"><a href="@routes.TherapistController.therapistList()">Terapeutas</a></li>
+                    @if(Secured.isAdmin){
+                        <li class="icn_add_user"><a href="@routes.TherapistController.createTherapist()">Nuevo terapeuta</a></li>
+                    }
 
-            </ul>
-            <h3>Paquetes</h3>
-            <ul class="toggle">
-                <li class="icn_view_users"><a href="">Mis Paquetes</a></li>
-                <li class="icn_view_users"><a href="@routes.GamePackageController.getCardsPackageLoader()">Crear paquete de cartas</a></li>
-                <li class="icn_view_users"><a href="@routes.GamePackageController.getClassificationLoader()">Crear Paquete de clasificación</a></li>
-                <li class="icn_view_users"><a href="@routes.GamePackageController.getSoCoCoLoader()">Crear Paquete de sococo</a></li>
-                <li class="icn_view_users"><a href="@routes.GamePackageController.getImageQAPackageLoader()">Crear Paquete de Q&A imagenes</a></li>
-                <li class="icn_view_users"><a href="@routes.GamePackageController.getSoundQAPackageLoader()">Crear Paquete de Q&A sonido</a></li>
-                <li class="icn_view_users"><a href="@routes.GamePackageController.getTextQAPackageLoader()">Crear Paquete de Q&A de texto</a></li>
-                <li class="icn_view_users"><a href="@routes.GamePackageController.getSentencePackageLoader()">Crear Paquete de oraciones</a></li>
-                <li class="icn_view_users"><a href="@routes.GamePackageController.getConversationLoader()">Crear Paquete de conversación</a></li>
+                </ul>
+                <h3>Paquetes</h3>
+                <ul class="toggle">
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.myGamePackages()">Mis Paquetes</a></li>
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.getCardsPackageLoader()">Crear paquete de cartas</a></li>
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.getClassificationLoader()">Crear Paquete de clasificación</a></li>
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.getSoCoCoLoader()">Crear Paquete de sococo</a></li>
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.getImageQAPackageLoader()">Crear Paquete de P&R imagenes</a></li>
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.getSoundQAPackageLoader()">Crear Paquete de P&R sonido</a></li>
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.getTextQAPackageLoader()">Crear Paquete de P&R de texto</a></li>
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.getSentencePackageLoader()">Crear Paquete de oraciones</a></li>
+                    <li class="icn_view_users"><a href="@routes.GamePackageController.getConversationLoader()">Crear Paquete de conversación</a></li>
 
 
-            </ul>
-            @*<h3>Equipos de Trabajo</h3>*@
-            @*<ul class="toggle">*@
+                </ul>
+                @*<h3>Equipos de Trabajo</h3>*@
+                @*<ul class="toggle">*@
                 @*<li class="icn_folder"><a href="@routes.TeamController.teamList()">Equipos</a></li>*@
                 @*<li class="icn_photo"><a href="#">Mis Equipos</a></li>*@
                 @*@if(Secured.isAdmin){*@
-                    @*<li class="icn_new_article"><a href="#">Nuevo Equipo</a></li>*@
+                @*<li class="icn_new_article"><a href="#">Nuevo Equipo</a></li>*@
                 @*}*@
-            @*</ul>*@
+                @*</ul>*@
 
-            <h3>Administrar</h3>
-            <ul class="toggle">
-                <li class="icn_profile"><a href="@routes.TherapistController.profile()">Mi Perfil</a></li>
-                <li class="icn_edit_article"><a href="@routes.TherapistController.editTherapist(Application.getCurrentTherapist.id)">Editar Perfil</a></li>
-                <li class="icn_security"><a href="#">Seguridad</a></li>
-                <li class="icn_jump_back"><a href="@routes.Application.logout()">Logout</a></li>
-            </ul>
+                <h3>Administrar</h3>
+                <ul class="toggle">
+                    <li class="icn_profile"><a href="@routes.TherapistController.profile()">Mi Perfil</a></li>
+                    <li class="icn_edit_article"><a href="@routes.TherapistController.editTherapist(Application.getCurrentTherapist.id)">Editar Perfil</a></li>
+                    <li class="icn_security"><a href="#">Seguridad</a></li>
+                    <li class="icn_jump_back"><a href="@routes.Application.logout()">Logout</a></li>
+                </ul>
             </div>
 
             <footer>
@@ -120,7 +123,7 @@
 
         <section id="main" class="column">
 
-            @content
+        @content
         </section>
 
 

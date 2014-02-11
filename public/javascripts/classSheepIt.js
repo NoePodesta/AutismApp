@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 
     var sentencePackageForm = $("#class_package").sheepIt({
-        separator: '',
+        separator: '<div style="width:100%; border-top:1px solid #0088cc; margin: 10px 0px;"></div>',
         allowRemoveLast: true,
         allowRemoveCurrent: true,
         allowRemoveAll: true,
@@ -19,15 +19,20 @@ $(document).ready(function() {
             {
                 id: 'class_package_#index#_labels',
                 options: {
+                    separator: '<div style="width:100%; border-top:1px solid #c8cccb; margin: 10px 0px;"></div>',
                     indexFormat: '#index_labels#',
-                    maxFormsCount: 2
+                    iniFormsCount: 2
                 }
             },
             {
                 id: 'class_package_#index#_images',
+
                 options: {
+                    separator: '<div style="width:100%; border-top:1px solid #c8cccb; margin: 10px 0px;"></div>',
                     indexFormat: '#index_images#',
-                    maxFormsCount: 8
+                    maxFormsCount: 8,
+                    minFormsCount: 2
+
                 }
             }
         ]

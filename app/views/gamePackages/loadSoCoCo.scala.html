@@ -1,12 +1,12 @@
 @import helper._
 
     @title = {
-    Dar de alta pregunta
+    Cargar Paquete de Sococo
 }
 
     @navigator = {
 
-    <a href="">Cards</a>
+    <a class="current">Cargar Paquete de Sococo</a>
 
 }
 
@@ -16,9 +16,6 @@
         <div id=therapistForm>
         @form(routes.GamePackageController.saveSoCoCoPackage(), 'enctype -> "multipart/form-data") {
                 <!-- Main sheepIt Form -->
-
-
-
 
             <div id="sococo_package">
                 <fieldset>
@@ -34,97 +31,103 @@
                 <fieldset>
                     <legend>Pregunta de SoCoCO</legend>
                         <!-- Form template-->
-                    <div id="sococo_package_template">
+
+                        <div id="sococo_package_template">
 
 
 
-                            <!-- Embeded sheepIt Form -->
-                        <div style="margin-left:50px; overflow:hidden;">
+                                <!-- Embeded sheepIt Form -->
+                            <div style="margin-left:50px; overflow:hidden;">
 
-                            <div id="sococo_package_#index#_questions">
-                                <label>Preguntas</label>
-                                    <!-- Nested form template-->
-                                <div id="sococo_package_#index#_questions_template">
-                                    <label for="sococo_package_#index#_questions_#index_questions#">Pregunta</label>
-                                    <input id="slabecoco_package_#index#_questions_#index_questions#" name="#index#_questions_#index_questions#_label">
+                                <div id="sococo_package_#index#_questions">
+                                    <fieldset>
+                                    <legend>Preguntas</legend>
+                                        <!-- Nested form template-->
+                                    <div id="sococo_package_#index#_questions_template">
+                                        <label for="sococo_package_#index#_questions_#index_questions#">Pregunta</label>
+                                        <input type="text" id="slabecoco_package_#index#_questions_#index_questions#" name="#index#_questions_#index_questions#_label">
+                                    </div>
+                                        <!-- /Nested form template-->
+
+                                        <!-- No forms template -->
+                                    <div id="sococo_package_#index#_questions_noforms_template">No hay etiquetas</div>
+                                        <!-- /No forms template-->
+
+                                 </fieldset>
+
                                 </div>
-                                    <!-- /Nested form template-->
 
-                                    <!-- No forms template -->
-                                <div id="sococo_package_#index#_questions_noforms_template">No hay etiquetas</div>
-                                    <!-- /No forms template-->
+                                <div id="sococo_package_#index#_labels">
+                                    <fieldset>
+                                    <legend>Etiquetas</legend>
+                                        <!-- Nested form template-->
+                                    <div id="sococo_package_#index#_labels_template">
+                                        <label for="sococo_package_#index#_labels_#index_labels#">Etiqueta</label>
+                                        <input type="text" id="sococo_package_#index#_labels_#index_labels#" name="#index#_labels_#index_labels#_label">
+                                    </div>
+                                        <!-- /Nested form template-->
 
+                                        <!-- No forms template -->
+                                    <div id="sococo_package_#index#_labels_noforms_template">No hay etiquetas</div>
+                                        <!-- /No forms template-->
+                                    </fieldset>
+                                </div>
 
+                                <div id="sococo_package_#index#_secondClassification">
+                                    <fieldset>
+                                    <legend>Segunda Clasificacion</legend>
+                                        <!-- Nested form template-->
+                                    <div id="sococo_package_#index#_secondClassification_template">
+                                        <label for="sococo_package_#index#_secondClassification_#index_secondClassification#">Etiqueta</label>
+                                        <input type="text" id="sococo_package_#index#_secondClassification_#index_secondClassification#" name="#index#_secondClassification_#index_secondClassification#_label">
+                                    </div>
+                                        <!-- /Nested form template-->
+
+                                        <!-- No forms template -->
+                                    <div id="sococo_package_#index#_secondClassification_noforms_template">No hay etiquetas</div>
+                                        <!-- /No forms template-->
+                                    </fieldset>
+                                </div>
+
+                                <div id="sococo_package_#index#_images">
+                                    <fieldset>
+                                    <legend>Imagenes</legend>
+
+                                        <!-- Nested form template-->
+                                    <div id="sococo_package_#index#_images_template">
+                                        <label for="sococo_package_#index#_images_#index_images#">Imagen</label>
+                                        <input style="height: 20px" id="sococo_package_#index#_images_#index_images#" name="#index#_images_#index_images#_image" type="file" id="picture" accept="image/*" />
+                                        <label class="inline-flex left-padding">A que etiqueta pertenece?</label>
+                                        <select name="#index#_images_#index_images#_group" class="width-small inline">>
+                                            <option value="0">Etiqueta 1</option>
+                                            <option value="1">Etiqueta 2</option>
+                                            <option value="2">Etiqueta 3</option>
+                                        </select>
+
+                                        <a id="sococo_package_#index#_images_remove_current"><img src="@routes.Assets.at("images/icons/usual/icon-trash.png")" width="16" height="16" border="0"></a>
+                                    </div>
+                                        <!-- /Nested form template-->
+
+                                        <!-- No forms template -->
+                                    <div id="sococo_package_#index#_images_noforms_template">No hay imagenes</div>
+                                        <!-- /No forms template-->
+
+                                        <!-- Controls -->
+                                    <div id="sococo_package_#index#_images_controls" class="controls">
+                                        <div id="sococo_package_#index#_images_add" class="inline"><a class="infoControl">Añadir opcion</a></div>
+                                        <div id="sococo_package_#index#_images_remove_last" class="inline"><a class="infoControl">Borrar ultima</a></div>
+                                        <div id="sococo_package_#index#_images_remove_all" class="inline"><a class="infoControl">Borrar todas</a></div>
+                                    </div>
+
+                                        <!-- /Controls -->
+                                    </fieldset>
+                                </div>
 
                             </div>
+                                <!-- /Embeded sheepIt Form -->
 
-                            <div id="sococo_package_#index#_labels">
-                                <label>Etiquetas</label>
-                                    <!-- Nested form template-->
-                                <div id="sococo_package_#index#_labels_template">
-                                    <label for="sococo_package_#index#_labels_#index_labels#">Etiqueta</label>
-                                    <input id="sococo_package_#index#_labels_#index_labels#" name="#index#_labels_#index_labels#_label">
-                                </div>
-                                    <!-- /Nested form template-->
-
-                                    <!-- No forms template -->
-                                <div id="sococo_package_#index#_labels_noforms_template">No hay etiquetas</div>
-                                    <!-- /No forms template-->
-                            </div>
-
-                            <div id="sococo_package_#index#_secondClassification">
-                                <label>Segund Clasificacion</label>
-                                    <!-- Nested form template-->
-                                <div id="sococo_package_#index#_secondClassification_template">
-                                    <label for="sococo_package_#index#_secondClassification_#index_secondClassification#">Segunda Clasificacion</label>
-                                    <input id="sococo_package_#index#_secondClassification_#index_secondClassification#" name="#index#_secondClassification_#index_secondClassification#_label">
-                                </div>
-                                    <!-- /Nested form template-->
-
-                                    <!-- No forms template -->
-                                <div id="sococo_package_#index#_secondClassification_noforms_template">No hay etiquetas</div>
-                                    <!-- /No forms template-->
-
-
-
-                            </div>
-
-                            <div id="sococo_package_#index#_images">
-                                <label>Imagenes</label>
-
-                                    <!-- Nested form template-->
-                                <div id="sococo_package_#index#_images_template">
-                                    <label for="sococo_package_#index#_images_#index_images#">Imagen</label>
-                                    <input id="sococo_package_#index#_images_#index_images#" name="#index#_images_#index_images#_image" type="file" id="picture" accept="image/*" />
-                                    <select name="#index#_images_#index_images#_group">
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
-
-                                    <a id="sococo_package_#index#_images_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
-                                </div>
-                                    <!-- /Nested form template-->
-
-                                    <!-- No forms template -->
-                                <div id="sococo_package_#index#_images_noforms_template">No hay imagenes</div>
-                                    <!-- /No forms template-->
-
-                                    <!-- Controls -->
-                                <div id="sococo_package_#index#_images_controls" class="controls">
-                                    <div id="sococo_package_#index#_images_add"><a><span>Añadir opcion</span></a></div>
-                                    <div id="sococo_package_#index#_images_remove_last"><a><span>Borrar ultima</span></a></div>
-                                    <div id="sococo_package_#index#_images_remove_all"><a><span>Borrar todas</span></a></div>
-                                </div>
-                                    <!-- /Controls -->
-
-                            </div>
 
                         </div>
-                            <!-- /Embeded sheepIt Form -->
-
-
-                    </div>
                 </fieldset>
                     <!-- /Form template -->
 

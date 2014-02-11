@@ -77,4 +77,8 @@ public class GamePackage extends Model {
     public static void save(GamePackage gamePackage) {
         Ebean.save(gamePackage);
     }
+
+    public int getId(){
+        return id;
+    }
 }
