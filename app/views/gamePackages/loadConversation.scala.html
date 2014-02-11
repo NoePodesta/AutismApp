@@ -1,10 +1,10 @@
 @import helper._
 
-@title = {
+    @title = {
     Cargar Paquete de Conversación
 }
 
-@navigator = {
+    @navigator = {
 
     <a href="">Cargar Paquete de Conversación</a>
 
@@ -12,97 +12,94 @@
 
 
 @main2(title,navigator, "conversationSheepIt.js"){
+
     <div class="container-fluid">
         <div id=therapistForm>
     @form(routes.GamePackageController.saveConversationPackage()) {
         <!-- Main sheepIt Form -->
-        <label>Cargar paquete de Conversacion</label>
-
 
         <div id="conversation_package">
-            <fieldset>
-                <legend>Información del paquete</legend>
 
-                <div class="field">
-                <label for="packageName">Nombre del Paquete</label>
-                <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" conversation="">
-            </div>
-
-            <label for="0_textOrientation">Orientacion</label>
-            <input id="0_textOrientation" name="0_textOrientation" type="text" size="15"/>
-
-                <!-- Form template-->
+            <div id="conversation_package">
                 <fieldset>
-                    <legend>Pregunta de clasificación</legend>
-            <div id="conversation_package_template">
+                    <legend>Información del paquete</legend>
 
+                    <div class="field">
+                        <label for="packageName">Nombre del Paquete</label>
+                        <input type="text" id="packageName" name="0_packageName" id="firstName" size="30" class="">
+                    </div>
+                    <label for="0_textOrientation">Orientacion</label>
+                    <input id="0_textOrientation" name="0_textOrientation" type="text" size="15" maxlength="10" />
 
+                </fieldset>
 
+                <fieldset>
+                    <legend>Pregunta de Conversación</legend>
+                    <div id="conversation_package_template">
 
-                    <!-- Embeded sheepIt Form -->
-                <div style="overflow:hidden;">
-                    <label>Opcion</label>
+                            <!-- Embeded sheepIt Form -->
+                        <div style="overflow:hidden;">
+                            <div id="conversation_package_#index#_answers">
 
-                    <div id="conversation_package_#index#_answers">
+                                <label for="conversation_package_#index#_question">Pregunta</label>
+                                <input id="conversation_package_#index#_question" name="#index#_question" type="text" size="15" maxlength="10" />
 
-                        <label for="conversation_package_#index#_question">Pregunta</label>
-                        <input id="conversation_package_#index#_question" name="#index#_question" type="text" size="15" />
+                                    <!-- Nested form template-->
+                                <div id="conversation_package_#index#_answers_template">
+                                    <label for="conversation_package_#index#_answers_#index_answers#">Posible Respuesta</label>
+                                    <input id="conversation_package_#index#_answers_#index_answers#_label" name="#index#_answers_#index_answers#_label" type="text" size="15" maxlength="10" />
+                                    <input type="hidden" name="#index#_answers_#index_answers#_correctAnswer" value="off">
+                                    <label class="inline-flex left-padding"><span style="color: #0088CC;">Es la respuesta correcta?</span></label>
+                                    <input type="checkbox" name="#index#_answers_#index_answers#_correctAnswer"/>
+                                    <a id="conversation_package_#index#_answers_remove_current"><img src="@routes.Assets.at("images/icons/usual/icon-trash.png")"width="16" height="16" border="0"></a>
+                                </div>
+                                    <!-- /Nested form template-->
 
-                            <!-- Nested form template-->
-                        <div id="conversation_package_#index#_answers_template">
-                            <label for="conversation_package_#index#_answers_#index_answers#">Posible Respuesta</label>
-                            <input id="conversation_package_#index#_answers_#index_answers#_label" name="#index#_answers_#index_answers#_label" type="text" size="15" />
-                            <input type="hidden" name="#index#_answers_#index_answers#_correctAnswer" value="off">
-                            <input type="checkbox" name="#index#_answers_#index_answers#_correctAnswer"/>
-                            <a id="conversation_package_#index#_answers_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                                    <!-- No forms template -->
+                                <div id="conversation_package_#index#_answers_noforms_template">No hay opciones</div>
+                                    <!-- /No forms template-->
+
+                                    <!-- Controls -->
+                                <div id="conversation_package_#index#_answers_controls" conversation="controls">
+                                    <div id="conversation_package_#index#_answers_add"><a><span>Añadir opcion</span></a></div>
+                                    <div id="conversation_package_#index#_answers_remove_last"><a><span>Borrar ultima</span></a></div>
+                                    <div id="conversation_package_#index#_answers_remove_all"><a><span>Borrar todas</span></a></div>
+                                </div>
+                                    <!-- /Controls -->
+
+                            </div>
+
                         </div>
-                            <!-- /Nested form template-->
+                            <!-- /Embeded sheepIt Form -->
 
-                            <!-- No forms template -->
-                        <div id="conversation_package_#index#_answers_noforms_template">No hay opciones</div>
-                            <!-- /No forms template-->
-
-                            <!-- Controls -->
-                        <div id="conversation_package_#index#_answers_controls" conversation="controls">
-                            <div id="conversation_package_#index#_answers_add"><a><span>Añadir opcion</span></a></div>
-                            <div id="conversation_package_#index#_answers_remove_last"><a><span>Borrar ultima</span></a></div>
-                            <div id="conversation_package_#index#_answers_remove_all"><a><span>Borrar todas</span></a></div>
-                        </div>
-                            <!-- /Controls -->
 
                     </div>
+                </fieldset>
+                    <!-- /Form template -->
 
+
+
+                    <!-- No forms template -->
+                <div id="conversation_package_noforms_template">No hay preguntas</div>
+                    <!-- /No forms template -->
+
+                    <!-- Controls -->
+                <div id="conversation_package_controls" class="controls">
+                    <div id="conversation_package_add"class="inline"><a class="infoControl">Añadir línea de conversacion</a></div>
+                    <div id="conversation_package_remove_last"class="inline"><a class="infoControl">Borrar ultima</a></div>
+                    <div id="conversation_package_remove_all"class="inline"><a class="infoControl">Borrar todas</a></div>
                 </div>
-                    <!-- /Embeded sheepIt Form -->
-
+                    <!-- /Controls -->
 
             </div>
-                    </fieldset>
-                <!-- /Form template -->
+                <!-- /Main sheepIt Form -->
 
-
-
-                <!-- No forms template -->
-            <div id="conversation_package_noforms_template">No hay preguntas</div>
-                <!-- /No forms template -->
-
-                <!-- Controls -->
-            <div id="conversation_package_controls" conversation="controls">
-                <div id="conversation_package_add"class="inline"><a class="infoControl">Añadir línea de conversacion</a></div>
-                <div id="conversation_package_remove_last"class="inline"><a class="infoControl">Borrar ultima</a></div>
-                <div id="conversation_package_remove_all"class="inline"><a class="infoControl">Borrar todas</a></div>
+            <div conversation="actions">
+                <input type="submit" value="Guardar Paquete" class="btn btn-info">
             </div>
-                <!-- /Controls -->
 
+
+        }
         </div>
-        <!-- /Main sheepIt Form -->
-
-        <div conversation="actions">
-            <input type="submit" value="Guardar Paquete" class="btn btn-info">
-        </div>
-
-
-    }
-    </div>
     </div>
 }

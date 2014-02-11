@@ -1,12 +1,12 @@
 @import helper._
 
 @title = {
-    Dar de alta pregunta
+Cargar Paquete de Oraciones
 }
 
 @navigator = {
 
-    <a href="">Cards</a>
+    <a class="current">Caragar paquete de Oraciones</a>
 
 }
 
@@ -42,21 +42,22 @@
                         <!--
             <input id="sentence_package_#index#_imageURL" name="#index#_imageURL" type="text" size="50" maxlength="100" />
             -->
-                    <a id="sentence_package_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
-            
+
                         <!-- Embeded sheepIt Form -->
-                    <div style="margin-left:50px; overflow:hidden;">
-                        <label>Articulos</label>
+                    <fieldset>
+                    <div style="overflow:hidden;">
+                        <Legend>Artículos</Legend>
                 
                         <div id="sentence_package_#index#_articles">
                 
                                 <!-- Nested form template-->
                             <div id="sentence_package_#index#_articles_template">
-                                <label for="sentence_package_#index#_articles_#index_articles#">Articulo</label>
+                                <label for="sentence_package_#index#_articles_#index_articles#">Artículo</label>
                                 <input id="sentence_package_#index#_articles_#index_articles#_label" name="#index#_articles_#index_articles#_label" type="text" size="15" maxlength="10" />
                                 <input type="hidden" name="#index#_articles_#index_articles#_correctAnswer" value="off">
+                                <label class="inline-flex"><span style="color: #0088CC;">Es la respuesta correcta?</span></label>
                                 <input type="checkbox" name="#index#_articles_#index_articles#_correctAnswer"/>
-                                <a id="sentence_package_#index#_articles_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                                <a id="sentence_package_#index#_articles_remove_current"><img src="@routes.Assets.at("images/icons/usual/icon-trash.png")" width="16" height="16" border="0"></a>
                             </div>
                                 <!-- /Nested form template-->
                     
@@ -66,20 +67,22 @@
                     
                                 <!-- Controls -->
                             <div id="sentence_package_#index#_articles_controls" class="controls">
-                                <div id="sentence_package_#index#_articles_add"><a><span>Añadir articulo</span></a></div>
-                                <div id="sentence_package_#index#_articles_remove_last"><a><span>Borrar ultima</span></a></div>
-                                <div id="sentence_package_#index#_articles_remove_all"><a><span>Borrar todas</span></a></div>
+                                <div id="sentence_package_#index#_articles_add" class="inline"><a class="infoControl">Añadir articulo</a></div>
+                                <div id="sentence_package_#index#_articles_remove_last"  class="inline"><a class="infoControl">Borrar ultima</a></div>
+                                <div id="sentence_package_#index#_articles_remove_all"  class="inline"><a class="infoControl">Borrar todas</a></div>
                             </div>
                                 <!-- /Controls -->
                     
                         </div>
                 
                     </div>
+                    </fieldset>
                         <!-- /Embeded sheepIt Form -->
 
                         <!-- Embeded sheepIt Form -->
-                    <div style="margin-left:50px; overflow:hidden;">
-                        <label>Sustantivos</label>
+                    <fieldset>
+                    <div style="overflow:hidden;">
+                        <legend>Sustantivos</legend>
 
                         <div id="sentence_package_#index#_sustantivs">
 
@@ -88,8 +91,9 @@
                                 <label for="sentence_package_#index#_sustantivs_#index_sustantivs#">Sustantivo</label>
                                 <input id="sentence_package_#index#_sustantivs_#index_sustantivs#_label" name="#index#_sustantivs_#index_sustantivs#_label" type="text" size="15" maxlength="10" />
                                 <input type="hidden" name="#index#_sustantivs_#index_sustantivs#_correctAnswer" value="off">
+                                <label class="inline-flex"><span style="color: #0088CC;">Es la respuesta correcta?</span></label>
                                 <input type="checkbox" name="#index#_sustantivs_#index_sustantivs#_correctAnswer"/>
-                                <a id="sentence_package_#index#_sustantivs_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                                <a id="sentence_package_#index#_sustantivs_remove_current"><img src="@routes.Assets.at("images/icons/usual/icon-trash.png")" width="16" height="16" border="0"></a>
                             </div>
                                 <!-- /Nested form template-->
 
@@ -99,20 +103,22 @@
 
                                 <!-- Controls -->
                             <div id="sentence_package_#index#_sustantivs_controls" class="controls">
-                                <div id="sentence_package_#index#_sustantivs_add"><a><span>Añadir sustantivo</span></a></div>
-                                <div id="sentence_package_#index#_sustantivs_remove_last"><a><span>Borrar ultima</span></a></div>
-                                <div id="sentence_package_#index#_sustantivs_remove_all"><a><span>Borrar todas</span></a></div>
+                                <div id="sentence_package_#index#_sustantivs_add"  class="inline"><a class="infoControl">Añadir sustantivo</a></div>
+                                <div id="sentence_package_#index#_sustantivs_remove_last"  class="inline"><a class="infoControl">Borrar ultima</a></div>
+                                <div id="sentence_package_#index#_sustantivs_remove_all"  class="inline"><a class="infoControl">Borrar todas</a></div>
                             </div>
                                 <!-- /Controls -->
 
                         </div>
 
                     </div>
+                    </fieldset>
                         <!-- /Embeded sheepIt Form -->
 
                         <!-- Embeded sheepIt Form -->
-                    <div style="margin-left:50px; overflow:hidden;">
-                        <label>Verbos</label>
+                    <fieldset>
+                    <div style="overflow:hidden;">
+                        <legend>Verbos</legend>
 
                         <div id="sentence_package_#index#_verbs">
 
@@ -121,8 +127,9 @@
                                 <label for="sentence_package_#index#_verbs_#index_verbs#">Verbo</label>
                                 <input id="sentence_package_#index#_verbs_#index_verbs#_label" name="#index#_verbs_#index_verbs#_label" type="text" size="15" maxlength="10" />
                                 <input type="hidden" name="#index#_verbs_#index_verbs#_correctAnswer" value="off">
+                                <label class="inline-flex"><span style="color: #0088CC;">Es la respuesta correcta?</span></label>
                                 <input type="checkbox" name="#index#_verbs_#index_verbs#_correctAnswer"/>
-                                <a id="sentence_package_#index#_verbs_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                                <a id="sentence_package_#index#_verbs_remove_current"><img src="@routes.Assets.at("images/icons/usual/icon-trash.png")" width="16" height="16" border="0"></a>
                             </div>
                                 <!-- /Nested form template-->
 
@@ -132,20 +139,22 @@
 
                                 <!-- Controls -->
                             <div id="sentence_package_#index#_verbs_controls" class="controls">
-                                <div id="sentence_package_#index#_verbs_add"><a><span>Añadir verbo</span></a></div>
-                                <div id="sentence_package_#index#_verbs_remove_last"><a><span>Borrar ultima</span></a></div>
-                                <div id="sentence_package_#index#_verbs_remove_all"><a><span>Borrar todas</span></a></div>
+                                <div id="sentence_package_#index#_verbs_add"  class="inline"><a class="infoControl">Añadir verbo</a></div>
+                                <div id="sentence_package_#index#_verbs_remove_last"  class="inline"><a class="infoControl">Borrar ultima</a></div>
+                                <div id="sentence_package_#index#_verbs_remove_all"  class="inline"><a class="infoControl">Borrar todas</a></div>
                             </div>
                                 <!-- /Controls -->
 
                         </div>
 
                     </div>
+                    </fieldset>
                         <!-- /Embeded sheepIt Form -->
 
                         <!-- Embeded sheepIt Form -->
-                    <div style="margin-left:50px; overflow:hidden;">
-                        <label>Adjetivos</label>
+                    <fieldset>
+                    <div style="overflow:hidden;">
+                        <legend>Adjetivos</legend>
 
                         <div id="sentence_package_#index#_adjectives">
 
@@ -155,7 +164,7 @@
                                 <input id="sentence_package_#index#_adjectives_#index_adjectives#_label" name="#index#_adjectives_#index_adjectives#_label" type="text" size="15" maxlength="10" />
                                 <input type="hidden" name="#index#_adjectives_#index_adjectives#_correctAnswer" value="off">
                                 <input type="checkbox" name="#index#_adjectives_#index_adjectives#_correctAnswer"/>
-                                <a id="sentence_package_#index#_adjectives_remove_current"><img src="images/cross.png" width="16" height="16" border="0"></a>
+                                <a id="sentence_package_#index#_adjectives_remove_current"><img src="@routes.Assets.at("images/icons/usual/icon-trash.png")" width="16" height="16" border="0"></a>
                             </div>
                                 <!-- /Nested form template-->
 
@@ -174,6 +183,7 @@
                         </div>
 
                     </div>
+                    </fieldset>
                         <!-- /Embeded sheepIt Form -->
 
 
