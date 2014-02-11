@@ -136,6 +136,10 @@ POST        /saveConversation                      controllers.GamePackageContro
 GET         /loadSoCoCo                            controllers.GamePackageController.getSoCoCoLoader()
 POST        /saveSoCoCo                            controllers.GamePackageController.saveSoCoCoPackage()
 
+GET         /myGamePackages                        controllers.GamePackageController.myGamePackages()
+POST        /gamePackage/remove/:id                controllers.GamePackageController.removePackage(id: Integer)
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                          controllers.Assets.at(path="/public", file)
 

@@ -53,45 +53,52 @@
 
                 <h2>Equipo de trabajo
                     @if(Secured.isAdmin && patient.team != null){
-                        <button type="button" class="btn btn-info right">Editar</button>
+                        <a href="@routes.TeamController.editTeam(patient.team.id)" type="button" class="btn btn-info right">Editar</a>
                     }
 
                 </h2>
+                <div class="teamUsers">
                 @if(patient.team != null){
                     <div class="span4">
-                        Cordinador
                         <div class="well">
+                            <div class="span3">
                             @if(patient.team.getCoordinator.image != null){
                                 <img class="img-polaroid" src="@routes.Assets.at(patient.team.getCoordinator.image)" alt="@patient.team.getCoordinator.name" height="42" width="42">
                             }
+                            </div>
 
-                            <div class="therapistInfo">
+                            <div class="therapistInfo ">
                                 <a href="@routes.TherapistController.therapistProfile(patient.team.getCoordinator.id)"><p class="inline">@patient.team.getCoordinator.name @patient.team.getCoordinator.surname</p></a>
+                                <p class="italic">Coordinador</p>
                             </div>
                         </div>
                     </div>
                     <div class="span4">
-                        Integrador
                         <div class="well">
+                            <div class="span3">
                             @if(patient.team.getIntegrator.image != null){
                                 <img class="img-polaroid" src="@routes.Assets.at(patient.team.getIntegrator.image)" alt="@patient.team.getIntegrator.name" height="42" width="42">
                             }
+                                </div>
 
                             <div class="therapistInfo">
                                 <a href="@routes.TherapistController.therapistProfile(patient.team.getIntegrator.id)"><p class="inline">@patient.team.getIntegrator.name @patient.team.getIntegrator.surname</p></a>
+                                <p class="italic">Integrador</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="span4">
-                        Supervisor
                         <div class="well">
+                            <div class="span3">
                             @if(patient.team.getSupervisor.image != null){
                                 <img class="img-polaroid" src="@routes.Assets.at(patient.team.getSupervisor.image)" alt="@patient.team.getSupervisor.name" height="42" width="42">
                             }
+                                </div>
 
                             <div class="therapistInfo">
                                 <a href="@routes.TherapistController.therapistProfile(patient.team.getSupervisor.id)"><p class="inline">@patient.team.getSupervisor.name @patient.team.getSupervisor.surname</p></a>
+                                <p class="italic">Supervisor</p>
                             </div>
                         </div>
                     </div>
@@ -102,15 +109,15 @@
                         <!--for(therapistLoop <- patient.team.getTherapists)-->
                         <!--{-->
                         <div class="span4">
-                            Terapeuta
                             <div class="well">
-
+                                <div class="span3">
                                 @if(patient.team.getTherapists.image != null){
                                     <img class="img-polaroid" src="@routes.Assets.at(patient.team.getTherapists.image)" alt="@patient.team.getTherapists.name" height="42" width="42">
                                 }
-
+                                </div>
                                 <div class="therapistInfo">
                                     <a href="@routes.TherapistController.therapistProfile(patient.team.getTherapists.id)"><p class="inline">@patient.team.getTherapists.name @patient.team.getTherapists.surname</p></a>
+                                    <p class="italic">Terapeuta</p>
                                 </div>
                             </div>
                         </div>
@@ -124,6 +131,7 @@
 
                     </div>
                 }
+                    </div>
 
             </div>
 

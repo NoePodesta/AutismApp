@@ -10,6 +10,7 @@
 
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylesheet.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("../../public/images/logo/pequeno.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
 
@@ -18,16 +19,16 @@
     <body id="loginPage">
         <div class="row">
             <hgroup>
-                <img src="@routes.Assets.at("images/getTogether.png")" alt="Get Together">
+                <img src="@routes.Assets.at("images/logo/GrandeConTexto.png")" width="900" height="300" alt="Get Together">
             </hgroup>
         </div>
         <div class="row">
             <div class="span5">
                 <div class="container">
-                    <hgroup class="title">
-                    <h1 class="login-title-image">Login</h1>
-                    <h5>&copy; J&N Studios</h5>
-                    </hgroup>
+                    @*<hgroup class="title">*@
+                    @*<h1 class="login-title-image">Login</h1>*@
+                    @*<h5>&copy; J&N Studios</h5>*@
+                    @*</hgroup>*@
                     @if(loginForm.hasErrors) {
                         <p class="message red-gradient">
                             Ha ingresado mal los datos
@@ -49,10 +50,10 @@
                                     <input type="password" id="pass" name="password" placeholder="Password" autocomplete="off">
                                 </label>
                                 <div class="text-center">
-                                <a class="inline" data-toggle="modal" href="@routes.Application.signUpInstitution()">
+                                <a class="inline color" data-toggle="modal" href="@routes.Application.signUpInstitution()">
                                     Sign Up</a>
-                                <p class="inline"> - </p>
-                                <a  data-toggle="modal" href="#myModal">¿Olvido Contraseña?</a>
+                                <p class="inline color"> - </p>
+                                <a  class="inline color" data-toggle="modal" href="#myModal">¿Olvido Contraseña?</a>
                                 </div>
                             </div>
 

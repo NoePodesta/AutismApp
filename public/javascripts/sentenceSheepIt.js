@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 
     var sentencePackageForm = $("#sentence_package").sheepIt({
-        separator: '',
+        separator: '<div style="width:100%; border-top:1px solid #0088cc; margin: 10px 0px;"></div>',
         allowRemoveLast: true,
         allowRemoveCurrent: true,
         allowRemoveAll: true,
@@ -19,6 +19,7 @@ $(document).ready(function() {
             {
                 id: 'sentence_package_#index#_articles',
                 options: {
+                    separator: '<div style="width:100%; border-top:1px solid #c8cccb; margin: 10px 0px;"></div>',
                     indexFormat: '#index_articles#',
                     maxFormsCount: 4
                 }
@@ -26,6 +27,7 @@ $(document).ready(function() {
             {
                 id: 'sentence_package_#index#_sustantivs',
                 options: {
+                    separator: '<div style="width:100%; border-top:1px solid #c8cccb; margin: 10px 0px;"></div>',
                     indexFormat: '#index_sustantivs#',
                     maxFormsCount: 4
                 }
@@ -33,6 +35,7 @@ $(document).ready(function() {
             {
                 id: 'sentence_package_#index#_verbs',
                 options: {
+                    separator: '<div style="width:100%; border-top:1px solid #c8cccb; margin: 10px 0px;"></div>',
                     indexFormat: '#index_verbs#',
                     maxFormsCount: 4
                 }
@@ -40,6 +43,7 @@ $(document).ready(function() {
             {
                 id: 'sentence_package_#index#_adjectives',
                 options: {
+                    separator: '<div style="width:100%; border-top:1px solid #c8cccb; margin: 10px 0px;"></div>',
                     indexFormat: '#index_adjectives#',
                     maxFormsCount: 4
                 }

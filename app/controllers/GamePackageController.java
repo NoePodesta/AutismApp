@@ -1,6 +1,7 @@
 package controllers;
 
 
+import com.avaje.ebean.Ebean;
 import models.Game;
 import models.GamePackage;
 import models.Therapist;
@@ -19,6 +20,7 @@ import views.html.gamePackages.loadSentence;
 import views.html.gamePackages.loadSoCoCo;
 import views.html.gamePackages.loadSound;
 import views.html.gamePackages.loadTextQA;
+import views.html.gamePackages.myPackages;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -373,6 +375,17 @@ public class GamePackageController extends Controller {
         return TherapistController.profile();
     }
 
+    public static Result removePackage(int id){
+        GamePackage gamePackage = GamePackage.findPackageById(id);
+        Ebean.delete(gamePackage);
+        return GamePackageController.myGamePackages();
+    }
+
+    public static Result myGamePackages() {
+        Therapist currentTherapist = Application.getCurrentTherapist();
+        List<GamePackage> gamePackageList = GamePackage.findByTherapist(currentTherapist);
+        return ok(views.html.gamePackages.myPackages.render(gamePackageList));
+    }
 
 
     public static Result saveCardPackage(){
@@ -521,6 +534,7 @@ public class GamePackageController extends Controller {
                 Msg.PACKAGES + "/" + packageName + ".txt";
         createNewPackage(cardJSON.toString(), game,packageName, packageUrl);
     }
+
 
 
 

@@ -35,6 +35,18 @@ public class TeamController extends Controller {
         }
     }
 
+    public static Result editTeam(int id) {
+        if (Secured.isAdmin()) {
+            Team teamToFill = Team.findTeamById(id);
+            Form<Team> teamForm = form(Team.class).fill(teamToFill);
+            return ok(views.html.team.editTeamForm.render(teamForm));
+        }
+        else{
+            return forbidden();
+        }
+    }
+
+
     public static Result saveTeam() {
         Form<Team> teamForm = form(Team.class).bindFromRequest();
 
@@ -152,11 +164,8 @@ public class TeamController extends Controller {
 
     }
 
-    public static Result editTeam(int id) {
-        Team teamToFill = Team.findTeamById(id);
-        Form<Team> teamForm = form(Team.class).fill(teamToFill);
-        return ok(views.html.team.editTeamForm.render(teamForm));
-    }
+
+
 
     public static Result removeTeam(int id){
         Patient patient = Team.findTeamById(id).patient;
@@ -169,10 +178,8 @@ public class TeamController extends Controller {
     }
 
     public static Result updateTeam(){
-        /*
-        Team team = form(Team.class).bindFromRequest().get();
-        Ebean.update(team);
-        */
+//        Team team = form(Team.class).bindFromRequest().get();
+//        Ebean.update(team);
         return TODO;
     }
 

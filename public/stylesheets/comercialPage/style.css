@@ -652,3 +652,11 @@ footer a:hover {
 .small{
 
 }
+
+.logo{
+    padding-top: 18px;
+}
+
+.inline{
+    display: inline;
+}
