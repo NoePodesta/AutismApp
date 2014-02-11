@@ -1,11 +1,12 @@
 @import helper._
 
 @title = {
-    Dar de alta pregunta
+    Cargar Preguntas y Respuestas
 }
     @navigator = {
 
-    <a href="">Cards</a>
+    <a class="current">Cargar Preguntas y Respuestas
+    </a>
 
 }
 
@@ -54,7 +55,7 @@
                             <input type="hidden" name="#index#_options_#index_options#_correctAnswer" value="off">
                             <label class="inline-flex"><span style="color: #0088CC;">Es la respuesta correcta?</span></label>
                             <input type="checkbox" name="#index#_options_#index_options#_correctAnswer"/>
-                            <a id="qa_package_#index#_options_remove_current">img src="@routes.Assets.at("images/icons/usual/icon-trash.png")"width="16" height="16" border="0"></a>
+                            <a id="qa_package_#index#_options_remove_current"><img src="@routes.Assets.at("images/icons/usual/icon-trash.png")"width="16" height="16" border="0"></a>
                         </div>
                             <!-- /Nested form template-->
 

@@ -143,7 +143,9 @@
             <div class="slogan">
                 <h3>Nuestros profesionales de  <a onClick="goToByScroll('page3')" href="#"> GET TOGETHER </a></h3>
                 <div class="text1">
-                    Nos dedicamos a brindar un sistema para mejorar la salud de sus chicos.
+                    Conoce a las personas que ayudan a que <span>GET TOGETHER</span> sean posible.
+                    Contamos con el mejor personal infórmatico apoyado por un grupo de especialistas en TGD
+
                 </div>
             </div>
         </div>
@@ -162,7 +164,7 @@
             </div>
             <div class="grid_5">
                 <div class="box maxheight">
-                    <img src="@routes.Assets.at("images/comercialPage/JuaniMolteni.jpg")" weight= 200px height= 100px alt="Juan Ignacio Molteni">
+                    <img src="@routes.Assets.at("images/comercialPage/JuaniMolteni.jpg")" height="228" width="340" alt="Juan Ignacio Molteni">
                     <div class="text1"><a href="#">Juan Ignacio Molteni</a></div> CEO
                     <div class="socials1">
                         <a href="https://plus.google.com/u/0/102651047920407977951/about"></a>
@@ -193,7 +195,7 @@
                 <div class="slogan">
                     <h3>Registrate</h3>
                     <div class="text1">
-                        Que esperas para empezar hacer parte de <span> GET TOGETHER </span>
+                        Que esperas para ser parte de la comunidad <span> GET TOGETHER </span> y empezar a ayudar a los chicos.
                     </div>
                 </div>
             </div>
@@ -202,11 +204,9 @@
             <div class="grid_5">
                 <div class="text1">Registra tu Institución</div>
 
-                <form id="form">
-                @helper.form(routes.Application.partialSignUp()) {
 
-
-                        <fieldset>
+                @helper.form(routes.Application.partialSignUp(), 'id -> "form2") {
+                       <fieldset>
                             <input type="text" placeholder="Nombre de la institución" name="name">
                             <input type="text" placeholder="Mail" name="mail">
                             <input type="text" placeholder="Telefono" name="telephone">
@@ -217,11 +217,19 @@
                             <div class="btns"><input type="submit" value="Registrar">
                             </div>
                         </fieldset>
-
-
-
                 }
-                </form>
+
+            </div>
+
+            <div class="grid_5 prefix_1 commercialInfo">
+               <p>Si ya te registraste ingresa haciendo click <a  href="@routes.Application.login()"> <span class="color">ACA</span>.</a>  o descarga
+               la aplicación desde cualquiera de las dos terminales</p>
+
+                <div class="top-padding">
+                <img class="inline" src="@routes.Assets.at("images/android.jpeg")" height="50">
+                <img class="left-padding" src="@routes.Assets.at("images/ipad.jpeg")" height="50">
+                </div>
+
             </div>
         </div>
     </div>
@@ -231,7 +239,7 @@
                 <div class="slogan">
                     <h3>Contactanos</h3>
                     <div class="text1">
-                        Gyrto ivamus at magna non nunc tristique rhoncusu. Lliquam nibh ante, egestas id dictum a, commodo luctus mibero. Praesent faucibus malesuada faucibu. Monec laoreet metus id laoreet malesuadw.
+                        Si estas interesado en nuestro producto y todavia no estas seguro de hacerlo, contactanos!!! Seguro cambias de opinión.
                     </div>
                 </div>
             </div>
@@ -239,9 +247,8 @@
             <div class="clear"></div>
             <div class="grid_5">
                 <div class="text1">Dejanos tu Mensaje:</div>
-                <form id="form">
-                @helper.form(routes.Application.sendContactMessage()) {
 
+                @helper.form(routes.Application.sendContactMessage(), 'id -> "form2") {
                     <div class="success_wrapper">
                         @if(flash.containsKey("success")) {
                             <div class="success">Mesaje enviado!<br>
@@ -270,8 +277,9 @@
 
                         <div class="btns"><input type="submit" value="Enviar"></div>
                     </fieldset>
+
                 }
-                </form>
+
             </div>
 
             <div class="grid_5 prefix_1 commercialInfo">
