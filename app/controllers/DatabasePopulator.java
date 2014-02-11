@@ -111,7 +111,7 @@ public class DatabasePopulator extends Controller {
     }
 
     private static void populateResultsDatabase() {
-        GamePackage gamePackage = new GamePackage("aaaa", Game.QA, "cccc", null);
+        String gamePackage = "aaaaa";
         Ebean.save(gamePackage);
         TestResult testResult1 = new TestResult(Game.QA,Patient.findPatientById(1),Therapist.findTherapistById(1),
                                                  3,2,new Date(),gamePackage,"");

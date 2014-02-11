@@ -42,9 +42,11 @@ public class ResultController extends Controller {
             eventRemapped.put("title", testResult.game);
             String description = "";
             description += testResult.game.toString() + "<br>";
+
             if(testResult.game.toString().equals(Game.BITACORA.toString())){
-                description =  description.concat("Bitacora: " + testResult.bitacoraText + "<br>");
+                description =  description.concat(testResult.bitacoraText + "<br>");
             }else{
+                description =  description.concat("Paquete usado " + testResult.aGamePackage + "<br>");
                 description =  description.concat("Respuestas correctas " + testResult.correctAnswers + "<br>");
                 description =   description.concat("Respuestas incorrects " + testResult.wrongAnswers + "<br>");
             }

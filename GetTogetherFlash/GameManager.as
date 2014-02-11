@@ -28,24 +28,23 @@
 			this.gameType = gameType;
 			this.gameContent = gameContent;		
 			this.totalStages = gameContent.totalStages;
-			resultColector = new ResultColector(gameType,0,0,0);
+			resultColector = new ResultColector(gameType,gameContent.currentPackageName)
 			winGameScreen = new winScreen_mc;
-			winGameScreen.y = 68;
-			winGameScreen.x = 1024/2 - 465.95/2;
+			winGameScreen.y = 0;
+			winGameScreen.x = 0;
 			winGameScreen.winScreenGoBack_mc.addEventListener(TouchEvent.TOUCH_TAP, destroyGame);
 			if((mainManager.therapist != null && mainManager.selectedPatient != -1) || mainManager.offlineMode){
 				winGameScreen.sendResults_mc.addEventListener(TouchEvent.TOUCH_TAP, sendResults);
 			}else{
 				winGameScreen.sendResults_mc.alpha = 0.5;
 			}
-			
 		}
 		
 	
 		
 		public function endGame(){
 			SoundManager.playVictorySound();
-			addChild(winGameScreen);			
+			addChild(winGameScreen);	
 		}
 		
 		
@@ -65,7 +64,7 @@
 			mainManager.showGameView(this);
 		}
 		
-		public function destroyGame(e : TouchEvent) : void{			
+		public function destroyGame(e : TouchEvent) : void{		
 			SoundManager.stopGameJingle();
 			mainManager.destroyGame();
 			
@@ -109,6 +108,7 @@
 		
 		public function sendResults(e : Event):void{
 			mainManager.sendResults(gameType, resultColector);
+			
 		}
 		
 		

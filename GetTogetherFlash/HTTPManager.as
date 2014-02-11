@@ -77,6 +77,7 @@
 			variables.gameType = gameType;
 			variables.therapistId = therapistId;
 			variables.patientId = patientId;
+			variables.packageUsed = resultColector.packageUsed;
 			variables.correctAnswers = resultColector.correctAnswers;
 			variables.wrongAnswers = resultColector.wrongAnswers;
 			variables.currentDate = resultColector.currentDate;
@@ -88,6 +89,8 @@
 			loader.addEventListener(Event.COMPLETE, onComplete);
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
 			loader.load(request);
+			
+			main.destroyGame();
 		}
 		
 		public function sendBitacora(bitacoraText : String, therapistId : int, patientId : int){
@@ -109,7 +112,9 @@
 			var loader:URLLoader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE, onComplete);
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
-			loader.load(request);			
+			loader.load(request);
+			
+			main.destroyGame();
 		}
 		
 		public function sendOfflineRecord(offlineRecord : Object){
@@ -119,13 +124,22 @@
 
 			var offlineRecordVariables:URLVariables = new URLVariables();			
 			
-			offlineRecordVariables.gameType = offlineRecord.gameType;
-			offlineRecordVariables.therapistId = offlineRecord.therapistId;
-			offlineRecordVariables.patientId = offlineRecord.patientId;
-			offlineRecordVariables.correctAnswers = offlineRecord.correctAnswers;
-			offlineRecordVariables.wrongAnswers = offlineRecord.wrongAnswers;
-			offlineRecordVariables.packageUsed = offlineRecord.packageUsed;
-			offlineRecordVariables.currentDate = offlineRecord.currentDate;			
+			if(offlineRecord.gameType != GameType.BITACORA){
+				offlineRecordVariables.gameType = offlineRecord.gameType;
+				offlineRecordVariables.therapistId = offlineRecord.therapistId;
+				offlineRecordVariables.patientId = offlineRecord.patientId;
+				offlineRecordVariables.correctAnswers = offlineRecord.correctAnswers;
+				offlineRecordVariables.wrongAnswers = offlineRecord.wrongAnswers;
+				offlineRecordVariables.packageUsed = offlineRecord.packageUsed;
+				offlineRecordVariables.currentDate = offlineRecord.currentDate;	
+			}else{
+				offlineRecordVariables.gameType = offlineRecord.gameType;
+				offlineRecordVariables.therapistId = offlineRecord.therapistId;
+				offlineRecordVariables.patientId = offlineRecord.patientId;
+				offlineRecordVariables.bitacoraText = offlineRecord.bitacoraText;
+				offlineRecordVariables.currentDate = offlineRecord.currentDate;	
+			}
+						
 		
 			request.data = offlineRecordVariables;
 			

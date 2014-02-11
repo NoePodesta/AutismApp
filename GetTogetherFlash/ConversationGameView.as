@@ -37,9 +37,8 @@
 			var attributes : Attributes = new Attributes(0,0,300,20);			
 
 			mainConversationList = new UIList(this, <list alignV="scroll"></list>,attributes);
-			mainConversationList.data = new Array(conversationFlow[0]);
+			mainConversationList.data = new Array(conversationFlow[0]);			
 			mainConversationList.scrollEnabled = true;
-			trace(mainConversationList.attributes.noScroll);
 			
 			removeChild(mainConversationList);
 	

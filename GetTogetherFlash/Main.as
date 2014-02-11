@@ -253,9 +253,9 @@
 			
 		}
 		
-		public function startGame(url : String){
+		public function startGame(url : String, currentPackageName : String){
 			addChildAt(loadingScreen, 2);
-			jLoader.getJSON(url);
+			jLoader.getJSON(url, currentPackageName);
 		}
 		
 		public function showGameView(gameManager : GameManager){
@@ -324,7 +324,13 @@
 		
 		public function startBitacoraScreen():void{
 			removeChildAt(0);
-			bitacoraManager = new BitacoraManager(this);
+			bitacoraManager = new BitacoraManager(this,"online");
+			addChildAt(bitacoraManager, 0);
+		}
+		
+		public function startOfflineBitacoraScreen():void{
+			removeChildAt(0);
+			bitacoraManager = new BitacoraManager(this,"offline");
 			addChildAt(bitacoraManager, 0);
 		}
 		
@@ -335,6 +341,12 @@
 		
 		public function sendBitacora(bitacora : String):void{
 			httpManager.sendBitacora(bitacora,therapist.id, selectedPatient);
+			goBackToMainScreen(null);
+		}
+		
+		public function sendOfflineBitacora(bitacora : String):void{
+			saveManager.addLocalBitacora(bitacora,topBar.getOfflineDNI(), topBar.getOfflinePatient());
+			
 			goBackToMainScreen(null);
 		}
 		

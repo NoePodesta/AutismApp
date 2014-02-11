@@ -39,6 +39,31 @@
 			
 		}
 		
+		public function addLocalBitacora(bitacora : String, offlineTherapist : String, offlinePatient : String){
+
+			var offlineRecord: Object = new Object();
+			offlineRecord.gameType = GameType.BITACORA;
+			offlineRecord.therapistId = offlineTherapist;
+			offlineRecord.patientId = offlinePatient;
+			offlineRecord.bitacoraText = bitacora;
+
+			offlineRecord.currentDate = new Date().toLocaleString();
+			
+			// Get the shared object.
+			var so:SharedObject = SharedObject.getLocal("getTogether");
+			
+			if(so.data.offlineRecords == null){
+				so.data.offlineRecords = new Array();
+			}
+			
+			so.data.offlineRecords.push(offlineRecord);
+		
+			// And flush our changes.
+			so.flush();
+			
+			
+		}
+		
 		public function getOfflineResults(dniTherapist : String):Array{
 			// Get the shared object.
 			var so:SharedObject = SharedObject.getLocal("getTogether");

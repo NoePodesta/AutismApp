@@ -26,7 +26,8 @@
 						
 			addChild(dragableTextIcon);
 			onCompleteTextLoad();	
-			
+				originalWidth = this.width;
+			originalHeight = this.height;
 		}
 
 				

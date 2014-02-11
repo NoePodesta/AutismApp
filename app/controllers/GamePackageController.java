@@ -157,7 +157,7 @@ public class GamePackageController extends Controller {
                 ArrayNode stageOptions = new ArrayNode(factory);
                 while(values.get(parsedKey[0] + "_answers_" + optionsLength + "_label") != null){
                       ObjectNode option = new ObjectNode(factory);
-                      option.put("label", values.get(parsedKey[0] + "_answers_" + optionsLength + "_label")[0]);
+                      option.put("label", values.get(parsedKey[0] + "_ansers_" + optionsLength + "_label")[0]);
                       if(values.get(parsedKey[0] + "_answers_" + optionsLength + "_correctAnswer").length > 1){
                           conversationFlow.add(values.get(key)[0]);
                           conversationFlow.add(values.get(parsedKey[0] + "_answers_" + optionsLength + "_label")[0]);
@@ -194,7 +194,6 @@ public class GamePackageController extends Controller {
                 ArrayNode options = new ArrayNode(factory);
                 int optionsLength = 0;
                 stage.put("optionsType", "Image");
-                int totalAnswers = 0;
                 ArrayNode answerLabel = new ArrayNode(factory);
                 for(int i = 0; i < 2; i++){
                     answerLabel.add(values.get(parsedKey[0] + "_labels_" + i + "_label")[0]);
@@ -204,12 +203,12 @@ public class GamePackageController extends Controller {
                     option.put("label", ImageController.getPackageImage(parsedKey[0] + "_images_" + optionsLength + "_image"));
                     option.put("classificationGroup", values.get(parsedKey[0] + "_images_" + optionsLength + "_group")[0]);
                     options.add(option);
-                    totalAnswers++;
+
                     optionsLength++;
                 }
                 stage.put("options", options);
                 stage.put("totalAnswerAreas", 2);
-                stage.put("optionsLength", totalAnswers);
+                stage.put("optionsLength", optionsLength);
                 stage.put("answerLabel", answerLabel);
                 stage.put("stageQuestion", values.get(parsedKey[0] + "_stageQuestion")[0]);
                 stages.add(stage);

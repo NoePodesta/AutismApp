@@ -36,7 +36,8 @@
 		{
 			y = originalY;
 			x = originalX;
-			
+			originalWidth = this.width;
+			originalHeight = this.height;
 			addChild ( myGIFPlayer );
 			
 			gameManager.onOptionLoadComplete();

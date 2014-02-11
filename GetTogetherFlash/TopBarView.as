@@ -6,6 +6,7 @@
 	import fl.data.DataProvider;
 	import flash.events.Event;
 	import fl.transitions.Tween;
+	import flash.text.TextFormat;
 	import fl.transitions.easing.Strong;
 	
 	public class TopBarView extends MovieClip{
@@ -17,12 +18,20 @@
 		var offlineDNI : String;
 		var offlinePatient : String;
 		
+		var tf:TextFormat;
+		
 		public function TopBarView(main : Main,httpManager : HTTPManager) {
 			this.httpManager = httpManager;
 			this.main = main;
 			httpManager.setTopBar(this);
 			topBar = new topBar_mc;
-			setInitialBarView();
+			setInitialBarView();	
+			
+			tf = new TextFormat();
+			tf.font = "ScalaSansLf*";
+			tf.size = 20;
+			tf.color = 0x747070;
+				
 			
 			addChild(topBar);
 		}
@@ -52,9 +61,14 @@
 		public function setPatients(patients : Array):void{
 			patientsComboBox = new ComboBox();
 			patientsComboBox.dataProvider = new DataProvider(patients);
-			patientsComboBox.x = 870;
-			patientsComboBox.y = 35;	
+			patientsComboBox.x = 885;
+			patientsComboBox.y = 42;	
+			patientsComboBox.width = 120;
+			patientsComboBox.height = 30;
 			patientsComboBox.addEventListener(Event.CHANGE,changeSelectedPatient);
+			patientsComboBox.textField.setStyle("textFormat", tf);
+			patientsComboBox.dropdown.rowHeight = 25;
+			patientsComboBox.dropdown.setStyle("cellRenderer", CustomPatientCellRenderer);
 			addChild(patientsComboBox);
 		}
 		
@@ -74,6 +88,10 @@
 			main.startBitacoraScreen();
 		}
 		
+		public function startOfflineBitacoraScreen(e : Event):void{
+			main.startOfflineBitacoraScreen();
+		}
+		
 		public function changeSelectedPatient(e : Event):void{
 			main.changeSelectedPatient(patientsComboBox.selectedIndex);
 		}
@@ -85,6 +103,7 @@
 			topBar.loggedOfflineUser_txt.text = "";
 			topBar.loggedOfflineUser_txt.text = offlineDNI;
 			topBar.logout_mc.addEventListener(TouchEvent.TOUCH_TAP, logoutOfflineMode);
+			topBar.startBitacora_mc.addEventListener(TouchEvent.TOUCH_TAP, startOfflineBitacoraScreen);
 		}
 		
 		public function getOfflineDNI():String{

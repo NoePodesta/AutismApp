@@ -26,7 +26,11 @@
 				display.y = 472.55;
 			}else if(gameManager.gameType == GameType.CLASSIFICATION){
 				display = new classificationGameAnswer_mc;
-				display.x = 100 + 400 * classificationGroup;
+				if(classificationGroup == 0){
+					display.x = 100;
+				}else{
+					display.x = 567;
+				}
 				display.y = positionY;
 				if(optionName != null){
 					display.descriptionText_txt.text = optionName;

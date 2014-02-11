@@ -29,14 +29,14 @@
 		}
 		
 		private static function loopJingle(e:Event):void{
-			 //channel = gameJingle.play();
-			 //channel.addEventListener(Event.SOUND_COMPLETE, loopJingle);
+			 channel = gameJingle.play();
+			 channel.addEventListener(Event.SOUND_COMPLETE, loopJingle);
 
 		}
 		
 		public static function playGameJingle():void{
-			//channel = gameJingle.play();
-			//channel.addEventListener(Event.SOUND_COMPLETE, loopJingle);
+			channel = gameJingle.play();
+			channel.addEventListener(Event.SOUND_COMPLETE, loopJingle);
 		}
 		
 		public static function stopGameJingle():void{

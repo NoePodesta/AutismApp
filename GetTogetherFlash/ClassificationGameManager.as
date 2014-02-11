@@ -43,15 +43,20 @@
 		
 	
 		private function buildTextOptions(currentStage : int):void{
-			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){				
-				options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, gameContent.stages[currentStage].options[i].classificationGroup);
+			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){			 
+				options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,114.4 + 227.4 * i, 600, gameContent.stages[currentStage].options[i].classificationGroup);
+				
 			}
 			stagesOptions[currentStage] = options;
 		}
 		
 		private function buildImageOptions(currentStage : int):void{
 			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){	
-				options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, gameContent.stages[currentStage].options[i].classificationGroup);
+				if(i<4){
+					options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,228.8 + (148.8 * i), 480, gameContent.stages[currentStage].options[i].classificationGroup);
+				}else{
+					options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,228.8 + (148.8 * (i-4)), 620, gameContent.stages[currentStage].options[i].classificationGroup);
+				}
 			}
 			stagesOptions[currentStage] = options;
 			
@@ -59,7 +64,7 @@
 		
 		private function buildGIFOptions(currentStage : int):void{
 			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){	
-				options[i] = new DragableGIFOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, gameContent.stages[currentStage].options[i].classificationGroup);
+				options[i] = new DragableGIFOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 150, gameContent.stages[currentStage].options[i].classificationGroup);
 			}
 			
 		}
@@ -86,7 +91,7 @@
 				}
 				
 				for(var  j : int = 0; j<gameContent.stages[i].totalAnswerAreas;j++){
-					var answerArea : ClassificationAnswerArea = new ClassificationAnswerArea(this, gameContent.stages[i].answerLabel[j], j, 100);
+					var answerArea : ClassificationAnswerArea = new ClassificationAnswerArea(this, gameContent.stages[i].answerLabel[j], j, 120);
 	
 					stagesAnswers[i][j] = answerArea;
 				}

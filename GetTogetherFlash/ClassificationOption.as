@@ -6,11 +6,13 @@
 
 		
 		var classificationGroup : int;
+		var originalWidth : int;
+		var originalHeight : int;
 		
 		public function ClassificationOption(gameManager : GameManager, originalX : int, originalY : int, classificationGroup : int) {
 			super(gameManager, originalX, originalY);
 			this.classificationGroup = classificationGroup;
-
+		
 			
 		}
 		
@@ -19,10 +21,14 @@
 		}
 		
 		function onTouchBegin(e:TouchEvent) { 
+			width = width * 1.1;
+			height = height * 1.1;
 			startTouchDrag(e.touchPointID); 			
 		} 
  
 		function onTouchEnd(e:TouchEvent) { 
+			width = originalWidth;
+			height = originalHeight;
 			stopTouchDrag(e.touchPointID);
 			if(dropTarget != null){
 				if(dropTarget.parent != null){

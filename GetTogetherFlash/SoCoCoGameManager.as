@@ -53,27 +53,31 @@
 					yValue = 600;
 				}
 				if(totalAAdded < totalA){
-					graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,100 + (200 * (i%4)), yValue, gameContent.graphicOptions[i].classificationGroup);
+					if(i<4){
+						graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,228.8 + (148.8 * i), 480, gameContent.graphicOptions[i].classificationGroup);
+					}else{
+						graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,228.8 + (148.8 * (i-4)), 620, gameContent.graphicOptions[i].classificationGroup);
+					}
 					totalAAdded++;
 					i++;
 				}
-				if(i<4){
-					yValue = 500;
-				}else{
-					yValue = 600;
-				}
+				
 				if(totalBAdded < totalB){
-					graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,100 + (200 * (i%4)), yValue, gameContent.graphicOptions[i].classificationGroup);
+					if(i<4){
+						graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,228.8 + (148.8 * i), 480, gameContent.graphicOptions[i].classificationGroup);
+					}else{
+						graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,228.8 + (148.8 * (i-4)), 620, gameContent.graphicOptions[i].classificationGroup);
+					}
 					totalBAdded++;
 					i++;
 				}
-				if(i<4){
-					yValue = 500;
-				}else{
-					yValue = 600;
-				}
+				
 				if(totalCAdded < totalC){
-					graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,100 + (200 * (i%4)), yValue, gameContent.graphicOptions[i].classificationGroup);
+					if(i<4){
+						graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,228.8 + (148.8 * i), 480, gameContent.graphicOptions[i].classificationGroup);
+					}else{
+						graphicOptions[i] = new DragableImageOption(this, gameContent.graphicOptions[i].graphicOption,228.8 + (148.8 * (i-4)), 620, gameContent.graphicOptions[i].classificationGroup);
+					}
 					totalCAdded++;
 					i++;
 				}
@@ -94,7 +98,8 @@
 			(gameView as SoCoCoGameView).setQuestion(totalTextQuestions[0]);
 			
 			for(var i : int= 0;i<3;i++){
-				textClassificationOptions[i] = new DragableTextOption(this, gameContent.textOption[i].label,100 + 250 * i,500,gameContent.textOption[i].classificationGroup);
+				textClassificationOptions[i] = new DragableTextOption(this, gameContent.textOption[i].label,171.25 + (234.25 * i), 650,gameContent.textOption[i].classificationGroup);
+				textClassificationOptions[i].onCompleteTextLoad();
 			}
 			
 		

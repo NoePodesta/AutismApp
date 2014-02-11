@@ -87,13 +87,13 @@ public class MobileApplicationController extends Controller {
 
             testResult = new TestResult(Game.valueOf(gameType),Patient.findPatientById(Integer.parseInt(patientId)),
                                                          Therapist.findTherapistById(Integer.parseInt(therapistId)),Integer.parseInt(correctAnswers),
-                                                        Integer.parseInt(wrongAnswers), date, GamePackage.findPackageById(1),"");
+                                                        Integer.parseInt(wrongAnswers), date, values.get("packageUsed")[0],"");
 
         }else{
             String bitacoraText = values.get("bitacoraText")[0];
             testResult =   new TestResult(Game.valueOf(gameType),Patient.findPatientById(Integer.parseInt(patientId)),
                     Therapist.findTherapistById(Integer.parseInt(therapistId)),-1,
-                   -1, date, GamePackage.findPackageById(1),bitacoraText);
+                   -1, date, values.get("packageUsed")[0],bitacoraText);
 
          }
         Ebean.save(testResult);
@@ -113,12 +113,12 @@ public class MobileApplicationController extends Controller {
                 String wrongAnswers =  values.get("wrongAnswers")[0];
                 testResult = new TestResult(Game.valueOf(gameType),patient,therapist
                         ,Integer.parseInt(correctAnswers),
-                        Integer.parseInt(wrongAnswers), date, GamePackage.findPackageById(1),"");
+                        Integer.parseInt(wrongAnswers), date, values.get("packageUsed")[0],"");
             }else{
                 String bitacoraText = values.get("bitacoraText")[0];
                 testResult = new TestResult(Game.valueOf(gameType),patient,
                         therapist,-1,
-                        -1, date, GamePackage.findPackageById(1),bitacoraText);
+                        -1, date, values.get("packageUsed")[0],bitacoraText);
 
             }
             Ebean.save(testResult);

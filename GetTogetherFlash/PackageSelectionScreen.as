@@ -30,7 +30,7 @@
 		}
 		
 		public function startGame(e : TouchEvent) : void{
-			main.startGame(packageOptionPicker.getSelectedUrl());		
+			main.startGame(packageOptionPicker.getSelectedUrl(), packageOptionPicker.getSelectedPackageName());		
 		}
 		
 		

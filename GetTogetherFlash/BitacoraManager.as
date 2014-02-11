@@ -13,10 +13,14 @@
 		var main : Main;
 		
 		
-		public function BitacoraManager(main : Main) {
+		public function BitacoraManager(main : Main, mode : String) {
 			bitacoraScreen = new bitacoraScreen_mc;
 			bitacoraScreen.goBackButton_mc.addEventListener(TouchEvent.TOUCH_TAP, goBackToMainScreen);
-			bitacoraScreen.sendBitacora_mc.addEventListener(TouchEvent.TOUCH_TAP, sendBitacora);
+			if(mode == "online"){
+				bitacoraScreen.sendBitacora_mc.addEventListener(TouchEvent.TOUCH_TAP, sendBitacora);
+			}else{
+				bitacoraScreen.sendBitacora_mc.addEventListener(TouchEvent.TOUCH_TAP, sendOfflineBitacora);
+			}			
 			plainTextArea = new TextArea();
 			plainTextArea.verticalScrollPolicy = ScrollPolicy.ON;
 			plainTextArea.setSize(660, 380);
@@ -34,6 +38,10 @@
 		
 		public function sendBitacora(e : Event):void{
 			main.sendBitacora(plainTextArea.text);
+		}
+		
+		public function sendOfflineBitacora(e : Event):void{
+			main.sendOfflineBitacora(plainTextArea.text);
 		}
 		
 	

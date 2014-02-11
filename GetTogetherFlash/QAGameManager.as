@@ -49,9 +49,9 @@
 		private function buildTextOptions(currentStage : int):void{
 			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){
 				if(gameContent.stages[currentStage].options[i].correctAnswer){
-					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,50 + 250 * i, 650, 1);
+					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,64.4 + 227.4 * i, 650, 1);
 				}else{
-					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,50 + 250 * i, 650, 0);
+					options[i] = new DragableTextOption(this, gameContent.stages[currentStage].options[i].label,64.4 + 227.4 * i, 650, 0);
 				}				
 			}
 			stagesOptions[currentStage] = options;
@@ -61,13 +61,12 @@
 		private function buildImageOptions(currentStage : int):void{
 			for(var i :int = 0;i < gameContent.stages[currentStage].optionsLength ; i++){
 				if(gameContent.stages[currentStage].options[i].correctAnswer){
-					options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 1);
+					options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,228.8 + (148.8 * i), 650, 1);
 				}else{
-					options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,100 + 230 * i, 600, 0);
+					options[i] = new DragableImageOption(this, gameContent.stages[currentStage].options[i].label,228.8 + (148.8 * i), 650, 0);
 				}				
 			}
-			stagesOptions[currentStage] = options;
-			
+			stagesOptions[currentStage] = options;			
 		}
 		
 		private function buildGIFOptions(currentStage : int):void{

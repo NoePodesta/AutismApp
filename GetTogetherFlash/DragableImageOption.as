@@ -31,12 +31,14 @@
 		
 		function onCompleteImageLoad(event : Event){
 			answerImage = imageLoader.content as Bitmap;
-			answerImage.width = 200;
-			answerImage.height = 100;
+			answerImage.width = 120;
+			answerImage.height = 120;
 			y = originalY;
 			x = originalX;
 			
 			addChild(answerImage);
+			originalWidth = this.width;
+			originalHeight = this.height;
 			gameManager.onOptionLoadComplete();
 		}
 
