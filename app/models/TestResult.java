@@ -26,7 +26,7 @@ public class TestResult extends Model {
     @ManyToOne
     private Patient patient;
     @ManyToOne
-    private Therapist therapist;
+    public Therapist therapist;
     public int correctAnswers;
     public int wrongAnswers;
     public Date dateMade;

@@ -1,0 +1,1 @@
+{"cards":[{"imageURL":"http://localhost:9000/assets/uploads/ASDASD/packages/Jellyfish.jpg","imageName":"Medusa"},{"imageURL":"http://localhost:9000/assets/uploads/ASDASD/packages/Penguins.jpg","imageName":"Pinguino"},{"imageURL":"http://localhost:9000/assets/uploads/ASDASD/packages/Koala.jpg","imageName":"Koala"}],"totalCards":3}

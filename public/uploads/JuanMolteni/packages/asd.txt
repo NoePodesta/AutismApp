@@ -1,0 +1,1 @@
+{"totalStages":1,"stages":[{"optionsType":"Text","textQuestion":"Pikachu","imageQuestion":"-1","sound":"http://localhost:9000/assets/uploads/JuanMolteni/packages/Correctoa.mp3","options":[{"label":"Correcto","correctAnswer":true},{"label":"Incorrecto","correctAnswer":false},{"label":"AASD","correctAnswer":false},{"label":"dsAS","correctAnswer":false}],"optionsLength":4}]}

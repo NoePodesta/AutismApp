@@ -1,0 +1,1 @@
+{"cards":[{"imageURL":"http://localhost:9000/assets/uploads/María NoelPodestá/packages/leon.jpg","imageName":"Leon"},{"imageURL":"http://localhost:9000/assets/uploads/María NoelPodestá/packages/gato.jpg","imageName":"Gato"}],"totalCards":2}

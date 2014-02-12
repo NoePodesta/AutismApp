@@ -41,14 +41,15 @@ public class ResultController extends Controller {
             eventRemapped.put("id", testResult.id);
             eventRemapped.put("title", testResult.game);
             String description = "";
-            description += testResult.game.toString() + "<br>";
+            description += "Juego Utilizado: " + testResult.game.getValue() + "<br>";
 
             if(testResult.game.toString().equals(Game.BITACORA.toString())){
                 description =  description.concat(testResult.bitacoraText + "<br>");
             }else{
-                description =  description.concat("Paquete usado " + testResult.aGamePackage + "<br>");
-                description =  description.concat("Respuestas correctas " + testResult.correctAnswers + "<br>");
-                description =   description.concat("Respuestas incorrects " + testResult.wrongAnswers + "<br>");
+                description =  description.concat("Paquete Utilizado: " + testResult.aGamePackage + "<br>");
+                description =  description.concat("Respuestas correctas: " + testResult.correctAnswers + "<br>");
+                description =   description.concat("Respuestas incorrects:  " + testResult.wrongAnswers + "<br>");
+                description =   description.concat("Realizado con: " + testResult.therapist.name + " " + testResult.therapist.surname  + "<br>");
             }
             eventRemapped.put("description", description);
 

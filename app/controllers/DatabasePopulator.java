@@ -21,7 +21,7 @@ public class DatabasePopulator extends Controller {
            populateAdminTherapistDatabase();
            populatePatientDatabase();
            populateResultsDatabase();
-           populateTeamWork();
+          // populateTeamWork();
         return Application.login();
     }
 
@@ -112,7 +112,6 @@ public class DatabasePopulator extends Controller {
 
     private static void populateResultsDatabase() {
         String gamePackage = "aaaaa";
-        Ebean.save(gamePackage);
         TestResult testResult1 = new TestResult(Game.QA,Patient.findPatientById(1),Therapist.findTherapistById(1),
                                                  3,2,new Date(),gamePackage,"");
         TestResult testResult2 = new TestResult(Game.CLASSIFICATION,Patient.findPatientById(1),Therapist.findTherapistById(1),
@@ -150,28 +149,29 @@ public class DatabasePopulator extends Controller {
         Address therapistAddress = new Address("Cabildo","1250","3","D","1638","Vicente Lopez","Buenos Aires");
         Institution institution = Institution.getById(1);
 
-        Patient patient = new Patient("Francisco","Tenaglia","5673214","165439076",therapistAddress,"40987543", Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo","pacientes/1.jpg",institution);
-        Patient patient1 = new Patient("Marcos","Uriburu","5673214","165439076",therapistAddress,"40987553",Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo","pacientes/2.jpeg",institution);
-        Patient patient2 = new Patient("Matias","Pendalo","5673214","165439076",therapistAddress,"40877543",Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo","pacientes/3.jpg",institution);
-        Patient patient3 = new Patient("Florencia","Lago","5673214","165439076",therapistAddress,"42187543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Alto","pacientes/4.jpeg",institution);
-        Patient patient4 = new Patient("Sofia","Perez","5673214","165439076",therapistAddress,"47687543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Alto","pacientes/5.jpg",institution);
-        Patient patient5 = new Patient("Miligras","Retamosa","5673214","165439076",therapistAddress,"41187543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Mediano","pacientes/14.jpg",institution);
+        Patient patient = new Patient("Francisco","Tenaglia","5673214","165439076",therapistAddress,"40987543", Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo","images/pacientes/1.jpg",institution);
+
+        Patient patient1 = new Patient("Marcos","Uriburu","5673214","165439076",therapistAddress,"40987553",Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo","images/pacientes/2.jpeg",institution);
+        Patient patient2 = new Patient("Matias","Pendalo","5673214","165439076",therapistAddress,"40877543",Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo","images/pacientes/3.jpg",institution);
+        Patient patient3 = new Patient("Florencia","Lago","5673214","165439076",therapistAddress,"42187543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Alto","images/pacientes/4.jpeg",institution);
+        Patient patient4 = new Patient("Sofia","Perez","5673214","165439076",therapistAddress,"47687543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Alto","images/pacientes/5.jpg",institution);
+        Patient patient5 = new Patient("Miligras","Retamosa","5673214","165439076",therapistAddress,"41187543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Mediano","images/pacientes/14.jpg",institution);
         Patient patient6 = new Patient("Juliana","Alam","5673214","165439076",therapistAddress,"40985643",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Mediano",
-                "pacientes/12.jpg",institution);
+                "images/pacientes/12.jpeg",institution);
         Patient patient7 = new Patient("Agustina","Mustafa","5673214","165439076",therapistAddress,"40984343",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Mediano",
-                "pacientes/13.jpg",institution);
+                "images/pacientes/13.jpg",institution);
         Patient patient8 = new Patient("Nicolas","Pancro","5673214","165439076",therapistAddress,"48987543", Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Alto",
-                "pacientes/15.jpg",institution);
+                "images/pacientes/15.jpg",institution);
         Patient patient9 = new Patient("Eugenia","Gonzalez","5673214","165439076",therapistAddress,"46987543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Mediano",
-                "pacientes/16.jpg",institution);
+                "images/pacientes/16.jpg",institution);
         Patient patient10 = new Patient("Pablo","Lopez","5673214","165439076",therapistAddress,"45987543",Gender.MALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Alto",
-                "pacientes/17.jpg",institution);
+                "images/pacientes/17.jpg",institution);
         Patient patient11 = new Patient("Malena","Sartur","5673214","165439076",therapistAddress,"40987743",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo",
-                "pacientes/6.jpeg",institution);
+                "images/pacientes/6.jpeg",institution);
         Patient patient12 = new Patient("Lucia","Boenct","5673214","165439076",therapistAddress,"41987543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo",
-                "pacientes/7.jpg",institution);
+                "images/pacientes/7.jpg",institution);
         Patient patient13 = new Patient("Macarena","Moltracio","5673214","165439076",therapistAddress,"43987543",Gender.FEMALE,"francisco.ten@gmail.com",new Date(),"osde 310","23456787653","TGD","Bajo",
-                "pacientes/11.jpeg",institution);
+                "images/pacientes/11.jpeg",institution);
 
         Ebean.save(therapistAddress);
         Ebean.save(patient);
@@ -200,9 +200,9 @@ public class DatabasePopulator extends Controller {
 
         Therapist juan = new Therapist("Juan","Molteni","47911306","123",juanAddress,"33678432",
                 "juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"12567",BCrypt.hashpw("123456", BCrypt.gensalt()),
-                "uploads/JuanMolteni/JuaniMolteni.jpg", TherapistType.ADMIN,institution);
+                "uploads/JuanMolteni/JuanMolteni.jpg", TherapistType.ADMIN,institution);
 
-        Therapist noe = new Therapist("María Noel","Podestá","45463187","1144041981",noeAddress,"34906400",
+        Therapist noe = new Therapist("Noel","Podesta","45463187","1144041981",noeAddress,"34906400",
                 "podesta.noe@gmail.com",new Date(), Gender.FEMALE,"34567",BCrypt.hashpw("hupihu", BCrypt.gensalt()),
                 "uploads/noepodesta/noe.JPG", TherapistType.ADMIN,institution);
 
@@ -241,16 +241,16 @@ public class DatabasePopulator extends Controller {
 
         Institution institution = Institution.getById(1);
 
-        Therapist therapist1 = new Therapist("Leticia","Achaval","47911306","123",therapistAddress1,"21850398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"terapeuta/1.jpeg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist2 = new Therapist("Maria","Mendizabal","47911306","123",therapistAddress2,"33451398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"terapeuta/2.jpeg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist3 = new Therapist("Florencia","Beltran","47914306","123",therapistAddress3,"33900398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"terapeuta/3.jpg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist4 = new Therapist("Bartoleme","Chedick","47911306","123",therapistAddress4,"33850348","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"terapeuta/4.jpeg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist5 = new Therapist("Juana","Di Arco","47911306","123",therapistAddress5,"34850308","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"terapeuta/10.jpg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist6 = new Therapist("Pedro","Esquenazi","47911306","123",therapistAddress6,"37850398","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"terapeuta/9.jpg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist7 = new Therapist("Santiago","Maulli","47911306","123",therapistAddress7,"33850568","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"terapeuta/16.jpg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist8 = new Therapist("Manuela","Gomez","47911306","123",therapistAddress8,"33850345","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"terapeuta/11.jpg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist9 = new Therapist("Felicitas","Perez","47911306","123",therapistAddress9,"33887398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"terapeuta/12.jpeg","123456","", TherapistType.NO_PRIVILEGES,institution);
-        Therapist therapist10 = new Therapist("Patricia","Gargara","47911306","123",therapistAddress10,"32850398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"terapeuta/14.jpg","123456","", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist1 = new Therapist("Leticia","Achaval","47911306","1158066532",therapistAddress1,"21850398","leticia@gmail.com",new Date(), Gender.FEMALE,"123453","123456","images/terapeuta/1.jpeg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist2 = new Therapist("Maria","Mendizabal","47911306","1158066532",therapistAddress2,"33451398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"12542","123456","images/terapeuta/2.jpg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist3 = new Therapist("Florencia","Beltran","47914306","1158066532",therapistAddress3,"33900398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"12542","123456","images/terapeuta/3.jpg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist4 = new Therapist("Bartoleme","Chedick","47911306","1158066532",therapistAddress4,"33850348","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"12542","123456","images/terapeuta/4.jpeg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist5 = new Therapist("Juana","Di Arco","47911306","1158066532",therapistAddress5,"34850308","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"12542","123456","images/terapeuta/10.jpg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist6 = new Therapist("Pedro","Esquenazi","47911306","1158066532",therapistAddress6,"37850398","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"12542","123456","images/terapeuta/9.jpg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist7 = new Therapist("Santiago","Maulli","47911306","1158066532",therapistAddress7,"33850568","juanignaciomolteni@gmail.com",new Date(), Gender.MALE,"12542","123456","images/terapeuta/16.jpg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist8 = new Therapist("Manuela","Gomez","47911306","1158066532",therapistAddress8,"33850345","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"12542","123456","images/terapeuta/11.jpg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist9 = new Therapist("Felicitas","Perez","47911306","1158066532",therapistAddress9,"33887398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"12542","123456","images/terapeuta/12.jpeg", TherapistType.NO_PRIVILEGES,institution);
+        Therapist therapist10 = new Therapist("Patricia","Gargara","47911306","1158066532",therapistAddress10,"32850398","juanignaciomolteni@gmail.com",new Date(), Gender.FEMALE,"12542","123456","images/terapeuta/14.jpg", TherapistType.NO_PRIVILEGES,institution);
 
         Ebean.save(therapistAddress1);
         Ebean.save(therapistAddress2);
@@ -273,6 +273,7 @@ public class DatabasePopulator extends Controller {
         Ebean.save(therapist8);
         Ebean.save(therapist9);
         Ebean.save(therapist10);
+
 
     }
 

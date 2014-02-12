@@ -44,17 +44,28 @@
         <div class="row-fluid">
             <div class="teamInfo">
 
-                <h2>Equipos de trabajo <span class="badge">
+                <h2>Pacientes <span class="badge">
                 @if(currentTherapist.getAssignedTeams()!=null){ @currentTherapist.getAssignedTeams.size()}
                 </span></h2>
                 @if(currentTherapist.getAssignedTeams() != null){
 
 
                     @for(team <- currentTherapist.getAssignedTeams()){
-                        <div class="span4">
-                            @team.getPatient.name @team.getPatient.surname
 
+                        <div class="span4">
+                            <div class="well well-patient">
+                                <div class="span3">
+                                @if(team.getPatient.image != null){
+                                    <img class="img-polaroid" src="@routes.Assets.at(team.getPatient.image)" alt="@team.getPatient.name" height="42" width="42">
+                                    }
+                                </div>
+                                <div class="therapistInfo">
+                                    <p class="inline">@team.getPatient.name @team.getPatient.surname</p>
+
+                                </div>
+                            </div>
                         </div>
+
                     }
                 }else{
                     <div class="well">

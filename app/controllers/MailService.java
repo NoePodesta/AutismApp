@@ -26,12 +26,14 @@ public class MailService extends Controller {
         //sends html
         //mail.sendHtml("<html>html</html>" );
         //sends text/text
+        /*
         mail.send( "Hola!" +
                 "\n\nHas recibido este mail porque te han inscripto en GetTogether. Para ingresar, solo debes ir a nuestra " +
                 "pagina, y introducir tu dni junto con la contraseña " + password + ". Te recomendamos cambiarla en tu primer ingreso," +
                 "y que verifiques que tus datos sean correctos. " +
                 "\n\nSaludos," +
                 "\nEquipo GetTogether" );
+                */
         //sends both text and html
         //mail.send( "text", "<html>html</html>");
     }
@@ -44,13 +46,14 @@ public class MailService extends Controller {
         //sends html
         //mail.sendHtml("<html>html</html>" );
         //sends text/text
-        mail.send(message);
+        //mail.send(message);
         //sends both text and html
         //mail.send( "text", "<html>html</html>");
     }
 
     public static boolean recoverPassword(String dni, String email){
         Therapist therapist = TherapistController.getTherapistByDNI(dni);
+        /*
         if(therapist != null){
             if(therapist.mail.compareTo(email) == 0){
                 String newPassword = TherapistController.updatePassword(therapist);
@@ -66,6 +69,7 @@ public class MailService extends Controller {
                 return true;
             }
         }
+        */
         return false;
     }
 
@@ -74,10 +78,12 @@ public class MailService extends Controller {
         mail.setSubject("Te han asignado dentro de un equipo");
         mail.addRecipient(email);
         mail.addFrom("Team GetTogether <noreply@GetTogether.com>");
+       /*
         mail.send( "Hola!" +
                 "\n\nHas recibido este mail porque has sido asignado dentro de un nuevo equipo. Tu rol para el paciente " +
                 nombrePaciente + " es el de " +  rol +
                 "\n\nSaludos," +
                 "\nEquipo GetTogether" );
+                */
     }
 }

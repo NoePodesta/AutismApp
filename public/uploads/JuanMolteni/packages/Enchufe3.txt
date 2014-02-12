@@ -1,0 +1,1 @@
+{"totalStages":1,"stages":[{"textQuestion":"Koala","imageQuestion":"http://localhost:9000/assets/uploads/JuanMolteni/packages/Koala.jpg","articles":{"label":"asd","correctAnswer":false},"sustantivs":{"label":"dsa","correctAnswer":false},"verbs":{"label":"asd","correctAnswer":false},"adjectives":{"label":"dsa","correctAnswer":false}}]}

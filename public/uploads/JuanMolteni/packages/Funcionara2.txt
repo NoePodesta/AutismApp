@@ -1,0 +1,1 @@
+{"graphicOptions":[],"answerAreas":[{"label":"d","classificationGroup":0},{"label":"e","classificationGroup":1},{"label":"f","classificationGroup":2}],"textOption":[{"label":"g","classificationGroup":0},{"label":"h","classificationGroup":1},{"label":"j","classificationGroup":2}],"questions":[{"question":"a"},{"question":"b"},{"question":"c"}]}

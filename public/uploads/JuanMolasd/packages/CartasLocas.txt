@@ -1,0 +1,1 @@
+{"cards":[{"imageURL":"http://localhost:9000/assets/uploads/JuanMolasd/packages/Desert.jpg","imageName":"Desierto"},{"imageURL":"http://localhost:9000/assets/uploads/JuanMolasd/packages/Hydrangeas.jpg","imageName":"Hydragenas"}],"totalCards":2}

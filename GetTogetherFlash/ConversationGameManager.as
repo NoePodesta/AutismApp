@@ -40,7 +40,6 @@
 				}
 			}else{
 				resultColector.addWrongAnswer();
-				trace("Incorrecto");
 			}
 		}
 
